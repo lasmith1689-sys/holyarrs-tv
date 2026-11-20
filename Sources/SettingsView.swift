@@ -80,6 +80,7 @@ struct SignInView: View {
         VStack(alignment: .leading, spacing: S(26)) {
             Text(Device.isTV ? "Scan with your phone's camera and approve HolyArrs on Plex." : "Approve HolyArrs on Plex, then come back here.")
                 .font(.title3)
+                .fixedSize(horizontal: false, vertical: true)
             if Device.isTV, let qr = QRCode.image(url.absoluteString) {
                 Image(uiImage: qr).interpolation(.none).resizable().frame(width: 420, height: 420)
                     .padding(24).background(Color.white).clipShape(RoundedRectangle(cornerRadius: 16))
