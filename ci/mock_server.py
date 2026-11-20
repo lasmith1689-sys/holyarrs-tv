@@ -61,6 +61,7 @@ GETS = {
 
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
+    plex_checks = 0
 
     def log_message(self, *a):
         pass
@@ -118,6 +119,21 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, {"name": NAME, "csrf": CSRF},
                                   headers={"Set-Cookie": f"holyarrs_session={TOKEN}; Path=/; HttpOnly; SameSite=Lax"})
             return self._send(401, {"error": "name or password is wrong"})
+        if p == "auth/state":
+            return self._send(200, {"min_password_length": 8, "needs_setup": False, "safe_mode": False,
+                                    "setup_ways": ["password", "plex", "jellyfin"], "ways": ["password", "plex"]})
+        if p == "auth/plex/start" and self.command == "POST":
+            Handler.plex_checks = 0
+            return self._send(200, {"id": 7, "auth_url": "https://app.plex.tv/auth#?clientID=test&code=abcdef&context%5Bdevice%5D%5Bproduct%5D=HolyArrs"},
+                              headers={"Set-Cookie": "holyarrs_plex_7=pin-secret; Path=/; HttpOnly; SameSite=Lax"})
+        if p == "auth/plex/finish" and self.command == "POST":
+            if body.get("id") != 7 or "holyarrs_plex_7=pin-secret" not in (self.headers.get("Cookie") or ""):
+                return self._send(404, {"error": "this Plex sign-in has ended; start again"})
+            Handler.plex_checks += 1
+            if Handler.plex_checks < 2:  # the first check: not approved yet
+                return self._send(202, {"waiting": True})
+            return self._send(200, {"name": NAME, "csrf": CSRF},
+                              headers={"Set-Cookie": f"holyarrs_session={TOKEN}; Path=/; HttpOnly; SameSite=Lax"})
         if p.startswith("artwork/"):
             # A different colour per picture, so a poster grid is visibly made of separate images.
             h = zlib.crc32(p.encode())

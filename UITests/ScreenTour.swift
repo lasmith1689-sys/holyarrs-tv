@@ -55,8 +55,16 @@ final class ScreenTour: XCTestCase {
     func testTour() {
         // Signed out: the sign-in screen.
         launch(tab: "home", signedIn: false)
-        XCTAssertTrue(app.textFields["Name"].waitForExistence(timeout: 10), "sign-in screen")
+        let plex = app.buttons["Sign in with Plex"]
+        XCTAssertTrue(plex.waitForExistence(timeout: 10), "sign-in screen with Plex")
         shot("sign-in")
+        // Sign in with Plex: the stand-in answers "waiting" once, then approves.
+        focus(plex, .up, limit: 4)
+        press(.select)
+        XCTAssertTrue(app.images["QR code for Plex sign-in"].waitForExistence(timeout: 8), "Plex QR code")
+        shot("plex-qr")
+        XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 20), "signed in through Plex")
+        shot("plex-signed-in")
 
         // Home with its hero and rows.
         launch(tab: "home")

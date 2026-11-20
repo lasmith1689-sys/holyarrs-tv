@@ -1,8 +1,12 @@
+import CoreImage.CIFilterBuiltins
 import SwiftUI
 
-/// Sign in to HolyArrs with the same name and password as its web page.
+/// Sign in to HolyArrs. With Plex (the TV shows a QR code of Plex's approval page; the iPhone opens it), or with
+/// the name and password from HolyArrs' web page. On a HolyArrs that has no owner yet, the Plex button makes
+/// that Plex account the owner (HolyArrs' first-run "set up with Plex").
 struct SignInView: View {
     @EnvironmentObject private var api: HolyArrs
+    @Environment(\.openURL) private var openURL
     @State private var name = ""
     @State private var password = ""
     @State private var code = ""
@@ -10,35 +14,124 @@ struct SignInView: View {
     @State private var needsCode = false
     @State private var busy = false
     @State private var error: String?
+    @State private var needsSetup = false
+    @State private var ways: Set<String> = ["password"]
+    @State private var setupWays: Set<String> = []
+    @State private var plexLink: URL?
+    @State private var plexTask: Task<Void, Never>?
+    @State private var showPassword = false
+
+    private var plexOn: Bool { needsSetup ? setupWays.contains("plex") : ways.contains("plex") }
 
     var body: some View {
         AdaptiveStack(tvAlignment: .top, spacing: S(120)) {
             VStack(alignment: .leading, spacing: S(20)) {
                 Text("HolyArrs").font(.system(size: F(90), weight: .heavy)).foregroundStyle(Theme.accent)
-                Text("Movies, shows and music: browse, ask for and follow them from the couch.")
+                Text(needsSetup ? "This HolyArrs has no owner yet. Set it up with your Plex account and you are its owner."
+                                : "Movies, shows and music: browse, ask for and follow them from the couch.")
                     .font(.title3).foregroundStyle(Theme.dim).frame(maxWidth: W(640), alignment: .leading)
                 Text(api.address).font(.callout.monospaced()).foregroundStyle(Theme.dim).padding(.top, S(20))
             }
             VStack(alignment: .leading, spacing: S(26)) {
-                TextField("HolyArrs address", text: $api.address)
-                    .keyboardType(.URL).autocorrectionDisabled().textInputAutocapitalization(.never)
-                if needsCode {
+                if let plexLink {
+                    plexWaiting(plexLink)
+                } else if needsCode {
                     Text("Enter the 6-digit code from your authenticator app.").foregroundStyle(Theme.dim)
                     TextField("Code", text: $code).keyboardType(.numberPad)
                     Button(busy ? "Checking..." : "Continue") { Task { await finish() } }.disabled(busy || code.count < 6)
                 } else {
-                    TextField("Name", text: $name).autocorrectionDisabled().textInputAutocapitalization(.never)
-                        .textContentType(.username)
-                    SecureField("Password", text: $password).textContentType(.password)
-                    Toggle("Stay signed in", isOn: $remember)
-                    Button(busy ? "Signing in..." : "Sign in") { Task { await signIn() } }
-                        .disabled(busy || name.isEmpty || password.isEmpty)
+                    if plexOn {
+                        Button { startPlex() } label: {
+                            Label(needsSetup ? "Set up HolyArrs with Plex" : "Sign in with Plex", systemImage: "person.badge.key")
+                                .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(20))
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(busy)
+                    }
+                    if !needsSetup && ways.contains("password") {
+                        if showPassword || !plexOn {
+                            TextField("Name", text: $name).autocorrectionDisabled().textInputAutocapitalization(.never)
+                                .textContentType(.username)
+                            SecureField("Password", text: $password).textContentType(.password)
+                            Toggle("Stay signed in", isOn: $remember)
+                            Button(busy ? "Signing in..." : "Sign in") { Task { await signIn() } }
+                                .disabled(busy || name.isEmpty || password.isEmpty)
+                        } else {
+                            Button("Use a name and password instead") { showPassword = true }
+                        }
+                    }
+                    if needsSetup && !plexOn {
+                        Text("Open \(api.address) on the PC to make the owner account, then sign in here.").foregroundStyle(Theme.dim)
+                    }
+                    TextField("HolyArrs address", text: $api.address)
+                        .keyboardType(.URL).autocorrectionDisabled().textInputAutocapitalization(.never)
                 }
                 if let error { Text(error).foregroundStyle(.red.opacity(0.9)).frame(maxWidth: W(700), alignment: .leading) }
             }
             .frame(width: W(760))
         }
         .padding(S(120))
+        .task(id: api.address) { await readState() }
+        .onDisappear { plexTask?.cancel() }
+    }
+
+    /// The Plex step: a QR code of Plex's approval page (scan it with a phone), and on iPhone the page itself.
+    private func plexWaiting(_ url: URL) -> some View {
+        VStack(alignment: .leading, spacing: S(26)) {
+            Text(Device.isTV ? "Scan with your phone's camera and approve HolyArrs on Plex." : "Approve HolyArrs on Plex, then come back here.")
+                .font(.title3)
+            if Device.isTV, let qr = QRCode.image(url.absoluteString) {
+                Image(uiImage: qr).interpolation(.none).resizable().frame(width: 420, height: 420)
+                    .padding(24).background(Color.white).clipShape(RoundedRectangle(cornerRadius: 16))
+                    .accessibilityLabel("QR code for Plex sign-in")
+            }
+            if !Device.isTV {
+                Button { openURL(url) } label: { Label("Open Plex", systemImage: "safari") }.buttonStyle(.borderedProminent)
+            }
+            HStack(spacing: S(20)) {
+                ProgressView()
+                Text("Waiting for Plex...").foregroundStyle(Theme.dim)
+            }
+            Button("Cancel") { plexTask?.cancel(); plexLink = nil }
+        }
+    }
+
+    private func readState() async {
+        guard let st = await api.signInState() else { return }
+        needsSetup = st.needsSetup
+        ways = st.ways
+        setupWays = st.setupWays
+    }
+
+    private func startPlex() {
+        plexTask?.cancel()
+        error = nil
+        let setup = needsSetup
+        plexTask = Task {
+            busy = true
+            defer { busy = false }
+            do {
+                let pin = try await api.plexStart(setup: setup)
+                plexLink = pin.url
+                if !Device.isTV && !api.isLocalServer { openURL(pin.url) }
+                // Plex keeps the PIN for 10 minutes; HolyArrs lets us ask once a second.
+                let deadline = Date().addingTimeInterval(600)
+                while !Task.isCancelled, Date() < deadline {
+                    try await Task.sleep(nanoseconds: 2_000_000_000)
+                    if try await api.plexFinish(id: pin.id, setup: setup) { return }
+                }
+                if !Task.isCancelled { error = "The Plex sign-in timed out. Start again." }
+                plexLink = nil
+            } catch APIError.twoFactor {
+                plexLink = nil
+                needsCode = true
+            } catch is CancellationError {
+                plexLink = nil
+            } catch {
+                plexLink = nil
+                self.error = error.localizedDescription
+            }
+        }
     }
 
     private func signIn() async {
@@ -59,6 +152,17 @@ struct SignInView: View {
         busy = true
         defer { busy = false }
         do { try await api.finishTwoFactor(code: code); error = nil } catch { self.error = error.localizedDescription }
+    }
+}
+
+enum QRCode {
+    static func image(_ text: String) -> UIImage? {
+        let f = CIFilter.qrCodeGenerator()
+        f.message = Data(text.utf8)
+        f.correctionLevel = "M"
+        guard let out = f.outputImage?.transformed(by: CGAffineTransform(scaleX: 12, y: 12)),
+              let cg = CIContext().createCGImage(out, from: out.extent) else { return nil }
+        return UIImage(cgImage: cg)
     }
 }
 

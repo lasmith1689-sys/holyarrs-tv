@@ -35,8 +35,15 @@ final class PhoneTour: XCTestCase {
 
     func testTour() {
         launch(tab: "home", signedIn: false)
-        XCTAssertTrue(app.textFields["Name"].waitForExistence(timeout: 10), "sign-in screen")
+        let plex = app.buttons["Sign in with Plex"]
+        XCTAssertTrue(plex.waitForExistence(timeout: 10), "sign-in screen with Plex")
         shot("sign-in")
+        // Sign in with Plex: the stand-in answers "waiting" once, then approves.
+        plex.tap()
+        XCTAssertTrue(app.staticTexts["Waiting for Plex..."].waitForExistence(timeout: 8), "waiting for Plex")
+        shot("plex-waiting")
+        XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 20), "signed in through Plex")
+        shot("plex-signed-in")
 
         launch(tab: "home")
         XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 15), "home hero")

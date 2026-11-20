@@ -104,6 +104,48 @@ final class HolyArrs: ObservableObject {
         await loadMe()
     }
 
+    // MARK: Plex sign-in
+
+    /// A HolyArrs on this machine (only the simulator screen check's stand-in).
+    var isLocalServer: Bool { ["127.0.0.1", "localhost"].contains(base?.host ?? "") }
+
+    /// How this HolyArrs lets people in (GET /auth/state, no sign-in needed): whether it still has no owner, and
+    /// which ways are on ("password", "plex", ...).
+    func signInState() async -> (needsSetup: Bool, ways: Set<String>, setupWays: Set<String>)? {
+        guard let j = try? await send("GET", "auth/state", csrf: false) else { return nil }
+        return (j["needs_setup"].bool, Set(j["ways"].array.compactMap(\.string)), Set(j["setup_ways"].array.compactMap(\.string)))
+    }
+
+    /// Starts a Plex sign-in: HolyArrs asks Plex for a PIN and answers with Plex's page to approve it on.
+    /// With `setup`, approving it makes that Plex account HolyArrs' owner (first run only).
+    func plexStart(setup: Bool) async throws -> (id: Int, url: URL) {
+        let j = try await send("POST", setup ? "auth/setup/plex/start" : "auth/plex/start", body: [:], csrf: false)
+        guard let id = j["id"].int, let s = j["auth_url"].string, let url = URL(string: s) else {
+            throw APIError.server(0, "HolyArrs did not start a Plex sign-in")
+        }
+        return (id, url)
+    }
+
+    /// Asks once whether the Plex sign-in was approved. False while waiting; true once signed in.
+    func plexFinish(id: Int, setup: Bool) async throws -> Bool {
+        let j: JSON
+        do {
+            j = try await send("POST", setup ? "auth/setup/plex/finish" : "auth/plex/finish", body: ["id": id], csrf: false)
+        } catch APIError.server(429, _) {
+            return false  // asked within a second of the last check
+        }
+        if j["waiting"].bool { return false }
+        if let ticket = j.first("ticket", "two_factor_ticket").string {
+            pendingTicket = ticket
+            pendingSave = nil
+            throw APIError.twoFactor
+        }
+        csrf = j["csrf"].string ?? ""
+        Keychain.clear()  // a Plex sign-in keeps no password; the session cookie lasts up to 30 days
+        await loadMe()
+        return me != nil
+    }
+
     func signOut() async {
         _ = try? await post("auth/logout")
         Keychain.clear()
