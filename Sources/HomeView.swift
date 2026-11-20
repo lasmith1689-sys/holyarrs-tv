@@ -68,25 +68,26 @@ struct Hero: View {
                     .clipped()
                 LinearGradient(colors: [.clear, .black.opacity(0.35), .black.opacity(0.92)], startPoint: .top, endPoint: .bottom)
                 LinearGradient(colors: [.black.opacity(0.7), .clear], startPoint: .leading, endPoint: .center)
-                VStack(alignment: .leading, spacing: 22) {
+                VStack(alignment: .leading, spacing: S(22)) {
                     if let logo = item.logo {
-                        Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: 620, height: 200, alignment: .bottomLeading)
+                        Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: W(620), height: S(200), alignment: .bottomLeading)
                     } else {
-                        Text(item.name).font(.system(size: 80, weight: .heavy)).lineLimit(2).minimumScaleFactor(0.6)
+                        Text(item.name).font(.system(size: F(80), weight: .heavy)).lineLimit(2).minimumScaleFactor(0.6)
                     }
-                    HStack(spacing: 20) {
+                    HStack(spacing: S(20)) {
                         if let y = item.year { Text(String(y)) }
                         Text(item.kind == .show ? "Show" : item.kind == .artist ? (item.line ?? "Music") : "Movie")
                         ForEach(item.genres.prefix(3), id: \.self) { Text($0) }
                         if let s = item.status { StatusDot(status: s) }
                     }
                     .font(.title3).foregroundStyle(Color.white.opacity(0.8))
+                    .lineLimit(1).minimumScaleFactor(0.6)
                     if let o = item.overview {
-                        Text(o).font(.system(size: 26)).foregroundStyle(Color.white.opacity(0.75)).lineLimit(3).frame(maxWidth: 1100, alignment: .leading)
+                        Text(o).font(.system(size: F(26))).foregroundStyle(Color.white.opacity(0.75)).lineLimit(3).frame(maxWidth: W(1100), alignment: .leading)
                     }
-                    HStack(spacing: 30) {
+                    HStack(spacing: S(30)) {
                         NavigationLink(value: item.route) {
-                            Label("More info", systemImage: "info.circle").font(.system(size: 28, weight: .semibold)).padding(.horizontal, 20)
+                            Label("More info", systemImage: "info.circle").font(.system(size: F(28), weight: .semibold)).padding(.horizontal, S(20))
                         }
                         .buttonStyle(.borderedProminent)
                         .focused($focused, equals: "info")
@@ -94,7 +95,7 @@ struct Hero: View {
                             Button {
                                 playing = PlayRequest(label: item.name, trailer: trailer.withSound, backdrop: item.backdrop)
                             } label: {
-                                Label("Trailer", systemImage: "play.rectangle").font(.system(size: 28, weight: .semibold))
+                                Label("Trailer", systemImage: "play.rectangle").font(.system(size: F(28), weight: .semibold))
                             }
                             .focused($focused, equals: "trailer")
                         }
@@ -102,18 +103,18 @@ struct Hero: View {
                             Button {
                                 index = (index + 1) % items.count
                             } label: {
-                                Label("Next", systemImage: "chevron.right").font(.system(size: 28, weight: .semibold))
+                                Label("Next", systemImage: "chevron.right").font(.system(size: F(28), weight: .semibold))
                             }
                             .focused($focused, equals: "next")
                             .accessibilityLabel("Next title")
                         }
                     }
-                    .focusSection()
+                    .tvFocusSection()
                 }
-                .padding(.horizontal, Theme.sidePadding + 30)
-                .padding(.bottom, 60)
+                .padding(.horizontal, Theme.sidePadding + S(30))
+                .padding(.bottom, S(60))
             }
-            .frame(height: 860)
+            .frame(height: S(860))
             .ignoresSafeArea(edges: .horizontal)  // edge to edge, like the Apple TV app's heroes
             .task(id: item.id) {
                 trailer = nil
@@ -145,10 +146,10 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 50) {
+            VStack(alignment: .leading, spacing: S(50)) {
                 Hero(items: hero)
                 if approvals > 0 || stuck > 0 {
-                    HStack(spacing: 30) {
+                    AdaptiveStack(spacing: S(30)) {
                         if approvals > 0 { Label("\(approvals) waiting for your OK", systemImage: "hand.raised") }
                         if stuck > 0 { Label("\(stuck) need a decision", systemImage: "exclamationmark.triangle") }
                         Text("See Requests").foregroundStyle(Theme.dim)
@@ -162,9 +163,10 @@ struct HomeView: View {
                 }
                 if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing new yet. Ask for something in Explore or Search.") { Task { await load() } } }
             }
-            .padding(.bottom, 80)
+            .padding(.bottom, S(80))
         }
         .ignoresSafeArea(edges: .top)
+        .refreshable { await load() }
         .task { await load() }
     }
 

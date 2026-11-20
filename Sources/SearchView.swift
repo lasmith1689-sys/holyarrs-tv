@@ -14,24 +14,24 @@ struct SearchView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 50) {
+            VStack(alignment: .leading, spacing: S(50)) {
                 if let understood { Text("Understood as: \(understood)").font(.title3).foregroundStyle(Theme.accent).padding(.horizontal, Theme.sidePadding) }
                 if !titles.isEmpty {
                     PosterGrid(cards: titles).padding(.horizontal, Theme.sidePadding)
                 }
                 if !people.isEmpty {
-                    VStack(alignment: .leading, spacing: 18) {
-                        Text("People").font(.system(size: 34, weight: .bold)).padding(.horizontal, Theme.sidePadding)
+                    VStack(alignment: .leading, spacing: S(18)) {
+                        Text("People").font(.system(size: F(34), weight: .bold)).padding(.horizontal, Theme.sidePadding)
                         ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(spacing: 40) {
+                            LazyHStack(spacing: S(40)) {
                                 ForEach(people, id: \.self) { p in
                                     NavigationLink(value: Route.person(id: p.id ?? "", name: p.name)) { PersonCell(name: p.name, role: nil, image: p.image) }
                                         .buttonStyle(QuietButtonStyle())
                                 }
                             }
-                            .padding(.vertical, 30).padding(.horizontal, Theme.sidePadding)
+                            .padding(.vertical, S(30)).padding(.horizontal, Theme.sidePadding)
                         }
-                        .focusSection()
+                        .tvFocusSection()
                     }
                 }
                 CardRow(title: "Music", cards: music)
@@ -42,7 +42,7 @@ struct SearchView: View {
                     LoadState(loading: searching, error: error, empty: "Nothing found for \"\(text)\".")
                 }
             }
-            .padding(.vertical, 40)
+            .padding(.vertical, S(40))
         }
         .searchable(text: $text, prompt: "Movies, shows, people, artists")
         .task(id: text) {

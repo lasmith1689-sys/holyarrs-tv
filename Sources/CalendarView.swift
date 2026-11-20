@@ -10,29 +10,29 @@ struct CalendarView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 40) {
-                Text("Coming up").font(.system(size: 64, weight: .bold)).padding(.horizontal, Theme.sidePadding)
+            VStack(alignment: .leading, spacing: S(40)) {
+                Text("Coming up").font(.system(size: F(64), weight: .bold)).padding(.horizontal, Theme.sidePadding)
                 ForEach(days.indices, id: \.self) { i in
-                    VStack(alignment: .leading, spacing: 16) {
-                        Text(Self.heading(days[i].day)).font(.system(size: 30, weight: .heavy)).foregroundStyle(Theme.accent)
+                    VStack(alignment: .leading, spacing: S(16)) {
+                        Text(Self.heading(days[i].day)).font(.system(size: F(30), weight: .heavy)).foregroundStyle(Theme.accent)
                             .padding(.horizontal, Theme.sidePadding)
                         ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(alignment: .top, spacing: 46) {
+                            LazyHStack(alignment: .top, spacing: S(46)) {
                                 ForEach(days[i].items.indices, id: \.self) { j in
                                     let e = days[i].items[j]
                                     let card = Self.card(e)
                                     NavigationLink(value: card.route) { PosterCell(card: card) }.buttonStyle(QuietButtonStyle())
                                 }
                             }
-                            .padding(.vertical, 30)
+                            .padding(.vertical, S(30))
                             .padding(.horizontal, Theme.sidePadding)
                         }
-                        .focusSection()
+                        .tvFocusSection()
                     }
                 }
                 if days.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing in the next 30 days.") }
             }
-            .padding(.vertical, 40)
+            .padding(.vertical, S(40))
         }
         .task { await load() }
     }

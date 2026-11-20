@@ -12,14 +12,14 @@ struct SignInView: View {
     @State private var error: String?
 
     var body: some View {
-        HStack(alignment: .top, spacing: 120) {
-            VStack(alignment: .leading, spacing: 20) {
-                Text("HolyArrs").font(.system(size: 90, weight: .heavy)).foregroundStyle(Theme.accent)
+        AdaptiveStack(tvAlignment: .top, spacing: S(120)) {
+            VStack(alignment: .leading, spacing: S(20)) {
+                Text("HolyArrs").font(.system(size: F(90), weight: .heavy)).foregroundStyle(Theme.accent)
                 Text("Movies, shows and music: browse, ask for and follow them from the couch.")
-                    .font(.title3).foregroundStyle(Theme.dim).frame(maxWidth: 640, alignment: .leading)
-                Text(api.address).font(.callout.monospaced()).foregroundStyle(Theme.dim).padding(.top, 20)
+                    .font(.title3).foregroundStyle(Theme.dim).frame(maxWidth: W(640), alignment: .leading)
+                Text(api.address).font(.callout.monospaced()).foregroundStyle(Theme.dim).padding(.top, S(20))
             }
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: S(26)) {
                 TextField("HolyArrs address", text: $api.address)
                     .keyboardType(.URL).autocorrectionDisabled().textInputAutocapitalization(.never)
                 if needsCode {
@@ -34,11 +34,11 @@ struct SignInView: View {
                     Button(busy ? "Signing in..." : "Sign in") { Task { await signIn() } }
                         .disabled(busy || name.isEmpty || password.isEmpty)
                 }
-                if let error { Text(error).foregroundStyle(.red.opacity(0.9)).frame(maxWidth: 700, alignment: .leading) }
+                if let error { Text(error).foregroundStyle(.red.opacity(0.9)).frame(maxWidth: W(700), alignment: .leading) }
             }
-            .frame(width: 760)
+            .frame(width: W(760))
         }
-        .padding(120)
+        .padding(S(120))
     }
 
     private func signIn() async {

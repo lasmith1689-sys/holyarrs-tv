@@ -76,14 +76,14 @@ struct TitlePage: View {
             BlurredArt(raw: info?.backdrop ?? info?.poster)
             if let info {
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 60) {
+                    VStack(alignment: .leading, spacing: S(60)) {
                         header(info)
                         if !info.seasons.isEmpty { seasonsRow(info) }
                         if !info.cast.isEmpty { castRow(info) }
                         if let c = info.collection { CardRow(title: c.name, cards: c.parts) }
                         CardRow(title: "More like this", cards: info.similar)
                     }
-                    .padding(.vertical, 70)
+                    .padding(.vertical, S(70))
                 }
             } else {
                 LoadState(loading: error == nil, error: error) { Task { await load() } }
@@ -102,20 +102,20 @@ struct TitlePage: View {
     // MARK: Header
 
     private func header(_ info: TitleInfo) -> some View {
-        HStack(alignment: .top, spacing: 80) {
+        AdaptiveStack(tvAlignment: .top, spacing: S(80)) {
             Artwork(raw: info.poster, width: 500, title: info.name, subtitle: info.year.map(String.init))
-                .frame(width: 420, height: 630)
-                .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .shadow(color: .black.opacity(0.6), radius: 40, y: 20)
+                .frame(width: W(420), height: S(630))
+                .clipShape(RoundedRectangle(cornerRadius: S(18), style: .continuous))
+                .shadow(color: .black.opacity(0.6), radius: S(40), y: 20)
 
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: S(26)) {
                 if let logo = info.logo {
-                    Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: 640, height: 180, alignment: .leading)
+                    Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: W(640), height: S(180), alignment: .leading)
                         .accessibilityLabel(info.name)
                 } else {
-                    Text(info.name).font(.system(size: 72, weight: .bold)).lineLimit(2).minimumScaleFactor(0.6)
+                    Text(info.name).font(.system(size: F(72), weight: .bold)).lineLimit(2).minimumScaleFactor(0.6)
                 }
-                HStack(spacing: 24) {
+                HStack(spacing: S(24)) {
                     if let y = info.year { Text(String(y)) }
                     if let r = info.runtime, r > 0 { Text(r >= 60 ? "\(r / 60)h \(r % 60)m" : "\(r)m") }
                     if let n = info.network { Text(n) }
@@ -125,24 +125,26 @@ struct TitlePage: View {
                     if let hdr = rtxFilm?.range, hdr != "SDR" { Badge(text: hdr) }
                 }
                 .font(.title3)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
                 .foregroundStyle(Color.white.opacity(0.8))
                 if !info.genres.isEmpty || !info.moods.isEmpty {
-                    Text((info.genres + info.moods).prefix(5).joined(separator: " · ")).font(.system(size: 24)).foregroundStyle(Theme.dim)
+                    Text((info.genres + info.moods).prefix(5).joined(separator: " · ")).font(.system(size: F(24))).foregroundStyle(Theme.dim)
                 }
                 if let state = info.stateLabel ?? info.askLabel {
                     Label(state, systemImage: info.inLibrary ? "checkmark.circle.fill" : "clock")
-                        .font(.system(size: 26, weight: .semibold)).foregroundStyle(Theme.accent)
+                        .font(.system(size: F(26), weight: .semibold)).foregroundStyle(Theme.accent)
                 }
                 if let o = info.overview {
-                    Text(o).font(.system(size: 26)).foregroundStyle(Color.white.opacity(0.75)).lineLimit(6).frame(maxWidth: 1150, alignment: .leading)
+                    Text(o).font(.system(size: F(26))).foregroundStyle(Color.white.opacity(0.75)).lineLimit(6).frame(maxWidth: W(1150), alignment: .leading)
                 }
-                actions(info).padding(.top, 20)
+                actions(info).padding(.top, S(20))
                 if let message { Text(message).foregroundStyle(Theme.accent).font(.callout) }
             }
-            .padding(.top, 10)
+            .padding(.top, S(10))
         }
-        .padding(.horizontal, 110)
-        .focusSection()
+        .padding(.horizontal, S(110))
+        .tvFocusSection()
     }
 
     private var rtxFilm: RTXFilm? {
@@ -151,14 +153,14 @@ struct TitlePage: View {
     }
 
     @ViewBuilder private func actions(_ info: TitleInfo) -> some View {
-        HStack(spacing: 30) {
+        AdaptiveStack(spacing: S(30)) {
             if let film = rtxFilm {
                 let resume = Resume.position(film.id)
                 Button {
                     playing = PlayRequest(label: info.name, film: film, seconds: resume ?? 0, backdrop: info.backdrop)
                 } label: {
                     Label(resume.map { "Resume in 4K from \(Resume.label($0))" } ?? "Play in 4K", systemImage: "play.fill")
-                        .font(.system(size: 30, weight: .semibold)).padding(.horizontal, 30)
+                        .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                 }
                 .buttonStyle(.borderedProminent)
             }
@@ -167,33 +169,33 @@ struct TitlePage: View {
                     if info.kind == .show && info.seasons.count > 1 { choosingSeasons = true } else { Task { await ask(seasons: [], futureOnly: false) } }
                 } label: {
                     Label(info.kind == .show ? "Ask for this show" : "Ask for this movie", systemImage: "plus")
-                        .font(.system(size: 30, weight: .semibold)).padding(.horizontal, 30)
+                        .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(busy)
             }
             if let ask = info.myAsk, ask.state == "asked" {
                 Button(role: .destructive) { Task { await cancel(ask.id) } } label: {
-                    Label("Take back my ask", systemImage: "xmark").font(.system(size: 28, weight: .semibold))
+                    Label("Take back my ask", systemImage: "xmark").font(.system(size: F(28), weight: .semibold))
                 }
                 .disabled(busy)
             }
             if info.inLibrary, info.kind == .show, api.me?.canAsk == true, info.seasons.contains(where: { ($0.missing ?? 0) > 0 }) {
                 Button { choosingSeasons = true } label: {
-                    Label("Ask for more seasons", systemImage: "plus.square.on.square").font(.system(size: 28, weight: .semibold))
+                    Label("Ask for more seasons", systemImage: "plus.square.on.square").font(.system(size: F(28), weight: .semibold))
                 }
             }
             if let trailer {
                 Button {
                     playing = PlayRequest(label: info.name, trailer: trailer.withSound, backdrop: info.backdrop)
                 } label: {
-                    Label("Trailer", systemImage: "play.rectangle").font(.system(size: 28, weight: .semibold))
+                    Label("Trailer", systemImage: "play.rectangle").font(.system(size: F(28), weight: .semibold))
                 }
             }
             if let following, info.titleId != nil, info.kind != .movie {
                 Button { Task { await toggleFollow() } } label: {
                     Label(following ? "Following" : "Follow", systemImage: following ? "bell.fill" : "bell")
-                        .font(.system(size: 28, weight: .semibold))
+                        .font(.system(size: F(28), weight: .semibold))
                 }
             }
         }
@@ -202,10 +204,10 @@ struct TitlePage: View {
     // MARK: Rows
 
     private func castRow(_ info: TitleInfo) -> some View {
-        VStack(alignment: .leading, spacing: 18) {
-            Text("Cast and crew").font(.system(size: 34, weight: .bold)).padding(.horizontal, Theme.sidePadding)
+        VStack(alignment: .leading, spacing: S(18)) {
+            Text("Cast and crew").font(.system(size: F(34), weight: .bold)).padding(.horizontal, Theme.sidePadding)
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(alignment: .top, spacing: 40) {
+                LazyHStack(alignment: .top, spacing: S(40)) {
                     ForEach(info.cast.indices, id: \.self) { i in
                         let p = info.cast[i]
                         NavigationLink(value: Route.person(id: p.id ?? "", name: p.name)) {
@@ -214,33 +216,33 @@ struct TitlePage: View {
                         .buttonStyle(QuietButtonStyle())
                     }
                 }
-                .padding(.vertical, 30)
+                .padding(.vertical, S(30))
                 .padding(.horizontal, Theme.sidePadding)
             }
-            .focusSection()
+            .tvFocusSection()
         }
     }
 
     private func seasonsRow(_ info: TitleInfo) -> some View {
-        VStack(alignment: .leading, spacing: 18) {
-            Text("Seasons").font(.system(size: 34, weight: .bold)).padding(.horizontal, Theme.sidePadding)
+        VStack(alignment: .leading, spacing: S(18)) {
+            Text("Seasons").font(.system(size: F(34), weight: .bold)).padding(.horizontal, Theme.sidePadding)
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 30) {
+                LazyHStack(spacing: S(30)) {
                     ForEach(info.seasons) { s in
                         Button { openSeason = s.number } label: {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Text(s.name).font(.system(size: 28, weight: .bold))
-                                Text(seasonLine(s)).font(.system(size: 22)).foregroundStyle(Theme.dim)
+                            VStack(alignment: .leading, spacing: S(8)) {
+                                Text(s.name).font(.system(size: F(28), weight: .bold))
+                                Text(seasonLine(s)).font(.system(size: F(22))).foregroundStyle(Theme.dim)
                             }
-                            .frame(width: 300, alignment: .leading)
-                            .padding(24)
+                            .frame(width: W(300), alignment: .leading)
+                            .padding(S(24))
                         }
                     }
                 }
-                .padding(.vertical, 30)
+                .padding(.vertical, S(30))
                 .padding(.horizontal, Theme.sidePadding)
             }
-            .focusSection()
+            .tvFocusSection()
         }
     }
 
@@ -393,16 +395,16 @@ struct PersonCell: View {
     @Environment(\.isFocused) private var focused
 
     var body: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: S(12)) {
             Artwork(raw: image, width: 185, title: String(name.prefix(1)))
-                .frame(width: 180, height: 180)
+                .frame(width: W(180), height: S(180))
                 .clipShape(Circle())
                 .overlay(Circle().stroke(Color.white.opacity(focused ? 0.9 : 0.1), lineWidth: focused ? 4 : 1))
                 .scaleEffect(focused ? 1.1 : 1)
-            Text(name).font(.system(size: 22, weight: .semibold)).lineLimit(1)
-            if let role { Text(role).font(.system(size: 19)).foregroundStyle(Theme.dim).lineLimit(1) }
+            Text(name).font(.system(size: F(22), weight: .semibold)).lineLimit(1)
+            if let role { Text(role).font(.system(size: F(19))).foregroundStyle(Theme.dim).lineLimit(1) }
         }
-        .frame(width: 200)
+        .frame(width: W(200))
         .foregroundStyle(focused ? Color.white : Color.white.opacity(0.75))
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
@@ -458,9 +460,9 @@ struct EpisodesSheet: View {
         NavigationStack {
             List {
                 ForEach(rows) { e in
-                    HStack(spacing: 24) {
-                        Artwork(raw: e.still, width: 300).frame(width: 240, height: 135).clipShape(RoundedRectangle(cornerRadius: 8))
-                        VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: S(24)) {
+                        Artwork(raw: e.still, width: 300).frame(width: W(240), height: S(135)).clipShape(RoundedRectangle(cornerRadius: S(8)))
+                        VStack(alignment: .leading, spacing: S(6)) {
                             Text("\(e.n). \(e.name)").font(.headline)
                             Text(e.line).font(.callout).foregroundStyle(.secondary).lineLimit(2)
                         }

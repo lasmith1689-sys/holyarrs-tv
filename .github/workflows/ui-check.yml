@@ -1,16 +1,17 @@
 name: Screen check
 
-# Runs the app in an Apple TV simulator against a stand-in HolyArrs (ci/mock_server.py), opens every screen
+# Runs the app in an Apple TV simulator and an iPhone simulator against a stand-in HolyArrs (ci/mock_server.py), opens every screen
 # (UITests/ScreenTour.swift) and uploads a screenshot of each, plus the list of requests the app made.
 on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["Sources/**", "UITests/**", "ci/**", "project.yml", ".github/workflows/ui-check.yml"]
+    paths: ["Sources/**", "UITests/**", "UITests-iOS/**", "ci/**", "project.yml", ".github/workflows/ui-check.yml"]
 
 concurrency:
   group: ui-check
   cancel-in-progress: true
+# Each job pushes its screenshots to its own branch: ci-screens (Apple TV), ci-screens-phone (iPhone).
 
 permissions:
   contents: write  # pushes the screenshots to the ci-screens branch
@@ -88,4 +89,78 @@ jobs:
         if: always()
         with:
           name: screens
+          path: ${{ runner.temp }}/shots
+
+  phone:
+    runs-on: macos-15
+    timeout-minutes: 50
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: '1'
+      APP_BUNDLE_ID: com.lasmith1689.slot03
+      DEVELOPMENT_TEAM: ''
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Pick the newest Xcode 26
+        run: |
+          xcode=$(for x in /Applications/Xcode_26*.app; do [ -L "$x" ] || echo "$x"; done | sort -V | tail -n 1)
+          xcode=$(cd "$xcode" && pwd -P)
+          echo "DEVELOPER_DIR=$xcode/Contents/Developer" >> "$GITHUB_ENV"
+      - name: Tools
+        run: brew install xcodegen
+      - name: Stand-in HolyArrs
+        run: |
+          mkdir -p "$RUNNER_TEMP/fx"
+          nohup python3 ci/mock_server.py "$RUNNER_TEMP/fx" 8799 > "$RUNNER_TEMP/mock.log" 2>&1 &
+          sleep 2
+          curl -s -o /dev/null -w "auth/me without a session: %{http_code}\n" http://127.0.0.1:8799/api/v1/auth/me
+      - name: Compile for a device (Release)
+        run: |
+          xcodegen generate
+          set -o pipefail
+          xcodebuild build -project HolyArrsTV.xcodeproj -scheme HolyArrsPhone -configuration Release \
+            -destination 'generic/platform=iOS' CODE_SIGNING_ALLOWED=NO > "$RUNNER_TEMP/build.log" 2>&1 \
+            || { grep -E "error:" "$RUNNER_TEMP/build.log" | sort -u | head -n 60; tail -n 30 "$RUNNER_TEMP/build.log"; exit 1; }
+          grep -E "warning:" "$RUNNER_TEMP/build.log" | grep -v "appintents" | sort -u | head -n 30 || true
+      - name: Run the screens in the simulator
+        run: |
+          dev=$(xcrun simctl list devices available -j | python3 -c '
+          import json,sys
+          d=json.load(sys.stdin)["devices"]
+          c=[x for k,v in d.items() if "iOS" in k for x in v if x["name"].startswith("iPhone") and "Pro" in x["name"] and "Max" not in x["name"]]
+          print(c[-1]["udid"])')
+          echo "Simulator $dev"
+          mkdir -p "$RUNNER_TEMP/shots"
+          set +e
+          TEST_RUNNER_SHOTS_DIR="$RUNNER_TEMP/shots" TEST_RUNNER_MOCK_SERVER="http://127.0.0.1:8799" \
+          xcodebuild test -project HolyArrsTV.xcodeproj -scheme HolyArrsPhone -destination "id=$dev" \
+            -resultBundlePath "$RUNNER_TEMP/result.xcresult" CODE_SIGNING_ALLOWED=NO > "$RUNNER_TEMP/test.log" 2>&1
+          code=$?
+          grep -E "error:|failed|passed|Test Case|XCTAssert" "$RUNNER_TEMP/test.log" | tail -n 60
+          tail -n 15 "$RUNNER_TEMP/test.log"
+          echo "--- requests the app made (not pictures) ---"
+          grep -v /artwork/ "$RUNNER_TEMP/fx/requests.log" | sort | uniq -c | sort -rn | head -n 80 || true
+          if [ -z "$(ls "$RUNNER_TEMP/shots")" ]; then
+            xcrun xcresulttool export attachments --path "$RUNNER_TEMP/result.xcresult" --output-path "$RUNNER_TEMP/shots" || true
+          fi
+          cp "$RUNNER_TEMP/test.log" "$RUNNER_TEMP/fx/requests.log" "$RUNNER_TEMP/mock.log" "$RUNNER_TEMP/shots/" 2>/dev/null || true
+          exit $code
+      - name: Push the screenshots to the ci-screens-phone branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/shots"
+          git init -q -b ci-screens-phone
+          git config user.name "screen check"
+          git config user.email "actions@users.noreply.github.com"
+          echo "Run ${{ github.run_id }} on ${{ github.sha }}" > RUN.txt
+          git add -A
+          git commit -q -m "Screens from run ${{ github.run_id }}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-screens-phone
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: screens-phone
           path: ${{ runner.temp }}/shots

@@ -12,15 +12,15 @@ struct DownloadsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                HStack(spacing: 30) {
-                    Text("Downloads").font(.system(size: 64, weight: .bold))
+            VStack(alignment: .leading, spacing: S(24)) {
+                AdaptiveStack(spacing: S(30)) {
+                    Text("Downloads").font(.system(size: F(64), weight: .bold))
                     Text("\(active) active").font(.title3).foregroundStyle(Theme.dim)
                     Spacer()
                     Button("Pause all") { Task { await act("downloads/pause-all", "Paused everything.") } }
                     Button("Resume all") { Task { await act("downloads/resume-all", "Resumed everything.") } }
                 }
-                .focusSection()
+                .tvFocusSection()
                 if let note { Text(note).foregroundStyle(Theme.accent) }
                 ForEach(rows.indices, id: \.self) { i in
                     DownloadRowView(d: rows[i],
@@ -31,7 +31,7 @@ struct DownloadsView: View {
                 if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing downloading.") }
             }
             .padding(.horizontal, Theme.sidePadding)
-            .padding(.vertical, 40)
+            .padding(.vertical, S(40))
         }
         .task {
             while !Task.isCancelled {
@@ -76,17 +76,17 @@ struct DownloadRowView: View {
     private var progress: Double { min(1, max(0, d["progress"].double ?? 0)) }
 
     var body: some View {
-        HStack(alignment: .center, spacing: 30) {
-            VStack(alignment: .leading, spacing: 10) {
+        AdaptiveStack(spacing: S(30)) {
+            VStack(alignment: .leading, spacing: S(10)) {
                 Text([d["title"].string ?? d["name"].string, d["year"].int.map { "(\($0))" }, episodes].compactMap { $0 }.joined(separator: " "))
-                    .font(.system(size: 30, weight: .semibold)).lineLimit(1)
+                    .font(.system(size: F(30), weight: .semibold)).lineLimit(1)
                 ZStack(alignment: .leading) {
                     Capsule().fill(Color.white.opacity(0.12))
                     Capsule().fill(phase == "failed" || phase == "stalled" ? Color.red.opacity(0.8) : Theme.accent)
-                        .frame(width: max(10, 900 * progress))
+                        .frame(width: max(S(10), W(900) * progress))
                 }
-                .frame(width: 900, height: 10)
-                Text(line).font(.callout).foregroundStyle(Theme.dim).lineLimit(1).frame(width: 1000, alignment: .leading)
+                .frame(width: W(900), height: S(10))
+                Text(line).font(.callout).foregroundStyle(Theme.dim).lineLimit(1).frame(width: W(1000), alignment: .leading)
             }
             Spacer()
             Badge(text: (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())
@@ -99,8 +99,8 @@ struct DownloadRowView: View {
                 Button(role: .destructive, action: remove) { Image(systemName: "trash") }.accessibilityLabel("Remove")
             }
         }
-        .padding(.vertical, 12)
-        .focusSection()
+        .padding(.vertical, S(12))
+        .tvFocusSection()
     }
 
     private var episodes: String? {

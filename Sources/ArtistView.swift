@@ -19,49 +19,49 @@ struct ArtistView: View {
         ZStack {
             BlurredArt(raw: page["image"].string)
             ScrollView {
-                VStack(alignment: .leading, spacing: 50) {
-                    HStack(alignment: .top, spacing: 70) {
+                VStack(alignment: .leading, spacing: S(50)) {
+                    AdaptiveStack(tvAlignment: .top, spacing: S(70)) {
                         Artwork(raw: page["image"].string, width: 500, title: ref.name)
-                            .frame(width: 420, height: 420)
-                            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-                            .shadow(color: .black.opacity(0.6), radius: 40, y: 20)
-                        VStack(alignment: .leading, spacing: 22) {
-                            Text(page["name"].string ?? ref.name).font(.system(size: 72, weight: .bold)).lineLimit(2).minimumScaleFactor(0.6)
+                            .frame(width: W(420), height: S(420))
+                            .clipShape(RoundedRectangle(cornerRadius: S(18), style: .continuous))
+                            .shadow(color: .black.opacity(0.6), radius: S(40), y: 20)
+                        VStack(alignment: .leading, spacing: S(22)) {
+                            Text(page["name"].string ?? ref.name).font(.system(size: F(72), weight: .bold)).lineLimit(2).minimumScaleFactor(0.6)
                             Text(([page["type"].string, page["country"].string] + page["genres"].names.prefix(3).map(Optional.some)).compactMap { $0 }.joined(separator: " · "))
                                 .font(.title3).foregroundStyle(Theme.dim)
                             if inLibrary {
                                 Label("In library: \(page["have"].int ?? 0) of \(page["total"].int ?? 0)", systemImage: "checkmark.circle.fill")
-                                    .font(.system(size: 26, weight: .semibold)).foregroundStyle(Theme.accent)
+                                    .font(.system(size: F(26), weight: .semibold)).foregroundStyle(Theme.accent)
                             }
                             if let bio = page["bio"]["extract"].string {
-                                Text(bio).font(.system(size: 24)).foregroundStyle(Color.white.opacity(0.75)).lineLimit(5).frame(maxWidth: 1150, alignment: .leading)
+                                Text(bio).font(.system(size: F(24))).foregroundStyle(Color.white.opacity(0.75)).lineLimit(5).frame(maxWidth: W(1150), alignment: .leading)
                             }
-                            HStack(spacing: 30) {
+                            HStack(spacing: S(30)) {
                                 if api.me?.canAsk == true {
                                     Button {
                                         Task { await ask(Array(picked)) }
                                     } label: {
                                         Label(picked.isEmpty ? (inLibrary ? "Ask for the rest" : "Ask for this artist") : "Ask for \(picked.count) album\(picked.count == 1 ? "" : "s")",
                                               systemImage: "plus")
-                                            .font(.system(size: 30, weight: .semibold)).padding(.horizontal, 30)
+                                            .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                                     }
                                     .buttonStyle(.borderedProminent)
                                     .disabled(busy)
                                 }
                             }
-                            .padding(.top, 10)
+                            .padding(.top, S(10))
                             if let message { Text(message).foregroundStyle(Theme.accent) }
                         }
                     }
-                    .padding(.horizontal, 110)
-                    .focusSection()
+                    .padding(.horizontal, S(110))
+                    .tvFocusSection()
 
                     ForEach(shelves, id: \.self) { shelf in
                         let items = albums.filter { ($0["shelf"].string ?? "albums") == shelf }
-                        VStack(alignment: .leading, spacing: 18) {
-                            Text(shelf.capitalized).font(.system(size: 34, weight: .bold)).padding(.horizontal, Theme.sidePadding)
+                        VStack(alignment: .leading, spacing: S(18)) {
+                            Text(shelf.capitalized).font(.system(size: F(34), weight: .bold)).padding(.horizontal, Theme.sidePadding)
                             ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack(alignment: .top, spacing: 40) {
+                                LazyHStack(alignment: .top, spacing: S(40)) {
                                     ForEach(items.indices, id: \.self) { i in
                                         let a = items[i]
                                         let id = a["mbid"].string ?? ""
@@ -73,10 +73,10 @@ struct ArtistView: View {
                                         .buttonStyle(QuietButtonStyle())
                                     }
                                 }
-                                .padding(.vertical, 30)
+                                .padding(.vertical, S(30))
                                 .padding(.horizontal, Theme.sidePadding)
                             }
-                            .focusSection()
+                            .tvFocusSection()
                         }
                     }
                     let similar = page["similar"].array.map { s in
@@ -85,7 +85,7 @@ struct ArtistView: View {
                     CardRow(title: "Similar artists", cards: similar)
                     if albums.isEmpty { LoadState(loading: loading, error: error, empty: "No albums found.") }
                 }
-                .padding(.vertical, 70)
+                .padding(.vertical, S(70))
             }
         }
         .task { await load() }
@@ -132,23 +132,23 @@ struct AlbumCell: View {
     @Environment(\.isFocused) private var focused
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: S(10)) {
             Artwork(raw: album["image"].string, width: 342, title: album["name"].string ?? "")
-                .frame(width: 250, height: 250)
+                .frame(width: W(250), height: S(250))
                 .overlay(alignment: .topTrailing) {
                     if picked {
-                        Image(systemName: "checkmark.circle.fill").font(.system(size: 40)).foregroundStyle(Theme.accent).padding(10)
+                        Image(systemName: "checkmark.circle.fill").font(.system(size: F(40))).foregroundStyle(Theme.accent).padding(S(10))
                     } else if let s = album["state"].string {
-                        StatusDot(status: s == "in_library" || s == "have" ? "In library" : s.replacingOccurrences(of: "_", with: " ").capitalized).padding(10)
+                        StatusDot(status: s == "in_library" || s == "have" ? "In library" : s.replacingOccurrences(of: "_", with: " ").capitalized).padding(S(10))
                     }
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                .overlay(RoundedRectangle(cornerRadius: 12, style: .continuous).stroke(picked ? Theme.accent : Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused || picked ? 4 : 1))
+                .clipShape(RoundedRectangle(cornerRadius: S(12), style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: S(12), style: .continuous).stroke(picked ? Theme.accent : Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused || picked ? 4 : 1))
                 .scaleEffect(focused ? 1.08 : 1)
-            Text(album["name"].string ?? "").font(.system(size: 22, weight: .semibold)).lineLimit(1)
-            Text(album["release_date"].string.map { String($0.prefix(4)) } ?? " ").font(.system(size: 19)).foregroundStyle(Theme.dim)
+            Text(album["name"].string ?? "").font(.system(size: F(22), weight: .semibold)).lineLimit(1)
+            Text(album["release_date"].string.map { String($0.prefix(4)) } ?? " ").font(.system(size: F(19))).foregroundStyle(Theme.dim)
         }
-        .frame(width: 250, alignment: .leading)
+        .frame(width: W(250), alignment: .leading)
         .foregroundStyle(focused ? Color.white : Color.white.opacity(0.75))
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)

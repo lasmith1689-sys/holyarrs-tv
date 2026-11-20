@@ -41,15 +41,15 @@ struct ExploreView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 50) {
+            VStack(alignment: .leading, spacing: S(50)) {
                 Picker("Show", selection: $kind) {
                     ForEach(Kind.allCases) { Text($0.rawValue).tag($0) }
                 }
                 .pickerStyle(.segmented)
-                .frame(width: 900)
+                .frame(width: W(900))
                 .padding(.horizontal, Theme.sidePadding)
-                .padding(.top, 20)
-                .focusSection()
+                .padding(.top, S(20))
+                .tvFocusSection()
 
                 Hero(items: hero)
                 if building { Text("HolyArrs is still putting your page together. More rows appear in a moment.").foregroundStyle(Theme.dim).padding(.horizontal, Theme.sidePadding) }
@@ -63,8 +63,9 @@ struct ExploreView: View {
                 }
                 if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing to show yet.") { Task { await load() } } }
             }
-            .padding(.bottom, 80)
+            .padding(.bottom, S(80))
         }
+        .refreshable { await load() }
         .task(id: kind) { await load() }
     }
 
@@ -130,10 +131,10 @@ struct GenreTiles: View {
     let genres: [JSON]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 18) {
-            Text("Browse by genre").font(.system(size: 34, weight: .bold)).padding(.horizontal, Theme.sidePadding)
+        VStack(alignment: .leading, spacing: S(18)) {
+            Text("Browse by genre").font(.system(size: F(34), weight: .bold)).padding(.horizontal, Theme.sidePadding)
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 40) {
+                LazyHStack(spacing: S(40)) {
                     ForEach(genres.indices, id: \.self) { i in
                         let g = genres[i]
                         let gType = g["both"].bool ? "all" : (g["kind"].string == "show" ? "shows" : (type == "all" ? "movies" : type))
@@ -143,10 +144,10 @@ struct GenreTiles: View {
                         .buttonStyle(QuietButtonStyle())
                     }
                 }
-                .padding(.vertical, 30)
+                .padding(.vertical, S(30))
                 .padding(.horizontal, Theme.sidePadding)
             }
-            .focusSection()
+            .tvFocusSection()
         }
     }
 }
@@ -160,11 +161,11 @@ struct GenreTile: View {
         ZStack {
             Artwork(raw: backdrop, width: 780)
             Color.black.opacity(focused ? 0.25 : 0.5)
-            Text(name).font(.system(size: 34, weight: .heavy)).shadow(radius: 8)
+            Text(name).font(.system(size: F(34), weight: .heavy)).shadow(radius: S(8))
         }
-        .frame(width: 400, height: 200)
-        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-        .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous).stroke(Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused ? 4 : 1))
+        .frame(width: W(400), height: S(200))
+        .clipShape(RoundedRectangle(cornerRadius: S(14), style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: S(14), style: .continuous).stroke(Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused ? 4 : 1))
         .scaleEffect(focused ? 1.06 : 1)
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityLabel(name)
@@ -184,12 +185,12 @@ struct GenreView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 50) {
+            VStack(alignment: .leading, spacing: S(50)) {
                 Hero(items: hero)
                 ForEach(rows) { CardRow(title: $0.title, subtitle: $0.subtitle, cards: $0.cards, wide: $0.wide) }
                 if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing in \(name) yet.") }
             }
-            .padding(.bottom, 80)
+            .padding(.bottom, S(80))
         }
         .ignoresSafeArea(edges: .top)
         .task {

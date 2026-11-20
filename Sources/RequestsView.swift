@@ -28,17 +28,19 @@ struct RequestsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 30) {
-                HStack(spacing: 40) {
+            VStack(alignment: .leading, spacing: S(30)) {
+                HStack(spacing: S(40)) {
                     Picker("Show", selection: $part) {
                         ForEach(parts) { p in Text(label(p)).tag(p) }
                     }
                     .pickerStyle(.segmented)
-                    .frame(width: 1200)
-                    Spacer()
-                    Button { Task { await load() } } label: { Image(systemName: "arrow.clockwise") }.accessibilityLabel("Refresh")
+                    .frame(width: W(1200))
+                    if Device.isTV {
+                        Spacer()
+                        Button { Task { await load() } } label: { Image(systemName: "arrow.clockwise") }.accessibilityLabel("Refresh")
+                    }
                 }
-                .focusSection()
+                .tvFocusSection()
                 if let note { Text(note).foregroundStyle(Theme.accent) }
                 if part == .stuck {
                     ForEach(decisions.indices, id: \.self) { i in DecisionRow(d: decisions[i]) { action in Task { await decide(decisions[i], action) } } }
@@ -54,8 +56,9 @@ struct RequestsView: View {
                 }
             }
             .padding(.horizontal, Theme.sidePadding)
-            .padding(.vertical, 40)
+            .padding(.vertical, S(40))
         }
+        .refreshable { await load() }
         .task(id: part) { await load() }
         .onAppear { if api.me?.canApprove == true, counts.isEmpty { part = .waiting } }
         .confirmationDialog("Turn down \(turningDown?.name ?? "")?", isPresented: Binding(get: { turningDown != nil }, set: { if !$0 { turningDown = nil } }), titleVisibility: .visible) {
@@ -125,15 +128,16 @@ struct AskRow: View {
     let takeBack: () -> Void
 
     var body: some View {
-        HStack(alignment: .center, spacing: 34) {
+        AdaptiveStack(spacing: S(34)) {
+          HStack(spacing: S(34)) {
             NavigationLink(value: ask.card.route) {
-                Artwork(raw: ask.poster, width: 185, title: ask.name).frame(width: 120, height: 180)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                Artwork(raw: ask.poster, width: 185, title: ask.name).frame(width: W(120), height: S(180))
+                    .clipShape(RoundedRectangle(cornerRadius: S(10), style: .continuous))
             }
-            .buttonStyle(.card)
+            .cardButtonStyle()
             .accessibilityLabel("Open \(ask.name)")
-            VStack(alignment: .leading, spacing: 8) {
-                Text(ask.year.map { "\(ask.name) (\($0))" } ?? ask.name).font(.system(size: 32, weight: .semibold)).lineLimit(1)
+            VStack(alignment: .leading, spacing: S(8)) {
+                Text(ask.year.map { "\(ask.name) (\($0))" } ?? ask.name).font(.system(size: F(32), weight: .semibold)).lineLimit(1)
                 if let what = ask.what { Text(what).foregroundStyle(Theme.dim) }
                 Text([ask.by.isEmpty ? nil : "Asked by \(ask.by)\(ask.people > 1 ? " and \(ask.people - 1) more" : "")",
                       ask.askedAt.map(Dates.relative)].compactMap { $0 }.joined(separator: " · "))
@@ -141,6 +145,8 @@ struct AskRow: View {
                 if let n = ask.note { Text(n).font(.callout).foregroundStyle(Theme.dim).lineLimit(2) }
             }
             Spacer()
+          }
+          HStack(spacing: S(34)) {
             Badge(text: ask.stateLabel.uppercased())
             if ask.waiting && canApprove {
                 Button("Approve", action: approve).buttonStyle(.borderedProminent)
@@ -148,9 +154,10 @@ struct AskRow: View {
             } else if ask.waiting && ask.mine {
                 Button("Take back", role: .destructive, action: takeBack)
             }
+          }
         }
-        .padding(.vertical, 14)
-        .focusSection()
+        .padding(.vertical, S(14))
+        .tvFocusSection()
     }
 }
 
@@ -160,19 +167,21 @@ struct DecisionRow: View {
     let act: (String) -> Void
 
     var body: some View {
-        HStack(alignment: .center, spacing: 34) {
-            VStack(alignment: .leading, spacing: 8) {
+        AdaptiveStack(spacing: S(34)) {
+            VStack(alignment: .leading, spacing: S(8)) {
                 Text([d["title"].string, d["year"].int.map { "(\($0))" }, d["episode"]["label"].string].compactMap { $0 }.joined(separator: " "))
-                    .font(.system(size: 32, weight: .semibold)).lineLimit(1)
+                    .font(.system(size: F(32), weight: .semibold)).lineLimit(1)
                 Text(d.first("reason", "why").string ?? "").foregroundStyle(Theme.dim).lineLimit(3)
                 if let r = d["release_name"].string { Text(r).font(.callout.monospaced()).foregroundStyle(Theme.dim).lineLimit(1) }
             }
             Spacer()
-            Button("Search again") { act("search") }.buttonStyle(.borderedProminent)
-            Button("Stop looking") { act("stop") }
-            Button("Turn down", role: .destructive) { act("turn_down") }
+            HStack(spacing: S(34)) {
+                Button("Search again") { act("search") }.buttonStyle(.borderedProminent)
+                Button("Stop looking") { act("stop") }
+                Button("Turn down", role: .destructive) { act("turn_down") }
+            }
         }
-        .padding(.vertical, 14)
-        .focusSection()
+        .padding(.vertical, S(14))
+        .tvFocusSection()
     }
 }

@@ -130,12 +130,12 @@ struct PlayerScreen: View {
             if let player = model.player {
                 SystemPlayer(player: player).ignoresSafeArea()
             } else {
-                Color.clear.overlay { Artwork(raw: request.backdrop, width: 780).blur(radius: 70).opacity(0.35) }.clipped().ignoresSafeArea()
-                VStack(spacing: 34) {
-                    Text(request.label).font(.system(size: 60, weight: .bold)).multilineTextAlignment(.center)
+                Color.clear.overlay { Artwork(raw: request.backdrop, width: 780).blur(radius: S(70)).opacity(0.35) }.clipped().ignoresSafeArea()
+                VStack(spacing: S(34)) {
+                    Text(request.label).font(.system(size: F(60), weight: .bold)).multilineTextAlignment(.center)
                     if let error = model.error {
                         Text("Couldn't start").font(.title3.bold())
-                        Text(error).foregroundStyle(Color.white.opacity(0.6)).multilineTextAlignment(.center).frame(maxWidth: 1300)
+                        Text(error).foregroundStyle(Color.white.opacity(0.6)).multilineTextAlignment(.center).frame(maxWidth: W(1300))
                         Button("Back") { dismiss() }
                     } else {
                         ProgressView()
@@ -144,7 +144,7 @@ struct PlayerScreen: View {
                             .foregroundStyle(Color.white.opacity(0.7))
                     }
                 }
-                .padding(100)
+                .padding(S(100))
             }
         }
         .task { await model.load(request: request, rtx: rtx.base, cookies: api.cookies) }

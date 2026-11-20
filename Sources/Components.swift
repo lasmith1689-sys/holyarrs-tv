@@ -6,7 +6,7 @@ enum Theme {
                                            startPoint: .top, endPoint: .bottom)
     static let accent = Color(red: 0.98, green: 0.74, blue: 0.20)
     static let dim = Color.white.opacity(0.55)
-    static let sidePadding: CGFloat = 80
+    static let sidePadding: CGFloat = S(80)
 }
 
 /// Buttons draw their own focus look (PosterCell, WideCell, ListRow), so the system highlight is turned off.
@@ -33,11 +33,11 @@ struct Artwork: View {
                 LinearGradient(colors: [Color(white: 0.22), Color(white: 0.12)], startPoint: .topLeading, endPoint: .bottomTrailing)
             }
             if !title.isEmpty {
-                VStack(spacing: 10) {
-                    Text(title).font(.system(size: 26, weight: .bold)).multilineTextAlignment(.center)
-                    if let subtitle { Text(subtitle).font(.system(size: 20)).foregroundStyle(Theme.dim) }
+                VStack(spacing: S(10)) {
+                    Text(title).font(.system(size: F(26), weight: .bold)).multilineTextAlignment(.center)
+                    if let subtitle { Text(subtitle).font(.system(size: F(20))).foregroundStyle(Theme.dim) }
                 }
-                .padding(20)
+                .padding(S(20))
             }
             if let url = api.image(raw, width: width) {
                 AsyncImage(url: url, transaction: Transaction(animation: .easeIn(duration: 0.25))) { phase in
@@ -51,28 +51,28 @@ struct Artwork: View {
 /// A poster that lifts and glows when focused, with its title underneath (as in RTX 4K's gallery).
 struct PosterCell: View {
     let card: Card
-    var width: CGFloat = 250
+    var width: CGFloat = S(250)
     @Environment(\.isFocused) private var focused
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: S(14)) {
             Artwork(raw: card.poster, width: 342, title: card.name, subtitle: card.year.map(String.init))
                 .frame(width: width, height: width * 1.5)
                 .overlay(alignment: .topTrailing) {
-                    if let status = card.status { StatusDot(status: status).padding(12) }
+                    if let status = card.status { StatusDot(status: status).padding(S(12)) }
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .clipShape(RoundedRectangle(cornerRadius: S(14), style: .continuous))
+                .overlay(RoundedRectangle(cornerRadius: S(14), style: .continuous)
                     .stroke(Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused ? 4 : 1))
                 .shadow(color: .black.opacity(focused ? 0.7 : 0.35), radius: focused ? 30 : 10, y: focused ? 20 : 6)
                 .scaleEffect(focused ? 1.08 : 1.0)
-            VStack(alignment: .leading, spacing: 4) {
-                Text(card.name).font(.system(size: 24, weight: .semibold)).lineLimit(1)
-                Text(card.line ?? card.stableYear).font(.system(size: 21)).foregroundStyle(Theme.dim).lineLimit(1)
+            VStack(alignment: .leading, spacing: S(4)) {
+                Text(card.name).font(.system(size: F(24), weight: .semibold)).lineLimit(1)
+                Text(card.line ?? card.stableYear).font(.system(size: F(21))).foregroundStyle(Theme.dim).lineLimit(1)
             }
             .frame(width: width, alignment: .leading)
             .foregroundStyle(focused ? Color.white : Color.white.opacity(0.75))
-            .offset(y: focused ? 14 : 0)
+            .offset(y: focused ? S(14) : 0)
         }
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
@@ -86,32 +86,32 @@ struct WideCell: View {
     @Environment(\.isFocused) private var focused
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: S(12)) {
             ZStack(alignment: .bottomLeading) {
                 Artwork(raw: card.backdrop ?? card.poster, width: 780, title: card.backdrop == nil && card.poster == nil ? card.name : "")
                 LinearGradient(colors: [.clear, .black.opacity(0.75)], startPoint: .center, endPoint: .bottom)
                 Group {
                     if let logo = card.logo {
-                        Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: 260, height: 90, alignment: .bottomLeading)
+                        Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: W(260), height: S(90), alignment: .bottomLeading)
                     } else {
-                        Text(card.name).font(.system(size: 30, weight: .heavy)).lineLimit(2).shadow(radius: 6)
+                        Text(card.name).font(.system(size: F(30), weight: .heavy)).lineLimit(2).shadow(radius: S(6))
                     }
                 }
-                .padding(20)
+                .padding(S(20))
             }
-            .frame(width: 480, height: 270)
+            .frame(width: W(480), height: S(270))
             .overlay(alignment: .topTrailing) {
-                if let status = card.status { StatusDot(status: status).padding(14) }
+                if let status = card.status { StatusDot(status: status).padding(S(14)) }
             }
-            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: 14, style: .continuous)
+            .clipShape(RoundedRectangle(cornerRadius: S(14), style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: S(14), style: .continuous)
                 .stroke(Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused ? 4 : 1))
             .shadow(color: .black.opacity(focused ? 0.7 : 0.35), radius: focused ? 30 : 10, y: focused ? 20 : 6)
             .scaleEffect(focused ? 1.06 : 1.0)
             Text(card.line ?? card.stableYear)
-                .font(.system(size: 21)).foregroundStyle(Theme.dim).lineLimit(1)
-                .frame(width: 480, alignment: .leading)
-                .offset(y: focused ? 12 : 0)
+                .font(.system(size: F(21))).foregroundStyle(Theme.dim).lineLimit(1)
+                .frame(width: W(480), alignment: .leading)
+                .offset(y: focused ? S(12) : 0)
         }
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
@@ -125,10 +125,10 @@ struct StatusDot: View {
 
     var body: some View {
         Text(status.uppercased())
-            .font(.system(size: 15, weight: .heavy))
+            .font(.system(size: F(15), weight: .heavy))
             .tracking(1)
-            .padding(.horizontal, 10)
-            .padding(.vertical, 5)
+            .padding(.horizontal, S(10))
+            .padding(.vertical, S(5))
             .background(Capsule().fill(status == "In library" ? Theme.accent : Color.black.opacity(0.7)))
             .foregroundStyle(status == "In library" ? Color.black : Theme.accent)
     }
@@ -140,11 +140,11 @@ struct Badge: View {
 
     var body: some View {
         Text(text)
-            .font(.system(size: 18, weight: .bold))
+            .font(.system(size: F(18), weight: .bold))
             .tracking(1.2)
-            .padding(.horizontal, 12)
-            .padding(.vertical, 5)
-            .overlay(RoundedRectangle(cornerRadius: 6).stroke(focused ? Color.black.opacity(0.5) : Color.white.opacity(0.4), lineWidth: 2))
+            .padding(.horizontal, S(12))
+            .padding(.vertical, S(5))
+            .overlay(RoundedRectangle(cornerRadius: S(6)).stroke(focused ? Color.black.opacity(0.5) : Color.white.opacity(0.4), lineWidth: S(2)))
             .foregroundStyle(focused ? Color.black.opacity(0.7) : Color.white.opacity(0.8))
     }
 }
@@ -158,14 +158,14 @@ struct CardRow: View {
 
     var body: some View {
         if !cards.isEmpty {
-            VStack(alignment: .leading, spacing: 18) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(title).font(.system(size: 34, weight: .bold))
-                    if let subtitle { Text(subtitle).font(.system(size: 22)).foregroundStyle(Theme.dim) }
+            VStack(alignment: .leading, spacing: S(18)) {
+                VStack(alignment: .leading, spacing: S(4)) {
+                    Text(title).font(.system(size: F(34), weight: .bold))
+                    if let subtitle { Text(subtitle).font(.system(size: F(22))).foregroundStyle(Theme.dim) }
                 }
                 .padding(.horizontal, Theme.sidePadding)
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(alignment: .top, spacing: wide ? 40 : 46) {
+                    LazyHStack(alignment: .top, spacing: wide ? S(40) : S(46)) {
                         ForEach(cards) { card in
                             NavigationLink(value: card.route) {
                                 if wide { WideCell(card: card) } else { PosterCell(card: card) }
@@ -173,10 +173,10 @@ struct CardRow: View {
                             .buttonStyle(QuietButtonStyle())
                         }
                     }
-                    .padding(.vertical, 30)  // room for the focused card to lift
+                    .padding(.vertical, S(30))  // room for the focused card to lift
                     .padding(.horizontal, Theme.sidePadding)
                 }
-                .focusSection()
+                .tvFocusSection()
             }
         }
     }
@@ -185,16 +185,18 @@ struct CardRow: View {
 /// A grid of posters (search results, a person's films, a genre).
 struct PosterGrid: View {
     let cards: [Card]
-    private let columns = Array(repeating: GridItem(.fixed(250), spacing: 46, alignment: .top), count: 6)
+    private let columns = Device.isTV
+        ? Array(repeating: GridItem(.fixed(250), spacing: 46, alignment: .top), count: 6)
+        : [GridItem(.adaptive(minimum: S(250)), spacing: S(46), alignment: .top)]
 
     var body: some View {
-        LazyVGrid(columns: columns, alignment: .leading, spacing: 60) {
+        LazyVGrid(columns: columns, alignment: .leading, spacing: S(60)) {
             ForEach(cards) { card in
                 NavigationLink(value: card.route) { PosterCell(card: card) }
                     .buttonStyle(QuietButtonStyle())
             }
         }
-        .focusSection()
+        .tvFocusSection()
     }
 }
 
@@ -206,18 +208,18 @@ struct LoadState: View {
     var retry: (() -> Void)? = nil
 
     var body: some View {
-        VStack(spacing: 26) {
+        VStack(spacing: S(26)) {
             if loading {
                 ProgressView()
             } else if let error {
-                Image(systemName: "wifi.exclamationmark").font(.system(size: 80)).foregroundStyle(Theme.dim)
-                Text(error).foregroundStyle(Theme.dim).multilineTextAlignment(.center).frame(maxWidth: 1200)
+                Image(systemName: "wifi.exclamationmark").font(.system(size: F(80))).foregroundStyle(Theme.dim)
+                Text(error).foregroundStyle(Theme.dim).multilineTextAlignment(.center).frame(maxWidth: W(1200))
                 if let retry { Button("Try again", action: retry) }
             } else if let empty {
                 Text(empty).foregroundStyle(Theme.dim)
             }
         }
-        .frame(maxWidth: .infinity, minHeight: 300)
+        .frame(maxWidth: .infinity, minHeight: S(300))
     }
 }
 
@@ -232,7 +234,7 @@ struct BlurredArt: View {
 
     var body: some View {
         Color.black
-            .overlay { Artwork(raw: raw, width: 780).blur(radius: 60).opacity(0.45) }
+            .overlay { Artwork(raw: raw, width: 780).blur(radius: S(60)).opacity(0.45) }
             .clipped()
             .ignoresSafeArea()
         LinearGradient(colors: [.black.opacity(0.2), .black.opacity(0.88)], startPoint: .top, endPoint: .bottom)

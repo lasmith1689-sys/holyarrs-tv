@@ -6,6 +6,7 @@ Design, in the RTX 4K app's colours: the back layer is a dark wall of blank post
 amber, like a cinema foyer; a soft halo glows in the middle layer; the front layer is the word HolyArrs with a
 thin amber halo arc over it. On the Apple TV the three layers shift against each other when focused.
 """
+import json
 import sys
 from pathlib import Path
 
@@ -15,6 +16,7 @@ HERE = Path(__file__).resolve().parent
 BRAND = HERE / "Resources" / "Assets.xcassets" / "App Icon & Top Shelf Image.brandassets"
 FONT = sys.argv[1] if len(sys.argv) > 1 else "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 AMBER = (250, 189, 51)
+INFO = {"author": "xcode", "version": 1}
 DEEP = (12, 12, 14)
 
 
@@ -91,6 +93,15 @@ def topshelf(w, h):
     return img.convert("RGB")
 
 
+def phone_icon(n=1024):
+    """The iPhone icon: the same three layers flattened into one square (iOS draws its own rounded corners)."""
+    img = back(n, n).convert("RGBA")
+    img = Image.alpha_composite(img, middle(n, n))
+    word = front(n, int(n * 0.6))
+    img.alpha_composite(word, (0, int(n * 0.2)))
+    return img.convert("RGB")
+
+
 def save(img, path):
     path.parent.mkdir(parents=True, exist_ok=True)
     img.save(path)
@@ -104,6 +115,12 @@ def main():
             save(back(w, h), BRAND / stack / "Back.imagestacklayer/Content.imageset" / f"back{suffix}.png")
             save(middle(w, h), BRAND / stack / "Middle.imagestacklayer/Content.imageset" / f"middle{suffix}.png")
             save(front(w, h), BRAND / stack / "Front.imagestacklayer/Content.imageset" / f"front{suffix}.png")
+    phone = HERE / "Resources-iOS" / "Assets.xcassets"
+    save(phone_icon(), phone / "AppIcon.appiconset" / "icon-1024.png")
+    (phone / "AppIcon.appiconset" / "Contents.json").write_text(json.dumps({"images": [{"filename": "icon-1024.png", "idiom": "universal", "platform": "ios", "size": "1024x1024"}], "info": INFO}, indent=2))
+    (phone / "AccentColor.colorset").mkdir(parents=True, exist_ok=True)
+    (phone / "AccentColor.colorset" / "Contents.json").write_text(json.dumps({"colors": [{"color": {"color-space": "srgb", "components": {"red": "0.980", "green": "0.740", "blue": "0.200", "alpha": "1.000"}}, "idiom": "universal"}], "info": INFO}, indent=2))
+    (phone / "Contents.json").write_text(json.dumps({"info": INFO}, indent=2))
     for name, (w, h) in {"Top Shelf Image.imageset": (1920, 720), "Top Shelf Image Wide.imageset": (2320, 720)}.items():
         save(topshelf(w, h), BRAND / name / "topshelf.png")
         save(topshelf(w * 2, h * 2), BRAND / name / "topshelf@2x.png")

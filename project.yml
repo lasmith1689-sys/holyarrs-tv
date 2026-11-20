@@ -1,9 +1,11 @@
-# XcodeGen spec for the HolyArrs TV app. On a Mac:  brew install xcodegen && xcodegen generate
+# XcodeGen spec for HolyArrs: one app for Apple TV (HolyArrsTV) and iPhone (HolyArrsPhone), same code
+# (Sources/) and the same bundle ID, so both are one App Store Connect app. On a Mac:  brew install xcodegen && xcodegen generate
 # Required environment variables (see README.md): APP_BUNDLE_ID, DEVELOPMENT_TEAM
 name: HolyArrsTV
 options:
   deploymentTarget:
     tvOS: "18.0"
+    iOS: "18.0"
 settings:
   base:
     MARKETING_VERSION: "0.1.0"
@@ -59,3 +61,51 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         TARGETED_DEVICE_FAMILY: "3"
         TEST_TARGET_NAME: HolyArrsTV
+
+  HolyArrsPhone:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: Resources-iOS/Assets.xcassets
+    info:
+      path: Resources-iOS/Info.plist
+      properties:
+        CFBundleDisplayName: HolyArrs
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait, UIInterfaceOrientationLandscapeLeft, UIInterfaceOrientationLandscapeRight]
+        UIApplicationSupportsIndirectInputEvents: true
+        # Plain HTTP to HolyArrs and the RTX server on the home LAN; fine for internal TestFlight testing.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+          NSAllowsLocalNetworking: true
+        NSLocalNetworkUsageDescription: Connects to HolyArrs and the RTX 4K server on your PC.
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ${APP_BUNDLE_ID}
+        PRODUCT_NAME: HolyArrsPhone
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1"
+        GENERATE_INFOPLIST_FILE: NO
+    scheme:
+      testTargets:
+        - HolyArrsPhoneUITests
+  # Simulator-only screen check for iPhone; never archived or uploaded.
+  HolyArrsPhoneUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests-iOS
+    dependencies:
+      - target: HolyArrsPhone
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ${APP_BUNDLE_ID}.phoneuitests
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+        TEST_TARGET_NAME: HolyArrsPhone
