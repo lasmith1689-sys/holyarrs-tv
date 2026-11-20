@@ -142,6 +142,8 @@ struct Badge: View {
         Text(text)
             .font(.system(size: F(18), weight: .bold))
             .tracking(1.2)
+            .lineLimit(1)
+            .fixedSize()
             .padding(.horizontal, S(12))
             .padding(.vertical, S(5))
             .overlay(RoundedRectangle(cornerRadius: S(6)).stroke(focused ? Color.black.opacity(0.5) : Color.white.opacity(0.4), lineWidth: S(2)))

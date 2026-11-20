@@ -17,8 +17,10 @@ struct DownloadsView: View {
                     Text("Downloads").font(.system(size: F(64), weight: .bold))
                     Text("\(active) active").font(.title3).foregroundStyle(Theme.dim)
                     Spacer()
-                    Button("Pause all") { Task { await act("downloads/pause-all", "Paused everything.") } }
-                    Button("Resume all") { Task { await act("downloads/resume-all", "Resumed everything.") } }
+                    HStack(spacing: S(30)) {
+                        Button("Pause all") { Task { await act("downloads/pause-all", "Paused everything.") } }
+                        Button("Resume all") { Task { await act("downloads/resume-all", "Resumed everything.") } }
+                    }
                 }
                 .tvFocusSection()
                 if let note { Text(note).foregroundStyle(Theme.accent) }
@@ -89,14 +91,16 @@ struct DownloadRowView: View {
                 Text(line).font(.callout).foregroundStyle(Theme.dim).lineLimit(1).frame(width: W(1000), alignment: .leading)
             }
             Spacer()
-            Badge(text: (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())
-            if phase == "downloading" || phase == "stalled" || phase == "waiting" {
-                Button(action: pause) { Image(systemName: "pause.fill") }.accessibilityLabel("Pause")
-            } else if phase == "paused" {
-                Button(action: resume) { Image(systemName: "play.fill") }.accessibilityLabel("Resume")
-            }
-            if d["can_act"].bool {
-                Button(role: .destructive, action: remove) { Image(systemName: "trash") }.accessibilityLabel("Remove")
+            HStack(spacing: S(30)) {
+                Badge(text: (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())
+                if phase == "downloading" || phase == "stalled" || phase == "waiting" {
+                    Button(action: pause) { Image(systemName: "pause.fill") }.accessibilityLabel("Pause")
+                } else if phase == "paused" {
+                    Button(action: resume) { Image(systemName: "play.fill") }.accessibilityLabel("Resume")
+                }
+                if d["can_act"].bool {
+                    Button(role: .destructive, action: remove) { Image(systemName: "trash") }.accessibilityLabel("Remove")
+                }
             }
         }
         .padding(.vertical, S(12))

@@ -72,7 +72,9 @@ struct RequestsView: View {
     private func label(_ p: Part) -> String {
         switch p {
         case .waiting: return counts["pending"].map { "Waiting (\($0))" } ?? "Waiting"
-        case .stuck: return decisions.isEmpty ? "Needs a decision" : "Needs a decision (\(decisions.count))"
+        case .stuck:
+            let word = Device.isTV ? "Needs a decision" : "Stuck"
+            return decisions.isEmpty ? word : "\(word) (\(decisions.count))"
         default: return p.rawValue
         }
     }

@@ -1,7 +1,12 @@
 # HolyArrs TV
 
-An Apple TV app for [HolyArrs](https://github.com/HolyArrs/HolyArrs), in the look of the RTX 4K player app.
-HolyArrs runs on the PC; this app is its couch front end.
+An Apple TV and iPhone app for [HolyArrs](https://github.com/HolyArrs/HolyArrs), in the look of the RTX 4K
+player app. HolyArrs runs on the PC; this app is its front end for the couch and the phone.
+
+One code base (`Sources/`), two targets: `HolyArrsTV` (tvOS 18+) and `HolyArrsPhone` (iOS 18+, iPhone), with the
+same bundle ID, so both are the one App Store Connect app "HolyArrs TV". Screens are written at TV sizes;
+`Sources/Platform.swift` scales them for the phone (`S`, `W`, `F`), stacks side-by-side layouts there, and keeps
+the Siri Remote focus behaviour on tvOS only. On iPhone, Downloads, Calendar and Settings sit under More.
 
 | Tab | What it does |
 |---|---|
@@ -35,14 +40,15 @@ On the PC it lives in `C:\HolyArrs` (`bin\holyarrs.exe -config C:\HolyArrs\confi
 Keep `C:\HolyArrs\config\holyarrs.key` safe: backups don't include it.
 
 ## Checks
-- **Screen check** (runs on every push to the app): compiles for a device, then opens every screen in an
-  Apple TV simulator against a stand-in HolyArrs (`ci/mock_server.py`, answers in `ci/fixtures`, made by
-  `ci/make_fixtures.py`). Screenshots are pushed to the `ci-screens` branch.
+- **Screen check** (runs on every push to the app): compiles each app for a device, then opens every screen in an
+  Apple TV simulator and an iPhone simulator against a stand-in HolyArrs (`ci/mock_server.py`, answers in `ci/fixtures`, made by
+  `ci/make_fixtures.py`). Screenshots are pushed to the `ci-screens` (TV) and `ci-screens-phone` branches.
 - **TestFlight**: Actions > TestFlight > Run workflow. Uses repository secrets `APPLE_TEAM_ID`, `ASC_KEY_ID`,
   `ASC_ISSUER_ID`, `ASC_KEY_P8` (the same App Store Connect key as RTX 4K) and the App Store Connect app
   "HolyArrs TV": spare slot 03, bundle ID `com.lasmith1689.slot03` (repository variable `HOLYARRS_BUNDLE_ID`),
   claimed with `claim_slot.py claim 03 "HolyArrs TV"`, tvOS platform added through the API, TestFlight group `Me`.
-  Each build number is `<run number> x 10 + <attempt>`. On the Apple TV: TestFlight > HolyArrs TV.
+  Each run uploads both the tvOS and the iOS build, numbered `<run number> x 10 + <attempt>`.
+  On the Apple TV or iPhone: TestFlight > HolyArrs TV.
 
 ## Files
 | File | What it is |
@@ -51,5 +57,6 @@ Keep `C:\HolyArrs\config\holyarrs.key` safe: backups don't include it.
 | `Sources/Components.swift` | The RTX 4K look: theme, poster and wide cards, badges, rows |
 | `Sources/*View.swift`, `TitlePage.swift` | The screens |
 | `Sources/RTX.swift` | The RTX 4K server: film matching and the player (from the RTX 4K app) |
-| `make_assets.py` | Layered app icon and Top Shelf images |
-| `project.yml` | XcodeGen spec (tvOS 18+) |
+| `make_assets.py` | Layered tvOS icon, Top Shelf images and the iPhone icon |
+| `Sources/Platform.swift` | TV and iPhone sizing, tvOS-only focus modifiers |
+| `project.yml` | XcodeGen spec: tvOS and iOS apps, both UI test targets |
