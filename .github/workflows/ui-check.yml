@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write  # pushes the screenshots to the ci-screens branch
 
 jobs:
   screens:
@@ -71,6 +71,19 @@ jobs:
           fi
           cp "$RUNNER_TEMP/test.log" "$RUNNER_TEMP/fx/requests.log" "$RUNNER_TEMP/mock.log" "$RUNNER_TEMP/shots/" 2>/dev/null || true
           exit $code
+      - name: Push the screenshots to the ci-screens branch
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd "$RUNNER_TEMP/shots"
+          git init -q -b ci-screens
+          git config user.name "screen check"
+          git config user.email "actions@users.noreply.github.com"
+          echo "Run ${{ github.run_id }} on ${{ github.sha }}" > RUN.txt
+          git add -A
+          git commit -q -m "Screens from run ${{ github.run_id }}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" ci-screens
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:

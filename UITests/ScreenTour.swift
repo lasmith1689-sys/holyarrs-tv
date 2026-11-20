@@ -67,9 +67,8 @@ final class ScreenTour: XCTestCase {
         // A Library movie's page (The Matrix: in the RTX library too, so Play in 4K shows).
         launch(tab: "home")
         _ = app.buttons["More info"].waitForExistence(timeout: 15)
-        press(.down, 4)
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
-        if focus(matrix, .left, limit: 6) || focus(matrix, .right, limit: 6) {
+        if focus(matrix, .down, limit: 3) || focus(matrix, .left, limit: 4) {
             press(.select)
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
             sleep(2)

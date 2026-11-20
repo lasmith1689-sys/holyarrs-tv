@@ -261,8 +261,9 @@ struct TitlePage: View {
                 fillFromTitle(&i, t)
             }
             if let tmdb = i.tmdb {
-                async let metaJ = api.get("metadata/\(i.kind.rawValue)/\(tmdb)")
-                async let lookJ = api.get(i.kind == .show ? "shows/lookup" : "titles/lookup", ["term": "tmdb:\(tmdb)"])
+                let kind = i.kind
+                async let metaJ = api.get("metadata/\(kind.rawValue)/\(tmdb)")
+                async let lookJ = api.get(kind == .show ? "shows/lookup" : "titles/lookup", ["term": "tmdb:\(tmdb)"])
                 if let m = try? await metaJ { fillFromMetadata(&i, m) }
                 if let l = try? await lookJ { fillFromLookup(&i, l) }
             }
