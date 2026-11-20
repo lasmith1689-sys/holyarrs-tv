@@ -151,8 +151,8 @@ struct AskRow: View {
           HStack(spacing: S(34)) {
             Badge(text: ask.stateLabel.uppercased())
             if ask.waiting && canApprove {
-                Button("Approve", action: approve).buttonStyle(.borderedProminent)
-                Button("Turn down", role: .destructive, action: turnDown)
+                Button("Approve", action: approve).buttonStyle(.borderedProminent).lineLimit(1).fixedSize()
+                Button("Turn down", role: .destructive, action: turnDown).lineLimit(1).fixedSize()
             } else if ask.waiting && ask.mine {
                 Button("Take back", role: .destructive, action: takeBack)
             }
