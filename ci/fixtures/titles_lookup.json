@@ -1,0 +1,16 @@
+{
+ "movies": [
+  {
+   "name": "The Matrix",
+   "year": 1999,
+   "ids": {
+    "tmdb": "603",
+    "imdb": "tt0133093"
+   },
+   "poster": "https://image.tmdb.org/t/p/w500/p603.jpg",
+   "title_id": 1,
+   "never_add": false,
+   "hidden": false
+  }
+ ]
+}

@@ -1,0 +1,174 @@
+{
+ "episode_order": "aired",
+ "episodes": [
+  {
+   "id": 1,
+   "season": 5,
+   "episode": 1,
+   "name": "Episode 1",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 2,
+   "season": 5,
+   "episode": 2,
+   "name": "Episode 2",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 3,
+   "season": 5,
+   "episode": 3,
+   "name": "Episode 3",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "season": 5,
+   "episode": 4,
+   "name": "Episode 4",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "season": 5,
+   "episode": 5,
+   "name": "Episode 5",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 6,
+   "season": 5,
+   "episode": 6,
+   "name": "Episode 6",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "season": 5,
+   "episode": 7,
+   "name": "Episode 7",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "season": 5,
+   "episode": 8,
+   "name": "Episode 8",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "In library"
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "season": 5,
+   "episode": 9,
+   "name": "Episode 9",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "Missing"
+    }
+   ]
+  },
+  {
+   "id": 10,
+   "season": 5,
+   "episode": 10,
+   "name": "Episode 10",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "Missing"
+    }
+   ]
+  },
+  {
+   "id": 11,
+   "season": 5,
+   "episode": 11,
+   "name": "Episode 11",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "Missing"
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "season": 5,
+   "episode": 12,
+   "name": "Episode 12",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "Missing"
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "season": 5,
+   "episode": 13,
+   "name": "Episode 13",
+   "air_day": "2013-08-11",
+   "runtime": 47,
+   "slots": [
+    {
+     "state_label": "Missing"
+    }
+   ]
+  }
+ ]
+}

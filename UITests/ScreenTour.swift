@@ -1,0 +1,113 @@
+import XCTest
+
+/// Opens every screen against ci/mock_server.py and saves a screenshot of each (plus the accessibility tree)
+/// to $SHOTS_DIR, so the layout can be checked by eye without an Apple TV. Each tab is opened by launching
+/// with -tab <name>; the title, person and season pages are reached with the Siri Remote.
+final class ScreenTour: XCTestCase {
+    private let remote = XCUIRemote.shared
+    private var app: XCUIApplication!
+    private var step = 0
+    private var server: String { ProcessInfo.processInfo.environment["MOCK_SERVER"] ?? "http://127.0.0.1:8799" }
+
+    override func setUp() {
+        continueAfterFailure = true
+    }
+
+    private func launch(tab: String, signedIn: Bool = true, explore: String = "All") {
+        app?.terminate()
+        app = XCUIApplication()
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-tab", tab, "-exploreKind", explore]
+        if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
+        app.launch()
+        sleep(4)
+    }
+
+    private func shot(_ name: String) {
+        step += 1
+        let label = String(format: "%02d-%@", step, name)
+        let screenshot = XCUIScreen.main.screenshot()
+        let attachment = XCTAttachment(screenshot: screenshot)
+        attachment.name = label
+        attachment.lifetime = .keepAlways
+        add(attachment)
+        if let dir = ProcessInfo.processInfo.environment["SHOTS_DIR"] {
+            let folder = URL(fileURLWithPath: dir)
+            try? screenshot.pngRepresentation.write(to: folder.appendingPathComponent("\(label).png"))
+            try? app.debugDescription.write(to: folder.appendingPathComponent("\(label).txt"), atomically: true, encoding: .utf8)
+        }
+    }
+
+    private func press(_ b: XCUIRemote.Button, _ n: Int = 1) {
+        for _ in 0..<n { remote.press(b); usleep(600_000) }
+    }
+
+    /// Moves focus until the element has it.
+    @discardableResult
+    private func focus(_ e: XCUIElement, _ dir: XCUIRemote.Button, limit: Int = 14) -> Bool {
+        for _ in 0..<limit {
+            if e.exists && e.hasFocus { return true }
+            press(dir)
+        }
+        return e.exists && e.hasFocus
+    }
+
+    func testTour() {
+        // Signed out: the sign-in screen.
+        launch(tab: "home", signedIn: false)
+        XCTAssertTrue(app.textFields["Name"].waitForExistence(timeout: 10), "sign-in screen")
+        shot("sign-in")
+
+        // Home with its hero and rows.
+        launch(tab: "home")
+        XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 15), "home hero")
+        shot("home")
+        press(.down, 3)
+        shot("home-rows")
+
+        // A Library movie's page (The Matrix: in the RTX library too, so Play in 4K shows).
+        launch(tab: "home")
+        _ = app.buttons["More info"].waitForExistence(timeout: 15)
+        press(.down, 4)
+        let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
+        if focus(matrix, .left, limit: 6) || focus(matrix, .right, limit: 6) {
+            press(.select)
+            XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
+            sleep(2)
+            shot("title-movie")
+            press(.down, 2)
+            shot("title-cast")
+            let person = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Keanu Reeves'")).firstMatch
+            if focus(person, .down, limit: 4) {
+                press(.select)
+                sleep(3)
+                shot("person")
+            }
+        } else {
+            XCTFail("could not focus The Matrix on Home")
+        }
+
+        // Explore, a genre, and Music.
+        launch(tab: "explore")
+        sleep(2)
+        shot("explore")
+        press(.down, 5)
+        shot("explore-rows")
+        launch(tab: "explore", explore: "Music")
+        sleep(2)
+        shot("explore-music")
+
+        // Search, Requests, Downloads, Calendar, Settings.
+        launch(tab: "search")
+        shot("search")
+        launch(tab: "requests")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10), "an ask waiting for an OK")
+        shot("requests-waiting")
+        launch(tab: "downloads")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch.waitForExistence(timeout: 10), "a download")
+        shot("downloads")
+        launch(tab: "calendar")
+        shot("calendar")
+        launch(tab: "settings")
+        shot("settings")
+    }
+}

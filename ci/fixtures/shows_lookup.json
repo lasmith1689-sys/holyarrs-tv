@@ -1,0 +1,14 @@
+{
+ "shows": [
+  {
+   "name": "Breaking Bad",
+   "year": 2008,
+   "ids": {
+    "tmdb": "1396"
+   },
+   "poster": "https://image.tmdb.org/t/p/w500/p1396.jpg",
+   "title_id": 2,
+   "never_add": false
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "q": "dune",
+ "completions": [
+  "dune part two"
+ ],
+ "items": [
+  {
+   "kind": "movie",
+   "name": "Dune",
+   "sub": "2021",
+   "art": "https://image.tmdb.org/t/p/w500/p438631.jpg",
+   "tmdb": "438631"
+  },
+  {
+   "kind": "movie",
+   "name": "Dune: Part Two",
+   "sub": "2024",
+   "art": "https://image.tmdb.org/t/p/w500/p693134.jpg",
+   "tmdb": "693134",
+   "state": "asked"
+  },
+  {
+   "kind": "person",
+   "name": "Denis Villeneuve",
+   "sub": "Director",
+   "art": "https://image.tmdb.org/t/p/w500/dv.jpg",
+   "person_id": "137427"
+  },
+  {
+   "kind": "artist",
+   "name": "Hans Zimmer",
+   "sub": "Artist",
+   "art": "https://image.tmdb.org/t/p/w500/hz.jpg",
+   "mbid": "e6de1f3b-6484-491c-88dd-6d619f142abc"
+  }
+ ]
+}

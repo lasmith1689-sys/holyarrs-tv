@@ -1,0 +1,17 @@
+{
+ "count": 1,
+ "items": [
+  {
+   "kind": "movie",
+   "title": "Fight Club",
+   "year": 1999,
+   "title_id": 20,
+   "slot_id": 31,
+   "version": "Main",
+   "reason": "Every release found was smaller than your pick rules allow.",
+   "since": "2026-11-19T10:00:00Z",
+   "release_name": "Fight.Club.1999.720p.WEB",
+   "has_copy": false
+  }
+ ]
+}

@@ -1,0 +1,54 @@
+{
+ "seasons": [
+  {
+   "number": 1,
+   "name": "Season 1",
+   "episodes": 13,
+   "aired": 13,
+   "in_library": 13,
+   "missing": 0,
+   "not_out_yet": 0,
+   "keep_up_to_date": true
+  },
+  {
+   "number": 2,
+   "name": "Season 2",
+   "episodes": 13,
+   "aired": 13,
+   "in_library": 13,
+   "missing": 0,
+   "not_out_yet": 0,
+   "keep_up_to_date": true
+  },
+  {
+   "number": 3,
+   "name": "Season 3",
+   "episodes": 13,
+   "aired": 13,
+   "in_library": 13,
+   "missing": 0,
+   "not_out_yet": 0,
+   "keep_up_to_date": true
+  },
+  {
+   "number": 4,
+   "name": "Season 4",
+   "episodes": 13,
+   "aired": 13,
+   "in_library": 13,
+   "missing": 0,
+   "not_out_yet": 0,
+   "keep_up_to_date": true
+  },
+  {
+   "number": 5,
+   "name": "Season 5",
+   "episodes": 13,
+   "aired": 13,
+   "in_library": 8,
+   "missing": 5,
+   "not_out_yet": 0,
+   "keep_up_to_date": true
+  }
+ ]
+}

@@ -1,0 +1,48 @@
+{
+ "id": 1,
+ "kind": "movie",
+ "name": "The Matrix",
+ "year": 1999,
+ "overview": "A hacker learns the world is a simulation and joins the fight against its makers.",
+ "ids": {
+  "tmdb": "603",
+  "imdb": "tt0133093"
+ },
+ "keep_up_to_date": true,
+ "why_added": "ask",
+ "release_gate": "any",
+ "gate_delay_days": 0,
+ "stage": "done",
+ "gate_open": true,
+ "gate_reason": "",
+ "artwork": [
+  "https://image.tmdb.org/t/p/w500/p603.jpg"
+ ],
+ "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
+ "genres": [
+  "Action",
+  "Science Fiction"
+ ],
+ "runtime_minutes": 136,
+ "rating": "R",
+ "versions": [
+  {
+   "id": 1,
+   "name": "Main"
+  }
+ ],
+ "slots": [
+  {
+   "id": 1,
+   "version": "Main",
+   "version_id": 1,
+   "state": "in_library",
+   "state_label": "In library",
+   "file": {
+    "Quality": {
+     "resolution": 1080
+    }
+   }
+  }
+ ]
+}

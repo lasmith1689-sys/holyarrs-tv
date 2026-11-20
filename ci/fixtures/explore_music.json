@@ -1,0 +1,111 @@
+{
+ "v2": true,
+ "kid": false,
+ "cold": false,
+ "genres": [],
+ "genre": "",
+ "hero": {
+  "key": "h",
+  "kind": "album",
+  "mbid": "a1",
+  "name": "Random Access Memories",
+  "artist": "Daft Punk",
+  "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+  "image": "https://image.tmdb.org/t/p/w500/ram.jpg",
+  "genres": [
+   "electronic"
+  ]
+ },
+ "rows": [
+  {
+   "id": "top_albums",
+   "type": "top_albums",
+   "title": "Top albums",
+   "reason": "",
+   "shape": "square",
+   "items": [
+    {
+     "key": "al0",
+     "kind": "album",
+     "mbid": "al0",
+     "name": "Album 0",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al0.jpg",
+     "genres": []
+    },
+    {
+     "key": "al1",
+     "kind": "album",
+     "mbid": "al1",
+     "name": "Album 1",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al1.jpg",
+     "genres": []
+    },
+    {
+     "key": "al2",
+     "kind": "album",
+     "mbid": "al2",
+     "name": "Album 2",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al2.jpg",
+     "genres": []
+    },
+    {
+     "key": "al3",
+     "kind": "album",
+     "mbid": "al3",
+     "name": "Album 3",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al3.jpg",
+     "genres": []
+    },
+    {
+     "key": "al4",
+     "kind": "album",
+     "mbid": "al4",
+     "name": "Album 4",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al4.jpg",
+     "genres": []
+    },
+    {
+     "key": "al5",
+     "kind": "album",
+     "mbid": "al5",
+     "name": "Album 5",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al5.jpg",
+     "genres": []
+    },
+    {
+     "key": "al6",
+     "kind": "album",
+     "mbid": "al6",
+     "name": "Album 6",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al6.jpg",
+     "genres": []
+    },
+    {
+     "key": "al7",
+     "kind": "album",
+     "mbid": "al7",
+     "name": "Album 7",
+     "artist": "Daft Punk",
+     "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+     "image": "https://image.tmdb.org/t/p/w500/al7.jpg",
+     "genres": []
+    }
+   ]
+  }
+ ],
+ "next": ""
+}

@@ -1,0 +1,55 @@
+{
+ "tmdb_id": "1396",
+ "season": 1,
+ "episodes": [
+  {
+   "number": 1,
+   "name": "Episode 1",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  },
+  {
+   "number": 2,
+   "name": "Episode 2",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  },
+  {
+   "number": 3,
+   "name": "Episode 3",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  },
+  {
+   "number": 4,
+   "name": "Episode 4",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  },
+  {
+   "number": 5,
+   "name": "Episode 5",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  },
+  {
+   "number": 6,
+   "name": "Episode 6",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  },
+  {
+   "number": 7,
+   "name": "Episode 7",
+   "overview": "A stand-in episode.",
+   "runtime": 47,
+   "air_day": "2008-01-20"
+  }
+ ]
+}

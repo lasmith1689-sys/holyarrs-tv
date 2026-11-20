@@ -1,0 +1,168 @@
+{
+ "tmdb_id": "603",
+ "kind": "movie",
+ "name": "The Matrix",
+ "year": 1999,
+ "overview": "A hacker learns the world is a simulation.",
+ "poster": "https://image.tmdb.org/t/p/w500/p603.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
+ "genres": [
+  "Action",
+  "Science Fiction"
+ ],
+ "runtime_minutes": 136,
+ "rating": "R",
+ "people": [
+  {
+   "name": "Keanu Reeves",
+   "role": "actor",
+   "character": "Neo",
+   "profile": "https://image.tmdb.org/t/p/w500/c0.jpg",
+   "id": "6384"
+  },
+  {
+   "name": "Carrie-Anne Moss",
+   "role": "actor",
+   "character": "Trinity",
+   "profile": "https://image.tmdb.org/t/p/w500/c1.jpg",
+   "id": "6385"
+  },
+  {
+   "name": "Laurence Fishburne",
+   "role": "actor",
+   "character": "Morpheus",
+   "profile": "https://image.tmdb.org/t/p/w500/c2.jpg",
+   "id": "6386"
+  },
+  {
+   "name": "Hugo Weaving",
+   "role": "actor",
+   "character": "Agent Smith",
+   "profile": "https://image.tmdb.org/t/p/w500/c3.jpg",
+   "id": "6387"
+  }
+ ],
+ "moods": [
+  "mind-bending"
+ ],
+ "similar": [
+  {
+   "tmdb_id": "155",
+   "kind": "movie",
+   "name": "The Dark Knight",
+   "year": 2008,
+   "poster": "https://image.tmdb.org/t/p/w500/p155.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b155.jpg",
+   "overview": "The Dark Knight (2008): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "680",
+   "kind": "movie",
+   "name": "Pulp Fiction",
+   "year": 1994,
+   "poster": "https://image.tmdb.org/t/p/w500/p680.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b680.jpg",
+   "overview": "Pulp Fiction (1994): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "13",
+   "kind": "movie",
+   "name": "Forrest Gump",
+   "year": 1994,
+   "poster": "https://image.tmdb.org/t/p/w500/p13.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b13.jpg",
+   "overview": "Forrest Gump (1994): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "550",
+   "kind": "movie",
+   "name": "Fight Club",
+   "year": 1999,
+   "poster": "https://image.tmdb.org/t/p/w500/p550.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b550.jpg",
+   "overview": "Fight Club (1999): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "120",
+   "kind": "movie",
+   "name": "The Lord of the Rings: The Fellowship of the Ring",
+   "year": 2001,
+   "poster": "https://image.tmdb.org/t/p/w500/p120.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b120.jpg",
+   "overview": "The Lord of the Rings: The Fellowship of the Ring (2001): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "78",
+   "kind": "movie",
+   "name": "Blade Runner",
+   "year": 1982,
+   "poster": "https://image.tmdb.org/t/p/w500/p78.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b78.jpg",
+   "overview": "Blade Runner (1982): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  }
+ ],
+ "collection": {
+  "name": "The Matrix Collection",
+  "parts": [
+   {
+    "tmdb_id": "603",
+    "kind": "movie",
+    "name": "The Matrix",
+    "year": 1999,
+    "poster": "https://image.tmdb.org/t/p/w500/p603.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
+    "overview": "The Matrix (1999): a stand-in summary for the screen check.",
+    "genres": [
+     "Science Fiction",
+     "Drama"
+    ],
+    "in_library": false
+   },
+   {
+    "tmdb_id": "604",
+    "kind": "movie",
+    "name": "The Matrix Reloaded",
+    "year": 2003,
+    "poster": "https://image.tmdb.org/t/p/w500/p604.jpg",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/b604.jpg",
+    "overview": "The Matrix Reloaded (2003): a stand-in summary for the screen check.",
+    "genres": [
+     "Science Fiction",
+     "Drama"
+    ],
+    "in_library": false
+   }
+  ]
+ },
+ "title_id": 1
+}

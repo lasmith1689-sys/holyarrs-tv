@@ -1,0 +1,129 @@
+{
+ "tmdb_id": "1396",
+ "kind": "show",
+ "name": "Breaking Bad",
+ "year": 2008,
+ "overview": "A chemistry teacher turns to making drugs.",
+ "poster": "https://image.tmdb.org/t/p/w500/p1396.jpg",
+ "backdrop": "https://image.tmdb.org/t/p/w1280/b1396.jpg",
+ "genres": [
+  "Drama"
+ ],
+ "network": "AMC",
+ "people": [
+  {
+   "name": "Keanu Reeves",
+   "role": "actor",
+   "character": "Neo",
+   "profile": "https://image.tmdb.org/t/p/w500/c0.jpg",
+   "id": "6384"
+  },
+  {
+   "name": "Carrie-Anne Moss",
+   "role": "actor",
+   "character": "Trinity",
+   "profile": "https://image.tmdb.org/t/p/w500/c1.jpg",
+   "id": "6385"
+  }
+ ],
+ "seasons": [
+  {
+   "number": 1,
+   "episode_count": 13,
+   "year": 2008
+  },
+  {
+   "number": 2,
+   "episode_count": 13,
+   "year": 2009
+  },
+  {
+   "number": 3,
+   "episode_count": 13,
+   "year": 2010
+  },
+  {
+   "number": 4,
+   "episode_count": 13,
+   "year": 2011
+  },
+  {
+   "number": 5,
+   "episode_count": 13,
+   "year": 2012
+  }
+ ],
+ "similar": [
+  {
+   "tmdb_id": "100088",
+   "kind": "show",
+   "name": "The Last of Us",
+   "year": 2023,
+   "poster": "https://image.tmdb.org/t/p/w500/p100088.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b100088.jpg",
+   "overview": "The Last of Us (2023): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "94997",
+   "kind": "show",
+   "name": "House of the Dragon",
+   "year": 2022,
+   "poster": "https://image.tmdb.org/t/p/w500/p94997.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b94997.jpg",
+   "overview": "House of the Dragon (2022): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "1399",
+   "kind": "show",
+   "name": "Game of Thrones",
+   "year": 2011,
+   "poster": "https://image.tmdb.org/t/p/w500/p1399.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b1399.jpg",
+   "overview": "Game of Thrones (2011): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "66732",
+   "kind": "show",
+   "name": "Stranger Things",
+   "year": 2016,
+   "poster": "https://image.tmdb.org/t/p/w500/p66732.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b66732.jpg",
+   "overview": "Stranger Things (2016): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  },
+  {
+   "tmdb_id": "95396",
+   "kind": "show",
+   "name": "Severance",
+   "year": 2022,
+   "poster": "https://image.tmdb.org/t/p/w500/p95396.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b95396.jpg",
+   "overview": "Severance (2022): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  }
+ ],
+ "title_id": 2
+}

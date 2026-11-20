@@ -1,0 +1,49 @@
+{
+ "downloads": [
+  {
+   "id": 41,
+   "state": "downloading",
+   "label": "Downloading",
+   "text": "12 seeds",
+   "progress": 0.42,
+   "speed": 18400000,
+   "eta": 1260,
+   "active": true,
+   "phase": "downloading",
+   "name": "The.Last.of.Us.S02.2160p",
+   "title_id": 3,
+   "title": "The Last of Us",
+   "year": 2023,
+   "version": "Main",
+   "downloader": "qBittorrent",
+   "size": 41000000000,
+   "updated_at": "2026-11-20T21:30:00Z",
+   "can_act": true,
+   "kind": "show",
+   "episodes": [
+    {
+     "label": "S2"
+    }
+   ]
+  },
+  {
+   "id": 42,
+   "state": "paused",
+   "label": "Paused",
+   "progress": 0.88,
+   "speed": 0,
+   "active": false,
+   "phase": "paused",
+   "name": "Inception.2010.2160p",
+   "title_id": 11,
+   "title": "Inception",
+   "year": 2010,
+   "version": "Main",
+   "downloader": "SABnzbd",
+   "size": 62000000000,
+   "updated_at": "2026-11-20T21:00:00Z",
+   "can_act": true,
+   "kind": "movie"
+  }
+ ]
+}

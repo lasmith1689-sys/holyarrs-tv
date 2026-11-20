@@ -1,0 +1,32 @@
+{
+ "id": 2,
+ "kind": "show",
+ "name": "Breaking Bad",
+ "year": 2008,
+ "overview": "A chemistry teacher turns to making drugs.",
+ "ids": {
+  "tmdb": "1396"
+ },
+ "keep_up_to_date": true,
+ "why_added": "ask",
+ "release_gate": "any",
+ "gate_delay_days": 0,
+ "stage": "done",
+ "gate_open": true,
+ "gate_reason": "",
+ "artwork": [
+  "https://image.tmdb.org/t/p/w500/p1396.jpg"
+ ],
+ "backdrop": "https://image.tmdb.org/t/p/w1280/b1396.jpg",
+ "genres": [
+  "Drama",
+  "Crime"
+ ],
+ "versions": [],
+ "slots": [
+  {
+   "state": "partial",
+   "state_label": "4 of 5 seasons"
+  }
+ ]
+}

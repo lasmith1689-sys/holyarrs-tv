@@ -1,0 +1,30 @@
+{
+ "from": "2026-11-20",
+ "to": "2026-12-20",
+ "dates": [
+  {
+   "kind": "episode",
+   "title_id": 2,
+   "name": "Breaking Bad",
+   "season": 6,
+   "episode": 1,
+   "episode_name": "Pilot (again)",
+   "date": "2026-11-21T02:00:00Z",
+   "timed": true,
+   "air_day": "2026-11-20",
+   "poster": "https://image.tmdb.org/t/p/w500/p1396.jpg",
+   "state": "missing",
+   "item_id": 501
+  },
+  {
+   "kind": "digital",
+   "title_id": 12,
+   "name": "Interstellar",
+   "year": 2014,
+   "date": "2026-11-27",
+   "air_day": "2026-11-27",
+   "poster": "https://image.tmdb.org/t/p/w500/p157336.jpg",
+   "item_id": 12
+  }
+ ]
+}

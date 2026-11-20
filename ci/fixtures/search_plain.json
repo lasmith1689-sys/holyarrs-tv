@@ -1,0 +1,35 @@
+{
+ "query": {
+  "text": "space movies from 2014",
+  "plain": false,
+  "name": "",
+  "kind": "movie",
+  "year_from": 2014,
+  "year_to": 2014,
+  "genres": [
+   "Science Fiction"
+  ],
+  "people": [],
+  "words": [
+   "space"
+  ]
+ },
+ "titles": [],
+ "more": [
+  {
+   "tmdb_id": "157336",
+   "kind": "movie",
+   "name": "Interstellar",
+   "year": 2014,
+   "poster": "https://image.tmdb.org/t/p/w500/p157336.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b157336.jpg",
+   "overview": "Interstellar (2014): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 12
+  }
+ ]
+}

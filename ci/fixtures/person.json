@@ -1,0 +1,214 @@
+{
+ "person": {
+  "id": "6384",
+  "name": "Keanu Reeves",
+  "department": "Acting",
+  "biography": "Canadian actor.",
+  "birthday": "1964-09-02",
+  "birthplace": "Beirut, Lebanon",
+  "profile": "https://image.tmdb.org/t/p/w500/kr.jpg",
+  "known_for": []
+ },
+ "movies": [
+  {
+   "tmdb_id": "603",
+   "kind": "movie",
+   "name": "The Matrix",
+   "year": 1999,
+   "poster": "https://image.tmdb.org/t/p/w500/p603.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
+   "overview": "The Matrix (1999): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 1,
+   "characters": [
+    "Neo"
+   ]
+  },
+  {
+   "tmdb_id": "27205",
+   "kind": "movie",
+   "name": "Inception",
+   "year": 2010,
+   "poster": "https://image.tmdb.org/t/p/w500/p27205.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b27205.jpg",
+   "overview": "Inception (2010): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 11,
+   "characters": [
+    "Neo"
+   ]
+  },
+  {
+   "tmdb_id": "157336",
+   "kind": "movie",
+   "name": "Interstellar",
+   "year": 2014,
+   "poster": "https://image.tmdb.org/t/p/w500/p157336.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b157336.jpg",
+   "overview": "Interstellar (2014): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 12,
+   "characters": [
+    "Neo"
+   ]
+  },
+  {
+   "tmdb_id": "438631",
+   "kind": "movie",
+   "name": "Dune",
+   "year": 2021,
+   "poster": "https://image.tmdb.org/t/p/w500/p438631.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b438631.jpg",
+   "overview": "Dune (2021): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false,
+   "characters": [
+    "Neo"
+   ]
+  },
+  {
+   "tmdb_id": "693134",
+   "kind": "movie",
+   "name": "Dune: Part Two",
+   "year": 2024,
+   "poster": "https://image.tmdb.org/t/p/w500/p693134.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b693134.jpg",
+   "overview": "Dune: Part Two (2024): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false,
+   "ask": {
+    "id": 5,
+    "state": "asked",
+    "state_label": "Waiting for an OK",
+    "mine": true,
+    "people": 1
+   },
+   "characters": [
+    "Neo"
+   ]
+  },
+  {
+   "tmdb_id": "155",
+   "kind": "movie",
+   "name": "The Dark Knight",
+   "year": 2008,
+   "poster": "https://image.tmdb.org/t/p/w500/p155.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b155.jpg",
+   "overview": "The Dark Knight (2008): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false,
+   "characters": [
+    "Neo"
+   ]
+  }
+ ],
+ "page": 1,
+ "page_size": 100,
+ "total_pages": 1,
+ "total_results": 6,
+ "library": [
+  {
+   "tmdb_id": "603",
+   "kind": "movie",
+   "name": "The Matrix",
+   "year": 1999,
+   "poster": "https://image.tmdb.org/t/p/w500/p603.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
+   "overview": "The Matrix (1999): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 1,
+   "characters": [
+    "Neo"
+   ]
+  }
+ ],
+ "asked": [],
+ "known_for": [
+  {
+   "tmdb_id": "603",
+   "kind": "movie",
+   "name": "The Matrix",
+   "year": 1999,
+   "poster": "https://image.tmdb.org/t/p/w500/p603.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
+   "overview": "The Matrix (1999): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 1
+  },
+  {
+   "tmdb_id": "27205",
+   "kind": "movie",
+   "name": "Inception",
+   "year": 2010,
+   "poster": "https://image.tmdb.org/t/p/w500/p27205.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b27205.jpg",
+   "overview": "Inception (2010): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 11
+  },
+  {
+   "tmdb_id": "157336",
+   "kind": "movie",
+   "name": "Interstellar",
+   "year": 2014,
+   "poster": "https://image.tmdb.org/t/p/w500/p157336.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b157336.jpg",
+   "overview": "Interstellar (2014): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": true,
+   "title_id": 12
+  },
+  {
+   "tmdb_id": "438631",
+   "kind": "movie",
+   "name": "Dune",
+   "year": 2021,
+   "poster": "https://image.tmdb.org/t/p/w500/p438631.jpg",
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b438631.jpg",
+   "overview": "Dune (2021): a stand-in summary for the screen check.",
+   "genres": [
+    "Science Fiction",
+    "Drama"
+   ],
+   "in_library": false
+  }
+ ],
+ "coming_soon": [],
+ "stats": {}
+}

@@ -1,0 +1,14 @@
+{
+ "id": 1,
+ "name": "luke",
+ "role": "owner",
+ "perms": [
+  "ask",
+  "approve",
+  "manage_library",
+  "settings",
+  "users"
+ ],
+ "two_factor": false,
+ "views": {}
+}

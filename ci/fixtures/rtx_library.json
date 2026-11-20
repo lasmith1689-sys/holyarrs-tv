@@ -1,0 +1,22 @@
+{
+ "films": [
+  {
+   "id": "matrix",
+   "title": "The Matrix",
+   "year": 1999,
+   "sort": "matrix",
+   "duration_s": 8160,
+   "width": 1920,
+   "height": 800,
+   "upscale": true,
+   "cleanup": false,
+   "range": "SDR"
+  }
+ ],
+ "status": {
+  "scanned": true,
+  "probed": 1,
+  "posters": 1,
+  "films": 1
+ }
+}

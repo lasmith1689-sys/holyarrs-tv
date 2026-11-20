@@ -1,0 +1,61 @@
+# XcodeGen spec for the HolyArrs TV app. On a Mac:  brew install xcodegen && xcodegen generate
+# Required environment variables (see README.md): APP_BUNDLE_ID, DEVELOPMENT_TEAM
+name: HolyArrsTV
+options:
+  deploymentTarget:
+    tvOS: "18.0"
+settings:
+  base:
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    VERSIONING_SYSTEM: apple-generic
+    DEVELOPMENT_TEAM: ${DEVELOPMENT_TEAM}
+    SWIFT_VERSION: "5.0"
+targets:
+  HolyArrsTV:
+    type: application
+    platform: tvOS
+    sources:
+      - path: Sources
+      - path: Resources/Assets.xcassets
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleDisplayName: HolyArrs
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        UIRequiredDeviceCapabilities: [arm64]
+        UILaunchScreen: {}
+        # Plain HTTP to HolyArrs and the RTX server on the home LAN (IP addresses, so ATS exception domains
+        # cannot be used). Fine for internal TestFlight testing.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+          NSAllowsLocalNetworking: true
+        NSLocalNetworkUsageDescription: Connects to HolyArrs and the RTX 4K server on your PC.
+        ITSAppUsesNonExemptEncryption: false
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ${APP_BUNDLE_ID}
+        PRODUCT_NAME: HolyArrsTV
+        ASSETCATALOG_COMPILER_APPICON_NAME: "App Icon & Top Shelf Image"
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "3"
+        GENERATE_INFOPLIST_FILE: NO
+    scheme:
+      testTargets:
+        - HolyArrsTVUITests
+  # Simulator-only screen check (.github/workflows/ui-check.yml); never archived or uploaded.
+  HolyArrsTVUITests:
+    type: bundle.ui-testing
+    platform: tvOS
+    sources:
+      - path: UITests
+    dependencies:
+      - target: HolyArrsTV
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ${APP_BUNDLE_ID}.uitests
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "3"
+        TEST_TARGET_NAME: HolyArrsTV

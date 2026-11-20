@@ -1,0 +1,64 @@
+{
+ "mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56",
+ "name": "Daft Punk",
+ "type": "Group",
+ "country": "FR",
+ "genres": [
+  "electronic",
+  "house"
+ ],
+ "image": "https://image.tmdb.org/t/p/w500/dp.jpg",
+ "have": 0,
+ "total": 4,
+ "bio": {
+  "title": "Daft Punk",
+  "extract": "Daft Punk were a French electronic music duo."
+ },
+ "albums": [
+  {
+   "mbid": "al0",
+   "name": "Homework",
+   "type": "Album",
+   "shelf": "albums",
+   "image": "https://image.tmdb.org/t/p/w500/al0.jpg",
+   "release_date": "1997-01-01"
+  },
+  {
+   "mbid": "al1",
+   "name": "Discovery",
+   "type": "Album",
+   "shelf": "albums",
+   "image": "https://image.tmdb.org/t/p/w500/al1.jpg",
+   "release_date": "2001-01-01"
+  },
+  {
+   "mbid": "al2",
+   "name": "Human After All",
+   "type": "Album",
+   "shelf": "albums",
+   "image": "https://image.tmdb.org/t/p/w500/al2.jpg",
+   "release_date": "2005-01-01"
+  },
+  {
+   "mbid": "al3",
+   "name": "Random Access Memories",
+   "type": "Album",
+   "shelf": "albums",
+   "image": "https://image.tmdb.org/t/p/w500/al3.jpg",
+   "release_date": "2013-01-01"
+  }
+ ],
+ "top": [],
+ "similar": [
+  {
+   "mbid": "j1",
+   "name": "Justice",
+   "image": "https://image.tmdb.org/t/p/w500/j1.jpg"
+  }
+ ],
+ "related": [],
+ "kid": false,
+ "missing": {
+  "count": 0
+ }
+}
