@@ -76,7 +76,7 @@ struct Hero: View {
                     }
                     HStack(spacing: 20) {
                         if let y = item.year { Text(String(y)) }
-                        Text(item.kind == .show ? "Show" : "Movie")
+                        Text(item.kind == .show ? "Show" : item.kind == .artist ? (item.line ?? "Music") : "Movie")
                         ForEach(item.genres.prefix(3), id: \.self) { Text($0) }
                         if let s = item.status { StatusDot(status: s) }
                     }
@@ -114,6 +114,7 @@ struct Hero: View {
                 .padding(.bottom, 60)
             }
             .frame(height: 860)
+            .ignoresSafeArea(edges: .horizontal)  // edge to edge, like the Apple TV app's heroes
             .task(id: item.id) {
                 trailer = nil
                 // Give the picture a moment first; a title skipped past quickly never loads its trailer.

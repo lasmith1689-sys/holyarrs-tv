@@ -86,7 +86,7 @@ struct DownloadRowView: View {
                         .frame(width: max(10, 900 * progress))
                 }
                 .frame(width: 900, height: 10)
-                Text(line).font(.callout).foregroundStyle(Theme.dim).lineLimit(1)
+                Text(line).font(.callout).foregroundStyle(Theme.dim).lineLimit(1).frame(width: 1000, alignment: .leading)
             }
             Spacer()
             Badge(text: (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())

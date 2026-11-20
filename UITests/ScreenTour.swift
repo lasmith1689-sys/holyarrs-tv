@@ -47,6 +47,7 @@ final class ScreenTour: XCTestCase {
         for _ in 0..<limit {
             if e.exists && e.hasFocus { return true }
             press(dir)
+            usleep(400_000)  // let focus settle before reading it
         }
         return e.exists && e.hasFocus
     }
@@ -68,7 +69,12 @@ final class ScreenTour: XCTestCase {
         launch(tab: "home")
         _ = app.buttons["More info"].waitForExistence(timeout: 15)
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
-        if focus(matrix, .down, limit: 3) || focus(matrix, .left, limit: 4) {
+        // Tab bar -> hero buttons -> Just arrived (The Matrix is its first card).
+        press(.down)
+        sleep(1)
+        press(.down)
+        sleep(1)
+        if focus(matrix, .left, limit: 3) {
             press(.select)
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
             sleep(2)
