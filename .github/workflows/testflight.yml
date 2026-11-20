@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 60
     env:
       HOMEBREW_NO_AUTO_UPDATE: '1'
-      HOLYARRS_BUNDLE_ID: ${{ vars.HOLYARRS_BUNDLE_ID || 'com.lasmith1689.holyarrstv' }}  # App Store Connect app record (tvOS)
+      HOLYARRS_BUNDLE_ID: ${{ vars.HOLYARRS_BUNDLE_ID || 'com.lasmith1689.slot03' }}  # App Store Connect app record (tvOS)
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:

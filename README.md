@@ -38,10 +38,11 @@ Keep `C:\HolyArrs\config\holyarrs.key` safe: backups don't include it.
 - **Screen check** (runs on every push to the app): compiles for a device, then opens every screen in an
   Apple TV simulator against a stand-in HolyArrs (`ci/mock_server.py`, answers in `ci/fixtures`, made by
   `ci/make_fixtures.py`). Screenshots are pushed to the `ci-screens` branch.
-- **TestFlight**: Actions > TestFlight > Run workflow. Needs repository secrets `APPLE_TEAM_ID`, `ASC_KEY_ID`,
-  `ASC_ISSUER_ID`, `ASC_KEY_P8` (the same App Store Connect key as RTX 4K) and an App Store Connect app record
-  (tvOS) whose bundle ID is the repository variable `HOLYARRS_BUNDLE_ID` (default `com.lasmith1689.holyarrstv`).
-  Without the secrets it only compiles.
+- **TestFlight**: Actions > TestFlight > Run workflow. Uses repository secrets `APPLE_TEAM_ID`, `ASC_KEY_ID`,
+  `ASC_ISSUER_ID`, `ASC_KEY_P8` (the same App Store Connect key as RTX 4K) and the App Store Connect app
+  "HolyArrs TV": spare slot 03, bundle ID `com.lasmith1689.slot03` (repository variable `HOLYARRS_BUNDLE_ID`),
+  claimed with `claim_slot.py claim 03 "HolyArrs TV"`, tvOS platform added through the API, TestFlight group `Me`.
+  Each build number is `<run number> x 10 + <attempt>`. On the Apple TV: TestFlight > HolyArrs TV.
 
 ## Files
 | File | What it is |
