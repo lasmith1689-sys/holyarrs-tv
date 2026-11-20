@@ -1,0 +1,61 @@
+# Builds the HolyArrs server as a plain Windows program (holyarrs.exe) from the official source at a
+# pinned tag, the same steps as HolyArrs' own Dockerfile: build the web pages, then cross-compile the Go
+# program with them embedded. HolyArrs publishes Linux archives but no Windows ones (docs/run/portable.md).
+name: HolyArrs server (Windows build)
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: HolyArrs tag to build
+        default: "1.2.0"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out HolyArrs ${{ inputs.ref }}
+        uses: actions/checkout@v4
+        with:
+          repository: HolyArrs/HolyArrs
+          ref: ${{ inputs.ref }}
+          path: src
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: src/go.mod
+          cache: false
+
+      - name: Build the web pages
+        working-directory: src/app/frontend
+        run: |
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run build
+
+      - name: Build holyarrs.exe (windows/amd64)
+        working-directory: src
+        run: |
+          set -eu
+          commit=$(git rev-parse --short HEAD)
+          CGO_ENABLED=0 GOOS=windows GOARCH=amd64 \
+            go build -trimpath -ldflags="-s -w -X main.version=${{ inputs.ref }}+$commit" \
+            -o ../out/holyarrs.exe ./app/backend/cmd/holyarrs
+          cp LICENSE ../out/LICENSE
+          cd ../out
+          echo "${{ inputs.ref }} $commit" > SOURCE.txt
+          sha256sum holyarrs.exe LICENSE SOURCE.txt > SHA256SUMS
+          cat SHA256SUMS
+          ls -la
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: holyarrs-windows-amd64
+          path: out/
+          retention-days: 14
