@@ -280,7 +280,8 @@ struct SportQueueRow: View {
                 Text("\(Int(progress * 100))%").font(.system(size: F(24), weight: .bold)).foregroundStyle(Theme.accent)
             }
             ProgressView(value: progress).tint(Theme.accent)
-            Text([q["quality"].string, q["status"].string].compactMap { $0 }.joined(separator: " · "))
+            // Sportarr's status is sometimes a number (its enum); only words are shown.
+            Text([q["quality"].string, q["status"].string.flatMap { Int($0) == nil ? $0 : nil }].compactMap { $0 }.joined(separator: " · "))
                 .font(.system(size: F(20))).foregroundStyle(Theme.dim).lineLimit(1)
         }
         .padding(S(22))

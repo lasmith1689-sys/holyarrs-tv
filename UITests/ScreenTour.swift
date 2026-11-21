@@ -118,7 +118,10 @@ final class ScreenTour: XCTestCase {
         launch(tab: "sports")
         _ = app.staticTexts["Ready to watch"].waitForExistence(timeout: 15)
         let race = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Las Vegas Grand Prix - Race'")).firstMatch
-        if focus(race, .down, limit: 4) {
+        // Tab bar -> Ready to watch (the race is its first card).
+        press(.down)
+        sleep(1)
+        if focus(race, .left, limit: 3) {
             press(.select)
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a downloaded race")
             sleep(2)

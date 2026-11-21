@@ -7,7 +7,7 @@ struct HolyArrsTVApp: App {
         #if os(iOS)
         // Playback, not ambient: sound with the ring switch off, AirPlay to an Apple TV, and a cast that keeps going
         // when the phone locks (UIBackgroundModes audio).
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, policy: .longFormVideo)
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback)
         #endif
     }
 
@@ -46,13 +46,16 @@ struct RootView: View {
                     if sportarr.enabled {
                         Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
                     }
-                    Tab("Search", systemImage: "magnifyingglass", value: "search") { Stack { SearchView() } }
+                    // On Apple TV, Search and Settings are icon-only so all eight tabs fit across the top.
+                    Tab(value: "search", role: .search) { Stack { SearchView() } }
                     Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsView() } }
                     if me.canManage {
                         Tab("Downloads", systemImage: "arrow.down.circle", value: "downloads") { Stack { DownloadsView() } }
                     }
                     Tab("Calendar", systemImage: "calendar", value: "calendar") { Stack { CalendarView() } }
-                    Tab("Settings", systemImage: "gearshape", value: "settings") { Stack { SettingsView() } }
+                    Tab(value: "settings") { Stack { SettingsView() } } label: {
+                        if Device.isTV { Image(systemName: "gearshape").accessibilityLabel("Settings") } else { Label("Settings", systemImage: "gearshape") }
+                    }
                 }
             } else {
                 SignInView()
