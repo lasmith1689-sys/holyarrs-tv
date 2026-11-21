@@ -1,5 +1,7 @@
 """Writes ci/fixtures/*.json: stand-in HolyArrs answers shaped like HolyArrs 1.2.0's (field names from its
-OpenAPI file, Go handlers and web app types). Replace any of them with a real answer captured from the PC
+OpenAPI file, Go handlers and web app types), checked on 2026-11-20 against the shapes (keys and types only,
+no values) of a real install's answers: Home cards and Library titles carry no poster (backdrop and logo only,
+"artwork" empty), and Library hits in search suggestions carry no picture. Replace any of them with a real answer captured from the PC
 (ci/capture_fixtures.ps1) to test against the real shape."""
 import json
 from pathlib import Path
@@ -42,13 +44,13 @@ w("me", {"id": 1, "name": "luke", "role": "owner", "perms": ["ask", "approve", "
          "two_factor": False, "views": {}})
 w("home", {"rows": ["arrived", "approval", "asks", "new_season", "following", "soon", "discover"], "owner": True, "kid": False,
            "arrived": [{"key": "m1", "kind": "movie", "title_id": 1, "name": "The Matrix", "year": 1999, "line": "Added today",
-                        "href": "/title/1", "backdrop": B.format("b603"), "poster": T.format("p603")},
+                        "href": "/title/1", "backdrop": B.format("b603"), "logo": T.format("l603")},
                        {"key": "s2", "kind": "show", "title_id": 2, "name": "Breaking Bad", "year": 2008, "line": "S5 · 3 new episodes",
-                        "href": "/title/2", "backdrop": B.format("b1396"), "poster": T.format("p1396"), "season": 5}],
+                        "href": "/title/2", "backdrop": B.format("b1396"), "season": 5}],
            "new_seasons": [], "following": [{"key": "f2", "kind": "show", "title_id": 2, "name": "Breaking Bad", "year": 2008,
-                                              "href": "/title/2", "poster": T.format("p1396")}],
+                                              "href": "/title/2", "backdrop": B.format("b1396")}],
            "soon": [{"key": "c9", "kind": "movie", "title_id": 12, "name": "Interstellar", "year": 2014, "line": "Digital on Friday",
-                     "href": "/title/12", "backdrop": B.format("b157336"), "poster": T.format("p157336")}],
+                     "href": "/title/12", "backdrop": B.format("b157336")}],
            "missing_count": 0, "ask_progress": {}})
 w("explore_head", {"type": "all", "building": False, "seeds": 3, "tail_cap": 8, "tail_rows": 4,
                    "hero": [movies[3], movies[4], shows[1]], "taste": ["Science Fiction"],
@@ -68,7 +70,7 @@ w("explore_music", {"v2": True, "kid": False, "cold": False, "genres": [], "genr
                                          "artist_mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56", "image": T.format(f"al{i}"), "genres": []} for i in range(8)]}],
                     "next": ""})
 w("suggest", {"q": "dune", "completions": ["dune part two"], "items": [
-    {"kind": "movie", "name": "Dune", "sub": "2021", "art": T.format("p438631"), "tmdb": "438631"},
+    {"kind": "movie", "name": "Dune", "sub": "2021", "tmdb": "438631", "title_id": 13, "state": "have"},
     {"kind": "movie", "name": "Dune: Part Two", "sub": "2024", "art": T.format("p693134"), "tmdb": "693134", "state": "asked"},
     {"kind": "person", "name": "Denis Villeneuve", "sub": "Director", "art": T.format("dv"), "person_id": "137427"},
     {"kind": "artist", "name": "Hans Zimmer", "sub": "Artist", "art": T.format("hz"), "mbid": "e6de1f3b-6484-491c-88dd-6d619f142abc"}]})
@@ -107,7 +109,7 @@ w("shows_lookup", {"shows": [{"name": "Breaking Bad", "year": 2008, "ids": {"tmd
 w("people_search", {"people": [{"id": "6384", "name": "Keanu Reeves", "profile": T.format("kr")}], "page": 1, "total_pages": 1})
 w("title_movie", {"id": 1, "kind": "movie", "name": "The Matrix", "year": 1999, "overview": "A hacker learns the world is a simulation and joins the fight against its makers.",
                   "ids": {"tmdb": "603", "imdb": "tt0133093"}, "keep_up_to_date": True, "why_added": "ask", "release_gate": "any", "gate_delay_days": 0,
-                  "stage": "done", "gate_open": True, "gate_reason": "", "artwork": [T.format("p603")], "backdrop": B.format("b603"),
+                  "stage": "done", "gate_open": True, "gate_reason": "", "artwork": [], "backdrop": B.format("b603"),
                   "genres": ["Action", "Science Fiction"], "runtime_minutes": 136, "rating": "R", "versions": [{"id": 1, "name": "Main"}],
                   "slots": [{"id": 1, "version": "Main", "version_id": 1, "state": "in_library", "state_label": "In library",
                              "file": {"Quality": {"resolution": 1080}}}]})

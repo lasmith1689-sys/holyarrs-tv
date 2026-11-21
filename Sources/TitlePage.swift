@@ -318,6 +318,12 @@ struct TitlePage: View {
         i.network = m["network"].string
         i.moods = m["moods"].names
         i.titleId = i.titleId ?? m["title_id"].int
+        i.neverAdd = i.neverAdd || m["never_add"].bool
+        let a = m["ask"]
+        if i.askLabel == nil, let id = a["id"].int, a["state"].string != "turned_down" {
+            i.askLabel = a["state_label"].string
+            if a["mine"].bool, i.myAsk == nil { i.myAsk = (id, a["state_label"].string ?? "", a["state"].string ?? "") }
+        }
         i.cast = m.first("cast", "people").array.prefix(20).compactMap { p in
             guard let name = p["name"].string else { return nil }
             return CastMember(id: p["id"].string, name: name, role: p["character"].string ?? p["role"].string?.capitalized,

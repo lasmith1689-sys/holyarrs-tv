@@ -183,7 +183,7 @@ struct HomeView: View {
                 switch row {
                 case "arrived": out.append(("Just arrived", "New in the Library this fortnight", cards("arrived"), true))
                 case "new_season": out.append(("New seasons", nil, cards("new_seasons"), true))
-                case "following": out.append(("Shows you follow", nil, cards("following"), false))
+                case "following": out.append(("Following", nil, cards("following"), true))
                 case "soon": out.append(("Coming soon", nil, cards("soon"), true))
                 default: break
                 }

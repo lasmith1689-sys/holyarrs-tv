@@ -12,7 +12,9 @@ enum APIError: LocalizedError {
         case .signedOut: return "Signed out. Sign in to HolyArrs again."
         case .twoFactor: return "This account asks for a second step."
         case let .server(code, body):
-            let plain = (try? JSON.parse(Data(body.utf8)))?["error"].string ?? body
+            let j = try? JSON.parse(Data(body.utf8))
+            if let text = j?["text"].string { return text }
+            let plain = j?["error"].string ?? body
             return "HolyArrs answered \(code): \(plain.prefix(300))"
         }
     }

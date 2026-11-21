@@ -20,7 +20,7 @@
    "line": "Added today",
    "href": "/title/1",
    "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
-   "poster": "https://image.tmdb.org/t/p/w500/p603.jpg"
+   "logo": "https://image.tmdb.org/t/p/w500/l603.jpg"
   },
   {
    "key": "s2",
@@ -31,7 +31,6 @@
    "line": "S5 \u00b7 3 new episodes",
    "href": "/title/2",
    "backdrop": "https://image.tmdb.org/t/p/w1280/b1396.jpg",
-   "poster": "https://image.tmdb.org/t/p/w500/p1396.jpg",
    "season": 5
   }
  ],
@@ -44,7 +43,7 @@
    "name": "Breaking Bad",
    "year": 2008,
    "href": "/title/2",
-   "poster": "https://image.tmdb.org/t/p/w500/p1396.jpg"
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b1396.jpg"
   }
  ],
  "soon": [
@@ -56,8 +55,7 @@
    "year": 2014,
    "line": "Digital on Friday",
    "href": "/title/12",
-   "backdrop": "https://image.tmdb.org/t/p/w1280/b157336.jpg",
-   "poster": "https://image.tmdb.org/t/p/w500/p157336.jpg"
+   "backdrop": "https://image.tmdb.org/t/p/w1280/b157336.jpg"
   }
  ],
  "missing_count": 0,

@@ -48,15 +48,44 @@ struct Artwork: View {
     }
 }
 
+/// Posters HolyArrs leaves out of some answers (Library titles, Library hits in search suggestions): read once
+/// from the title's TMDB page through HolyArrs (GET /metadata/{kind}/{tmdb}) and kept for the session.
+@MainActor
+final class PosterCache {
+    static let shared = PosterCache()
+    private var known: [String: String] = [:]
+    private var asking: [String: Task<String?, Never>] = [:]
+
+    func poster(_ api: HolyArrs, kind: Card.Kind, tmdb: String) async -> String? {
+        let key = "\(kind.rawValue):\(tmdb)"
+        if let p = known[key] { return p }
+        if let t = asking[key] { return await t.value }
+        let t = Task { () -> String? in
+            (try? await api.get("metadata/\(kind.rawValue)/\(tmdb)"))?["poster"].string
+        }
+        asking[key] = t
+        let p = await t.value
+        asking[key] = nil
+        if let p { known[key] = p }
+        return p
+    }
+}
+
 /// A poster that lifts and glows when focused, with its title underneath (as in RTX 4K's gallery).
 struct PosterCell: View {
     let card: Card
     var width: CGFloat = S(250)
     @Environment(\.isFocused) private var focused
+    @EnvironmentObject private var api: HolyArrs
+    @State private var fetched: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: S(14)) {
-            Artwork(raw: card.poster, width: 342, title: card.name, subtitle: card.year.map(String.init))
+            Artwork(raw: card.poster ?? fetched, width: 342, title: card.name, subtitle: card.year.map(String.init))
+                .task(id: card.id) {
+                    guard card.poster == nil, card.kind != .artist, let tmdb = card.tmdb else { return }
+                    fetched = await PosterCache.shared.poster(api, kind: card.kind, tmdb: tmdb)
+                }
                 .frame(width: width, height: width * 1.5)
                 .overlay(alignment: .topTrailing) {
                     if let status = card.status { StatusDot(status: status).padding(S(12)) }

@@ -8,8 +8,9 @@
    "kind": "movie",
    "name": "Dune",
    "sub": "2021",
-   "art": "https://image.tmdb.org/t/p/w500/p438631.jpg",
-   "tmdb": "438631"
+   "tmdb": "438631",
+   "title_id": 13,
+   "state": "have"
   },
   {
    "kind": "movie",

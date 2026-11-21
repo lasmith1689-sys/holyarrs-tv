@@ -15,9 +15,7 @@
  "stage": "done",
  "gate_open": true,
  "gate_reason": "",
- "artwork": [
-  "https://image.tmdb.org/t/p/w500/p603.jpg"
- ],
+ "artwork": [],
  "backdrop": "https://image.tmdb.org/t/p/w1280/b603.jpg",
  "genres": [
   "Action",
