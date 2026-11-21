@@ -1,25 +1,37 @@
+import AVFoundation
 import SwiftUI
 
 @main
 struct HolyArrsTVApp: App {
+    init() {
+        #if os(iOS)
+        // Playback, not ambient: sound with the ring switch off, AirPlay to an Apple TV, and a cast that keeps going
+        // when the phone locks (UIBackgroundModes audio).
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .moviePlayback, policy: .longFormVideo)
+        #endif
+    }
+
     @StateObject private var api = HolyArrs()
     @StateObject private var rtx = RTXServer()
+    @StateObject private var sportarr = Sportarr()
 
     var body: some Scene {
         WindowGroup {
             RootView()
                 .environmentObject(api)
                 .environmentObject(rtx)
+                .environmentObject(sportarr)
                 .preferredColorScheme(.dark)
                 .tint(Theme.accent)
         }
     }
 }
 
-/// Signs in first, then the tab bar: Home, Explore, Search, Requests, Downloads, Calendar, Settings.
+/// Signs in first, then the tab bar: Home, Explore, Sports, Search, Requests, Downloads, Calendar, Settings.
 struct RootView: View {
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
+    @EnvironmentObject private var sportarr: Sportarr
     @AppStorage("tab") private var tab = "home"
 
     var body: some View {
@@ -31,6 +43,9 @@ struct RootView: View {
                 TabView(selection: $tab) {
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
                     Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
+                    if sportarr.enabled {
+                        Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
+                    }
                     Tab("Search", systemImage: "magnifyingglass", value: "search") { Stack { SearchView() } }
                     Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsView() } }
                     if me.canManage {
@@ -45,6 +60,7 @@ struct RootView: View {
         }
         .task(id: api.address) { await api.restore() }
         .task(id: rtx.address) { await rtx.refresh() }
+        .task(id: "\(sportarr.address)|\(sportarr.enabled)") { await sportarr.connect() }
     }
 }
 

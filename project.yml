@@ -81,7 +81,9 @@ targets:
         NSAppTransportSecurity:
           NSAllowsArbitraryLoads: true
           NSAllowsLocalNetworking: true
-        NSLocalNetworkUsageDescription: Connects to HolyArrs and the RTX 4K server on your PC.
+        NSLocalNetworkUsageDescription: Connects to HolyArrs, Sportarr and the RTX 4K server on your PC.
+        # Keeps an AirPlay cast to an Apple TV going while the phone is locked.
+        UIBackgroundModes: [audio]
         ITSAppUsesNonExemptEncryption: false
     settings:
       base:

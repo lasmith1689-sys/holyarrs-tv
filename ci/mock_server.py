@@ -10,6 +10,7 @@ PNGs. RTX routes (/library, /play, /stop) answer from rtx_library.json. Every re
 """
 import json
 import struct
+import time
 import sys
 import zlib
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
@@ -57,6 +58,49 @@ GETS = {
     "shows/lookup": "shows_lookup",
     "people/search": "people_search",
 }
+
+
+SPORTARR_KEY = "sportarr-key-for-tests"
+F1_FILE = "Formula 1 - s2026e47 - Las Vegas Grand Prix - Race - 1080p.mkv"
+
+
+def iso(days, hour=None):
+    """A date `days` from today: a set start time (UTC) when hour is given, else Sportarr's date-only midnight."""
+    t = time.gmtime(time.time() + days * 86400)
+    return time.strftime("%Y-%m-%dT", t) + (f"{hour:02d}:00:00Z" if hour is not None else "00:00:00Z")
+
+
+def art(name, wide=True):
+    return f"http://127.0.0.1:{PORT}/api/v1/artwork/sport/{name}/{'w780' if wide else 'w342'}.png"
+
+
+def sport_leagues():
+    def lg(i, name, sport, fmt, monitored, events, upcoming):
+        return {"id": i, "externalId": f"lg-{i:06d}", "name": name, "sport": sport, "sportFormat": fmt,
+                "monitored": monitored, "monitorType": "Future" if monitored else "None", "eventCount": events,
+                "upcomingCount": upcoming, "fileCount": 1 if i == 1 else 0, "logoUrl": art(f"logo{i}", False),
+                "posterUrl": None, "bannerUrl": art(f"banner{i}"), "monitoredTeams": []}
+    return [lg(1, "Formula 1", "Motorsport", "EventSport", True, 120, 6), lg(2, "NFL", "Football", "TeamvsTeam", False, 0, 0),
+            lg(3, "English Premier League", "Soccer", "TeamvsTeam", False, 0, 0), lg(4, "PGA Tour", "Golf", "EventSport", False, 48, 4)]
+
+
+def sport_events():
+    def ev(i, lid, league, title, date, sport, monitored=False, home=None, away=None, file=None, venue=None):
+        return {"id": i, "leagueId": lid, "leagueName": league, "leagueLogoUrl": art(f"logo{lid}", False), "title": title,
+                "eventDate": date, "sport": sport, "venue": venue, "homeTeamName": home, "awayTeamName": away,
+                "thumbUrl": art(f"event{i}"), "monitored": monitored, "hasFile": file is not None,
+                "filePath": f"D:\\Sports\\Formula 1\\Season 2026\\{file}" if file else None, "files": [],
+                "status": "scheduled", "homeScore": 27 if home else None, "awayScore": 24 if home else None}
+    return [
+        ev(1, 1, "Formula 1", "Las Vegas Grand Prix - Race", iso(-1, 4), "Motorsport", True, file=F1_FILE, venue="Las Vegas Strip Circuit"),
+        ev(2, 1, "Formula 1", "Las Vegas Grand Prix - Qualifying", iso(-2, 4), "Motorsport", True,
+           file="Formula 1 - s2026e46 - Las Vegas Grand Prix - Qualifying - 1080p.mkv", venue="Las Vegas Strip Circuit"),
+        ev(3, 2, "NFL", "Philadelphia Eagles vs New York Giants", iso(1, 18), "Football", True,
+           home="New York Giants", away="Philadelphia Eagles", venue="MetLife Stadium"),
+        ev(4, 3, "English Premier League", "Arsenal vs Chelsea", iso(2, 16), "Soccer", home="Arsenal", away="Chelsea", venue="Emirates Stadium"),
+        ev(5, 4, "PGA Tour", "The RSM Classic - Round 1", iso(3), "Golf", venue="Sea Island"),
+        ev(6, 1, "Formula 1", "Qatar Grand Prix - Race", iso(7, 16), "Motorsport", True, venue="Lusail International Circuit"),
+    ]
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -109,6 +153,14 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, fixture("rtx_library"))
         if path in ("/play", "/stop"):
             return self._send(200, {"session": "s1", "url": "/missing.m3u8", "ready": True})
+        if path == "/sports":
+            return self._send(200, {"files": [{"id": "0123456789ab", "name": F1_FILE, "title": F1_FILE[:-4], "duration_s": 7340.0,
+                                               "width": 1920, "height": 1080, "range": "SDR", "upscale": True, "note": ""}]})
+        # Sportarr: hands its key to its own page while its login is off, then wants it in X-Api-Key.
+        if path == "/initialize.json":
+            return self._send(200, {"apiKey": SPORTARR_KEY, "version": "4.1.12.1122", "urlBase": ""})
+        if path.startswith("/api/") and not path.startswith("/api/v1/"):
+            return self.sportarr(path[len("/api/"):], q)
         if not path.startswith("/api/v1/"):
             return self._send(404, {"error": "not found"})
         p = path[len("/api/v1/"):]
@@ -187,6 +239,41 @@ class Handler(BaseHTTPRequestHandler):
                     data = dict(data, asks=[a for a in data["asks"] if a.get("mine")])
                 return self._send(200, data)
         return self._send(404, {"error": f"no fixture for {p}"})
+
+    def sportarr(self, p, q):
+        if self.headers.get("X-Api-Key") != SPORTARR_KEY:
+            return self._send(401, {"error": "Unauthorized", "message": "API key required"})
+        if self.command in ("POST", "PUT", "DELETE"):
+            self._body()
+            return self._send(200, {"success": True})
+        events = sport_events()
+        if p == "system/status":
+            return self._send(200, {"appName": "Sportarr", "version": "4.1.12.1122", "isDocker": False})
+        if p == "leagues":
+            return self._send(200, sport_leagues())
+        if p == "calendar":
+            return self._send(200, events)
+        if p == "queue":
+            return self._send(200, [{"id": 1, "eventId": 6, "title": "Formula.1.2026.Round23.Qatar.Qualifying.1080p.WEB.h264",
+                                     "event": {"title": "Qatar Grand Prix - Qualifying"}, "status": 1, "quality": "WEB 1080p",
+                                     "size": 4_000_000_000, "downloaded": 1_700_000_000, "progress": 42.5}])
+        parts = p.split("/")
+        if parts[0] == "leagues" and len(parts) >= 2 and parts[1] == "search":
+            return self._send(200, [{"idLeague": "lg-000044", "strLeague": "NBA", "strSport": "Basketball",
+                                     "strSportFormat": "TeamvsTeam", "strBadge": art("nba", False), "strCountry": "USA"}])
+        if parts[0] == "leagues" and len(parts) == 3 and parts[2] == "events":
+            lid = int(parts[1])
+            return self._send(200, [e for e in events if e["leagueId"] == lid])
+        if parts[0] == "leagues" and len(parts) == 3 and parts[2] == "teams":
+            return self._send(200, [{"idTeam": f"tm-{i}", "strTeam": n, "strTeamBadge": art(f"team{i}", False)}
+                                    for i, n in enumerate(["Dallas Cowboys", "New York Giants", "New York Jets", "Philadelphia Eagles"])])
+        if parts[0] == "leagues" and len(parts) == 2:
+            lg = next((x for x in sport_leagues() if str(x["id"]) == parts[1]), None)
+            return self._send(200, lg) if lg else self._send(404, {"error": "League not found"})
+        if parts[0] == "events" and len(parts) == 2:
+            e = next((x for x in events if str(x["id"]) == parts[1]), None)
+            return self._send(200, e) if e else self._send(404, {"error": "not found"})
+        return self._send(404, {"error": f"no Sportarr stand-in for {p}"})
 
 
 if __name__ == "__main__":

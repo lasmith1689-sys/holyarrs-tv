@@ -11,6 +11,8 @@ final class RTXServer: ObservableObject {
     @Published var address: String { didSet { UserDefaults.standard.set(address, forKey: "rtxAddress") } }
     @Published var enabled: Bool { didSet { UserDefaults.standard.set(enabled, forKey: "rtxEnabled") } }
     @Published private(set) var films: [RTXFilm] = []
+    /// Sportarr's downloaded games and races on the PC (GET /sports), matched to events by file name.
+    @Published private(set) var sports: [String: RTXFilm] = [:]
     @Published private(set) var error: String?
 
     init() {
@@ -30,10 +32,26 @@ final class RTXServer: ObservableObject {
             let j = try await RTXAPI(base: base).get("library")
             films = j["films"].array.compactMap(RTXFilm.init)
             error = nil
+            await refreshSports()
         } catch {
             films = []
             self.error = "not reachable"
         }
+    }
+
+    func refreshSports() async {
+        guard let base, let j = try? await RTXAPI(base: base).get("sports") else { return }
+        var byName: [String: RTXFilm] = [:]
+        for f in j["files"].array {
+            if let name = f["name"].string, let film = RTXFilm(f) { byName[name.lowercased()] = film }
+        }
+        sports = byName
+    }
+
+    /// The RTX copy of a Sportarr event: the first of its files the PC can play.
+    func sport(for event: SportEvent) -> RTXFilm? {
+        guard enabled else { return nil }
+        return event.fileNames.lazy.compactMap { self.sports[$0.lowercased()] }.first
     }
 
     /// The RTX film for a title: same name (ignoring case, punctuation and a leading The/A/An) and a year within one.
@@ -145,6 +163,20 @@ struct PlayerScreen: View {
                     }
                 }
                 .padding(S(100))
+                #if os(iOS)
+                VStack {
+                    HStack {
+                        Button { dismiss() } label: { Image(systemName: "xmark").font(.title2.weight(.semibold)) }
+                            .accessibilityLabel("Close")
+                        Spacer()
+                        AirPlayButton().frame(width: 44, height: 44)
+                    }
+                    .padding(.horizontal, 20)
+                    Spacer()
+                    Text("Pick an Apple TV with the AirPlay button to watch there.")
+                        .font(.footnote).foregroundStyle(Color.white.opacity(0.6)).padding(.bottom, 30)
+                }
+                #endif
             }
         }
         .task { await model.load(request: request, rtx: rtx.base, cookies: api.cookies) }
@@ -189,6 +221,13 @@ final class PlaybackModel: ObservableObject {
 
     private func start(_ item: AVPlayerItem) {
         let p = AVPlayer(playerItem: item)
+        #if os(iOS)
+        // On iPhone the system player's AirPlay button sends the stream itself to an Apple TV (the TV fetches the
+        // PC's 4K stream directly), not a mirror of the phone's screen.
+        p.allowsExternalPlayback = true
+        p.usesExternalPlaybackWhileExternalScreenIsActive = true
+        try? AVAudioSession.sharedInstance().setActive(true)
+        #endif
         timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 10, preferredTimescale: 1), queue: .main) { [weak self] t in
             Task { @MainActor in self?.savePosition(t.seconds) }
         }
@@ -266,3 +305,18 @@ struct SystemPlayer: UIViewControllerRepresentable {
         if c.player !== player { c.player = player }
     }
 }
+
+#if os(iOS)
+/// The system AirPlay picker (lists the Apple TVs on the network).
+struct AirPlayButton: UIViewRepresentable {
+    func makeUIView(context: Context) -> AVRoutePickerView {
+        let v = AVRoutePickerView()
+        v.prioritizesVideoDevices = true
+        v.tintColor = .white
+        v.activeTintColor = UIColor(red: 0.98, green: 0.74, blue: 0.20, alpha: 1)
+        return v
+    }
+
+    func updateUIView(_ v: AVRoutePickerView, context: Context) {}
+}
+#endif

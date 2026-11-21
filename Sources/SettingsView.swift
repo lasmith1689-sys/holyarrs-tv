@@ -201,6 +201,7 @@ enum QRCode {
 struct SettingsView: View {
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
+    @EnvironmentObject private var sportarr: Sportarr
 
     var body: some View {
         Form {
@@ -222,10 +223,30 @@ struct SettingsView: View {
                 Text("Titles that are also in the RTX 4K library get a Play in 4K button, which plays them upscaled by the PC's GPU.")
             }
             Section {
+                Toggle("Show the Sports tab", isOn: $sportarr.enabled)
+                TextField(Sportarr.defaultAddress, text: $sportarr.address)
+                    .keyboardType(.URL).autocorrectionDisabled().textInputAutocapitalization(.never)
+                LabeledContent("Status", value: sportarrStatus)
+                Button("Check again") { Task { await sportarr.connect() } }
+            } header: {
+                Text("Sportarr (sports)")
+            } footer: {
+                Text("Sports come from Sportarr on the PC. Downloaded games and races play through the RTX 4K server.")
+            }
+            Section {
                 Text("Indexers, download apps, pick rules, keys and backups are set in HolyArrs' web page on the PC: \(api.address)")
                     .foregroundStyle(.secondary)
             }
         }
         .navigationTitle("Settings")
+    }
+
+    private var sportarrStatus: String {
+        switch sportarr.state {
+        case .checking: return "checking"
+        case .ready: return sportarr.version.map { "connected (\($0))" } ?? "connected"
+        case .needsKey: return "needs its key (see the Sports tab)"
+        case let .unreachable(why): return why
+        }
     }
 }

@@ -12,7 +12,7 @@ final class PhoneTour: XCTestCase {
     private func launch(tab: String, signedIn: Bool = true, explore: String = "All") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-tab", tab, "-exploreKind", explore]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-tab", tab, "-exploreKind", explore]
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
@@ -73,6 +73,25 @@ final class PhoneTour: XCTestCase {
         shot("explore-rows")
         launch(tab: "explore", explore: "Music")
         shot("explore-music")
+        launch(tab: "sports")
+        XCTAssertTrue(app.staticTexts["Ready to watch"].waitForExistence(timeout: 15), "sports: ready to watch")
+        shot("sports")
+        app.swipeUp()
+        sleep(1)
+        shot("sports-rows")
+        app.swipeUp()
+        sleep(1)
+        shot("sports-leagues")
+        launch(tab: "sports")
+        let race = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Las Vegas Grand Prix - Race'")).firstMatch
+        if race.waitForExistence(timeout: 10) {
+            race.tap()
+            XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a downloaded race")
+            sleep(2)
+            shot("sports-event")
+        } else {
+            XCTFail("the Las Vegas race is not on Sports")
+        }
         launch(tab: "search")
         shot("search")
         launch(tab: "requests")
