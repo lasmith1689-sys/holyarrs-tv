@@ -6,7 +6,6 @@ import SwiftUI
 /// that Plex account the owner (HolyArrs' first-run "set up with Plex").
 struct SignInView: View {
     @EnvironmentObject private var api: HolyArrs
-    @Environment(\.openURL) private var openURL
     @State private var name = ""
     @State private var password = ""
     @State private var code = ""
@@ -20,6 +19,8 @@ struct SignInView: View {
     @State private var plexLink: URL?
     @State private var plexTask: Task<Void, Never>?
     @State private var showPassword = false
+    @State private var pin: (id: Int, setup: Bool)?
+    @Environment(\.scenePhase) private var scenePhase
 
     private var plexOn: Bool { needsSetup ? setupWays.contains("plex") : ways.contains("plex") }
 
@@ -72,7 +73,11 @@ struct SignInView: View {
         }
         .padding(S(120))
         .task(id: api.address) { await readState() }
-        .onDisappear { plexTask?.cancel() }
+        .onDisappear { plexTask?.cancel(); PlexWebSignIn.close() }
+        .onChange(of: scenePhase) { _, phase in
+            // Back from another app (Safari, Plex): check straight away instead of waiting for the next round.
+            if phase == .active, let pin { Task { await checkOnce(pin.id, setup: pin.setup) } }
+        }
     }
 
     /// The Plex step: a QR code of Plex's approval page (scan it with a phone), and on iPhone the page itself.
@@ -87,13 +92,13 @@ struct SignInView: View {
                     .accessibilityLabel("QR code for Plex sign-in")
             }
             if !Device.isTV {
-                Button { openURL(url) } label: { Label("Open Plex", systemImage: "safari") }.buttonStyle(.borderedProminent)
+                Button { PlexWebSignIn.open(url) } label: { Label("Open Plex", systemImage: "safari") }.buttonStyle(.borderedProminent)
             }
             HStack(spacing: S(20)) {
                 ProgressView()
                 Text("Waiting for Plex...").foregroundStyle(Theme.dim)
             }
-            Button("Cancel") { plexTask?.cancel(); plexLink = nil }
+            Button("Cancel") { plexTask?.cancel(); PlexWebSignIn.close(); plexLink = nil; pin = nil }
         }
     }
 
@@ -110,16 +115,29 @@ struct SignInView: View {
         let setup = needsSetup
         plexTask = Task {
             busy = true
-            defer { busy = false }
+            defer { busy = false; pin = nil; PlexWebSignIn.close() }
             do {
-                let pin = try await api.plexStart(setup: setup)
-                plexLink = pin.url
-                if !Device.isTV && !api.isLocalServer { openURL(pin.url) }
+                let started = try await api.plexStart(setup: setup)
+                pin = (started.id, setup)
+                plexLink = started.url
+                // iPhone: Plex opens in Apple's sign-in sheet inside the app (it uses Safari's Plex sign-in), so the
+                // app is never suspended while waiting. Not against the test server on this machine.
+                if !Device.isTV && !api.isLocalServer { PlexWebSignIn.open(started.url) }
                 // Plex keeps the PIN for 10 minutes; HolyArrs lets us ask once a second.
                 let deadline = Date().addingTimeInterval(600)
+                var dropped = 0
                 while !Task.isCancelled, Date() < deadline {
                     try await Task.sleep(nanoseconds: 2_000_000_000)
-                    if try await api.plexFinish(id: pin.id, setup: setup) { return }
+                    if api.me != nil { return }  // signed in by the check made on returning to the app
+                    do {
+                        if try await api.plexFinish(id: started.id, setup: setup) { return }
+                        dropped = 0
+                    } catch let e as URLError where PlexWebSignIn.isTransient(e) {
+                        // The connection dropped (iOS cuts them when the app goes to the background, or Wi-Fi
+                        // blipped). Keep asking; give up only after a minute of nothing getting through.
+                        dropped += 1
+                        if dropped >= 30 { throw e }
+                    }
                 }
                 if !Task.isCancelled { error = "The Plex sign-in timed out. Start again." }
                 plexLink = nil
@@ -132,6 +150,19 @@ struct SignInView: View {
                 plexLink = nil
                 self.error = error.localizedDescription
             }
+        }
+    }
+
+    /// One check, made when the app comes back to the foreground.
+    private func checkOnce(_ id: Int, setup: Bool) async {
+        do {
+            if try await api.plexFinish(id: id, setup: setup) { plexTask?.cancel(); PlexWebSignIn.close() }
+        } catch APIError.twoFactor {
+            plexTask?.cancel()
+            plexLink = nil
+            needsCode = true
+        } catch {
+            // The polling loop keeps trying; nothing to show yet.
         }
     }
 
