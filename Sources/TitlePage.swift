@@ -70,6 +70,8 @@ struct TitlePage: View {
     @State private var playing: PlayRequest?
     @State private var choosingSeasons = false
     @State private var openSeason: Int?
+    @State private var foundFilm: RTXFilm?
+    @State private var checkedPC = false
 
     var body: some View {
         ZStack {
@@ -90,7 +92,10 @@ struct TitlePage: View {
             }
         }
         .task { await load() }
-        .task { await rtx.refreshIfStale(maxAge: 30) }
+        .task(id: info?.name) {
+            await rtx.refreshIfStale(maxAge: 30)
+            await checkPC()
+        }
         .fullScreenCover(item: $playing) { PlayerScreen(request: $0) }
         .sheet(isPresented: $choosingSeasons) {
             if let info { SeasonPicker(info: info) { seasons, futureOnly in Task { await ask(seasons: seasons, futureOnly: futureOnly) } } }
@@ -141,7 +146,11 @@ struct TitlePage: View {
                 }
                 actions(info).padding(.top, S(20))
                 if let message { Text(message).foregroundStyle(Theme.accent).font(.callout) }
-                if let film = rtxFilm { OutsideNote(film: film) }
+                if let film = rtxFilm {
+                    OutsideNote(film: film)
+                } else if checkedPC, let info, info.inLibrary, info.kind == .movie {
+                    Text(rtx.diagnosis).font(.system(size: F(20))).foregroundStyle(Theme.dim)
+                }
             }
             .padding(.top, S(10))
         }
@@ -151,7 +160,14 @@ struct TitlePage: View {
 
     private var rtxFilm: RTXFilm? {
         guard let info, info.kind == .movie else { return nil }
-        return rtx.match(name: info.name, year: info.year)
+        return rtx.match(name: info.name, year: info.year) ?? (rtx.enabled ? foundFilm : nil)
+    }
+
+    /// No match in the list here: ask the PC directly (its own matching), once per page.
+    private func checkPC() async {
+        guard let info, info.kind == .movie, info.inLibrary, rtxFilm == nil else { return }
+        foundFilm = await rtx.find(name: info.name, year: info.year)
+        checkedPC = true
     }
 
     @ViewBuilder private func actions(_ info: TitleInfo) -> some View {

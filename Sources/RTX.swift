@@ -61,6 +61,22 @@ final class RTXServer: ObservableObject {
         Resume.replaceAll(j["positions"])
     }
 
+    /// Asks the PC itself for a title's film (its own matching), for when the list here has no match.
+    func find(name: String, year: Int?) async -> RTXFilm? {
+        guard let base else { return nil }
+        var q = [URLQueryItem(name: "title", value: name)]
+        if let year { q.append(URLQueryItem(name: "year", value: String(year))) }
+        guard let j = try? await RTXAPI(base: base).get("find", q) else { return nil }
+        return RTXFilm(j["film"])
+    }
+
+    /// Why a Library movie has no Play in 4K, in plain words (shown on its page).
+    var diagnosis: String {
+        if !enabled { return "Play in 4K is turned off in Settings." }
+        if let error { return "The RTX server is \(error) at \(address)." }
+        return "Not on the RTX server yet (\(films.count) films loaded from it). New downloads appear there within 5 minutes."
+    }
+
     func refreshOutside() async {
         guard let base, let j = try? await RTXAPI(base: base).get("cast/status") else { return }
         outside = CastState(j)
