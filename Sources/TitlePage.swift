@@ -148,7 +148,7 @@ struct TitlePage: View {
                 if let message { Text(message).foregroundStyle(Theme.accent).font(.callout) }
                 if let film = rtxFilm {
                     OutsideNote(film: film)
-                } else if checkedPC, let info, info.inLibrary, info.kind == .movie {
+                } else if checkedPC, info.inLibrary, info.kind == .movie {
                     Text(rtx.diagnosis).font(.system(size: F(20))).foregroundStyle(Theme.dim)
                 }
             }
