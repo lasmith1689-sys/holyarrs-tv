@@ -71,6 +71,10 @@ struct TitlePage: View {
     @State private var choosingSeasons = false
     @State private var openSeason: Int?
     @State private var foundFilm: RTXFilm?
+    /// The qualities HolyArrs lets this person ask for (GET /asks/limit), e.g. 1080p and 4K.
+    @State private var qualities: [(id: String, name: String)] = []
+    @State private var choosingQuality = false
+    @State private var pendingSeasons: (seasons: [Int], futureOnly: Bool) = ([], false)
     @State private var checkedPC = false
 
     var body: some View {
@@ -97,8 +101,16 @@ struct TitlePage: View {
             await checkPC()
         }
         .fullScreenCover(item: $playing) { PlayerScreen(request: $0) }
+        .confirmationDialog("Which quality?", isPresented: $choosingQuality, titleVisibility: .visible) {
+            ForEach(qualities, id: \.id) { q in
+                Button(q.name) { Task { await ask(seasons: pendingSeasons.seasons, futureOnly: pendingSeasons.futureOnly, quality: q.id) } }
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("1080p: a good Blu-ray copy, upscaled to 4K by the PC. 4K: the best real 4K HDR copy there is.")
+        }
         .sheet(isPresented: $choosingSeasons) {
-            if let info { SeasonPicker(info: info) { seasons, futureOnly in Task { await ask(seasons: seasons, futureOnly: futureOnly) } } }
+            if let info { SeasonPicker(info: info) { seasons, futureOnly in startAsk(seasons: seasons, futureOnly: futureOnly) } }
         }
         .sheet(item: Binding(get: { openSeason.map { SeasonID(number: $0) } }, set: { openSeason = $0?.number })) { s in
             if let info { EpisodesSheet(info: info, season: s.number) }
@@ -186,7 +198,7 @@ struct TitlePage: View {
             }
             if !info.inLibrary, info.myAsk == nil, api.me?.canAsk == true, !info.neverAdd {
                 Button {
-                    if info.kind == .show && info.seasons.count > 1 { choosingSeasons = true } else { Task { await ask(seasons: [], futureOnly: false) } }
+                    if info.kind == .show && info.seasons.count > 1 { choosingSeasons = true } else { startAsk(seasons: [], futureOnly: false) }
                 } label: {
                     Label(info.kind == .show ? "Ask for this show" : "Ask for this movie", systemImage: "plus")
                         .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
@@ -299,6 +311,7 @@ struct TitlePage: View {
             }
             info = i
             error = nil
+            if !i.inLibrary, qualities.isEmpty { await loadQualities(i.kind) }
             if let id = i.titleId, i.kind != .movie, let f = try? await api.get("titles/\(id)/follow") { following = f["following"].bool }
             if let tmdb = i.tmdb { trailer = await Trailer.find(api, kind: i.kind, tmdb: tmdb) }
         } catch {
@@ -380,13 +393,32 @@ struct TitlePage: View {
 
     // MARK: Actions
 
-    private func ask(seasons: [Int], futureOnly: Bool) async {
+    /// Asks straight away when HolyArrs offers one quality; otherwise asks which (1080p or 4K) first.
+    private func startAsk(seasons: [Int], futureOnly: Bool) {
+        if qualities.count > 1 {
+            pendingSeasons = (seasons, futureOnly)
+            choosingQuality = true
+        } else {
+            Task { await ask(seasons: seasons, futureOnly: futureOnly) }
+        }
+    }
+
+    private func loadQualities(_ kind: Card.Kind) async {
+        guard kind != .artist, let j = try? await api.get("asks/limit") else { return }
+        qualities = j["qualities"][kind == .show ? "show" : "movie"].array.compactMap { q in
+            guard let id = q["id"].string else { return nil }
+            return (id, q["name"].string ?? (id == "4k" ? "4K" : "Standard"))
+        }
+    }
+
+    private func ask(seasons: [Int], futureOnly: Bool, quality: String? = nil) async {
         guard let info, let tmdb = info.tmdb else { return }
         busy = true
         defer { busy = false }
         var body: [String: Any] = ["id": "tmdb:\(tmdb)", "kind": info.kind.rawValue]
         if !seasons.isEmpty { body["seasons"] = seasons }
         if futureOnly { body["future_only"] = true }
+        if let quality { body["quality"] = quality }
         do {
             let a = try await api.post("asks", body)
             let label = a["ask"]["state_label"].string ?? "Asked"

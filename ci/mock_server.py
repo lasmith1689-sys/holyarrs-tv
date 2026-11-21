@@ -221,6 +221,10 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, {"following": self.command == "PUT"})
             return self._send(200, {"ok": True})
 
+        if p == "asks/limit":
+            return self._send(200, {"qualities": {"movie": [{"id": "standard", "name": "1080p"}, {"id": "4k", "name": "4K"}],
+                                                  "show": [{"id": "standard", "name": "1080p"}, {"id": "4k", "name": "4K"}]},
+                                    "four_k": {"movie": True, "show": True}})
         if p == "auth/me":
             me = fixture("me")
             me["csrf"] = CSRF
