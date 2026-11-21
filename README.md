@@ -6,22 +6,31 @@ player app. HolyArrs runs on the PC; this app is its front end for the couch and
 One code base (`Sources/`), two targets: `HolyArrsTV` (tvOS 18+) and `HolyArrsPhone` (iOS 18+, iPhone), with the
 same bundle ID, so both are the one App Store Connect app "HolyArrs TV". Screens are written at TV sizes;
 `Sources/Platform.swift` scales them for the phone (`S`, `W`, `F`), stacks side-by-side layouts there, and keeps
-the Siri Remote focus behaviour on tvOS only. On iPhone, Downloads, Calendar and Settings sit under More.
+the Siri Remote focus behaviour on tvOS only. On iPhone, Requests, Downloads, Calendar and Settings sit under More; on Apple TV the
+tab bar slides sideways to reach Calendar and Settings.
 
 | Tab | What it does |
 |---|---|
 | Home | Trending hero (its trailer starts muted after a moment), Just arrived, New seasons, Shows you follow, Coming soon, and a count of asks waiting for an OK |
 | Explore | HolyArrs' own Explore page for All, Movies, Shows or Music, with genre pages and more rows as you scroll |
+| Sports | From Sportarr: ready to watch, downloading, the next two weeks of your leagues, league pages (teams, automatic or schedule only), add a league, event pages with Play in 4K and Get it now. Never shows scores |
 | Search | Names as you type (Library, TMDB, people, music), or descriptions like "80s horror movies" |
 | Requests | Approve or turn down asks, take back your own, and act on movies HolyArrs is stuck on |
 | Downloads | Progress, speed and time left; pause, resume, remove (people who manage the Library) |
 | Calendar | The next 30 days of episodes, release dates and albums |
-| Settings | HolyArrs and RTX server addresses, sign out |
+| Settings | HolyArrs, RTX server and Sportarr addresses, Rooms (the outdoor TV, picture setup guide), sign out |
 
 Title pages: ask for a movie or a show (whole, chosen seasons, or only what airs from now on), take back an ask,
 follow a show, watch the trailer, seasons and episodes, cast (opens the person), collection, similar titles, and
-**Play in 4K** when the same film is in the RTX 4K server's library (matched by name and year). Artist pages:
-ask for the whole artist or picked albums.
+**Play in 4K** when the same film is in the RTX 4K server's library (matched by name and year here, else the
+page asks the server's `GET /find`, and says why when there is no match), **Play outside** (the PC casts to the
+outdoor Hisense; untested on the TV itself), and the 1080p / 4K choice when asking (HolyArrs' quality lines:
+1080p uses the "1080p for RTX" pick rules, 4K uses "Best"). Artist pages: ask for the whole artist or picked
+albums.
+
+Playing: positions are kept on the RTX server (`/positions`), so every screen resumes the same place. While
+playing: Stats (swipe down on Apple TV, chart button on iPhone; measured by the player) and Continue outside.
+iPhone: AirPlay to an Apple TV (the TV fetches the PC's stream itself); a cast keeps going with the phone locked.
 
 Indexers, download apps, pick rules, keys and backups stay in HolyArrs' web page.
 
@@ -38,6 +47,17 @@ HolyArrs publishes no Windows build, so **Actions > HolyArrs server (Windows bui
 `holyarrs.exe` from the official source at a tag (default 1.2.0), the same steps as their Dockerfile.
 On the PC it lives in `C:\HolyArrs` (`bin\holyarrs.exe -config C:\HolyArrs\config -addr :6262`).
 Keep `C:\HolyArrs\config\holyarrs.key` safe: backups don't include it.
+
+## Other services on the PC
+All start hidden at sign-in (scheduled tasks), each with its own restart loop:
+- **Sportarr** (`C:\Sportarr`, port 1867): sports PVR. Leagues: NFL and Premier League (picked teams), PGA Tour.
+  Its key comes to the app from `/initialize.json` while Sportarr's login is off.
+- **Prowlarr** (`C:\Prowlarr`, port 9696): Knaben and TorrentsCSV, synced to Sportarr as a Sonarr-type app.
+- **qBittorrent** (port 8080): shared by HolyArrs (category `holyarrs`) and Sportarr (`sportarr`). Stops seeding
+  as soon as a download completes; both apps then import and remove the torrent. "qBittorrent keep-alive"
+  reopens it within 5 minutes if it is closed.
+- **RTX 4K server** (`H:\Projects\rtx-upscale-stream`, port 8787): rescans the film folders every 5 minutes and
+  `D:\Sports` every 2, serves `/library`, `/sports`, `/find`, `/positions`, `/cast`.
 
 ## Checks
 - **Screen check** (runs on every push to the app): compiles each app for a device, then opens every screen in an
@@ -56,7 +76,9 @@ Keep `C:\HolyArrs\config\holyarrs.key` safe: backups don't include it.
 | `Sources/HolyArrsAPI.swift` | Sign-in, requests, CSRF, picture addresses, trailers |
 | `Sources/Components.swift` | The RTX 4K look: theme, poster and wide cards, badges, rows |
 | `Sources/*View.swift`, `TitlePage.swift` | The screens |
-| `Sources/RTX.swift` | The RTX 4K server: film matching and the player (from the RTX 4K app) |
+| `Sources/RTX.swift` | The RTX 4K server: film matching, positions, casting, and the player (from the RTX 4K app) |
+| `Sources/SportarrAPI.swift`, `SportsView.swift` | Sportarr's API and the Sports tab |
+| `Sources/Rooms.swift` | Play outside, Continue here, stats, the picture setup guide |
 | `make_assets.py` | Layered tvOS icon, Top Shelf images and the iPhone icon |
 | `Sources/Platform.swift` | TV and iPhone sizing, tvOS-only focus modifiers |
 | `project.yml` | XcodeGen spec: tvOS and iOS apps, both UI test targets |
