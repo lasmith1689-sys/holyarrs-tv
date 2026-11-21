@@ -140,6 +140,7 @@ struct RoomsSection: View {
     @EnvironmentObject private var rtx: RTXServer
     @State private var found: String?
     @State private var looking = false
+    @State private var guide = false
 
     var body: some View {
         Section {
@@ -149,13 +150,19 @@ struct RoomsSection: View {
             if rtx.outside?.active == true {
                 Button("Stop outside", role: .destructive) { Task { await rtx.stopOutside() } }
             }
-            NavigationLink("Picture setup guide") { SetupGuideView() }
+            // A sheet, not a push: on iPhone Settings sits under More, and a push there doubles the back button.
+            Button("Picture setup guide") { guide = true }
         } header: {
             Text("Rooms")
         } footer: {
             Text("Play outside casts from the PC to the Hisense (Chromecast built-in). Positions are kept on the PC, so Continue here and Continue outside pick up where the other room left off.")
         }
         .task { await rtx.refreshOutside() }
+        .sheet(isPresented: $guide) {
+            NavigationStack {
+                SetupGuideView().toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { guide = false } } }
+            }
+        }
     }
 
     private var outsideLabel: String {
