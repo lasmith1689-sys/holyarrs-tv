@@ -1,0 +1,76 @@
+Optional(Attributes: Application, 0x103654560, pid: 10707, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x103654560, pid: 10707, label: 'HolyArrs'
+    Window (Main), 0x103647b00, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1036548c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x103658010, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1036e8440, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x103657ca0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x103652d00, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1036575f0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x10364de80, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1036503f0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x103655e10, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x10364d460, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x10364ef60, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x103650e10, {{0.0, 62.0}, {402.0, 114.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              SearchField, 0x10362bcc0, {{16.0, 117.0}, {370.0, 44.0}}, label: 'Movies, shows, people, artists', placeholderValue: 'Movies, shows, people, artists'
+                                Image, 0x103651be0, {{28.0, 129.3}, {20.3, 18.7}}, identifier: 'magnifyingglass', label: 'Search'
+                            Other, 0x1036514d0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x103650ac0, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x10362c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x10362cab0, {{0.0, 0.0}, {402.0, 874.0}}
+                                    ScrollView, 0x10364fd40, {{14.7, 0.0}, {372.7, 874.0}}
+                                      Other, 0x10364f2f0, {{14.7, 0.0}, {372.7, 874.0}}
+                                        Other, 0x10364f9c0, {{14.7, 0.0}, {372.7, 170.8}}
+                                        Other, 0x103651180, {{14.7, 726.2}, {372.7, 147.8}}
+                                      Other, 0x103653e90, {{14.7, 0.0}, {372.7, 874.0}}
+                                      Other, 0x103653430, {{14.7, 176.0}, {372.7, 108.0}}
+                                        StaticText, 0x103653790, {{48.7, 193.0}, {304.7, 74.0}}, label: 'Type a name, or describe it: "80s horror movies", "shows with Pedro Pascal".'
+                                      Other, 0x103653b10, {{354.3, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1036522f0, {{381.3, 626.0}, {3.0, 162.0}}
+                                      Other, 0x103656190, {{354.3, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x10362d530, {{381.3, 626.0}, {3.0, 162.0}}
+                            Other, 0x10362d8b0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x103653090, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x103654fd0, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x103657940, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x103649680, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x103579a70, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x10356a890, {{21.0, 791.0}, {80.0, 54.0}}
+                        Other, 0x103574700, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x103577800, {{25.0, 795.0}, {80.0, 54.0}}, label: 'Home'
+                            Image, 0x1035773e0, {{48.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x103575fa0, {{93.0, 795.0}, {80.0, 54.0}}, label: 'Explore'
+                            Image, 0x1035760c0, {{116.0, 801.3}, {34.3, 27.0}}, identifier: 'sparkles.tv.fill', label: 'sparkles.tv.fill'
+                          Button, 0x1035761e0, {{161.0, 795.0}, {80.0, 54.0}}, label: 'Search', Selected
+                            Image, 0x103576300, {{187.0, 801.7}, {27.7, 26.7}}, identifier: 'magnifyingglass', label: 'Search'
+                          Button, 0x103576420, {{229.0, 795.0}, {80.0, 54.0}}, label: 'Requests'
+                            Image, 0x103576540, {{253.0, 803.0}, {33.0, 23.7}}, identifier: 'tray.full.fill', label: 'Inbox Full'
+                          Button, 0x1035911b0, {{297.0, 795.0}, {80.0, 54.0}}, label: 'More'
+                            Image, 0x1035912d0, {{325.0, 810.7}, {25.0, 8.7}}, identifier: 'ellipsis', label: 'More'
+                        Other, 0x10362f470, {{161.0, 795.0}, {80.0, 54.0}}
+                          Other, 0x1036481e0, {{161.0, 795.0}, {80.0, 54.0}}
+                            Other, 0x10362e680, {{161.0, 795.0}, {80.0, 54.0}}
+                            Other, 0x103647e50, {{161.0, 795.0}, {80.0, 54.0}}
+                              Other, 0x103656860, {{161.0, 795.0}, {80.0, 54.0}}
+                                Other, 0x1036564e0, {{161.0, 795.0}, {80.0, 54.0}}
+                                  Other, 0x10362f7d0, {{161.0, 795.0}, {80.0, 54.0}}
+                                Other, 0x103655330, {{161.0, 795.0}, {80.0, 54.0}}
+                              Other, 0x1036586f0, {{161.0, 795.0}, {80.0, 54.0}}
+                  Other, 0x10364ec00, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x1036500a0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x103654c30, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x103652640, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x10364e1f0, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x103652990, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x10364db10, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x103649320, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x103654560, pid: 10707, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1036e9ea0, pid: 10707, label: 'HolyArrs'
+  }
+)
