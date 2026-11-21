@@ -106,6 +106,8 @@ def sport_events():
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     plex_checks = 0
+    positions = {}
+    cast = {"state": "idle", "film": None, "stalls": 0}
 
     def log_message(self, *a):
         pass
@@ -153,6 +155,22 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, fixture("rtx_library"))
         if path in ("/play", "/stop"):
             return self._send(200, {"session": "s1", "url": "/missing.m3u8", "ready": True})
+        if path == "/positions":
+            return self._send(200, {"positions": Handler.positions})
+        if path == "/position":
+            Handler.positions[q.get("id", "")] = {"t": float(q.get("t", 0)), "where": q.get("where", "")}
+            return self._send(200, Handler.positions[q.get("id", "")])
+        if path == "/cast/status":
+            return self._send(200, Handler.cast)
+        if path == "/cast/devices":
+            return self._send(200, {"devices": [{"name": "Patio TV", "model": "Hisense 75M7SG", "type": "cast"}]})
+        if path == "/cast/stop":
+            Handler.cast = dict(Handler.cast, state="stopped")
+            return self._send(200, Handler.cast)
+        if path == "/cast":
+            Handler.cast = {"ok": True, "film": q.get("id"), "title": "Cast title", "state": "playing", "device": "Patio TV",
+                            "position": float(q.get("t", 0)), "startup_s": 7.4, "stalls": 0, "error": None}
+            return self._send(200, Handler.cast)
         if path == "/sports":
             return self._send(200, {"files": [{"id": "0123456789ab", "name": F1_FILE, "title": F1_FILE[:-4], "duration_s": 7340.0,
                                                "width": 1920, "height": 1080, "range": "SDR", "upscale": True, "note": ""}]})

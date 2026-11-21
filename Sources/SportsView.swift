@@ -341,6 +341,7 @@ struct EventPage: View {
                         if !event.stateLabel.isEmpty { SportState(label: event.stateLabel) }
                         actions
                         if let note { Text(note).foregroundStyle(Theme.accent).fixedSize(horizontal: false, vertical: true) }
+                        if let film = rtx.sport(for: event) { OutsideNote(film: film) }
                     }
                     .frame(maxWidth: W(1000), alignment: .leading)
                 }
@@ -356,10 +357,11 @@ struct EventPage: View {
         AdaptiveStack(spacing: S(24)) {
             if let film = rtx.sport(for: event) {
                 Button {
-                    playing = PlayRequest(label: event.matchup ?? event.title, film: film, seconds: Resume.position(film.id) ?? 0, backdrop: event.thumb)
+                    playing = PlayRequest(label: event.matchup ?? event.title, film: film, seconds: rtx.startPoint(film) ?? 0, backdrop: event.thumb)
                 } label: {
-                    Label(Resume.position(film.id) != nil ? "Resume in 4K" : "Play in 4K", systemImage: "play.fill")
+                    Label(rtx.continuingHere(film) ? "Continue here" : rtx.startPoint(film) != nil ? "Resume in 4K" : "Play in 4K", systemImage: "play.fill")
                 }
+                OutsideButton(film: film, label: event.matchup ?? event.title)
             } else if event.hasFile {
                 Button { Task { await rtx.refreshSports(); note = rtx.sport(for: event) == nil ? "Downloaded. The PC checks for new sports every 2 minutes; it will play here shortly." : nil } } label: {
                     Label("Check the PC", systemImage: "arrow.clockwise")

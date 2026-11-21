@@ -140,6 +140,7 @@ struct TitlePage: View {
                 }
                 actions(info).padding(.top, S(20))
                 if let message { Text(message).foregroundStyle(Theme.accent).font(.callout) }
+                if let film = rtxFilm { OutsideNote(film: film) }
             }
             .padding(.top, S(10))
         }
@@ -155,14 +156,16 @@ struct TitlePage: View {
     @ViewBuilder private func actions(_ info: TitleInfo) -> some View {
         AdaptiveStack(spacing: S(30)) {
             if let film = rtxFilm {
-                let resume = Resume.position(film.id)
+                let resume = rtx.startPoint(film)
                 Button {
                     playing = PlayRequest(label: info.name, film: film, seconds: resume ?? 0, backdrop: info.backdrop)
                 } label: {
-                    Label(resume.map { "Resume in 4K from \(Resume.label($0))" } ?? "Play in 4K", systemImage: "play.fill")
+                    Label(rtx.continuingHere(film) ? "Continue here" + (resume.map { " from \(Resume.label($0))" } ?? "")
+                          : resume.map { "Resume in 4K from \(Resume.label($0))" } ?? "Play in 4K", systemImage: "play.fill")
                         .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                 }
                 .buttonStyle(.borderedProminent)
+                OutsideButton(film: film, label: info.name)
             }
             if !info.inLibrary, info.myAsk == nil, api.me?.canAsk == true, !info.neverAdd {
                 Button {

@@ -85,6 +85,7 @@ final class ScreenTour: XCTestCase {
         if focus(matrix, .left, limit: 3) {
             press(.select)
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
+            XCTAssertTrue(app.buttons["Play outside"].exists, "Play outside next to Play in 4K")
             sleep(2)
             shot("title-movie")
             press(.down, 2)

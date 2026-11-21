@@ -13,6 +13,11 @@ final class RTXServer: ObservableObject {
     @Published private(set) var films: [RTXFilm] = []
     /// Sportarr's downloaded games and races on the PC (GET /sports), matched to events by file name.
     @Published private(set) var sports: [String: RTXFilm] = [:]
+    /// What the outdoor TV is doing, as the PC last read it from the TV (GET /cast/status).
+    @Published private(set) var outside: CastState?
+    /// The last result of sending something outside (shown under the play buttons).
+    @Published var outsideNote: String?
+    @Published private(set) var castingFilm: String?
     @Published private(set) var error: String?
 
     init() {
@@ -32,11 +37,57 @@ final class RTXServer: ObservableObject {
             let j = try await RTXAPI(base: base).get("library")
             films = j["films"].array.compactMap(RTXFilm.init)
             error = nil
+            Resume.server = base
+            await syncPositions()
             await refreshSports()
         } catch {
             films = []
             self.error = "not reachable"
         }
+    }
+
+    /// Where everything was left on any screen (kept on the PC), replacing this device's own notes.
+    func syncPositions() async {
+        guard let base, let j = try? await RTXAPI(base: base).get("positions") else { return }
+        Resume.replaceAll(j["positions"])
+    }
+
+    func refreshOutside() async {
+        guard let base, let j = try? await RTXAPI(base: base).get("cast/status") else { return }
+        outside = CastState(j)
+    }
+
+    /// Plays a film on the outdoor TV from `seconds`. The PC wakes the TV, starts the stream and waits until the
+    /// TV itself says it is playing; the note says what actually happened.
+    func playOutside(_ film: RTXFilm, label: String, seconds: Double) async {
+        guard let base else { outsideNote = "The RTX server address is not valid."; return }
+        castingFilm = film.id
+        outsideNote = "Starting \(label) on the outdoor TV..."
+        defer { castingFilm = nil }
+        let j: JSON
+        do {
+            j = try await RTXAPI(base: base).get("cast", [URLQueryItem(name: "id", value: film.id),
+                                                          URLQueryItem(name: "t", value: String(format: "%.1f", max(0, seconds)))])
+        } catch APIError.server(_, let body) {
+            j = (try? JSON.parse(Data(body.utf8))) ?? .null
+        } catch {
+            outsideNote = "Couldn't reach the PC: \(error.localizedDescription)"
+            return
+        }
+        let st = CastState(j)
+        outside = st
+        if st?.state == "playing" {
+            outsideNote = "Playing outside" + (st?.startupS.map { String(format: " (started in %.0f s)", $0) } ?? "") + "."
+        } else {
+            outsideNote = st?.error ?? j["error"].string ?? "The outdoor TV didn't start."
+        }
+    }
+
+    func stopOutside() async {
+        guard let base else { return }
+        if let j = try? await RTXAPI(base: base).get("cast/stop") { outside = CastState(j) }
+        await syncPositions()
+        outsideNote = "Stopped outside."
     }
 
     func refreshSports() async {
@@ -68,6 +119,32 @@ final class RTXServer: ObservableObject {
         for a in ["the ", "a ", "an "] where t.hasPrefix(a) { t.removeFirst(a.count) }
         return t.filter { $0.isLetter || $0.isNumber }
     }
+}
+
+/// The outdoor TV, as reported by the PC from the TV's own media status (never assumed).
+struct CastState: Equatable {
+    let film: String?
+    let title: String?
+    let state: String
+    let position: Double?
+    let error: String?
+    let device: String?
+    let startupS: Double?
+    let stalls: Int
+
+    init?(_ j: JSON) {
+        guard let state = j["state"].string else { return nil }
+        self.state = state
+        film = j["film"].string
+        title = j["title"].string
+        position = j["position"].double
+        error = j["error"].string
+        device = j["device"].string
+        startupS = j["startup_s"].double
+        stalls = j["stalls"].int ?? 0
+    }
+
+    var active: Bool { ["starting", "playing", "buffering", "paused"].contains(state) }
 }
 
 struct RTXFilm: Identifiable, Hashable {
@@ -141,12 +218,28 @@ struct PlayerScreen: View {
     @EnvironmentObject private var api: HolyArrs
     @Environment(\.dismiss) private var dismiss
     @StateObject private var model = PlaybackModel()
+    @State private var showStats = false
+
+    /// Hands the film to the outdoor TV from where it is now: this player stops (its position is kept on the PC)
+    /// and the PC starts the TV, which reports back whether it is really playing.
+    private func continueOutside() {
+        guard let film = request.film else { return }
+        let t = model.currentSeconds ?? request.seconds
+        model.close(stopServer: false)  // the PC reuses the same stream for the TV
+        dismiss()
+        Task { await rtx.playOutside(film, label: request.label, seconds: t) }
+    }
 
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             if let player = model.player {
-                SystemPlayer(player: player).ignoresSafeArea()
+                SystemPlayer(player: player, model: model, outside: request.film == nil ? nil : { continueOutside() })
+                    .ignoresSafeArea()
+                #if os(iOS)
+                PhonePlayerBar(model: model, showStats: $showStats, close: { dismiss() },
+                               outside: request.film == nil ? nil : { continueOutside() })
+                #endif
             } else {
                 Color.clear.overlay { Artwork(raw: request.backdrop, width: 780).blur(radius: S(70)).opacity(0.35) }.clipped().ignoresSafeArea()
                 VStack(spacing: S(34)) {
@@ -195,8 +288,15 @@ final class PlaybackModel: ObservableObject {
     private var film: RTXFilm?
     private var timeObserver: Any?
     private var endObserver: NSObjectProtocol?
+    /// Measured from the player (never estimated): picture size, frame rate, bitrates, stalls, dropped frames.
+    @Published private(set) var stats: [StatRow] = []
+    private var statsTimer: Timer?
+    private var loadStarted = Date()
+    private var startup: Double?
+    private var rateObserver: NSKeyValueObservation?
 
     func load(request: PlayRequest, rtx: URL?, cookies: [HTTPCookie]) async {
+        loadStarted = Date()
         if let trailer = request.trailer {
             // HolyArrs' trailer stream is behind its sign-in; AVFoundation needs the cookies handed over.
             let asset = AVURLAsset(url: trailer, options: [AVURLAssetHTTPCookiesKey: cookies])
@@ -234,20 +334,64 @@ final class PlaybackModel: ObservableObject {
         endObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in self?.ended() }
         }
+        rateObserver = p.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
+            let playing = player.timeControlStatus == .playing
+            Task { @MainActor in
+                guard let self, playing, self.startup == nil else { return }
+                self.startup = Date().timeIntervalSince(self.loadStarted)
+            }
+        }
+        statsTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
+            Task { @MainActor in self?.updateStats() }
+        }
         player = p
+    }
+
+    private func updateStats() {
+        guard let p = player, let item = p.currentItem else { return }
+        var rows: [StatRow] = []
+        let size = item.presentationSize
+        if size.width > 0 { rows.append(StatRow("Picture", "\(Int(size.width)) x \(Int(size.height))")) }
+        if let fps = item.tracks.first(where: { $0.assetTrack?.mediaType == .video })?.currentVideoFrameRate, fps > 0 {
+            rows.append(StatRow("Frame rate", String(format: "%.3f fps", fps)))
+        }
+        if let ev = item.accessLog()?.events.last {
+            if ev.indicatedBitrate > 0 { rows.append(StatRow("Stream", StatRow.mbps(ev.indicatedBitrate))) }
+            if ev.observedBitrate > 0 { rows.append(StatRow("Network", StatRow.mbps(ev.observedBitrate))) }
+            rows.append(StatRow("Stalls", "\(max(0, ev.numberOfStalls))"))
+            rows.append(StatRow("Dropped frames", "\(max(0, ev.numberOfDroppedVideoFrames))"))
+        }
+        if let startup { rows.append(StatRow("Started in", String(format: "%.1f s", startup))) }
+        if p.isExternalPlaybackActive { rows.append(StatRow("Playing on", "AirPlay")) }
+        if let e = item.errorLog()?.events.last, let c = e.errorComment { rows.append(StatRow("Last error", c)) }
+        stats = rows
     }
 
     private func savePosition(_ seconds: Double) {
         guard let film, !finished, seconds.isFinite else { return }
         Resume.save(film.id, seconds, duration: film.duration)
+        Resume.send(film.id, seconds, duration: film.duration)
     }
 
     private func ended() {
-        if let film { Resume.clear(film.id) }
+        if let film {
+            Resume.clear(film.id)
+            Resume.send(film.id, 0, duration: film.duration)  // under a minute: the PC clears it too
+        }
         finished = true
     }
 
-    func close() {
+    /// Where playback is now (for handing over to another room).
+    var currentSeconds: Double? {
+        guard let t = player?.currentTime().seconds, t.isFinite else { return nil }
+        return t
+    }
+
+    func close(stopServer: Bool = true) {
+        statsTimer?.invalidate()
+        statsTimer = nil
+        rateObserver = nil
+        if !stopServer { session = nil }
         if let p = player {
             savePosition(p.currentTime().seconds)
             p.pause()
@@ -264,7 +408,26 @@ final class PlaybackModel: ObservableObject {
 
 /// Where each RTX film was left in this app (UserDefaults, per RTX film id). Not kept for the first minute or the last 4.
 enum Resume {
+    /// The RTX server, which keeps every screen's positions (set once the server answers).
+    @MainActor static var server: URL?
     private static func key(_ id: String) -> String { "resume.\(id)" }
+
+    /// The PC's positions replace this device's: whichever screen saved last wins.
+    static func replaceAll(_ map: JSON) {
+        let d = UserDefaults.standard
+        for k in d.dictionaryRepresentation().keys where k.hasPrefix("resume.") { d.removeObject(forKey: k) }
+        if case let .object(o) = map {
+            for (id, v) in o { if let t = v["t"].double { d.set(t, forKey: key(id)) } }
+        }
+    }
+
+    @MainActor static func send(_ id: String, _ seconds: Double, duration: Double) {
+        guard let base = server else { return }
+        let q = [URLQueryItem(name: "id", value: id), URLQueryItem(name: "t", value: String(format: "%.1f", seconds)),
+                 URLQueryItem(name: "d", value: String(format: "%.1f", duration)),
+                 URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone")]
+        Task { _ = try? await RTXAPI(base: base).get("position", q) }
+    }
 
     static func position(_ id: String) -> Double? {
         let v = UserDefaults.standard.double(forKey: key(id))
@@ -293,10 +456,24 @@ enum Resume {
 
 struct SystemPlayer: UIViewControllerRepresentable {
     let player: AVPlayer
+    var model: PlaybackModel? = nil
+    var outside: (() -> Void)? = nil
 
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let c = AVPlayerViewController()
         c.player = player
+        #if os(tvOS)
+        // Swipe down while playing: a Stats tab (measured from the player), and Continue outside in the menu.
+        if let model {
+            let h = UIHostingController(rootView: StatsPanel(model: model))
+            h.title = "Stats"
+            h.preferredContentSize = CGSize(width: 1800, height: 240)
+            c.customInfoViewControllers = [h]
+        }
+        if let outside {
+            c.transportBarCustomMenuItems = [UIAction(title: "Continue outside", image: UIImage(systemName: "sun.max")) { _ in outside() }]
+        }
+        #endif
         player.play()
         return c
     }

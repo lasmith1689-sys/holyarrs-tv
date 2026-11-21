@@ -59,6 +59,16 @@ final class PhoneTour: XCTestCase {
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
             sleep(2)
             shot("title-movie")
+            // Play outside: the stand-in PC answers that the TV is playing.
+            let outside = app.buttons["Play outside"]
+            if outside.waitForExistence(timeout: 5) {
+                outside.tap()
+                XCTAssertTrue(app.buttons["Stop outside"].waitForExistence(timeout: 15), "outside TV reported playing")
+                XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Continue here'")).firstMatch.exists, "Continue here offered")
+                shot("title-outside")
+            } else {
+                XCTFail("no Play outside button")
+            }
             app.swipeUp()
             sleep(1)
             shot("title-cast")
@@ -103,5 +113,14 @@ final class PhoneTour: XCTestCase {
         shot("calendar")
         launch(tab: "settings")
         shot("settings")
+        let guide = app.buttons["Picture setup guide"]
+        for _ in 0..<4 where !guide.isHittable { app.swipeUp() }
+        if guide.waitForExistence(timeout: 5) {
+            guide.tap()
+            sleep(1)
+            shot("setup-guide")
+        } else {
+            XCTFail("no Picture setup guide")
+        }
     }
 }
