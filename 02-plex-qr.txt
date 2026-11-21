@@ -1,0 +1,25 @@
+Optional(Attributes: Application, 0x10221d880, pid: 3719, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x10221d880, pid: 3719, label: 'HolyArrs'
+    Window (Main), 0x1022226f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10221d180, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x102222c40, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10221df20, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10221dbd0, {{0.0, 0.0}, {1920.0, 1080.0}}
+              StaticText, 0x102222fb0, {{200.0, 154.0}, {376.0, 108.0}}, label: 'HolyArrs'
+              StaticText, 0x1022236b0, {{200.0, 282.0}, {553.0, 170.0}}, label: 'Movies, shows and music: browse, ask for and follow them from the couch.'
+              StaticText, 0x102223a00, {{200.0, 492.0}, {403.0, 37.0}}, label: 'http://127.0.0.1:8799'
+              StaticText, 0x102223330, {{962.0, 154.0}, {756.0, 114.0}}, label: 'Scan with your phone's camera and approve HolyArrs on Plex.'
+              Image, 0x102223d80, {{962.0, 294.0}, {468.0, 468.0}}, label: 'QR code for Plex sign-in'
+              ActivityIndicator, 0x102224110, {{962.0, 788.0}, {40.0, 40.0}}, value: 1
+                ActivityIndicator, 0x102224470, {{962.0, 788.0}, {40.0, 40.0}}, value: 1
+              StaticText, 0x102224800, {{1022.0, 791.0}, {220.0, 35.0}}, label: 'Waiting for Plex...'
+              Button, 0x102224b60, {{947.0, 848.5}, {226.0, 83.0}}, label: 'Cancel', Focused
+Path to element:
+ →Application, 0x10221d880, pid: 3719, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10221ca70, pid: 3719, label: 'HolyArrs'
+  }
+)

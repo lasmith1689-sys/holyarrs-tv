@@ -1,0 +1,24 @@
+Optional(Attributes: Application, 0x10221ebb0, pid: 3719, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x10221ebb0, pid: 3719, label: 'HolyArrs'
+    Window (Main), 0x10221ca70, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x102220130, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x102220490, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10221f610, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10221f290, {{0.0, 0.0}, {1920.0, 1080.0}}
+              StaticText, 0x102220820, {{200.0, 353.0}, {376.0, 108.0}}, label: 'HolyArrs'
+              StaticText, 0x102220b80, {{200.0, 481.0}, {553.0, 170.0}}, label: 'Movies, shows and music: browse, ask for and follow them from the couch.'
+              StaticText, 0x102220f20, {{200.0, 691.0}, {403.0, 37.0}}, label: 'http://127.0.0.1:8799'
+              Button, 0x102221280, {{945.0, 350.5}, {423.0, 71.0}}, label: 'Sign in with Plex', Focused
+                Image, 0x1022215f0, {{1012.8, 368.8}, {36.6, 36.6}}, identifier: 'person.badge.key', label: 'person.badge.key'
+                StaticText, 0x102221950, {{945.0, 350.5}, {423.0, 71.0}}, label: 'Sign in with Plex'
+              Button, 0x102221cb0, {{960.0, 445.0}, {647.0, 72.0}}, label: 'Use a name and password instead'
+              TextField, 0x102222020, {{945.0, 541.6}, {790.0, 74.8}}, placeholderValue: 'HolyArrs address', value: http://127.0.0.1:8...
+Path to element:
+ →Application, 0x10221ebb0, pid: 3719, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10213bff0, pid: 3719, label: 'HolyArrs'
+  }
+)

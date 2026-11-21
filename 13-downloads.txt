@@ -1,0 +1,71 @@
+Optional(Attributes: Application, 0x10217d070, pid: 8479, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x10217d070, pid: 8479, label: 'HolyArrs'
+    Window (Main), 0x102181030, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x102181450, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x102184780, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x1021807f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x102180c10, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x1021848a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x1021849c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x102184ae0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x102184c00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x102184d20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x102184e40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x102181790, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x1021818b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x1021819d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x102181af0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x102181c10, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x102181d30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x102181e50, {{0.0, 157.0}, {1760.0, 459.0}}
+                                        StaticText, 0x102181f70, {{160.0, 197.0}, {329.0, 77.0}}, label: 'Downloads'
+                                        StaticText, 0x102182090, {{519.0, 207.0}, {159.0, 58.0}}, label: '1 active'
+                                        Button, 0x1021821b0, {{1244.0, 200.0}, {226.0, 72.0}}, label: 'Pause all'
+                                        Button, 0x1021822d0, {{1500.0, 200.0}, {260.0, 72.0}}, label: 'Resume all'
+                                        StaticText, 0x1021823f0, {{160.0, 310.0}, {341.0, 36.0}}, label: 'The Last of Us (2023) S2'
+                                        StaticText, 0x102182510, {{1304.0, 351.0}, {151.0, 22.0}}, label: 'DOWNLOADING'
+                                        Button, 0x102182630, {{1497.0, 330.0}, {112.0, 64.0}}, identifier: 'pause.fill', label: 'Pause'
+                                        StaticText, 0x102186120, {{160.0, 376.0}, {769.0, 37.0}}, label: '42% · 18.4 MB/s · 21m left · 41 GB · 12 seeds · qBittorrent'
+                                        Button, 0x102186240, {{1639.0, 325.0}, {121.0, 74.0}}, identifier: 'trash', label: 'Remove'
+                                        StaticText, 0x102186360, {{160.0, 461.0}, {228.0, 36.0}}, label: 'Inception (2010)'
+                                        StaticText, 0x102186480, {{1375.0, 502.0}, {79.0, 22.0}}, label: 'PAUSED'
+                                        Button, 0x10217f510, {{1496.0, 480.0}, {113.0, 65.0}}, identifier: 'play.fill', label: 'Resume'
+                                        StaticText, 0x10217f630, {{160.0, 527.0}, {322.0, 37.0}}, label: '88% · 62 GB · SABnzbd'
+                                        Button, 0x10217f750, {{1639.0, 476.0}, {121.0, 74.0}}, identifier: 'trash', label: 'Remove'
+                                      Other, 0x10217f870, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10217f990, {{1914.0, 542.0}, {3.0, 475.0}}
+                                      Other, 0x10217ecd0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10217edf0, {{1914.0, 542.0}, {3.0, 475.0}}
+                Other, 0x10217ef10, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10217f030, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10217f150, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10217e490, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10217e5b0, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10217e6d0, {{1206.0, 43.0}, {286.0, 74.0}}
+                    Other, 0x10217e7f0, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10217e910, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x102165800, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x102165920, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x102165a40, {{572.0, 62.0}, {158.0, 36.0}}, identifier: 'sparkles.tv', label: 'Explore'
+                          Image, 0x102165b60, {{572.0, 62.0}, {44.0, 36.0}}, identifier: 'sparkles.tv', label: 'sparkles.tv'
+                        Button, 0x102165c80, {{795.0, 62.5}, {142.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x102165e80, {{795.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x102165fa0, {{1002.0, 62.5}, {182.0, 35.0}}, identifier: 'tray.full', label: 'Requests'
+                          Image, 0x1021660c0, {{1002.0, 64.5}, {42.0, 31.0}}, identifier: 'tray.full', label: 'Inbox Full'
+                        Button, 0x1021661e0, {{1240.2, 60.4}, {217.6, 39.2}}, identifier: 'arrow.down.circle', label: 'Downloads', Focused
+                          Image, 0x102166300, {{1240.2, 60.4}, {39.2, 39.2}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                        Button, 0x102166420, {{1514.0, 62.5}, {173.0, 35.0}}, identifier: 'calendar', label: 'Calendar'
+                          Image, 0x102166540, {{1514.0, 63.5}, {37.0, 33.0}}, identifier: 'calendar', label: 'calendar'
+                        Button, 0x102166660, {{1752.0, 61.5}, {163.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10217d340, {{1752.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10217d460, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10217d580, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10217d070, pid: 8479, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1022a3190, pid: 8479, label: 'HolyArrs'
+  }
+)

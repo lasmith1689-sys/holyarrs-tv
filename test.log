@@ -1,0 +1,889 @@
+Command line invocation:
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/xcodebuild test -project HolyArrsTV.xcodeproj -scheme HolyArrsTV -destination id=0F78CB3C-2F65-4339-B621-BE501E223379 -resultBundlePath /Users/runner/work/_temp/result.xcresult CODE_SIGNING_ALLOWED=NO
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+
+Writing result bundle at path:
+	/Users/runner/work/_temp/result.xcresult
+
+--- xcodebuild: WARNING: Using the first of multiple matching destinations:
+{ platform:tvOS Simulator, arch:arm64, id:0F78CB3C-2F65-4339-B621-BE501E223379, OS:18.5, name:Apple TV 4K (3rd generation) (at 1080p) }
+{ platform:tvOS Simulator, arch:x86_64, id:0F78CB3C-2F65-4339-B621-BE501E223379, OS:18.5, name:Apple TV 4K (3rd generation) (at 1080p) }
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (2 targets)
+    Target 'HolyArrsTVUITests' in project 'HolyArrsTV'
+        ➜ Explicit dependency on target 'HolyArrsTV' in project 'HolyArrsTV'
+    Target 'HolyArrsTV' in project 'HolyArrsTV' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: d3ec56aa53d366f4f87bf68c22a55b93
+Build description path: /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/XCBuildData/d3ec56aa53d366f4f87bf68c22a55b93.xcbuilddata
+ClangStatCache /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv/HolyArrsTV.xcodeproj
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -o /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache
+
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv/HolyArrsTV.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV-856651b76c44c32a49f50e37244ce453-VFS-appletvsimulator/all-product-headers.yaml
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv/HolyArrsTV.xcodeproj
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV-856651b76c44c32a49f50e37244ce453-VFS-appletvsimulator/all-product-headers.yaml
+
+CreateBuildDirectory /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-appletvsimulator
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv/HolyArrsTV.xcodeproj
+    builtin-create-build-directory /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-appletvsimulator
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/ProductTypeInfoPlistAdditions.plist (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/ProductTypeInfoPlistAdditions.plist
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/empty-HolyArrsTVUITests.plist (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/empty-HolyArrsTVUITests.plist
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_const_extract_protocols.json (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftFileList (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftConstValuesFileList (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.LinkFileList (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-OutputFileMap.json (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+-target arm64-apple-tvos18.0-simulator '-std=gnu11' -fmodules -gmodules '-fmodules-cache-path=/Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex' -fpascal-strings -O0 -fno-common '-DDEBUG=1' -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -g -iquote /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-generated-files.hmap -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-own-target-headers.hmap -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-target-headers.hmap -iquote /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-project-headers.hmap -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources-normal/arm64 -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/arm64 -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -iframework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk/Developer/Library/Frameworks
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.hmap (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.DependencyStaticMetadataFileList (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.DependencyMetadataFileList (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-project-headers.hmap (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-project-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-own-target-headers.hmap (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-generated-files.hmap (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-generated-files.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-target-headers.hmap (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-non-framework-target-headers.hmap (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests_vers.c (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests_vers.c
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_const_extract_protocols.json (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_const_extract_protocols.json
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftFileList (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftConstValuesFileList (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftConstValuesFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.LinkFileList (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.LinkFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-OutputFileMap.json (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-OutputFileMap.json
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+-target arm64-apple-tvos18.0-simulator '-std=gnu11' -fmodules -gmodules '-fmodules-cache-path=/Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex' -fpascal-strings -O0 -fno-common '-DDEBUG=1' -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -g -iquote /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-generated-files.hmap -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-own-target-headers.hmap -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-target-headers.hmap -iquote /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-project-headers.hmap -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources-normal/arm64 -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/arm64 -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.hmap (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.DependencyStaticMetadataFileList (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.DependencyStaticMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.DependencyMetadataFileList (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.DependencyMetadataFileList
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-project-headers.hmap (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-project-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-own-target-headers.hmap (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-own-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-generated-files.hmap (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-generated-files.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-target-headers.hmap (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-non-framework-target-headers.hmap (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-non-framework-target-headers.hmap
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-DebugDylibPath-normal-arm64.txt (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-DebugDylibPath-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-DebugDylibInstallName-normal-arm64.txt (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-DebugDylibInstallName-normal-arm64.txt
+
+WriteAuxiliaryFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV_vers.c (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    write-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV_vers.c
+
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app
+
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest
+
+Ld /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/__preview.dylib normal (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-tvos18.0-simulator -dynamiclib -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -O0 -L/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -install_name @rpath/HolyArrsTV.debug.dylib -dead_strip -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_dependency_info.dat -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/__preview.dylib
+
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/unthinned (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/unthinned
+
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/thinned (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/thinned
+
+GenerateAssetSymbols /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Assets.xcassets (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Assets.xcassets --compile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_dependencies --output-partial-info-plist /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist --app-icon App\ Icon\ \&\ Top\ Shelf\ Image --launch-image LaunchImage --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --development-region en --leaderboard-identifier-prefix HolyArrsTV.game-center.leaderboard. --leaderboard-set-identifier-prefix HolyArrsTV.game-center.leaderboard-set. --target-device tv --minimum-deployment-target 18.0 --platform appletvsimulator --bundle-identifier com.lasmith1689.slot03 --generate-swift-asset-symbol-extensions NO --generate-swift-asset-symbols /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols.swift --generate-objc-asset-symbols /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols.h --generate-asset-symbol-index /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/* com.apple.actool.compilation-results */
+/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols-Index.plist
+/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols.h
+/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols.swift
+
+
+CompileAssetCatalogVariant thinned /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Assets.xcassets (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/usr/bin/actool /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Assets.xcassets --compile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist_thinned --app-icon App\ Icon\ \&\ Top\ Shelf\ Image --launch-image LaunchImage --accent-color AccentColor --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration AppleTV14,1 --filter-for-device-os-version 18.5 --development-region en --leaderboard-identifier-prefix HolyArrsTV.game-center.leaderboard. --leaderboard-set-identifier-prefix HolyArrsTV.game-center.leaderboard-set. --target-device tv --minimum-deployment-target 18.0 --platform appletvsimulator
+/* com.apple.actool.compilation-results */
+/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist_thinned
+/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/thinned/Assets.car
+
+
+SwiftDriver HolyArrsTV normal arm64 com.apple.xcode.tools.swift.compiler (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-SwiftDriver -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name HolyArrsTV -Onone -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -target arm64-apple-tvos18.0-simulator -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -output-file-map /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-generated-files.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-own-target-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-project-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-Swift.h -working-directory /Users/runner/work/holyarrs-tv/holyarrs-tv -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ptrcheck-6WUGFNJOJXVS183DOP9PG43MB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftShims-5OOQ4ME35SRXNE59DKLIGSKLW.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stddef-5JJNYNX2ZP1H2EHQJVOVGM0JH.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_AvailabilityInternal-3T503L3FQ1YQ0HA99MIIQKYL8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ptrauth-4QUCQOUZCBCUPYFIJFXJQU4OZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdarg-8EAXTHZMS4TFMOB14ZDZVYF0C.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation1-5LNVA5X13ICHRX386BUK984W9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_float-C05O9I89FB7A88YITSKQXGFV9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdbool-2Z1U2XWQ5YXAGNJVJE4K4VI9W.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_SwiftConcurrencyShims-7DEFBYOYRCHH8FN0PNBTQWGSS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_limits-6V6E1G0ZDU2WFX9NOY1H7X3C5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation2-5IWB25YD6Z0SMNZZCPVRY3QJ4.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/DeveloperToolsSupport-76CH34DSLUNZRG9B2YCTZXX2V.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_tgmath-9UWVP5RFI0DF6UUHCF9O20DIZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/sys_types-CN99BV5YYOD1E3H17GAH9B0R5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdint-1FSDKZ9FRKZ0TF2GCJFNVNX5Y.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_intrinsics-EXQBYH8T9L4DY1MQN35PGZ50.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_DarwinFoundation3-86ZCHX62OIG1OTBKX7J1NZNZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_stdatomic-9ZNP17H318I1170U2ZNDGJBZ8.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/_Builtin_inttypes-3NPWFRY6MMFQ5INGQW80S14GN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Darwin-30GU38I2OYAL2FW6CYO6Y7UPI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/simd-KPOV0GCE0UGFON6I16A74CPF.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/MachO-BJIQXYCMA3JRAK4UNBC21M3PX.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ObjectiveC-5H8W6T8XXQ8UTNB1S2HK8DDQN.pcm
+
+LinkAssetCatalog /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Assets.xcassets (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-linkAssetCatalog --thinned /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/thinned --thinned-dependencies /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_dependencies_thinned --thinned-info-plist-content /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist_thinned --unthinned /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_output/unthinned --unthinned-dependencies /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_dependencies_unthinned --unthinned-info-plist-content /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist_unthinned --output /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app --plist-output /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist
+note: Emplaced /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/Assets.car (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+ProcessInfoPlistFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/Info.plist /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Info.plist (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-infoPlistUtility /Users/runner/work/holyarrs-tv/holyarrs-tv/Resources/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/PkgInfo -expandbuildsettings -format binary -platform appletvsimulator -additionalcontentfile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/assetcatalog_generated_info.plist -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/Info.plist
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os_object-C7TSAN79CM3TOD9ILTIPIQFIJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Spatial-4UW69P928411BAFG77CEWWC88.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os_workgroup-7973Q9YZM0D24XKIJW6NQ9YHA.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Dispatch-E3CQT6L6DQRU2VM371AEUBX4G.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/os-CUQS7P01DHLENBKGPZR97DTGR.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreFoundation-14KW3XZ14YZ4T9ETR6WZVEOY6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/dnssd-8B9TNTASLX6QSAXINLSVI8P48.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CFNetwork-EJWM7CXZ03U0SZCZX93I1IND6.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreGraphics-73EM39VVOLSLPT1Y3RX5KTBA3.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreAudioTypes-3SDGM7EE3HHYBBXP4EU84Z8CN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Security-ZHG11EV26M5QZBU2F46P8C2Z.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreAudio-6Z3MS2VVD917XZ3N4QAUU7G1K.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreText-E8FMAWJQ6U84WMTU0CY6NNER9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/ImageIO-9UOCELNJ4PRMY3UJRW02MBD2Y.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Foundation-AC3O3A34TYPMC4ZKH6U1GW0SD.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreTransferable-4MYYT74ZSQS5IW73TN07YB0PB.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Symbols-9LU4EVFCHG83YRR3H9ALEEXCJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/OSLog-90HOYVKFCD5DGNBJ7GOOF5FX1.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/OpenGLES-BVPRNYRRFEWUL8CA6AIHPNM53.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreMIDI-3U8BW46W2EWYQ9B5CEVN5O87I.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Network-5SP9RSNS8DZ8Z1S5PHOO95KUE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UniformTypeIdentifiers-2VVMV7K6IO1FJPYUP16H68EBE.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/DataDetection-CEDBBXCQI34HB8VLNVN5FYJCK.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UIUtilities-5OL8P3J2T1DT9GEYTXTQD3R3R.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/AVRouting-8EDMR4I7IHI14W8AUFBVOSH6E.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/AudioToolbox-7CESQY0JSTBNV13XSMBM9FUQU.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreData-3UW1Q6TPYOPTCNNVTTZAACK03.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UserNotifications-627A3DWVGRYEX0F72ZHKYNRUI.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Accessibility-CF5JABOQ8HFX374K0NUS6LX0R.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/IOSurface-4BKSMFCDOK56DO0BWV8P6KCFP.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Metal-CPKR6KWDZKIMBUTFJSAU7G7QQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreVideo-DENLRHRY9M5ZYZ2NDTC1CRBD9.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreMedia-EGXXL63BRTQ6G09ZR38LN1MXQ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/QuartzCore-1A00NK5ICEASXGDU9HR03D5YG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/CoreImage-7SCOP360Y29UWXAMXVLLL8OMS.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftUICore-B60SX324E5DC6356O9ICIBVDG.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/UIKit-ED91SWP5JQSRIHZETBUMOOQDJ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/MediaToolbox-19D5CALF09NC8KE7HBG9S634L.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/AVFAudio-78JNNFBLGMRMRLGKZFLV63EKZ.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/AVFoundation-DQ2TOD5VXBCNMZ4CV1I3P58RN.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/SwiftUI-5O9XZA88SZFX4H01CE5QIK04H.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/AVKit-6U1SOABZK00LWZRJI691LU62K.pcm
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ HolyArrsTV (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+EmitSwiftModule normal arm64 (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 Compiling\ RTX.swift,\ RequestsView.swift,\ SearchView.swift,\ SettingsView.swift,\ TitlePage.swift,\ GeneratedAssetSymbols.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/RTX.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/RequestsView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/SearchView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/SettingsView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/TitlePage.swift /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/RTX.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/RequestsView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/SearchView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/SettingsView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/TitlePage.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/GeneratedAssetSymbols.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 Compiling\ HomeView.swift,\ JSON.swift,\ Keychain.swift,\ Models.swift,\ PersonView.swift,\ Platform.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/HomeView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/JSON.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Keychain.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Models.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/PersonView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Platform.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/HomeView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/JSON.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Keychain.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Models.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/PersonView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Platform.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 Compiling\ App.swift,\ ArtistView.swift,\ CalendarView.swift,\ Components.swift,\ DownloadsView.swift,\ ExploreView.swift,\ HolyArrsAPI.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/App.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/ArtistView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/CalendarView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Components.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/DownloadsView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/ExploreView.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/HolyArrsAPI.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/App.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/ArtistView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/CalendarView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/Components.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/DownloadsView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/ExploreView.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/Sources/HolyArrsAPI.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for HolyArrsTV (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+SwiftDriver\ Compilation\ Requirements HolyArrsTV normal arm64 com.apple.xcode.tools.swift.compiler (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name HolyArrsTV -Onone -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -target arm64-apple-tvos18.0-simulator -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -output-file-map /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-generated-files.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-own-target-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-project-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-Swift.h -working-directory /Users/runner/work/holyarrs-tv/holyarrs-tv -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling RTX.swift, RequestsView.swift, SearchView.swift, SettingsView.swift, TitlePage.swift, GeneratedAssetSymbols.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+SwiftMergeGeneratedHeaders /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV-Swift.h /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-Swift.h (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-Swift.h -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV-Swift.h
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/arm64-apple-tvos-simulator.swiftmodule /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftmodule (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftmodule /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/arm64-apple-tvos-simulator.swiftmodule
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/arm64-apple-tvos-simulator.swiftdoc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftdoc (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftdoc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/arm64-apple-tvos-simulator.swiftdoc
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/arm64-apple-tvos-simulator.abi.json /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.abi.json (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.abi.json /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/arm64-apple-tvos-simulator.abi.json
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/Project/arm64-apple-tvos-simulator.swiftsourceinfo /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftsourceinfo (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftsourceinfo /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.swiftmodule/Project/arm64-apple-tvos-simulator.swiftsourceinfo
+
+ScanDependencies /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV_vers.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+    Using response file: /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+    
+    builtin-ScanDependencies -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o.scan -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Winfinite-recursion -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.d --serialize-diagnostics /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.dia -c /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV_vers.c -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o -index-unit-output-path /HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o
+
+SwiftDriverJobDiscovery normal arm64 Compiling HomeView.swift, JSON.swift, Keychain.swift, Models.swift, PersonView.swift, Platform.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+CompileC /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV_vers.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+    Using response file: /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+    
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Winfinite-recursion -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.d --serialize-diagnostics /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.dia -c /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/HolyArrsTV_vers.c -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o -index-unit-output-path /HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_vers.o
+
+SwiftDriver HolyArrsTVUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-SwiftDriver -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name HolyArrsTVUITests -Onone -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -target arm64-apple-tvos18.0-simulator -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -Isystem /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib -F /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk/Developer/Library/Frameworks -parse-as-library -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -output-file-map /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-generated-files.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-own-target-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-project-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-Swift.h -working-directory /Users/runner/work/holyarrs-tv/holyarrs-tv -experimental-emit-module-separately -disable-cmo
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-7O4USANRDPOOIXN4ZBF29VN5.pcm
+
+SwiftExplicitDependencyGeneratePcm arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-QAU6GXX2GMVGAAI491V30K58.pcm
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCUIAutomation-34C4WF7486BJ7.swiftmodule
+
+SwiftExplicitDependencyCompileModuleFromInterface arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules/XCTest-QMTE123AHOGQ.swiftmodule
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ HolyArrsTVUITests (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/UITests/ScreenTour.swift (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftCompile normal arm64 Compiling\ ScreenTour.swift /Users/runner/work/holyarrs-tv/holyarrs-tv/UITests/ScreenTour.swift (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+
+SwiftCompile normal arm64 /Users/runner/work/holyarrs-tv/holyarrs-tv/UITests/ScreenTour.swift (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for HolyArrsTVUITests (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+
+SwiftDriver\ Compilation\ Requirements HolyArrsTVUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name HolyArrsTVUITests -Onone -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -target arm64-apple-tvos18.0-simulator -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -Isystem /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib -F /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk/Developer/Library/Frameworks -parse-as-library -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -output-file-map /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-generated-files.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-own-target-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-project-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-Swift.h -working-directory /Users/runner/work/holyarrs-tv/holyarrs-tv -experimental-emit-module-separately -disable-cmo
+
+SwiftMergeGeneratedHeaders /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests-Swift.h /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-Swift.h (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-swiftHeaderTool -arch arm64 /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-Swift.h -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests-Swift.h
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/arm64-apple-tvos-simulator.swiftmodule /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftmodule (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftmodule /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/arm64-apple-tvos-simulator.swiftmodule
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/arm64-apple-tvos-simulator.swiftdoc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftdoc (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftdoc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/arm64-apple-tvos-simulator.swiftdoc
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/arm64-apple-tvos-simulator.abi.json /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.abi.json (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.abi.json /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/arm64-apple-tvos-simulator.abi.json
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/Project/arm64-apple-tvos-simulator.swiftsourceinfo /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftsourceinfo (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftsourceinfo /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests.swiftmodule/Project/arm64-apple-tvos-simulator.swiftsourceinfo
+
+ScanDependencies /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests_vers.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+    Using response file: /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+    
+    builtin-ScanDependencies -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o.scan -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Winfinite-recursion -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.d --serialize-diagnostics /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.dia -c /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests_vers.c -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o -index-unit-output-path /HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o
+
+CompileC /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests_vers.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    
+    Using response file: /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
+    
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Werror\=return-type -Wdocumentation -Wunreachable-code -Wquoted-include-in-framework-header -Werror\=deprecated-objc-isa-usage -Werror\=objc-root-class -Wno-missing-braces -Wparentheses -Wswitch -Wunused-function -Wno-unused-label -Wno-unused-parameter -Wunused-variable -Wunused-value -Wempty-body -Wuninitialized -Wconditional-uninitialized -Wno-unknown-pragmas -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wconstant-conversion -Wint-conversion -Wbool-conversion -Wenum-conversion -Wno-float-conversion -Wnon-literal-null-conversion -Wobjc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Winfinite-recursion -Wcomma -Wblock-capture-autoreleasing -Wstrict-prototypes -Wno-semicolon-before-method-body -Wunguarded-availability -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.d --serialize-diagnostics /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.dia -c /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/HolyArrsTVUITests_vers.c -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o -index-unit-output-path /HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_vers.o
+
+SwiftDriverJobDiscovery normal arm64 Compiling ScreenTour.swift (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+
+SwiftDriver\ Compilation HolyArrsTVUITests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-Swift-Compilation -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name HolyArrsTVUITests -Onone -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftFileList -DDEBUG -module-alias Testing\=_Testing_Unavailable -plugin-path /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -target arm64-apple-tvos18.0-simulator -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -Isystem /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib -F /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk/Developer/Library/Frameworks -parse-as-library -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -output-file-map /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-generated-files.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-own-target-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests-project-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-Swift.h -working-directory /Users/runner/work/holyarrs-tv/holyarrs-tv -experimental-emit-module-separately -disable-cmo
+
+SwiftDriverJobDiscovery normal arm64 Compiling App.swift, ArtistView.swift, CalendarView.swift, Components.swift, DownloadsView.swift, ExploreView.swift, HolyArrsAPI.swift (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+SwiftDriver\ Compilation HolyArrsTV normal arm64 com.apple.xcode.tools.swift.compiler (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-Swift-Compilation -- /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name HolyArrsTV -Onone -enforce-exclusivity\=checked @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftFileList -DDEBUG -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -target arm64-apple-tvos18.0-simulator -g -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -enable-testing -index-store-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -c -j3 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/appletvsimulator26.2-23K50-dc75598d0054f22ec865fa860f139d7256069b5f32d97f92fba5e4925e18f582.sdkstatcache -output-file-map /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/runner/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_const_extract_protocols.json -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-generated-files.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-own-target-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-all-target-headers.hmap -Xcc -iquote -Xcc /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-project-headers.hmap -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/include -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources-normal/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources/arm64 -Xcc -I/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-Swift.h -working-directory /Users/runner/work/holyarrs-tv/holyarrs-tv -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV.debug.dylib normal (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-tvos18.0-simulator -dynamiclib -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -O0 -L/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-appletvsimulator -L/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-appletvsimulator -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -filelist /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.LinkFileList -install_name @rpath/HolyArrsTV.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/appletvsimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.swiftmodule @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV-linker-args.resp -Xlinker -alias -Xlinker _main -Xlinker ___debug_main_executable_dylib_entry_point -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV.debug.dylib
+
+ConstructStubExecutorLinkFileList /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-ExecutorLinkFileList-normal-arm64.txt (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    construct-stub-executor-link-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV.debug.dylib /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library with Swift entry point. (in target 'HolyArrsTV' from project 'HolyArrsTV')
+
+Ld /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV normal (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-tvos18.0-simulator -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -O0 -L/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV-ExecutorLinkFileList-normal-arm64.txt /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV.debug.dylib -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV
+
+CopySwiftLibs /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV.debug.dylib --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/Frameworks --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/PlugIns --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/SystemExtensions --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/Extensions --platform appletvsimulator --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.3.7003.10.8uqngA/Metal.xctoolchain --toolchain /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+Ignoring --strip-bitcode because --sign was not passed
+
+ExtractAppIntentsMetadata (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.3.7003.10.8uqngA/Metal.xctoolchain --module-name HolyArrsTV --sdk-root /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk --xcode-version 17C529 --platform-family tvOS --deployment-target 18.0 --bundle-identifier com.lasmith1689.slot03 --output /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app --target-triple arm64-apple-tvos18.0-simulator --binary-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app/HolyArrsTV --dependency-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV_dependency_info.dat --stringsdata-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftFileList --metadata-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.DependencyMetadataFileList --static-metadata-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/HolyArrsTV.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTV.build/Objects-normal/arm64/HolyArrsTV.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-11-21 00:07:39.053 appintentsmetadataprocessor[2959:11733] Starting appintentsmetadataprocessor export
+2026-11-21 00:07:39.055 appintentsmetadataprocessor[2959:11733] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+RegisterExecutionPolicyException /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-RegisterExecutionPolicyException /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app
+
+Validate /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-validationUtility /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app -shallow-bundle -infoplist-subpath Info.plist
+
+Touch /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app (in target 'HolyArrsTV' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /usr/bin/touch -c /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTV.app
+
+Ld /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/HolyArrsTVUITests normal (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-tvos18.0-simulator -bundle -isysroot /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk -O0 -L/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-appletvsimulator -L/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -L/Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-appletvsimulator -F/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator -iframework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk/Developer/Library/Frameworks -filelist /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -dependency_info -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_dependency_info.dat -fobjc-link-runtime -L/Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/appletvsimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.swiftmodule @/Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests-linker-args.resp -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/HolyArrsTVUITests
+
+ProcessInfoPlistFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/Info.plist /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/empty-HolyArrsTVUITests.plist (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-infoPlistUtility /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/empty-HolyArrsTVUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform appletvsimulator -additionalcontentfile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/ProductTypeInfoPlistAdditions.plist -o /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/Info.plist
+
+ExtractAppIntentsMetadata (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.3.7003.10.8uqngA/Metal.xctoolchain --module-name HolyArrsTVUITests --sdk-root /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/SDKs/AppleTVSimulator26.2.sdk --xcode-version 17C529 --platform-family tvOS --deployment-target 18.0 --bundle-identifier com.lasmith1689.slot03.uitests --output /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest --target-triple arm64-apple-tvos18.0-simulator --binary-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/HolyArrsTVUITests --dependency-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests_dependency_info.dat --stringsdata-file /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftFileList --metadata-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.DependencyMetadataFileList --static-metadata-file-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/HolyArrsTVUITests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/Objects-normal/arm64/HolyArrsTVUITests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-11-21 00:07:39.361 appintentsmetadataprocessor[2963:11757] Starting appintentsmetadataprocessor export
+2026-11-21 00:07:39.362 appintentsmetadataprocessor[2963:11757] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+CopySwiftLibs /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-swiftStdLibTool --copy --verbose --scan-executable /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/HolyArrsTVUITests --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/Frameworks --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/PlugIns --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/SystemExtensions --scan-folder /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/Extensions --platform appletvsimulator --toolchain /var/run/com.apple.security.cryptexd/mnt/com.apple.MobileAsset.MetalToolchain-v17.3.7003.10.8uqngA/Metal.xctoolchain --toolchain /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Intermediates.noindex/HolyArrsTV.build/Debug-appletvsimulator/HolyArrsTVUITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os --back-deploy-swift-span
+Ignoring --strip-bitcode because --sign was not passed
+
+MkDir /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /bin/mkdir -p /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app
+
+CopyPlistFile /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Info.plist /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/Info.plist (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copyPlist --validate --convert xml1 --macro-expansion WRAPPEDPRODUCTNAME HolyArrsTVUITests-Runner --macro-expansion WRAPPEDPRODUCTBUNDLEIDENTIFIER com.lasmith1689.slot03.uitests.xctrunner --macro-expansion TESTPRODUCTNAME HolyArrsTVUITests --macro-expansion TESTPRODUCTBUNDLEIDENTIFIER com.lasmith1689.slot03.uitests --copy-value UIDeviceFamily /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest/Info.plist --outdir /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app -- /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/Info.plist
+
+CopyAndPreserveArchs /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/HolyArrsTVUITests-Runner (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /Applications/Xcode_26.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/XCTRunner -output /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/HolyArrsTVUITests-Runner -extract arm64
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PkgInfo /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/PkgInfo (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Xcode/Agents/XCTRunner.app/PkgInfo /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/libXCTestSwiftSupport.dylib /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/XCUnit.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCUnit.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCUnit.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/XCUIAutomation.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCUIAutomation.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCUIAutomation.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/XCTestSupport.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCTestSupport.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/XCTestCore.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCTestCore.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/XCTest.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCTest.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/XCTest.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/XCTAutomationSupport.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/PrivateFrameworks/XCTAutomationSupport.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+Copy /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks/Testing.framework /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/Testing.framework (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -exclude Headers -exclude PrivateHeaders -exclude Modules -exclude \*.tbd -resolve-src-symlinks /Applications/Xcode_26.3.app/Contents/Developer/Platforms/AppleTVSimulator.platform/Developer/Library/Frameworks/Testing.framework /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/Frameworks
+
+RegisterExecutionPolicyException /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    builtin-RegisterExecutionPolicyException /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest
+
+Touch /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest (in target 'HolyArrsTVUITests' from project 'HolyArrsTV')
+    cd /Users/runner/work/holyarrs-tv/holyarrs-tv
+    /usr/bin/touch -c /Users/runner/Library/Developer/Xcode/DerivedData/HolyArrsTV-bvcdqmtcokbnunaxgzxhmkusspka/Build/Products/Debug-appletvsimulator/HolyArrsTVUITests-Runner.app/PlugIns/HolyArrsTVUITests.xctest
+
+2026-11-21 00:08:10.041988+0000 HolyArrsTVUITests-Runner[3433:13837] [Default] Running tests...
+Test Suite 'All tests' started at 2026-11-21 00:08:12.363.
+Test Suite 'HolyArrsTVUITests.xctest' started at 2026-11-21 00:08:12.363.
+Test Suite 'ScreenTour' started at 2026-11-21 00:08:12.364.
+Test Case '-[HolyArrsTVUITests.ScreenTour testTour]' started.
+    t =     0.00s Start Test at 2026-11-21 00:08:12.365
+    t =     0.55s Set Up
+    t =     0.56s Open com.lasmith1689.slot03
+    t =     0.56s     Launch com.lasmith1689.slot03
+    t =     5.00s         Setting up automation session
+2026-11-21 00:08:17.442879+0000 HolyArrsTVUITests-Runner[3433:14147] [Common] Snapshot request 0x600000c2cba0 complete with error: <NSError: 0x600000c3ac10; domain: FBSSceneSnapshotErrorDomain; code: 4; "an unrelated condition or state was not satisfied"> {
+    NSLocalizedDescription = an error occurred during a scene snapshotting operation;
+}
+2026-11-21 00:08:17.451405+0000 HolyArrsTVUITests-Runner[3433:14147] [Common] Snapshot request 0x600000c44ea0 complete with error: <NSError: 0x600000c3ab80; domain: FBSSceneSnapshotErrorDomain; code: 4; "an unrelated condition or state was not satisfied"> {
+    NSLocalizedDescription = an error occurred during a scene snapshotting operation;
+}
+    t =     5.60s         Wait for com.lasmith1689.slot03 to idle
+    t =    10.94s Waiting 10.0s for "Sign in with Plex" Button to exist
+    t =    12.03s     Checking `Expect predicate `existsNoRetry == 1` for object "Sign in with Plex" Button`
+    t =    12.03s         Checking existence of `"Sign in with Plex" Button`
+    t =    12.38s Added attachment named '01-sign-in'
+    t =    12.38s Requesting snapshot of accessibility hierarchy for app with pid 3719
+    t =    12.43s Requesting snapshot of accessibility hierarchy for app with pid 3719
+    t =    12.45s Checking existence of `"Sign in with Plex" Button`
+    t =    12.47s Find the "Sign in with Plex" Button
+    t =    12.48s Pressing Select button
+    t =    13.43s Waiting 8.0s for "QR code for Plex sign-in" Image to exist
+    t =    14.43s     Checking `Expect predicate `existsNoRetry == 1` for object "QR code for Plex sign-in" Image`
+    t =    14.43s         Checking existence of `"QR code for Plex sign-in" Image`
+    t =    14.52s Added attachment named '02-plex-qr'
+    t =    14.52s Requesting snapshot of accessibility hierarchy for app with pid 3719
+    t =    14.55s Requesting snapshot of accessibility hierarchy for app with pid 3719
+    t =    14.56s Waiting 20.0s for "More info" Button to exist
+    t =    15.57s     Checking `Expect predicate `existsNoRetry == 1` for object "More info" Button`
+    t =    15.57s         Checking existence of `"More info" Button`
+    t =    15.59s         Capturing element debug description
+    t =    16.57s     Checking `Expect predicate `existsNoRetry == 1` for object "More info" Button`
+    t =    16.57s         Checking existence of `"More info" Button`
+    t =    16.57s         Capturing element debug description
+    t =    17.60s     Checking `Expect predicate `existsNoRetry == 1` for object "More info" Button`
+    t =    17.60s         Checking existence of `"More info" Button`
+    t =    18.05s Added attachment named '03-plex-signed-in'
+    t =    18.06s Requesting snapshot of accessibility hierarchy for app with pid 3719
+    t =    18.41s Requesting snapshot of accessibility hierarchy for app with pid 3719
+    t =    18.48s Terminate com.lasmith1689.slot03:3719
+    t =    20.57s Open com.lasmith1689.slot03
+    t =    20.57s     Launch com.lasmith1689.slot03
+    t =    20.87s         Setting up automation session
+    t =    22.07s         Wait for com.lasmith1689.slot03 to idle
+    t =    27.19s Waiting 15.0s for "More info" Button to exist
+    t =    28.27s     Checking `Expect predicate `existsNoRetry == 1` for object "More info" Button`
+    t =    28.27s         Checking existence of `"More info" Button`
+    t =    28.56s Added attachment named '04-home'
+    t =    28.56s Requesting snapshot of accessibility hierarchy for app with pid 4679
+    t =    28.86s Requesting snapshot of accessibility hierarchy for app with pid 4679
+    t =    28.93s Pressing Down button
+    t =    29.75s Pressing Down button
+    t =    30.57s Pressing Down button
+    t =    31.46s Added attachment named '05-home-rows'
+    t =    31.46s Requesting snapshot of accessibility hierarchy for app with pid 4679
+    t =    31.67s Requesting snapshot of accessibility hierarchy for app with pid 4679
+    t =    31.74s Terminate com.lasmith1689.slot03:4679
+    t =    36.77s Open com.lasmith1689.slot03
+    t =    36.78s     Launch com.lasmith1689.slot03
+    t =    37.11s         Setting up automation session
+    t =    38.12s         Wait for com.lasmith1689.slot03 to idle
+    t =    43.18s Waiting 15.0s for "More info" Button to exist
+    t =    44.22s     Checking `Expect predicate `existsNoRetry == 1` for object "More info" Button`
+    t =    44.22s         Checking existence of `"More info" Button`
+    t =    44.46s Pressing Down button
+    t =    46.29s Pressing Down button
+    t =    48.12s Checking existence of `Button (First Match)`
+    t =    48.19s Find the Button (First Match)
+    t =    48.25s Pressing Left button
+    t =    49.48s Checking existence of `"The Matrix, 1999" Button`
+    t =    49.55s Find the "The Matrix, 1999" Button
+    t =    49.62s Pressing Select button
+    t =    50.45s Waiting 10.0s for "Play in 4K" Button to exist
+    t =    51.45s     Checking `Expect predicate `existsNoRetry == 1` for object "Play in 4K" Button`
+    t =    51.45s         Checking existence of `"Play in 4K" Button`
+    t =    53.61s Added attachment named '06-title-movie'
+    t =    53.62s Requesting snapshot of accessibility hierarchy for app with pid 5233
+    t =    53.89s Requesting snapshot of accessibility hierarchy for app with pid 5233
+    t =    53.95s Pressing Down button
+    t =    54.77s Pressing Down button
+    t =    55.69s Added attachment named '07-title-cast'
+    t =    55.69s Requesting snapshot of accessibility hierarchy for app with pid 5233
+    t =    55.99s Requesting snapshot of accessibility hierarchy for app with pid 5233
+    t =    56.06s Checking existence of `Button (First Match)`
+    t =    56.14s Find the Button (First Match)
+    t =    56.20s Pressing Down button
+    t =    57.41s Checking existence of `"Keanu Reeves, Neo" Button`
+    t =    57.48s Find the "Keanu Reeves, Neo" Button
+    t =    57.55s Pressing Down button
+    t =    58.78s Checking existence of `"Keanu Reeves, Neo" Button`
+    t =    58.86s Find the "Keanu Reeves, Neo" Button
+    t =    58.96s Pressing Down button
+    t =    60.18s Checking existence of `"Keanu Reeves, Neo" Button`
+    t =    60.25s Find the "Keanu Reeves, Neo" Button
+    t =    60.32s Pressing Down button
+    t =    61.54s Checking existence of `"Keanu Reeves, Neo" Button`
+    t =    61.60s Find the "Keanu Reeves, Neo" Button
+    t =    61.67s Terminate com.lasmith1689.slot03:5233
+    t =    62.72s Open com.lasmith1689.slot03
+    t =    62.72s     Launch com.lasmith1689.slot03
+    t =    62.97s         Setting up automation session
+    t =    64.06s         Wait for com.lasmith1689.slot03 to idle
+    t =    71.25s Added attachment named '08-explore'
+    t =    71.26s Requesting snapshot of accessibility hierarchy for app with pid 6085
+    t =    71.65s Requesting snapshot of accessibility hierarchy for app with pid 6085
+    t =    71.73s Pressing Down button
+    t =    72.55s Pressing Down button
+    t =    73.37s Pressing Down button
+    t =    74.19s Pressing Down button
+    t =    75.01s Pressing Down button
+    t =    75.99s Added attachment named '09-explore-rows'
+    t =    75.99s Requesting snapshot of accessibility hierarchy for app with pid 6085
+    t =    76.21s Requesting snapshot of accessibility hierarchy for app with pid 6085
+    t =    76.32s Terminate com.lasmith1689.slot03:6085
+    t =    87.35s Open com.lasmith1689.slot03
+    t =    87.35s     Launch com.lasmith1689.slot03
+    t =    87.57s         Setting up automation session
+    t =    88.63s         Wait for com.lasmith1689.slot03 to idle
+    t =    95.81s Added attachment named '10-explore-music'
+    t =    95.81s Requesting snapshot of accessibility hierarchy for app with pid 7491
+    t =    96.01s Requesting snapshot of accessibility hierarchy for app with pid 7491
+    t =    96.05s Terminate com.lasmith1689.slot03:7491
+    t =    97.06s Open com.lasmith1689.slot03
+    t =    97.06s     Launch com.lasmith1689.slot03
+    t =    97.27s         Setting up automation session
+    t =    98.30s         Wait for com.lasmith1689.slot03 to idle
+    t =   103.44s Added attachment named '11-search'
+    t =   103.44s Requesting snapshot of accessibility hierarchy for app with pid 8068
+    t =   103.76s Requesting snapshot of accessibility hierarchy for app with pid 8068
+    t =   103.82s Terminate com.lasmith1689.slot03:8068
+    t =   104.89s Open com.lasmith1689.slot03
+    t =   104.89s     Launch com.lasmith1689.slot03
+    t =   105.13s         Setting up automation session
+    t =   106.29s         Wait for com.lasmith1689.slot03 to idle
+    t =   111.37s Waiting 10.0s for StaticText (First Match) to exist
+    t =   112.43s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =   112.43s         Checking existence of `StaticText (First Match)`
+    t =   112.76s Added attachment named '12-requests-waiting'
+    t =   112.77s Requesting snapshot of accessibility hierarchy for app with pid 8450
+    t =   112.98s Requesting snapshot of accessibility hierarchy for app with pid 8450
+    t =   113.05s Terminate com.lasmith1689.slot03:8450
+    t =   114.07s Open com.lasmith1689.slot03
+    t =   114.07s     Launch com.lasmith1689.slot03
+    t =   114.91s         Setting up automation session
+    t =   115.59s         Wait for com.lasmith1689.slot03 to idle
+    t =   120.68s Waiting 10.0s for StaticText (First Match) to exist
+    t =   121.72s     Checking `Expect predicate `existsNoRetry == 1` for object StaticText (First Match)`
+    t =   121.72s         Checking existence of `StaticText (First Match)`
+    t =   121.96s Added attachment named '13-downloads'
+    t =   121.96s Requesting snapshot of accessibility hierarchy for app with pid 8479
+    t =   122.09s Requesting snapshot of accessibility hierarchy for app with pid 8479
+    t =   122.12s Terminate com.lasmith1689.slot03:8479
+    t =   125.17s Open com.lasmith1689.slot03
+    t =   125.17s     Launch com.lasmith1689.slot03
+    t =   125.61s         Setting up automation session
+    t =   126.65s         Wait for com.lasmith1689.slot03 to idle
+    t =   131.82s Added attachment named '14-calendar'
+    t =   131.82s Requesting snapshot of accessibility hierarchy for app with pid 8917
+    t =   132.03s Requesting snapshot of accessibility hierarchy for app with pid 8917
+    t =   132.06s Terminate com.lasmith1689.slot03:8917
+    t =   135.07s Open com.lasmith1689.slot03
+    t =   135.07s     Launch com.lasmith1689.slot03
+    t =   135.29s         Setting up automation session
+    t =   136.52s         Wait for com.lasmith1689.slot03 to idle
+    t =   141.70s Added attachment named '15-settings'
+    t =   141.70s Requesting snapshot of accessibility hierarchy for app with pid 9329
+    t =   142.06s Requesting snapshot of accessibility hierarchy for app with pid 9329
+    t =   142.11s Tear Down
+Test Case '-[HolyArrsTVUITests.ScreenTour testTour]' passed (142.344 seconds).
+Test Suite 'ScreenTour' passed at 2026-11-21 00:10:34.709.
+	 Executed 1 test, with 0 failures (0 unexpected) in 142.344 (142.345) seconds
+Test Suite 'HolyArrsTVUITests.xctest' passed at 2026-11-21 00:10:34.709.
+	 Executed 1 test, with 0 failures (0 unexpected) in 142.344 (142.346) seconds
+Test Suite 'All tests' passed at 2026-11-21 00:10:34.709.
+	 Executed 1 test, with 0 failures (0 unexpected) in 142.344 (142.346) seconds
+2026-11-21 00:10:35.414 xcodebuild[2442:10099] [MT] IDETestOperationsObserverDebug: 175.937 elapsed -- Testing started completed.
+2026-11-21 00:10:35.414 xcodebuild[2442:10099] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-11-21 00:10:35.414 xcodebuild[2442:10099] [MT] IDETestOperationsObserverDebug: 175.937 sec, +175.937 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/runner/work/_temp/result.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

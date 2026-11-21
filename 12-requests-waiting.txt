@@ -1,0 +1,79 @@
+Optional(Attributes: Application, 0x10208b610, pid: 8450, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x10208b610, pid: 8450, label: 'HolyArrs'
+    Window (Main), 0x10208c220, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10208d340, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10208cf20, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10208d760, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x102090180, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10208cb00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10208c6e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x1020907c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x1020908e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x102090a00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x102090b20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x102090c40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x102090d60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10217ae90, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x1021794d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x1021795f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10217a730, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10217a850, {{0.0, 157.0}, {1760.0, 629.0}}
+                                        SegmentedControl, 0x10217b1d0, {{160.0, 199.0}, {1200.0, 69.0}}
+                                          Button, 0x10217b2f0, {{158.0, 198.5}, {304.0, 70.9}}, label: 'Waiting (2)', Selected
+                                          Button, 0x10217b410, {{458.0, 198.5}, {304.0, 70.9}}, label: 'Mine'
+                                          Button, 0x10217b530, {{758.0, 198.5}, {304.0, 70.9}}, label: 'All'
+                                          Button, 0x10217b650, {{1058.0, 198.5}, {304.0, 70.9}}, label: 'Needs a decision'
+                                        Button, 0x10217b770, {{1642.0, 197.0}, {118.0, 73.0}}, identifier: 'arrow.clockwise', label: 'Refresh'
+                                        Button, 0x102090e80, {{160.0, 314.0}, {120.0, 180.0}}, label: 'Open Dune: Part Two'
+                                          StaticText, 0x102090fa0, {{160.0, 314.0}, {120.0, 180.0}}, label: 'Dune: Part Two'
+                                          Image, 0x1020910c0, {{160.0, 314.0}, {120.0, 180.0}}
+                                        StaticText, 0x1020911e0, {{314.0, 362.0}, {328.0, 39.0}}, label: 'Dune: Part Two (2024)'
+                                        StaticText, 0x102091300, {{1009.0, 393.0}, {199.0, 22.0}}, label: 'WAITING FOR AN OK'
+                                        StaticText, 0x102091420, {{314.0, 409.0}, {350.0, 37.0}}, label: 'Asked by anya · 1 day ago'
+                                        Button, 0x102091540, {{1254.0, 368.0}, {219.0, 72.0}}, label: 'Approve'
+                                        Button, 0x102091660, {{1507.0, 368.0}, {253.0, 72.0}}, label: 'Turn down'
+                                        Button, 0x102091780, {{160.0, 552.0}, {120.0, 180.0}}, label: 'Open Blade Runner'
+                                          StaticText, 0x1020918a0, {{160.0, 552.0}, {120.0, 180.0}}, label: 'Blade Runner'
+                                          Image, 0x1020919c0, {{160.0, 552.0}, {120.0, 180.0}}
+                                        StaticText, 0x102091ae0, {{314.0, 600.0}, {300.0, 39.0}}, label: 'Blade Runner (1982)'
+                                        StaticText, 0x102091c00, {{1009.0, 631.0}, {199.0, 22.0}}, label: 'WAITING FOR AN OK'
+                                        StaticText, 0x102091d20, {{314.0, 647.0}, {387.0, 37.0}}, label: 'Asked by luke · 15 hours ago'
+                                        Button, 0x102091e40, {{1254.0, 606.0}, {219.0, 72.0}}, label: 'Approve'
+                                        Button, 0x102091f60, {{1507.0, 606.0}, {253.0, 72.0}}, label: 'Turn down'
+                                      Other, 0x10217b890, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10217b9b0, {{1914.0, 540.0}, {3.0, 477.0}}
+                                      Other, 0x10217bad0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10217bbf0, {{1914.0, 540.0}, {3.0, 477.0}}
+                Other, 0x10217bd10, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10217be30, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10217bf50, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10217c070, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x102160040, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x102160160, {{959.0, 43.0}, {268.0, 74.0}}
+                    Other, 0x102160280, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x1021603a0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x1021604c0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x1021605e0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x102160700, {{572.0, 62.0}, {158.0, 36.0}}, identifier: 'sparkles.tv', label: 'Explore'
+                          Image, 0x102160820, {{572.0, 62.0}, {44.0, 36.0}}, identifier: 'sparkles.tv', label: 'sparkles.tv'
+                        Button, 0x102160940, {{795.0, 62.5}, {142.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x102160a60, {{795.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x102160b80, {{994.0, 61.0}, {198.1, 38.1}}, identifier: 'tray.full', label: 'Requests', Focused
+                          Image, 0x102160ca0, {{994.0, 63.1}, {45.7, 33.7}}, identifier: 'tray.full', label: 'Inbox Full'
+                        Button, 0x102160dc0, {{1249.0, 62.0}, {200.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                          Image, 0x102168c80, {{1249.0, 62.0}, {36.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                        Button, 0x102168da0, {{1514.0, 62.5}, {173.0, 35.0}}, identifier: 'calendar', label: 'Calendar'
+                          Image, 0x102168ec0, {{1514.0, 63.5}, {37.0, 33.0}}, identifier: 'calendar', label: 'calendar'
+                        Button, 0x102168fe0, {{1752.0, 61.5}, {163.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x102162670, {{1752.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x102162790, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x1021628b0, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10208b610, pid: 8450, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10217e070, pid: 8450, label: 'HolyArrs'
+  }
+)

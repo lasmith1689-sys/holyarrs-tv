@@ -1,0 +1,102 @@
+Optional(Attributes: Application, 0x102238ab0, pid: 7491, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x102238ab0, pid: 7491, label: 'HolyArrs'
+    Window (Main), 0x102237230, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x102234aa0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x102235170, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x102234e10, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x102237ff0, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x1022354e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x102239ca0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10223cd60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x102236b10, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x102236e90, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x102232470, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x102234750, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10222cc20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x102222020, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x102224ec0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x1022215f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10222c8c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10222cf80, {{0.0, 157.0}, {1760.0, 1696.0}}
+                                        SegmentedControl, 0x10222e430, {{160.0, 177.0}, {900.0, 69.0}}
+                                          Button, 0x10222d680, {{158.0, 176.4}, {229.0, 71.2}}, label: 'All'
+                                          Button, 0x10222d300, {{383.0, 176.4}, {229.0, 71.2}}, label: 'Movies'
+                                          Button, 0x10222e0d0, {{608.0, 176.4}, {229.0, 71.2}}, label: 'Shows'
+                                          Button, 0x10222dd50, {{833.0, 176.4}, {229.0, 71.2}}, label: 'Music', Selected
+                                        StaticText, 0x102231670, {{110.0, 838.0}, {1002.0, 96.0}}, label: 'Random Access Memories'
+                                        StaticText, 0x102221950, {{110.0, 956.0}, {207.0, 58.0}}, label: 'Daft Punk'
+                                        StaticText, 0x10222e7a0, {{337.0, 956.0}, {208.0, 58.0}}, label: 'electronic'
+                                        Button, 0x102221cb0, {{110.0, 1036.0}, {290.0, 60.0}}, label: 'More info'
+                                          Image, 0x102250c60, {{171.0, 1051.0}, {29.0, 29.0}}, identifier: 'info.circle', label: 'Info'
+                                          StaticText, 0x102250fd0, {{110.0, 1036.0}, {290.0, 60.0}}, label: 'More info'
+                                        StaticText, 0x102251340, {{160.0, 1206.0}, {181.0, 41.0}}, label: 'Top albums'
+                                        ScrollView, 0x102253d70, {{0.0, 1265.0}, {1920.0, 508.0}}
+                                          Other, 0x102252fa0, {{80.0, 1265.0}, {2482.0, 508.0}}
+                                            Other, 0x1022539e0, {{159.5, 1294.5}, {1731.0, 448.5}}
+                                              Button, 0x102253680, {{159.5, 1294.5}, {251.0, 448.5}}, label: 'Album 0'
+                                                StaticText, 0x102253320, {{234.0, 1467.0}, {102.0, 32.0}}, label: 'Album 0'
+                                                Image, 0x1022516c0, {{160.0, 1295.0}, {250.0, 375.0}}
+                                                StaticText, 0x102252c40, {{160.0, 1684.0}, {92.0, 29.0}}, label: 'Album 0'
+                                                StaticText, 0x1022528b0, {{160.0, 1717.0}, {90.0, 26.0}}, label: 'Daft Punk'
+                                              Button, 0x102251dc0, {{455.5, 1294.5}, {251.0, 448.5}}, label: 'Album 1'
+                                                StaticText, 0x102251a60, {{532.0, 1467.0}, {98.0, 32.0}}, label: 'Album 1'
+                                                Image, 0x1022508f0, {{456.0, 1295.0}, {250.0, 375.0}}
+                                                StaticText, 0x10224d7a0, {{456.0, 1684.0}, {88.0, 29.0}}, label: 'Album 1'
+                                                StaticText, 0x10224db00, {{456.0, 1717.0}, {90.0, 26.0}}, label: 'Daft Punk'
+                                              Button, 0x10224de80, {{751.5, 1294.5}, {251.0, 448.5}}, label: 'Album 2'
+                                                StaticText, 0x10224fe70, {{827.0, 1467.0}, {101.0, 32.0}}, label: 'Album 2'
+                                                Image, 0x102250560, {{752.0, 1295.0}, {250.0, 375.0}}
+                                                StaticText, 0x1022501d0, {{752.0, 1684.0}, {91.0, 29.0}}, label: 'Album 2'
+                                                StaticText, 0x10224f3d0, {{752.0, 1717.0}, {90.0, 26.0}}, label: 'Daft Punk'
+                                              Button, 0x10224fad0, {{1047.5, 1294.5}, {251.0, 448.5}}, label: 'Album 3'
+                                                StaticText, 0x10224f740, {{1122.0, 1467.0}, {102.0, 32.0}}, label: 'Album 3'
+                                                Image, 0x10224e1e0, {{1048.0, 1295.0}, {250.0, 375.0}}
+                                                StaticText, 0x10224f070, {{1048.0, 1684.0}, {91.0, 29.0}}, label: 'Album 3'
+                                                StaticText, 0x10224e570, {{1048.0, 1717.0}, {90.0, 26.0}}, label: 'Daft Punk'
+                                              Button, 0x10224d450, {{1343.5, 1294.5}, {251.0, 448.5}}, label: 'Album 4'
+                                                StaticText, 0x10224c670, {{1418.0, 1467.0}, {102.0, 32.0}}, label: 'Album 4'
+                                                Image, 0x10224cd70, {{1344.0, 1295.0}, {250.0, 375.0}}
+                                                StaticText, 0x10224d0c0, {{1344.0, 1684.0}, {92.0, 29.0}}, label: 'Album 4'
+                                                StaticText, 0x10224ca00, {{1344.0, 1717.0}, {90.0, 26.0}}, label: 'Daft Punk'
+                                              Button, 0x10224bc10, {{1639.5, 1294.5}, {251.0, 448.5}}, label: 'Album 5'
+                                                StaticText, 0x10224b200, {{1715.0, 1467.0}, {101.0, 32.0}}, label: 'Album 5'
+                                                Image, 0x10224c2f0, {{1640.0, 1295.0}, {250.0, 375.0}}
+                                                StaticText, 0x10224bfa0, {{1640.0, 1684.0}, {91.0, 29.0}}, label: 'Album 5'
+                                                StaticText, 0x102247aa0, {{1640.0, 1717.0}, {90.0, 26.0}}, label: 'Daft Punk'
+                                      Other, 0x102247e10, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x102248840, {{1914.0, 504.0}, {3.0, 513.0}}
+                                      Other, 0x10224b550, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10224b8b0, {{1914.0, 504.0}, {3.0, 513.0}}
+                Other, 0x102248f60, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10224ae90, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10224a790, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10224ab10, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x102249640, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10224a410, {{529.0, 43.0}, {244.0, 74.0}}
+                    Other, 0x10224a0c0, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x102249d40, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x1022499d0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x1022484e0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x102248bd0, {{565.0, 60.4}, {171.9, 39.2}}, identifier: 'sparkles.tv', label: 'Explore', Focused
+                          Image, 0x102248170, {{565.0, 60.4}, {47.9, 39.2}}, identifier: 'sparkles.tv', label: 'sparkles.tv'
+                        Button, 0x1022492f0, {{795.0, 62.5}, {142.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x1022473a0, {{795.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x102246ca0, {{1002.0, 62.5}, {182.0, 35.0}}, identifier: 'tray.full', label: 'Requests'
+                          Image, 0x102247730, {{1002.0, 64.5}, {42.0, 31.0}}, identifier: 'tray.full', label: 'Inbox Full'
+                        Button, 0x102247010, {{1249.0, 62.0}, {200.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                          Image, 0x102246940, {{1249.0, 62.0}, {36.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                        Button, 0x102246260, {{1514.0, 62.5}, {173.0, 35.0}}, identifier: 'calendar', label: 'Calendar'
+                          Image, 0x1022465e0, {{1514.0, 63.5}, {37.0, 33.0}}, identifier: 'calendar', label: 'calendar'
+                        Button, 0x102243c10, {{1752.0, 61.5}, {163.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x102245f00, {{1752.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x102245ba0, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x102245820, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x102238ab0, pid: 7491, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10205a870, pid: 7491, label: 'HolyArrs'
+  }
+)

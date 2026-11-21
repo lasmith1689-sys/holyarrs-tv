@@ -1,0 +1,79 @@
+Optional(Attributes: Application, 0x10218a950, pid: 8917, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x10218a950, pid: 8917, label: 'HolyArrs'
+    Window (Main), 0x10218a530, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x1021898d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x1021885d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x102189cf0, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10218a110, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x102187d90, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x1021881b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x102187970, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x102168520, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10218b1b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10218b2d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10218b3f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10218b510, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10218b630, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10218b750, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10218b870, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10218b990, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10218bab0, {{0.0, 157.0}, {1760.0, 1357.0}}
+                                        StaticText, 0x10218bbd0, {{160.0, 197.0}, {318.0, 77.0}}, label: 'Coming up'
+                                        StaticText, 0x10218bcf0, {{160.0, 314.0}, {88.0, 36.0}}, label: 'Today'
+                                        ScrollView, 0x10218be10, {{0.0, 366.0}, {1920.0, 508.0}}
+                                          Other, 0x10218bf30, {{80.0, 366.0}, {410.0, 508.0}}
+                                            Other, 0x10218c050, {{159.5, 395.5}, {251.0, 448.5}}
+                                              Button, 0x10218c170, {{159.5, 395.5}, {251.0, 448.5}}, label: 'Breaking Bad'
+                                                StaticText, 0x10218c290, {{205.0, 568.0}, {161.0, 32.0}}, label: 'Breaking Bad'
+                                                Image, 0x10218c3b0, {{160.0, 396.0}, {250.0, 375.0}}
+                                                StaticText, 0x10218c4d0, {{291.0, 413.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10218c5f0, {{160.0, 785.0}, {144.0, 29.0}}, label: 'Breaking Bad'
+                                                StaticText, 0x10218c710, {{160.0, 818.0}, {176.0, 26.0}}, label: 'S6 E1 · Pilot (again)'
+                                        StaticText, 0x10218c830, {{160.0, 914.0}, {296.0, 36.0}}, label: 'Friday, November 27'
+                                        ScrollView, 0x10218c950, {{0.0, 966.0}, {1920.0, 508.0}}
+                                          Other, 0x10218cb30, {{80.0, 966.0}, {410.0, 508.0}}
+                                            Other, 0x10218cc50, {{159.5, 995.5}, {251.0, 448.5}}
+                                              Button, 0x10218cd70, {{159.5, 995.5}, {251.0, 448.5}}, label: 'Interstellar, 2014'
+                                                StaticText, 0x10218ce90, {{219.0, 1151.0}, {133.0, 32.0}}, label: 'Interstellar'
+                                                StaticText, 0x10218cfb0, {{263.0, 1193.0}, {45.0, 24.0}}, label: '2014'
+                                                Image, 0x10218d0d0, {{160.0, 996.0}, {250.0, 375.0}}
+                                                StaticText, 0x10218d1f0, {{291.0, 1013.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10218d310, {{160.0, 1385.0}, {117.0, 29.0}}, label: 'Interstellar'
+                                                StaticText, 0x10218d430, {{160.0, 1418.0}, {129.0, 26.0}}, label: 'Digital release'
+                                      Other, 0x10218d550, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10218d670, {{1914.0, 526.0}, {3.0, 491.0}}
+                                      Other, 0x10218d790, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10218d8b0, {{1914.0, 526.0}, {3.0, 491.0}}
+                Other, 0x10218d9d0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10218daf0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10218dc10, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10218dd30, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10218de50, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10218df70, {{1254.0, 43.0}, {259.0, 74.0}}
+                    Other, 0x10218e090, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10218e1b0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10218e2d0, {{154.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10218e3f0, {{154.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10218e510, {{355.0, 62.0}, {158.0, 36.0}}, identifier: 'sparkles.tv', label: 'Explore'
+                          Image, 0x10218e630, {{355.0, 62.0}, {44.0, 36.0}}, identifier: 'sparkles.tv', label: 'sparkles.tv'
+                        Button, 0x10218e750, {{578.0, 62.5}, {142.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10218e870, {{578.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10218e990, {{785.0, 62.5}, {182.0, 35.0}}, identifier: 'tray.full', label: 'Requests'
+                          Image, 0x10218eab0, {{785.0, 64.5}, {42.0, 31.0}}, identifier: 'tray.full', label: 'Inbox Full'
+                        Button, 0x10218ebd0, {{1032.0, 62.0}, {200.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                          Image, 0x10218ecf0, {{1032.0, 62.0}, {36.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                        Button, 0x10218ee10, {{1289.4, 61.0}, {188.3, 38.1}}, identifier: 'calendar', label: 'Calendar', Focused
+                          Image, 0x10218ef30, {{1289.4, 62.0}, {40.3, 35.9}}, identifier: 'calendar', label: 'calendar'
+                        Button, 0x10218f050, {{1535.0, 61.5}, {163.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10218f170, {{1535.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10218f290, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10218f3b0, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10218a950, pid: 8917, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x102069a00, pid: 8917, label: 'HolyArrs'
+  }
+)

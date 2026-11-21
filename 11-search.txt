@@ -1,0 +1,106 @@
+Optional(Attributes: Application, 0x1022454c0, pid: 8068, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x1022454c0, pid: 8068, label: 'HolyArrs'
+    Window (Main), 0x102220b80, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x102243fa0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x1022446a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x102244300, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x102244da0, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x102269710, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x102269a60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10226a120, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10226a4a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x102269db0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10226a830, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10226b6b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10226ba40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10226bdc0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10226ab90, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10226c4b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Other, 0x10226c130, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10226cba0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10226cf20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                        Other, 0x10226d280, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                          Other, 0x10226d600, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                            Other, 0x10226e420, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                              Other, 0x10226e790, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                                Other, 0x10226e0d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                                  ScrollView, 0x10226f1c0, {{89.0, 0.0}, {1743.0, 1080.0}}, label: 'Search results'
+                                                    Other, 0x10226fcc0, {{89.0, 403.0}, {1743.0, 138.0}}
+                                                      StaticText, 0x102270010, {{169.0, 443.0}, {1583.0, 58.0}}, label: 'Type a name, or describe it: "80s horror movies", "shows with Pedro Pascal".'
+                                                    Other, 0x1022703a0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                                      Other, 0x10226ee70, {{1826.0, 885.0}, {3.0, 132.0}}
+                                                    Other, 0x102270700, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                                      Other, 0x102271750, {{1826.0, 885.0}, {3.0, 132.0}}
+                                          Other, 0x102271ac0, {{0.0, 157.0}, {1920.0, 245.5}}
+                                            Other, 0x102271e30, {{80.0, 157.0}, {1760.0, 70.0}}
+                                              Other, 0x1022721c0, {{80.0, 157.0}, {1760.0, 70.0}}
+                                                SearchField, 0x102272980, {{65.0, 156.4}, {1790.0, 71.2}}, label: 'Movies, shows, people, artists', placeholderValue: 'Movies, shows, people, artists'
+                                            Other, 0x102272d10, {{80.0, 262.0}, {1760.0, 66.0}}
+                                              Other, 0x102273090, {{80.0, 262.0}, {1760.0, 66.0}}
+                                                Other, 0x102273400, {{80.0, 262.0}, {1760.0, 66.0}}
+                                                  Keyboard, 0x102273760, {{80.0, 262.0}, {1760.0, 66.0}}, label: 'Keyboard'
+                                                    Other, 0x102273ac0, {{80.0, 262.0}, {1760.0, 66.0}}
+                                                      Other, 0x102273e20, {{80.0, 262.0}, {1760.0, 66.0}}, identifier: 'UIKeyboardLayoutStar Preview'
+                                                        Key, 0x102274190, {{136.5, 262.0}, {74.0, 64.0}}, label: 'Numbers'
+                                                        Key, 0x102274510, {{210.5, 262.0}, {110.0, 64.0}}, label: 'space'
+                                                        Key, 0x1022748a0, {{320.5, 262.0}, {54.0, 64.0}}, label: 'a'
+                                                        Key, 0x102274c00, {{374.5, 262.0}, {54.0, 64.0}}, label: 'b'
+                                                        Key, 0x102275640, {{428.5, 262.0}, {54.0, 64.0}}, label: 'c'
+                                                        Key, 0x1022759b0, {{482.5, 262.0}, {54.0, 64.0}}, label: 'd'
+                                                        Key, 0x102275d10, {{536.5, 262.0}, {54.0, 64.0}}, label: 'e'
+                                                        Key, 0x1022760a0, {{590.5, 262.0}, {54.0, 64.0}}, label: 'f'
+                                                        Key, 0x102276410, {{644.5, 262.0}, {54.0, 64.0}}, label: 'g'
+                                                        Key, 0x102276760, {{698.5, 262.0}, {54.0, 64.0}}, label: 'h'
+                                                        Key, 0x102276ab0, {{752.5, 262.0}, {54.0, 64.0}}, label: 'i'
+                                                        Key, 0x1022772e0, {{806.5, 262.0}, {54.0, 64.0}}, label: 'j'
+                                                        Key, 0x102277640, {{860.5, 262.0}, {54.0, 64.0}}, label: 'k'
+                                                        Key, 0x1022779a0, {{914.5, 262.0}, {54.0, 64.0}}, label: 'l'
+                                                        Key, 0x102277d00, {{968.5, 262.0}, {54.0, 64.0}}, label: 'm'
+                                                        Key, 0x102278070, {{1022.5, 262.0}, {54.0, 64.0}}, label: 'n'
+                                                        Key, 0x1022783d0, {{1076.5, 262.0}, {54.0, 64.0}}, label: 'o'
+                                                        Key, 0x102278760, {{1130.5, 262.0}, {54.0, 64.0}}, label: 'p'
+                                                        Key, 0x102278ae0, {{1184.5, 262.0}, {54.0, 64.0}}, label: 'q'
+                                                        Key, 0x102278e50, {{1238.5, 262.0}, {54.0, 64.0}}, label: 'r'
+                                                        Key, 0x1022791b0, {{1292.5, 262.0}, {54.0, 64.0}}, label: 's'
+                                                        Key, 0x102279530, {{1346.5, 262.0}, {54.0, 64.0}}, label: 't'
+                                                        Key, 0x102252320, {{1400.5, 262.0}, {54.0, 64.0}}, label: 'u'
+                                                        Key, 0x1022568c0, {{1454.5, 262.0}, {54.0, 64.0}}, label: 'v'
+                                                        Key, 0x10223c7a0, {{1508.5, 262.0}, {54.0, 64.0}}, label: 'w'
+                                                        Key, 0x10221e490, {{1562.5, 262.0}, {54.0, 64.0}}, label: 'x'
+                                                        Key, 0x10227b6b0, {{1616.5, 262.0}, {54.0, 64.0}}, label: 'y'
+                                                        Key, 0x102284310, {{1670.5, 262.0}, {54.0, 64.0}}, label: 'z'
+                                                        Key, 0x102282a10, {{1724.5, 262.0}, {59.0, 64.0}}, identifier: 'delete', label: 'delete'
+                                            Other, 0x10227cc00, {{80.0, 371.5}, {1760.0, 1.0}}
+                Other, 0x1022836b0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10229bcd0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10229bdf0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10229bf10, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10229c030, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10229c150, {{752.0, 43.0}, {228.0, 74.0}}
+                    Other, 0x10229c270, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10229c390, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10229c4b0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10229c5d0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10229c6f0, {{572.0, 62.0}, {158.0, 36.0}}, identifier: 'sparkles.tv', label: 'Explore'
+                          Image, 0x10229c810, {{572.0, 62.0}, {44.0, 36.0}}, identifier: 'sparkles.tv', label: 'sparkles.tv'
+                        Button, 0x10229c930, {{788.7, 61.0}, {154.5, 38.1}}, identifier: 'magnifyingglass', label: 'Search', Focused
+                          Image, 0x10229ca50, {{788.7, 61.0}, {37.0, 38.1}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10229cb70, {{1002.0, 62.5}, {182.0, 35.0}}, identifier: 'tray.full', label: 'Requests'
+                          Image, 0x10229cc90, {{1002.0, 64.5}, {42.0, 31.0}}, identifier: 'tray.full', label: 'Inbox Full'
+                        Button, 0x10229cdb0, {{1249.0, 62.0}, {200.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                          Image, 0x10229ced0, {{1249.0, 62.0}, {36.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                        Button, 0x10229cff0, {{1514.0, 62.5}, {173.0, 35.0}}, identifier: 'calendar', label: 'Calendar'
+                          Image, 0x10229d110, {{1514.0, 63.5}, {37.0, 33.0}}, identifier: 'calendar', label: 'calendar'
+                        Button, 0x10229d230, {{1752.0, 61.5}, {163.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10229d350, {{1752.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10229d470, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10229d590, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x1022454c0, pid: 8068, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x102080590, pid: 8068, label: 'HolyArrs'
+  }
+)

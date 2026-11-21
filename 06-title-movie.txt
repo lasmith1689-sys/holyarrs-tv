@@ -1,0 +1,152 @@
+Optional(Attributes: Application, 0x10221df20, pid: 5233, label: 'HolyArrs'
+Element subtree:
+ →Application, 0x10221df20, pid: 5233, label: 'HolyArrs'
+    Window (Main), 0x1022226f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x102222c40, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10221f610, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x1022236b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10221ca70, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10221ebb0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x102222fb0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x102223a00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x102223d80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x102220130, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x102241d80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x102220490, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10221f290, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x102242440, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x102148980, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x102149840, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Image, 0x102149960, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x102149a80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x102149ba0, {{0.0, 157.0}, {1760.0, 2457.0}}
+                                        StaticText, 0x102149cc0, {{690.0, 237.0}, {349.0, 86.0}}, label: 'The Matrix'
+                                        StaticText, 0x102149de0, {{690.0, 349.0}, {115.0, 58.0}}, label: '1999'
+                                        StaticText, 0x102149f00, {{829.0, 349.0}, {159.0, 58.0}}, label: '2h 16m'
+                                        StaticText, 0x10214a090, {{1024.0, 367.0}, {14.0, 22.0}}, label: 'R'
+                                        StaticText, 0x102243880, {{1086.0, 367.0}, {62.0, 22.0}}, label: '1080p'
+                                        StaticText, 0x1022427b0, {{1196.0, 367.0}, {123.0, 22.0}}, label: '4K UPSCALE'
+                                        StaticText, 0x1022420f0, {{690.0, 433.0}, {403.0, 29.0}}, label: 'Action · Science Fiction · mind-bending'
+                                        StaticText, 0x1022431b0, {{692.0, 488.0}, {151.0, 32.0}}, label: 'In library'
+                                        StaticText, 0x102243520, {{336.0, 509.0}, {129.0, 32.0}}, label: 'The Matrix'
+                                        StaticText, 0x102242b00, {{377.0, 551.0}, {46.0, 24.0}}, label: '1999'
+                                        StaticText, 0x102242e60, {{690.0, 546.0}, {862.0, 32.0}}, label: 'A hacker learns the world is a simulation and joins the fight against its makers.'
+                                        Button, 0x10223d0e0, {{675.0, 621.1}, {351.0, 67.8}}, label: 'Play in 4K', Focused
+                                          Image, 0x102241a10, {{754.8, 639.7}, {26.2, 29.5}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x10223d7a0, {{675.0, 621.1}, {351.0, 67.8}}, label: 'Play in 4K'
+                                        StaticText, 0x102240c30, {{160.0, 917.0}, {226.0, 41.0}}, label: 'Cast and crew'
+                                        ScrollView, 0x102241680, {{0.0, 976.0}, {1920.0, 314.0}}
+                                          Other, 0x10223d430, {{80.0, 976.0}, {1080.0, 314.0}}
+                                            Other, 0x102241310, {{169.5, 961.0}, {901.0, 299.0}}
+                                              Button, 0x102240fc0, {{169.5, 961.0}, {181.0, 299.0}}, label: 'Keanu Reeves, Neo'
+                                                StaticText, 0x1022408b0, {{251.0, 1080.0}, {18.0, 32.0}}, label: 'K'
+                                                Image, 0x102240540, {{170.0, 961.0}, {180.0, 270.0}}
+                                                StaticText, 0x1022401f0, {{190.0, 1198.0}, {140.0, 27.0}}, label: 'Keanu Reeves'
+                                                StaticText, 0x10223e8c0, {{243.0, 1237.0}, {35.0, 23.0}}, label: 'Neo'
+                                              Button, 0x10223f6b0, {{409.0, 961.0}, {182.0, 299.0}}, label: 'Carrie-Anne Moss, Trinity'
+                                                StaticText, 0x10223efb0, {{491.0, 1080.0}, {19.0, 32.0}}, label: 'C'
+                                                Image, 0x10223ec20, {{410.0, 961.0}, {180.0, 270.0}}
+                                                StaticText, 0x10223db10, {{409.0, 1198.0}, {182.0, 27.0}}, label: 'Carrie-Anne Moss'
+                                                StaticText, 0x10223e570, {{474.0, 1237.0}, {52.0, 23.0}}, label: 'Trinity'
+                                              Button, 0x10223f330, {{641.0, 961.0}, {198.0, 299.0}}, label: 'Laurence Fishburne, Morpheus'
+                                                StaticText, 0x10223e200, {{733.0, 1080.0}, {15.0, 32.0}}, label: 'L'
+                                                Image, 0x10223de90, {{650.0, 961.0}, {180.0, 270.0}}
+                                                StaticText, 0x10223cd60, {{641.0, 1198.0}, {198.0, 27.0}}, label: 'Laurence Fishburne'
+                                                StaticText, 0x10223c250, {{697.0, 1237.0}, {86.0, 23.0}}, label: 'Morpheus'
+                                              Button, 0x1022375b0, {{889.5, 961.0}, {181.0, 299.0}}, label: 'Hugo Weaving, Agent Smith'
+                                                StaticText, 0x102237910, {{970.0, 1080.0}, {20.0, 32.0}}, label: 'H'
+                                                Image, 0x102237c80, {{890.0, 961.0}, {180.0, 270.0}}
+                                                StaticText, 0x10223b4b0, {{907.0, 1198.0}, {146.0, 27.0}}, label: 'Hugo Weaving'
+                                                StaticText, 0x10223bf00, {{928.0, 1237.0}, {104.0, 23.0}}, label: 'Agent Smith'
+                                        StaticText, 0x10223bb90, {{160.0, 1350.0}, {336.0, 41.0}}, label: 'The Matrix Collection'
+                                        ScrollView, 0x10223b820, {{0.0, 1409.0}, {1920.0, 508.0}}
+                                          Other, 0x10223a6f0, {{80.0, 1409.0}, {706.0, 508.0}}
+                                            Other, 0x10223b130, {{159.5, 1438.5}, {547.0, 448.5}}
+                                              Button, 0x10223add0, {{159.5, 1438.5}, {251.0, 448.5}}, label: 'The Matrix, 1999'
+                                                StaticText, 0x10223aa60, {{221.0, 1594.0}, {129.0, 32.0}}, label: 'The Matrix'
+                                                StaticText, 0x10214a1b0, {{262.0, 1636.0}, {46.0, 24.0}}, label: '1999'
+                                                Image, 0x10214a2d0, {{160.0, 1439.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214a3f0, {{160.0, 1828.0}, {116.0, 29.0}}, label: 'The Matrix'
+                                                StaticText, 0x10214a510, {{160.0, 1861.0}, {48.0, 26.0}}, label: '1999'
+                                              Button, 0x10214a630, {{455.5, 1438.5}, {251.0, 448.5}}, label: 'The Matrix Reloaded, 2003'
+                                                StaticText, 0x10214a750, {{514.0, 1578.0}, {135.0, 63.0}}, label: 'The Matrix Reloaded'
+                                                StaticText, 0x10214a870, {{557.0, 1651.0}, {48.0, 24.0}}, label: '2003'
+                                                Image, 0x10214a990, {{456.0, 1439.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214aab0, {{456.0, 1828.0}, {224.0, 29.0}}, label: 'The Matrix Reloaded'
+                                                StaticText, 0x10214abd0, {{456.0, 1861.0}, {50.0, 26.0}}, label: '2003'
+                                        StaticText, 0x10214acf0, {{160.0, 1977.0}, {209.0, 41.0}}, label: 'More like this'
+                                        ScrollView, 0x10214ae10, {{0.0, 2036.0}, {1920.0, 508.0}}
+                                          Other, 0x10214af30, {{80.0, 2036.0}, {1890.0, 508.0}}
+                                            Other, 0x10214b050, {{159.5, 2065.5}, {1731.0, 448.5}}
+                                              Button, 0x10214b170, {{159.5, 2065.5}, {251.0, 448.5}}, label: 'The Dark Knight, 2008'
+                                                StaticText, 0x10214b290, {{188.0, 2221.0}, {195.0, 32.0}}, label: 'The Dark Knight'
+                                                StaticText, 0x10214b3b0, {{261.0, 2263.0}, {48.0, 24.0}}, label: '2008'
+                                                Image, 0x10214b4d0, {{160.0, 2066.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214b5f0, {{160.0, 2455.0}, {175.0, 29.0}}, label: 'The Dark Knight'
+                                                StaticText, 0x10214b710, {{160.0, 2488.0}, {51.0, 26.0}}, label: '2008'
+                                              Button, 0x10214b830, {{455.5, 2065.5}, {251.0, 448.5}}, label: 'Pulp Fiction, 1994'
+                                                StaticText, 0x10214b950, {{510.0, 2221.0}, {142.0, 32.0}}, label: 'Pulp Fiction'
+                                                StaticText, 0x10214ba70, {{558.0, 2263.0}, {46.0, 24.0}}, label: '1994'
+                                                Image, 0x10214bb90, {{456.0, 2066.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214bcb0, {{456.0, 2455.0}, {128.0, 29.0}}, label: 'Pulp Fiction'
+                                                StaticText, 0x10214bdd0, {{456.0, 2488.0}, {48.0, 26.0}}, label: '1994'
+                                              Button, 0x10214bef0, {{751.5, 2065.5}, {251.0, 448.5}}, label: 'Forrest Gump, 1994'
+                                                StaticText, 0x10214c010, {{794.0, 2221.0}, {166.0, 32.0}}, label: 'Forrest Gump'
+                                                StaticText, 0x10214c130, {{854.0, 2263.0}, {46.0, 24.0}}, label: '1994'
+                                                Image, 0x10214c250, {{752.0, 2066.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214c370, {{752.0, 2455.0}, {149.0, 29.0}}, label: 'Forrest Gump'
+                                                StaticText, 0x10214c490, {{752.0, 2488.0}, {48.0, 26.0}}, label: '1994'
+                                              Button, 0x10214c5b0, {{1047.5, 2065.5}, {251.0, 448.5}}, label: 'Fight Club, 1999'
+                                                StaticText, 0x10214c6d0, {{1111.0, 2221.0}, {125.0, 32.0}}, label: 'Fight Club'
+                                                StaticText, 0x10214c7f0, {{1150.0, 2263.0}, {46.0, 24.0}}, label: '1999'
+                                                Image, 0x10214c910, {{1048.0, 2066.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214ca30, {{1048.0, 2455.0}, {112.0, 29.0}}, label: 'Fight Club'
+                                                StaticText, 0x10214cb50, {{1048.0, 2488.0}, {48.0, 26.0}}, label: '1999'
+                                              Button, 0x10214cc70, {{1343.5, 2065.5}, {251.0, 448.5}}, label: 'The Lord of the Rings: The Fellowship of the Ring, 2001'
+                                                StaticText, 0x10214cd90, {{1364.0, 2174.0}, {210.0, 125.0}}, label: 'The Lord of the Rings: The Fellowship of the Ring'
+                                                StaticText, 0x10214ceb0, {{1447.0, 2309.0}, {45.0, 24.0}}, label: '2001'
+                                                Image, 0x10214cfd0, {{1344.0, 2066.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214d0f0, {{1344.0, 2455.0}, {247.0, 29.0}}, label: 'The Lord of the Rings: The Fellowship of the Ring'
+                                                StaticText, 0x10214d210, {{1344.0, 2488.0}, {47.0, 26.0}}, label: '2001'
+                                              Button, 0x10214d330, {{1639.5, 2065.5}, {251.0, 448.5}}, label: 'Blade Runner, 1982'
+                                                StaticText, 0x10214d450, {{1684.0, 2221.0}, {162.0, 32.0}}, label: 'Blade Runner'
+                                                StaticText, 0x10214d570, {{1743.0, 2263.0}, {45.0, 24.0}}, label: '1982'
+                                                Image, 0x10214d690, {{1640.0, 2066.0}, {250.0, 375.0}}
+                                                StaticText, 0x10214d7b0, {{1640.0, 2455.0}, {146.0, 29.0}}, label: 'Blade Runner'
+                                                StaticText, 0x10214d8d0, {{1640.0, 2488.0}, {47.0, 26.0}}, label: '1982'
+                                      Other, 0x10214d9f0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10214db10, {{1914.0, 160.0}, {3.0, 346.0}}
+                                      Other, 0x10214dc30, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10214dd50, {{1914.0, 160.0}, {3.0, 346.0}}
+                Other, 0x10214de70, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10214df90, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10214e0b0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10214e1d0, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x102238e10, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10223a380, {{336.0, 52.0}, {206.0, 56.0}}
+                    Other, 0x10223a000, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x102239ca0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x102239190, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x102237ff0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x102238a80, {{572.0, 62.0}, {158.0, 36.0}}, identifier: 'sparkles.tv', label: 'Explore'
+                          Image, 0x102238700, {{572.0, 62.0}, {44.0, 36.0}}, identifier: 'sparkles.tv', label: 'sparkles.tv'
+                        Button, 0x102238370, {{795.0, 62.5}, {142.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x102237230, {{795.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x102234aa0, {{1002.0, 62.5}, {182.0, 35.0}}, identifier: 'tray.full', label: 'Requests'
+                          Image, 0x102234e10, {{1002.0, 64.5}, {42.0, 31.0}}, identifier: 'tray.full', label: 'Inbox Full'
+                        Button, 0x102235170, {{1249.0, 62.0}, {200.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                          Image, 0x1022354e0, {{1249.0, 62.0}, {36.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                        Button, 0x102236e90, {{1514.0, 62.5}, {173.0, 35.0}}, identifier: 'calendar', label: 'Calendar'
+                          Image, 0x102236b10, {{1514.0, 63.5}, {37.0, 33.0}}, identifier: 'calendar', label: 'calendar'
+                        Button, 0x102236790, {{1752.0, 61.5}, {163.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x102235840, {{1752.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x102234750, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x102232470, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10221df20, pid: 5233, label: 'HolyArrs'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1022332e0, pid: 5233, label: 'HolyArrs'
+  }
+)
