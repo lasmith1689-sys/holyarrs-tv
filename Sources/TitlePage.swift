@@ -90,6 +90,7 @@ struct TitlePage: View {
             }
         }
         .task { await load() }
+        .task { await rtx.refreshIfStale(maxAge: 30) }
         .fullScreenCover(item: $playing) { PlayerScreen(request: $0) }
         .sheet(isPresented: $choosingSeasons) {
             if let info { SeasonPicker(info: info) { seasons, futureOnly in Task { await ask(seasons: seasons, futureOnly: futureOnly) } } }

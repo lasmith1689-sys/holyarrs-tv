@@ -31,7 +31,16 @@ final class RTXServer: ObservableObject {
         return url
     }
 
+    private var refreshedAt: Date?
+
+    /// Re-reads the PC's lists when they are older than `maxAge` (new downloads appear there within 5 minutes).
+    func refreshIfStale(maxAge: TimeInterval = 60) async {
+        if let at = refreshedAt, Date().timeIntervalSince(at) < maxAge { return }
+        await refresh()
+    }
+
     func refresh() async {
+        refreshedAt = Date()
         guard let base else { films = []; error = "address not valid"; return }
         do {
             let j = try await RTXAPI(base: base).get("library")

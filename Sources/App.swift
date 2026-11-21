@@ -32,6 +32,7 @@ struct RootView: View {
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
     @EnvironmentObject private var sportarr: Sportarr
+    @Environment(\.scenePhase) private var scenePhase
     @AppStorage("tab") private var tab = "home"
 
     var body: some View {
@@ -62,7 +63,17 @@ struct RootView: View {
             }
         }
         .task(id: api.address) { await api.restore() }
-        .task(id: rtx.address) { await rtx.refresh() }
+        .task(id: rtx.address) {
+            // The PC's film list changes as downloads land: read it again every few minutes while the app is open.
+            await rtx.refresh()
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 180_000_000_000)
+                await rtx.refreshIfStale()
+            }
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { Task { await rtx.refreshIfStale(maxAge: 30) } }
+        }
         .task(id: "\(sportarr.address)|\(sportarr.enabled)") { await sportarr.connect() }
     }
 }
