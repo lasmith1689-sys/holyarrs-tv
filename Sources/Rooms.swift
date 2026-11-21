@@ -50,6 +50,8 @@ struct PhonePlayerBar: View {
 
     var body: some View {
         VStack {
+            // Only while paused: nothing sits over a playing movie.
+            if model.paused {
             HStack(spacing: 14) {
                 Button(action: close) { Image(systemName: "xmark") }.accessibilityLabel("Close")
                 Button { showStats.toggle() } label: { Image(systemName: "chart.bar.xaxis") }.accessibilityLabel("Stats")
@@ -61,6 +63,8 @@ struct PhonePlayerBar: View {
             .padding(.horizontal, 14).padding(.vertical, 8)
             .background(.ultraThinMaterial, in: Capsule())
             .padding(.top, 54)
+            .transition(.opacity)
+            }
             Spacer()
             if showStats {
                 ScrollView(.horizontal, showsIndicators: false) { StatsPanel(model: model) }
@@ -69,6 +73,7 @@ struct PhonePlayerBar: View {
             }
         }
         .tint(.white)
+        .animation(.easeInOut(duration: 0.2), value: model.paused)
     }
 }
 #endif
@@ -78,8 +83,13 @@ struct OutsideButton: View {
     let film: RTXFilm
     let label: String
     @EnvironmentObject private var rtx: RTXServer
+    @AppStorage("outsideOn") private var outsideOn = false
 
     var body: some View {
+        if outsideOn { buttons }
+    }
+
+    private var buttons: some View {
         Group {
             if rtx.outside?.film == film.id, rtx.outside?.active == true {
                 Button { Task { await rtx.stopOutside() } } label: {
@@ -106,8 +116,13 @@ struct OutsideButton: View {
 struct OutsideNote: View {
     let film: RTXFilm
     @EnvironmentObject private var rtx: RTXServer
+    @AppStorage("outsideOn") private var outsideOn = false
 
     var body: some View {
+        if outsideOn { note }
+    }
+
+    private var note: some View {
         VStack(alignment: .leading, spacing: S(6)) {
             if let o = rtx.outside, o.film == film.id, o.active {
                 Text("Outside on \(o.device ?? "the TV"): \(o.state)" + (o.position.map { " at \(Resume.label($0))" } ?? "")
@@ -141,9 +156,11 @@ struct RoomsSection: View {
     @State private var found: String?
     @State private var looking = false
     @State private var guide = false
+    @AppStorage("outsideOn") private var outsideOn = false
 
     var body: some View {
         Section {
+            Toggle("Play outside buttons", isOn: $outsideOn)
             LabeledContent("Outside TV", value: outsideLabel)
             Button(looking ? "Looking..." : "Find the outside TV") { Task { await find() } }.disabled(looking)
             if let found { Text(found).font(.footnote).foregroundStyle(.secondary) }
@@ -155,7 +172,7 @@ struct RoomsSection: View {
         } header: {
             Text("Rooms")
         } footer: {
-            Text("Play outside casts from the PC to the Hisense (Chromecast built-in). Positions are kept on the PC, so Continue here and Continue outside pick up where the other room left off.")
+            Text("Off by default. On: Play outside on movie pages and Continue outside in the player cast from the PC to the Hisense (Chromecast built-in; not yet tested on the TV). Positions are kept on the PC either way.")
         }
         .task { await rtx.refreshOutside() }
         .sheet(isPresented: $guide) {

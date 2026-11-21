@@ -244,6 +244,7 @@ struct PlayerScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var model = PlaybackModel()
     @State private var showStats = false
+    @AppStorage("outsideOn") private var outsideOn = false
 
     /// Hands the film to the outdoor TV from where it is now: this player stops (its position is kept on the PC)
     /// and the PC starts the TV, which reports back whether it is really playing.
@@ -259,11 +260,11 @@ struct PlayerScreen: View {
         ZStack {
             Color.black.ignoresSafeArea()
             if let player = model.player {
-                SystemPlayer(player: player, model: model, outside: request.film == nil ? nil : { continueOutside() })
+                SystemPlayer(player: player, model: model, outside: request.film == nil || !outsideOn ? nil : { continueOutside() })
                     .ignoresSafeArea()
                 #if os(iOS)
                 PhonePlayerBar(model: model, showStats: $showStats, close: { dismiss() },
-                               outside: request.film == nil ? nil : { continueOutside() })
+                               outside: request.film == nil || !outsideOn ? nil : { continueOutside() })
                 #endif
             } else {
                 Color.clear.overlay { Artwork(raw: request.backdrop, width: 780).blur(radius: S(70)).opacity(0.35) }.clipped().ignoresSafeArea()
@@ -315,6 +316,8 @@ final class PlaybackModel: ObservableObject {
     private var endObserver: NSObjectProtocol?
     /// Measured from the player (never estimated): picture size, frame rate, bitrates, stalls, dropped frames.
     @Published private(set) var stats: [StatRow] = []
+    /// Paused by the viewer (the iPhone shows its extra buttons only then, never over a playing movie).
+    @Published private(set) var paused = false
     private var statsTimer: Timer?
     private var loadStarted = Date()
     private var startup: Double?
@@ -360,10 +363,11 @@ final class PlaybackModel: ObservableObject {
             Task { @MainActor in self?.ended() }
         }
         rateObserver = p.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
-            let playing = player.timeControlStatus == .playing
+            let status = player.timeControlStatus
             Task { @MainActor in
-                guard let self, playing, self.startup == nil else { return }
-                self.startup = Date().timeIntervalSince(self.loadStarted)
+                guard let self else { return }
+                self.paused = status == .paused
+                if status == .playing, self.startup == nil { self.startup = Date().timeIntervalSince(self.loadStarted) }
             }
         }
         statsTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
