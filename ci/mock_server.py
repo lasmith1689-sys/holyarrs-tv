@@ -106,7 +106,8 @@ def sport_events():
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     plex_checks = 0
-    positions = {}
+    # One film part-way through, so Home's Continue Watching row has something to show.
+    positions = {"matrix": {"t": 3120.0, "duration": 8160.0, "at": 1795300000.0, "where": "iphone"}}
     cast = {"state": "idle", "film": None, "stalls": 0}
 
     def log_message(self, *a):
@@ -158,7 +159,8 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/positions":
             return self._send(200, {"positions": Handler.positions})
         if path == "/position":
-            Handler.positions[q.get("id", "")] = {"t": float(q.get("t", 0)), "where": q.get("where", "")}
+            Handler.positions[q.get("id", "")] = {"t": float(q.get("t", 0)), "duration": float(q.get("d", 0)),
+                                                  "at": time.time(), "where": q.get("where", "")}
             return self._send(200, Handler.positions[q.get("id", "")])
         if path == "/cast/status":
             return self._send(200, Handler.cast)

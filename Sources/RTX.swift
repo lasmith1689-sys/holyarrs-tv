@@ -59,6 +59,29 @@ final class RTXServer: ObservableObject {
     func syncPositions() async {
         guard let base, let j = try? await RTXAPI(base: base).get("positions") else { return }
         Resume.replaceAll(j["positions"])
+        var list: [ContinueEntry] = []
+        if case let .object(o) = j["positions"] {
+            for (id, v) in o {
+                guard let t = v["t"].double else { continue }
+                list.append(ContinueEntry(id: id, seconds: t, duration: v["duration"].double ?? 0,
+                                          at: Date(timeIntervalSince1970: v["at"].double ?? 0), place: v["where"].string ?? ""))
+            }
+        }
+        continueList = list.sorted { $0.at > $1.at }
+    }
+
+    /// Everything left part-way on any screen, newest first (from the PC's positions).
+    @Published private(set) var continueList: [ContinueEntry] = []
+
+    func film(id: String) -> RTXFilm? {
+        films.first { $0.id == id } ?? sports.values.first { $0.id == id }
+    }
+
+    /// Takes a film off Continue Watching here and on the PC (a position under a minute clears it everywhere).
+    func forget(_ id: String, duration: Double) {
+        Resume.clear(id)
+        Resume.send(id, 0, duration: duration)
+        continueList.removeAll { $0.id == id }
     }
 
     /// Asks the PC itself for a title's film (its own matching), for when the list here has no match.
@@ -465,7 +488,11 @@ enum Resume {
         let d = UserDefaults.standard
         for k in d.dictionaryRepresentation().keys where k.hasPrefix("resume.") { d.removeObject(forKey: k) }
         if case let .object(o) = map {
-            for (id, v) in o { if let t = v["t"].double { d.set(t, forKey: key(id)) } }
+            for (id, v) in o {
+                guard let t = v["t"].double else { continue }
+                d.set(t, forKey: key(id))
+                if let at = v["at"].double { d.set(at, forKey: "resume.at.\(id)") }
+            }
         }
     }
 

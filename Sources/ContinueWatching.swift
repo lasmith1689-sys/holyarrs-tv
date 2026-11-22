@@ -1,0 +1,158 @@
+import SwiftUI
+
+// Continue Watching: the first row on Home. Everything left part-way on any screen (positions are kept on the PC,
+// so a film stopped on the iPhone shows on the Apple TV too), newest first. Selecting a card plays straight from
+// where it was left; holding it offers the page, starting over, or taking it off the row.
+
+struct ContinueEntry: Identifiable, Hashable {
+    let id: String
+    let seconds: Double
+    let duration: Double
+    let at: Date
+    let place: String
+
+    var left: String {
+        let m = max(0, Int((duration - seconds) / 60))
+        return m >= 60 ? "\(m / 60)h \(m % 60)m left" : "\(m)m left"
+    }
+
+    var progress: Double { duration > 0 ? min(1, seconds / duration) : 0 }
+
+    var placeLabel: String? {
+        switch place {
+        case "iphone": "on iPhone"
+        case "apple-tv": "on Apple TV"
+        case "outside": "outside"
+        default: nil
+        }
+    }
+}
+
+/// Art for an RTX film: the HolyArrs Library title with the same name and year (looked up once per film).
+@MainActor
+final class ContinueArt: ObservableObject {
+    static let shared = ContinueArt()
+    @Published private(set) var cards: [String: Card] = [:]
+    private var asked: Set<String> = []
+
+    func card(for film: RTXFilm, api: HolyArrs) async {
+        guard !asked.contains(film.id) else { return }
+        asked.insert(film.id)
+        guard let s = try? await api.get("search/suggest", ["q": film.title]) else { asked.remove(film.id); return }
+        let key = RTXServer.key(film.title)
+        let hit = s["items"].array.first { j in
+            j["kind"].string == "movie" && RTXServer.key(j["name"].string ?? "") == key
+                && (film.year == nil || j["year"].int == nil || abs((j["year"].int ?? 0) - (film.year ?? 0)) <= 1)
+        }
+        guard let hit else { return }
+        var card = Card(suggest: hit)
+        // The Library title has the wide backdrop and logo the suggestion lacks.
+        if let tid = card.titleId, let t = try? await api.get("titles/\(tid)") { card = Card(title: t) }
+        cards[film.id] = card
+    }
+}
+
+struct ContinueRow: View {
+    @EnvironmentObject private var rtx: RTXServer
+    @EnvironmentObject private var api: HolyArrs
+    @ObservedObject private var art = ContinueArt.shared
+    @State private var playing: PlayRequest?
+
+    private var entries: [(ContinueEntry, RTXFilm)] {
+        rtx.continueList.compactMap { e in rtx.film(id: e.id).map { (e, $0) } }
+    }
+
+    var body: some View {
+        if !entries.isEmpty {
+            VStack(alignment: .leading, spacing: S(18)) {
+                Text("Continue Watching").font(.system(size: F(34), weight: .bold))
+                    .padding(.horizontal, Theme.sidePadding)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(alignment: .top, spacing: S(40)) {
+                        ForEach(entries, id: \.0.id) { entry, film in
+                            let card = art.cards[film.id]
+                            Button {
+                                playing = PlayRequest(label: card?.name ?? film.title, film: film, seconds: entry.seconds,
+                                                      backdrop: card?.backdrop)
+                            } label: {
+                                ContinueCell(entry: entry, film: film, card: card)
+                            }
+                            .buttonStyle(QuietButtonStyle())
+                            .contextMenu {
+                                if let card {
+                                    NavigationLink(value: card.route) { Label("Details", systemImage: "info.circle") }
+                                }
+                                Button {
+                                    playing = PlayRequest(label: card?.name ?? film.title, film: film, seconds: 0, backdrop: card?.backdrop)
+                                } label: { Label("Start from the beginning", systemImage: "backward.end") }
+                                Button(role: .destructive) { rtx.forget(entry.id, duration: entry.duration) } label: {
+                                    Label("Remove from Continue Watching", systemImage: "xmark")
+                                }
+                            }
+                            .task { await art.card(for: film, api: api) }
+                        }
+                    }
+                    .padding(.vertical, S(30))
+                    .padding(.horizontal, Theme.sidePadding)
+                }
+                .tvFocusSection()
+            }
+            .fullScreenCover(item: $playing) { req in
+                PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
+            }
+        }
+    }
+}
+
+struct ContinueCell: View {
+    let entry: ContinueEntry
+    let film: RTXFilm
+    let card: Card?
+    @Environment(\.isFocused) private var focused
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: S(12)) {
+            ZStack(alignment: .bottomLeading) {
+                Artwork(raw: card?.backdrop ?? card?.poster, width: 780,
+                        title: card?.backdrop == nil && card?.poster == nil ? film.title : "")
+                LinearGradient(colors: [.clear, .black.opacity(0.8)], startPoint: .center, endPoint: .bottom)
+                VStack(alignment: .leading, spacing: S(12)) {
+                    if let logo = card?.logo {
+                        Artwork(raw: logo, width: 500, plain: true, fit: true).frame(width: W(240), height: S(80), alignment: .bottomLeading)
+                    } else {
+                        Text(card?.name ?? film.title).font(.system(size: F(28), weight: .heavy)).lineLimit(2).shadow(radius: S(6))
+                    }
+                    // How far in: a thin amber bar across the bottom of the picture.
+                    GeometryReader { g in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Color.white.opacity(0.25))
+                            Capsule().fill(Theme.accent).frame(width: g.size.width * entry.progress)
+                        }
+                    }
+                    .frame(height: S(6))
+                }
+                .padding(S(20))
+                Image(systemName: "play.fill")
+                    .font(.system(size: F(26), weight: .bold))
+                    .padding(S(14))
+                    .background(.ultraThinMaterial, in: Circle())
+                    .padding(S(18))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .opacity(focused || !Device.isTV ? 1 : 0)
+            }
+            .frame(width: W(480), height: S(270))
+            .clipShape(RoundedRectangle(cornerRadius: S(14), style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: S(14), style: .continuous)
+                .stroke(Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused ? 4 : 1))
+            .shadow(color: .black.opacity(focused ? 0.7 : 0.35), radius: focused ? 30 : 10, y: focused ? 20 : 6)
+            .scaleEffect(focused ? 1.06 : 1.0)
+            Text([entry.left, entry.placeLabel].compactMap { $0 }.joined(separator: " · "))
+                .font(.system(size: F(21))).foregroundStyle(Theme.dim).lineLimit(1)
+                .frame(width: W(480), alignment: .leading)
+                .offset(y: focused ? S(12) : 0)
+        }
+        .animation(.easeOut(duration: 0.18), value: focused)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(card?.name ?? film.title), \(entry.left)")
+    }
+}
