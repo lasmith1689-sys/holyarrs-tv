@@ -195,6 +195,7 @@ struct TitlePage: View {
                 }
                 .buttonStyle(.borderedProminent)
                 OutsideButton(film: film, label: info.name)
+                OfflineButton(film: film, title: info.name, subtitle: info.year.map(String.init))
             }
             if !info.inLibrary, info.myAsk == nil, api.me?.canAsk == true, !info.neverAdd {
                 Button {

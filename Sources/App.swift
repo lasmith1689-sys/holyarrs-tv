@@ -58,6 +58,10 @@ struct RootView: View {
                         if Device.isTV { Image(systemName: "gearshape").accessibilityLabel("Settings") } else { Label("Settings", systemImage: "gearshape") }
                     }
                 }
+            } else if api.unreachable, !Device.isTV, !OfflineStore.shared.items.isEmpty {
+                #if os(iOS)
+                NavigationStack { OfflineView(offlineBanner: true) { Task { await api.restore() } } }
+                #endif
             } else {
                 SignInView()
             }

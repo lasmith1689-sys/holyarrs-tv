@@ -143,6 +143,7 @@ struct HomeView: View {
     @State private var stuck = 0
     @State private var loading = true
     @State private var error: String?
+    @ObservedObject private var offline = OfflineStore.shared
 
     var body: some View {
         ScrollView {
@@ -158,6 +159,15 @@ struct HomeView: View {
                     .foregroundStyle(Theme.accent)
                     .padding(.horizontal, Theme.sidePadding)
                 }
+                #if os(iOS)
+                if !offline.items.isEmpty {
+                    NavigationLink { OfflineView() } label: {
+                        Label("Downloaded on this iPhone: \(offline.items.count)", systemImage: "arrow.down.circle.fill")
+                    }
+                    .font(.title3)
+                    .padding(.horizontal, Theme.sidePadding)
+                }
+                #endif
                 ForEach(rows.indices, id: \.self) { i in
                     CardRow(title: rows[i].0, subtitle: rows[i].1, cards: rows[i].2, wide: rows[i].3)
                 }

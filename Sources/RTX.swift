@@ -179,6 +179,8 @@ struct RTXFilm: Identifiable, Hashable {
     let duration: Double
     let upscale: Bool
     let range: String?
+    /// The PC's poster for it (a path on the RTX server), if it has one.
+    let poster: String?
 
     init?(_ j: JSON) {
         guard let id = j["id"].string, let title = j["title"].string else { return nil }
@@ -188,6 +190,7 @@ struct RTXFilm: Identifiable, Hashable {
         duration = j["duration_s"].double ?? 0
         upscale = j["upscale"].bool
         range = j["range"].string
+        poster = j["poster"].string
     }
 
     var label: String { upscale ? "4K UPSCALE" : "4K" }
@@ -233,6 +236,15 @@ struct PlayRequest: Identifiable {
     var seconds: Double = 0
     var trailer: URL? = nil
     var backdrop: String? = nil
+    /// A copy downloaded to this iPhone (plays with no connection).
+    var localFile: URL? = nil
+}
+
+extension PlayRequest {
+    init(local: URL, item: OfflineItem) {
+        let j = JSON.object(["id": .string(item.id), "title": .string(item.title), "duration_s": .number(item.duration)])
+        self.init(label: item.title, film: RTXFilm(j), seconds: Resume.position(item.id) ?? 0, localFile: local)
+    }
 }
 
 /// Full-screen playback in the system player. For an RTX film it asks the PC for the stream (answered once the
@@ -332,6 +344,13 @@ final class PlaybackModel: ObservableObject {
             return
         }
         guard let film = request.film else { return }
+        if let local = request.localFile {
+            // Downloaded to this iPhone: no PC involved (the position still reaches the PC when it is reachable).
+            self.film = film
+            start(AVPlayerItem(url: local))
+            if request.seconds > 0 { await player?.seek(to: CMTime(seconds: request.seconds, preferredTimescale: 600)) }
+            return
+        }
         guard let rtx else { error = "The RTX server address is not valid. Check Settings."; return }
         base = rtx
         self.film = film

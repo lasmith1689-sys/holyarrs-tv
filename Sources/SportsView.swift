@@ -362,6 +362,7 @@ struct EventPage: View {
                     Label(rtx.continuingHere(film) ? "Continue here" : rtx.startPoint(film) != nil ? "Resume in 4K" : "Play in 4K", systemImage: "play.fill")
                 }
                 OutsideButton(film: film, label: event.matchup ?? event.title)
+                OfflineButton(film: film, title: event.matchup ?? event.title, subtitle: event.league)
             } else if event.hasFile {
                 Button { Task { await rtx.refreshSports(); note = rtx.sport(for: event) == nil ? "Downloaded. The PC checks for new sports every 2 minutes; it will play here shortly." : nil } } label: {
                     Label("Check the PC", systemImage: "arrow.clockwise")

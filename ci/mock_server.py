@@ -171,6 +171,17 @@ class Handler(BaseHTTPRequestHandler):
             Handler.cast = {"ok": True, "film": q.get("id"), "title": "Cast title", "state": "playing", "device": "Patio TV",
                             "position": float(q.get("t", 0)), "startup_s": 7.4, "stalls": 0, "error": None}
             return self._send(200, Handler.cast)
+        if path in ("/offline/make", "/offline/status"):
+            # Stand-in: the copy is "ready" at once (a few bytes) so the download path can be tried end to end.
+            return self._send(200, {"state": "ready", "progress": 1.0, "bytes": 16})
+        if path.startswith("/offline/file/"):
+            body = b"\x00" * 16
+            self.send_response(200)
+            self.send_header("Content-Type", "video/mp4")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            self.wfile.write(body)
+            return
         if path == "/sports":
             return self._send(200, {"files": [{"id": "0123456789ab", "name": F1_FILE, "title": F1_FILE[:-4], "duration_s": 7340.0,
                                                "width": 1920, "height": 1080, "range": "SDR", "upscale": True, "note": ""}]})

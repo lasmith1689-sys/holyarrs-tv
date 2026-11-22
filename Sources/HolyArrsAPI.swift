@@ -56,6 +56,9 @@ final class HolyArrs: ObservableObject {
     // MARK: Sign-in
 
     /// Reads who is signed in from the saved cookie; tries the saved name and password once if the cookie expired.
+    /// The last try to reach HolyArrs got no answer (not the same as signed out).
+    @Published var unreachable = false
+
     func restore() async {
         checking = true
         defer { checking = false }
@@ -74,7 +77,17 @@ final class HolyArrs: ObservableObject {
 
     @discardableResult
     private func loadMe() async -> Bool {
-        guard let j = try? await get("auth/me") else { me = nil; return false }
+        let j: JSON
+        do {
+            j = try await get("auth/me")
+            unreachable = false
+        } catch {
+            // No answer at all (away from home, no network) as opposed to "signed out": the iPhone then opens
+            // its downloads instead of the sign-in screen.
+            unreachable = error is URLError
+            me = nil
+            return false
+        }
         csrf = j["csrf"].string ?? csrf
         me = Me(j)
         return true
