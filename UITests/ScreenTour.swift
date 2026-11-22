@@ -84,7 +84,10 @@ final class ScreenTour: XCTestCase {
         sleep(1)
         if focus(matrix, .left, limit: 3) {
             press(.select)
-            XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
+            // The stand-in PC has The Matrix part-watched, so it offers Resume (and Start over) instead of Play.
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
+                          "Resume in 4K on a part-watched film")
+            XCTAssertTrue(app.buttons["Start over"].exists, "Start over next to Resume")
             XCTAssertTrue(app.buttons["Play outside"].exists, "Play outside next to Play in 4K")
             sleep(2)
             shot("title-movie")

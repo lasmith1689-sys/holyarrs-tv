@@ -47,6 +47,7 @@ final class PhoneTour: XCTestCase {
 
         launch(tab: "home")
         XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 15), "home hero")
+        XCTAssertTrue(app.staticTexts["Continue Watching"].waitForExistence(timeout: 10), "Continue Watching row on Home")
         shot("home")
         app.swipeUp()
         sleep(1)
@@ -56,7 +57,10 @@ final class PhoneTour: XCTestCase {
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
         if matrix.waitForExistence(timeout: 5) {
             matrix.tap()
-            XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a matched film")
+            // The stand-in PC has The Matrix part-watched, so it offers Resume (and Start over) instead of Play.
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
+                          "Resume in 4K on a part-watched film")
+            XCTAssertTrue(app.buttons["Start over"].exists, "Start over next to Resume")
             sleep(2)
             shot("title-movie")
             // Play outside: the stand-in PC answers that the TV is playing.
