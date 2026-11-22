@@ -288,8 +288,10 @@ struct ODSeriesPage: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: S(20)) {
                                 ForEach(seasons.indices, id: \.self) { i in
-                                    Button("Season \(seasons[i]["season"].int ?? i + 1)") { season = i }
-                                        .tint(i == season ? Theme.accent : nil)
+                                    Button { season = i } label: {
+                                        Text("Season \(seasons[i]["season"].int ?? i + 1)").fontWeight(i == season ? .bold : .regular)
+                                    }
+                                    .tint(i == season ? Theme.accent : Color.white.opacity(0.7))
                                 }
                             }
                             .padding(.vertical, S(10))

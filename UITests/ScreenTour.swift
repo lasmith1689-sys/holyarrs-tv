@@ -52,6 +52,22 @@ final class ScreenTour: XCTestCase {
         return e.exists && e.hasFocus
     }
 
+    /// Presses Down until a card of the row with these titles has focus.
+    private func reachRow(_ titles: [String], limit: Int = 6) -> Bool {
+        func inRow() -> Bool {
+            titles.contains { t in
+                let e = app.buttons.matching(NSPredicate(format: "label BEGINSWITH %@", t)).firstMatch
+                return e.exists && e.hasFocus
+            }
+        }
+        for _ in 0..<limit {
+            if inRow() { return true }
+            press(.down)
+            usleep(400_000)
+        }
+        return inRow()
+    }
+
     func testTour() {
         // Signed out: the sign-in screen.
         launch(tab: "home", signedIn: false)
@@ -162,7 +178,9 @@ final class ScreenTour: XCTestCase {
         XCTAssertTrue(app.staticTexts["New releases"].waitForExistence(timeout: 15), "On Demand rows")
         shot("tv-ondemand")
         let odyssey = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Odyssey'")).firstMatch
-        if focus(odyssey, .down, limit: 4) || focus(odyssey, .left, limit: 3) {
+        // Down from the tab bar past the Live / On Demand picker (never sideways there: that would switch pages)
+        // into the first row, then left to its first card.
+        if reachRow(["The Odyssey", "Nimrods", "The Fix", "Heartland", "Kalocsa", "The Beast"]) && focus(odyssey, .left, limit: 7) {
             press(.select)
             XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume'")).firstMatch.waitForExistence(timeout: 10),
                           "Resume on a part-watched On Demand film")
@@ -175,7 +193,7 @@ final class ScreenTour: XCTestCase {
         launch(tab: "tv", tvPage: "ondemand")
         _ = app.staticTexts["New series"].waitForExistence(timeout: 15)
         let farm = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Witch Farm'")).firstMatch
-        if focus(farm, .down, limit: 6) || focus(farm, .left, limit: 3) {
+        if reachRow(["The Witch Farm", "Slow Horses", "Severance"]) && focus(farm, .left, limit: 4) {
             press(.select)
             XCTAssertTrue(app.buttons["Season 2"].waitForExistence(timeout: 10), "a series' seasons")
             XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Episode 1'")).firstMatch.exists, "its episodes")

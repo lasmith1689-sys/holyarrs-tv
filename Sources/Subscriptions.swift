@@ -78,7 +78,7 @@ struct SubscriptionWarning: View {
                     ForEach(soon) { s in
                         Text("\(s.name): \(s.line)").font(.system(size: F(28), weight: .semibold))
                     }
-                    Text("Renew it so \(soon.map(\.what).joined(separator: " and ").lowercased()) keep working. Settings lists every subscription.")
+                    Text("Renew to keep \(soon.map(\.what).joined(separator: ", ")) working. Settings lists every subscription.")
                         .font(.system(size: F(22))).foregroundStyle(Theme.dim)
                 }
                 Spacer(minLength: 0)
