@@ -18,17 +18,29 @@ struct OfflineItem: Codable, Identifiable, Hashable {
 @MainActor
 final class OfflineStore: NSObject, ObservableObject, URLSessionDownloadDelegate {
     static let shared = OfflineStore()
+    static let sessionID = "tv.holyarrs.offline"
 
     enum Phase: Equatable {
         case preparing(Double), downloading(Double), failed(String)
     }
 
+    /// One download, carried in the task's description so it survives the app being closed (background session).
+    struct Job: Codable, Hashable {
+        let id: String
+        let title: String
+        let subtitle: String?
+        let duration: Double
+        var poster: String? = nil
+    }
+
     @Published private(set) var items: [OfflineItem] = []
     @Published private(set) var phases: [String: Phase] = [:]
+    /// Set by the app delegate when iOS wakes the app for finished background downloads; called once handled.
+    var backgroundDone: (() -> Void)?
 
     private let folder: URL
     private var session: URLSession!
-    private var pending: [Int: (id: String, title: String, subtitle: String?, duration: Double)] = [:]
+    private var preparing: Set<String> = []
 
     override init() {
         let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
@@ -40,15 +52,28 @@ final class OfflineStore: NSObject, ObservableObject, URLSessionDownloadDelegate
         var rv = URLResourceValues()
         rv.isExcludedFromBackup = true
         try? f.setResourceValues(rv)
+        #if os(iOS)
+        // A background session: the download carries on with the phone locked or the app closed, and iOS wakes
+        // the app when it's done (2026-11-22; before, leaving the app mid-download lost a multi-GB download).
+        let c = URLSessionConfiguration.background(withIdentifier: Self.sessionID)
+        c.sessionSendsLaunchEvents = true
+        c.isDiscretionary = false
+        #else
         let c = URLSessionConfiguration.default
-        c.timeoutIntervalForRequest = 120
+        #endif
         c.timeoutIntervalForResource = 6 * 3600
         session = URLSession(configuration: c, delegate: self, delegateQueue: .main)
         load()
+        // Downloads still running from before the app was last closed: show their progress again.
+        session.getAllTasks { tasks in
+            let running = tasks.compactMap { t in Self.job(t).map { ($0.id, t.progress.fractionCompleted) } }
+            Task { @MainActor in for (id, p) in running { OfflineStore.shared.phases[id] = .downloading(p) } }
+        }
     }
 
     func file(_ id: String) -> URL { folder.appendingPathComponent("\(id).mp4") }
     func poster(_ id: String) -> URL { folder.appendingPathComponent("\(id).jpg") }
+    private func resumeData(_ id: String) -> URL { folder.appendingPathComponent("\(id).resume") }
     private var index: URL { folder.appendingPathComponent("index.json") }
 
     func has(_ id: String) -> Bool { items.contains { $0.id == id } }
@@ -62,53 +87,100 @@ final class OfflineStore: NSObject, ObservableObject, URLSessionDownloadDelegate
         if let d = try? JSONEncoder().encode(items) { try? d.write(to: index, options: .atomic) }
     }
 
+    // Asked-for downloads not finished yet. Kept across launches: the PC goes on making a copy while the app is
+    // closed, and the download starts (or picks up where it stopped) the next time the app is open at home.
+    private var wanted: [Job] {
+        get { (UserDefaults.standard.data(forKey: "offline.wanted")).flatMap { try? JSONDecoder().decode([Job].self, from: $0) } ?? [] }
+        set { UserDefaults.standard.set(try? JSONEncoder().encode(newValue), forKey: "offline.wanted") }
+    }
+
+    private func forget(_ id: String) { wanted = wanted.filter { $0.id != id } }
+
     /// Asks the PC for the copy, waits while it is made, then downloads it.
     func download(_ film: RTXFilm, title: String, subtitle: String?, rtx: URL?) async {
-        guard let rtx, !has(film.id), phases[film.id] == nil || isFailed(film.id) else { return }
-        phases[film.id] = .preparing(0)
+        let job = Job(id: film.id, title: title, subtitle: subtitle, duration: film.duration, poster: film.poster)
+        wanted = wanted.filter { $0.id != job.id } + [job]
+        await fetch(job, rtx: rtx)
+    }
+
+    /// Picks up every asked-for download that isn't running (app opened again, back on the home network).
+    func resumeWanted(rtx: URL?) async {
+        guard rtx != nil else { return }
+        for job in wanted where !has(job.id) {
+            if case .downloading = phases[job.id] { continue }
+            await fetch(job, rtx: rtx)
+        }
+    }
+
+    private func fetch(_ job: Job, rtx: URL?) async {
+        guard let rtx, !has(job.id), !preparing.contains(job.id) else { return }
+        if case .downloading = phases[job.id] { return }
+        preparing.insert(job.id)
+        defer { preparing.remove(job.id) }
+        // A download that stopped part-way (network dropped): carry on from where it was.
+        if let data = try? Data(contentsOf: resumeData(job.id)) {
+            try? FileManager.default.removeItem(at: resumeData(job.id))
+            let task = session.downloadTask(withResumeData: data)
+            task.taskDescription = Self.describe(job)
+            phases[job.id] = .downloading(0)
+            task.resume()
+            return
+        }
+        phases[job.id] = .preparing(0)
         let api = RTXAPI(base: rtx)
         do {
-            var st = try await api.get("offline/make", [URLQueryItem(name: "id", value: film.id)])
+            var st = try await api.get("offline/make", [URLQueryItem(name: "id", value: job.id)])
             while st["state"].string != "ready" {
                 if st["state"].string == "failed" { throw OfflineError(st["error"].string ?? "The PC couldn't make the copy.") }
                 if st["state"].string == "none" { throw OfflineError("The PC dropped the copy. Try again.") }
-                phases[film.id] = .preparing(st["progress"].double ?? 0)
+                phases[job.id] = .preparing(st["progress"].double ?? 0)
                 try await Task.sleep(nanoseconds: 3_000_000_000)
-                st = try await api.get("offline/status", [URLQueryItem(name: "id", value: film.id)])
+                st = try await api.get("offline/status", [URLQueryItem(name: "id", value: job.id)])
             }
-            if let p = film.poster, let u = URL(string: p, relativeTo: rtx), let r = try? await URLSession.shared.data(from: u) {
-                try? r.0.write(to: poster(film.id))
+            if let p = job.poster, let u = URL(string: p, relativeTo: rtx), let r = try? await URLSession.shared.data(from: u) {
+                try? r.0.write(to: poster(job.id))
             }
-            phases[film.id] = .downloading(0)
-            let task = session.downloadTask(with: rtx.appendingPathComponent("offline/file/\(film.id).mp4"))
-            pending[task.taskIdentifier] = (film.id, title, subtitle, film.duration)
+            phases[job.id] = .downloading(0)
+            let task = session.downloadTask(with: rtx.appendingPathComponent("offline/file/\(job.id).mp4"))
+            task.taskDescription = Self.describe(job)
             task.resume()
+        } catch is CancellationError {
+            phases[job.id] = nil  // the app went away while the PC was making it: carries on next time
         } catch {
-            phases[film.id] = .failed((error as? OfflineError)?.text ?? "Couldn't reach the PC: \(error.localizedDescription)")
+            phases[job.id] = .failed((error as? OfflineError)?.text ?? "Couldn't reach the PC: \(error.localizedDescription)")
         }
     }
 
     func isFailed(_ id: String) -> Bool { if case .failed = phases[id] { return true }; return false }
 
     func remove(_ id: String) {
+        session.getAllTasks { tasks in tasks.filter { Self.job($0)?.id == id }.forEach { $0.cancel() } }
         try? FileManager.default.removeItem(at: file(id))
         try? FileManager.default.removeItem(at: poster(id))
+        try? FileManager.default.removeItem(at: resumeData(id))
         items.removeAll { $0.id == id }
         phases[id] = nil
+        forget(id)
         save()
     }
 
     var totalBytes: Int64 { items.reduce(0) { $0 + $1.bytes } }
 
+    nonisolated private static func describe(_ job: Job) -> String {
+        String(data: (try? JSONEncoder().encode(job)) ?? Data(), encoding: .utf8) ?? ""
+    }
+
+    nonisolated private static func job(_ task: URLSessionTask) -> Job? {
+        task.taskDescription.flatMap { $0.data(using: .utf8) }.flatMap { try? JSONDecoder().decode(Job.self, from: $0) }
+    }
+
     // MARK: URLSessionDownloadDelegate (delegate queue is main)
 
     nonisolated func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64,
                                 totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        let id = downloadTask.taskIdentifier
         let p = totalBytesExpectedToWrite > 0 ? Double(totalBytesWritten) / Double(totalBytesExpectedToWrite) : 0
-        MainActor.assumeIsolated {
-            if let job = pending[id] { phases[job.id] = .downloading(p) }
-        }
+        guard let job = Self.job(downloadTask) else { return }
+        MainActor.assumeIsolated { phases[job.id] = .downloading(p) }
     }
 
     nonisolated func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
@@ -116,10 +188,9 @@ final class OfflineStore: NSObject, ObservableObject, URLSessionDownloadDelegate
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".mp4")
         try? FileManager.default.moveItem(at: location, to: tmp)
         let code = (downloadTask.response as? HTTPURLResponse)?.statusCode ?? 0
-        let id = downloadTask.taskIdentifier
+        guard let job = Self.job(downloadTask) else { try? FileManager.default.removeItem(at: tmp); return }
         MainActor.assumeIsolated {
-            guard let job = pending.removeValue(forKey: id) else { return }
-            guard code == 200 else {
+            guard code == 200 || code == 206 else {
                 try? FileManager.default.removeItem(at: tmp)
                 phases[job.id] = .failed("The PC answered \(code).")
                 return
@@ -133,6 +204,7 @@ final class OfflineStore: NSObject, ObservableObject, URLSessionDownloadDelegate
                 items.insert(OfflineItem(id: job.id, title: job.title, subtitle: job.subtitle, duration: job.duration, bytes: size,
                                          savedAt: Date(), hasPoster: FileManager.default.fileExists(atPath: poster(job.id).path)), at: 0)
                 phases[job.id] = nil
+                forget(job.id)
                 save()
             } catch {
                 phases[job.id] = .failed("Couldn't save it: \(error.localizedDescription)")
@@ -141,12 +213,24 @@ final class OfflineStore: NSObject, ObservableObject, URLSessionDownloadDelegate
     }
 
     nonisolated func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        guard let error else { return }
-        let id = task.taskIdentifier
+        guard let error, let job = Self.job(task) else { return }
+        let resume = (error as NSError).userInfo[NSURLSessionDownloadTaskResumeData] as? Data
+        let cancelled = (error as NSError).code == NSURLErrorCancelled && resume == nil
         MainActor.assumeIsolated {
-            if let job = pending.removeValue(forKey: id) {
+            if cancelled { return }  // removed by Luke
+            if let resume {
+                try? resume.write(to: resumeData(job.id))
+                phases[job.id] = .failed("Paused part-way. It carries on by itself next time the app is open at home.")
+            } else {
                 phases[job.id] = .failed("The download stopped: \(error.localizedDescription). Try again on the home network.")
             }
+        }
+    }
+
+    nonisolated func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
+        MainActor.assumeIsolated {
+            backgroundDone?()
+            backgroundDone = nil
         }
     }
 }

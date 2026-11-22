@@ -1,8 +1,23 @@
 import AVFoundation
 import SwiftUI
 
+#if os(iOS)
+/// Hands iOS's "your background downloads finished" wake-up to the offline store (offline copies keep downloading
+/// with the phone locked or the app closed).
+final class AppDelegate: NSObject, UIApplicationDelegate {
+    func application(_ application: UIApplication, handleEventsForBackgroundURLSession identifier: String,
+                     completionHandler: @escaping () -> Void) {
+        MainActor.assumeIsolated { OfflineStore.shared.backgroundDone = completionHandler }
+    }
+}
+#endif
+
 @main
 struct HolyArrsTVApp: App {
+    #if os(iOS)
+    @UIApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
+    #endif
+
     init() {
         #if os(iOS)
         // Playback, not ambient: sound with the ring switch off, AirPlay to an Apple TV, and a cast that keeps going
@@ -70,13 +85,23 @@ struct RootView: View {
         .task(id: rtx.address) {
             // The PC's film list changes as downloads land: read it again every few minutes while the app is open.
             await rtx.refresh()
+            #if os(iOS)
+            await OfflineStore.shared.resumeWanted(rtx: rtx.error == nil ? rtx.base : nil)  // downloads asked for earlier carry on
+            #endif
             while !Task.isCancelled {
                 try? await Task.sleep(nanoseconds: 180_000_000_000)
                 await rtx.refreshIfStale()
             }
         }
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active { Task { await rtx.refreshIfStale(maxAge: 30) } }
+            if phase == .active {
+                Task {
+                    await rtx.refreshIfStale(maxAge: 30)
+                    #if os(iOS)
+                    await OfflineStore.shared.resumeWanted(rtx: rtx.error == nil ? rtx.base : nil)
+                    #endif
+                }
+            }
         }
         .task(id: "\(sportarr.address)|\(sportarr.enabled)") { await sportarr.connect() }
     }

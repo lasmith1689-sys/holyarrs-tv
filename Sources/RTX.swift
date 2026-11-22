@@ -55,17 +55,20 @@ final class RTXServer: ObservableObject {
         }
     }
 
-    /// Where everything was left on any screen (kept on the PC), replacing this device's own notes.
+    /// Where everything was left on any screen (kept on the PC), merged with this device's own notes: progress
+    /// made offline goes up to the PC instead of being overwritten by it.
     func syncPositions() async {
         guard let base, let j = try? await RTXAPI(base: base).get("positions") else { return }
-        Resume.replaceAll(j["positions"])
+        let (merged, push) = Resume.merge(j["positions"])
+        for p in push {
+            let q = [URLQueryItem(name: "id", value: p.id), URLQueryItem(name: "t", value: String(format: "%.1f", p.t)),
+                     URLQueryItem(name: "d", value: String(format: "%.1f", p.d)),
+                     URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone")]
+            _ = try? await RTXAPI(base: base).get("position", q)
+        }
         var list: [ContinueEntry] = []
-        if case let .object(o) = j["positions"] {
-            for (id, v) in o {
-                guard let t = v["t"].double else { continue }
-                list.append(ContinueEntry(id: id, seconds: t, duration: v["duration"].double ?? 0,
-                                          at: Date(timeIntervalSince1970: v["at"].double ?? 0), place: v["where"].string ?? ""))
-            }
+        for (id, v) in merged where v.t > 0 {
+            list.append(ContinueEntry(id: id, seconds: v.t, duration: v.d, at: Date(timeIntervalSince1970: v.at), place: v.place))
         }
         continueList = list.sorted { $0.at > $1.at }
     }
@@ -509,17 +512,52 @@ enum Resume {
     @MainActor static var server: URL?
     private static func key(_ id: String) -> String { "resume.\(id)" }
 
-    /// The PC's positions replace this device's: whichever screen saved last wins.
-    static func replaceAll(_ map: JSON) {
+    /// Merges the PC's positions with this device's: for each title, whichever screen saved (or cleared) it
+    /// last wins. Returns the merged list and what the PC hasn't heard yet (progress made offline, or while the
+    /// PC was unreachable), so the caller can send those up. Before 2026-11-22 the PC's list simply replaced
+    /// this device's, which wiped anything watched offline.
+    static func merge(_ pc: JSON) -> (positions: [String: (t: Double, d: Double, at: Double, place: String)],
+                                      push: [(id: String, t: Double, d: Double)]) {
         let d = UserDefaults.standard
-        for k in d.dictionaryRepresentation().keys where k.hasPrefix("resume.") { d.removeObject(forKey: k) }
-        if case let .object(o) = map {
+        var out: [String: (t: Double, d: Double, at: Double, place: String)] = [:]
+        var push: [(id: String, t: Double, d: Double)] = []
+        if case let .object(o) = pc {
             for (id, v) in o {
                 guard let t = v["t"].double else { continue }
-                d.set(t, forKey: key(id))
-                if let at = v["at"].double { d.set(at, forKey: "resume.at.\(id)") }
+                out[id] = (t, v["duration"].double ?? 0, v["at"].double ?? 0, v["where"].string ?? "")
             }
         }
+        let keys = d.dictionaryRepresentation().keys
+        // Titles finished or started over here after the PC's note: clear them there too.
+        for k in keys where k.hasPrefix("resume.cleared.") {
+            let id = String(k.dropFirst("resume.cleared.".count))
+            let cleared = d.double(forKey: k)
+            if let p = out[id], p.at < cleared {
+                out[id] = nil
+                push.append((id, 0, p.d))
+            } else if out[id] == nil || out[id]!.at >= cleared {
+                d.removeObject(forKey: k)  // settled: the PC agrees, or another screen watched it since
+            }
+        }
+        // Positions saved here after the PC's note (or that the PC never got).
+        for k in keys where k.hasPrefix("resume.") && !k.hasPrefix("resume.at.") && !k.hasPrefix("resume.d.")
+            && !k.hasPrefix("resume.cleared.") {
+            let id = String(k.dropFirst("resume.".count))
+            let t = d.double(forKey: k), at = d.double(forKey: "resume.at.\(id)")
+            guard t > 0 else { continue }
+            if let p = out[id], p.at >= at { continue }
+            let dur = d.double(forKey: "resume.d.\(id)")
+            out[id] = (t, dur > 0 ? dur : (out[id]?.d ?? 0), at, Device.isTV ? "apple-tv" : "iphone")
+            push.append((id, t, out[id]!.d))
+        }
+        // This device now mirrors the merged list.
+        for k in keys where k.hasPrefix("resume.") && !k.hasPrefix("resume.cleared.") { d.removeObject(forKey: k) }
+        for (id, p) in out {
+            d.set(p.t, forKey: key(id))
+            d.set(p.at, forKey: "resume.at.\(id)")
+            if p.d > 0 { d.set(p.d, forKey: "resume.d.\(id)") }
+        }
+        return (out, push)
     }
 
     @MainActor static func send(_ id: String, _ seconds: Double, duration: Double) {
@@ -541,12 +579,17 @@ enum Resume {
         } else {
             UserDefaults.standard.set(seconds, forKey: key(id))
             UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "resume.at.\(id)")
+            if duration > 0 { UserDefaults.standard.set(duration, forKey: "resume.d.\(id)") }
+            UserDefaults.standard.removeObject(forKey: "resume.cleared.\(id)")
         }
     }
 
     static func clear(_ id: String) {
         UserDefaults.standard.removeObject(forKey: key(id))
         UserDefaults.standard.removeObject(forKey: "resume.at.\(id)")
+        UserDefaults.standard.removeObject(forKey: "resume.d.\(id)")
+        // Remembered until the PC has heard, so a finish watched offline isn't undone by the PC's older note.
+        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "resume.cleared.\(id)")
     }
 
     static func label(_ seconds: Double) -> String {
