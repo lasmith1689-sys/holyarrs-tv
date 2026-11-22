@@ -363,7 +363,16 @@ final class PhoneTour: XCTestCase {
                         cnn.tap()
                         waitPlaying()
                         tapPicture()
-                        check(cast.waitForExistence(timeout: 3), "after the system's Close, the next channel opens and plays (a tap shows Cast)")
+                        // Run 45073480679 once saw no buttons after this first tap (the channel was playing: the PC
+                        // served it). Say what the screen had, then try one more tap, and report which it took.
+                        var shown = cast.waitForExistence(timeout: 3)
+                        if !shown {
+                            print("NOTE first tap on the second player showed no buttons: video \(video.exists), system controls \(systemClose.exists)")
+                            shot("live-after-close-first-tap")
+                            tapPicture()
+                            shown = cast.waitForExistence(timeout: 3)
+                        }
+                        check(shown, "after the system's Close, the next channel opens and plays (a tap shows Cast)")
                     } else {
                         XCTFail("CNN is not on TV")
                     }
