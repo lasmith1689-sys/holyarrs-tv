@@ -329,6 +329,13 @@ class Handler(BaseHTTPRequestHandler):
                     "duration_s": 3480, "still": f"https://image.tmdb.org/t/p/w185/ep{n}.jpg", "ext": "mp4"} for n in range(1, 5)]
             return self._send(200, {**it, "plot": "A family moves to a remote Welsh farmhouse.", "seasons": [
                 {"season": 1, "episodes": eps}, {"season": 2, "episodes": eps[:2]}]})
+        if path in ("/tv/cast", "/tv/ondemand/cast"):
+            if q.get("device") != "Patio TV":
+                return self._send(502, {"ok": False, "state": "failed", "error": f"{q.get('device')} is not on the network."})
+            Handler.cast = {"ok": True, "film": "od:" + q.get("kind", "") + "-" + q.get("id", "") if "ondemand" in path else "tv:" + q.get("stream", ""),
+                            "title": q.get("title", ""), "state": "playing", "device": "Patio TV", "position": 0.0, "startup_s": 6.1,
+                            "stalls": 0, "error": None}
+            return self._send(200, Handler.cast)
         if path == "/tv/ondemand/play":
             return self._send(200, {"ok": True, "session": "tv-1111111111", "url": "/missing.m3u8", "attempts": 1,
                                     "start_s": float(q.get("t", 0)), "duration_s": 10320})

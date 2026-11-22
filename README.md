@@ -32,6 +32,8 @@ albums.
 Playing: positions are kept on the RTX server (`/positions`), so every screen resumes the same place. While
 playing: Stats (swipe down on Apple TV, chart button on iPhone; measured by the player) and Continue outside.
 iPhone: AirPlay to an Apple TV (the TV fetches the PC's stream itself); a cast keeps going with the phone locked.
+Cast (iPhone, live TV and On Demand): the PC lists the Chromecasts and Google TVs on the network and tells the chosen one
+to play its own stream (`/cast/devices`, `/tv/cast`, `/tv/ondemand/cast`); the player shows Cast while paused.
 
 Indexers, download apps, pick rules, keys and backups stay in HolyArrs' web page.
 

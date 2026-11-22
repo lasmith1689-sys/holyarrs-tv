@@ -732,6 +732,8 @@ final class LivePlayerModel: ObservableObject {
     private var vod: VODRef?
     /// On Demand: where the PC's stream starts in the film (the player's time 0).
     private var offset: Double = 0
+    /// The feed that started (the request's own, or a spare one).
+    private var tuned: String?
 
     /// Asks the PC to start the channel (answered once the first seconds are ready), trying spare feeds in turn,
     /// or the On Demand title from where it was left.
@@ -749,6 +751,7 @@ final class LivePlayerModel: ObservableObject {
                 let j = try await RTXAPI(base: base).get("tv/play", [URLQueryItem(name: "stream", value: stream)])
                 guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else { continue }
                 session = j["session"].string
+                tuned = stream
                 start(url)
                 return
             } catch APIError.server(let code, _) where code == 503 {
@@ -804,6 +807,20 @@ final class LivePlayerModel: ObservableObject {
         player = p  // SystemPlayer starts it
     }
 
+    /// What to hand to a Chromecast or Google TV: the same channel, or the title from where it is now.
+    func castTarget(_ request: LiveRequest) -> CastTarget {
+        if let v = vod ?? request.vod {
+            let now = player?.currentTime().seconds ?? 0
+            let t = now.isFinite && now > 0 ? now + offset : v.start
+            return CastTarget(title: request.title, path: "tv/ondemand/cast", query: [
+                URLQueryItem(name: "kind", value: v.kind), URLQueryItem(name: "id", value: v.id), URLQueryItem(name: "ext", value: v.ext),
+                URLQueryItem(name: "t", value: String(Int(max(0, t)))), URLQueryItem(name: "title", value: request.title),
+                URLQueryItem(name: "d", value: String(format: "%.0f", v.duration ?? 0))])
+        }
+        return CastTarget(title: request.title, path: "tv/cast", query: [
+            URLQueryItem(name: "stream", value: tuned ?? request.stream), URLQueryItem(name: "title", value: request.title)])
+    }
+
     private func savePosition() {
         guard let vod, let base, let p = player else { return }
         let t = p.currentTime().seconds
@@ -835,6 +852,8 @@ struct LivePlayerScreen: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var model = LivePlayerModel()
     @State private var attempt = 0
+    @State private var casting = false
+    @State private var castStarted = false
 
     var body: some View {
         ZStack {
@@ -866,6 +885,12 @@ struct LivePlayerScreen: View {
         }
         .task(id: attempt) { await model.tune(request, base: rtx.base) }
         .onDisappear { model.close() }
+        #if os(iOS)
+        // Cast: the PC hands the same stream to the TV; once it plays there, this player closes.
+        .sheet(isPresented: $casting, onDismiss: { if castStarted { dismiss() } }) {
+            CastSheet(target: model.castTarget(request), started: { castStarted = true })
+        }
+        #endif
     }
 
     #if os(iOS)
@@ -879,6 +904,12 @@ struct LivePlayerScreen: View {
                 }
                 .accessibilityLabel("Close")
                 Spacer()
+                Button { casting = true } label: {
+                    Label("Cast", systemImage: "tv.badge.wifi").font(.subheadline.weight(.semibold))
+                        .padding(.horizontal, 14).padding(.vertical, 8)
+                        .background(.ultraThinMaterial, in: Capsule())
+                }
+                .accessibilityLabel("Cast to a Chromecast or Google TV")
             }
             .padding(.horizontal, 20)
             .padding(.top, 54)

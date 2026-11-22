@@ -194,6 +194,7 @@ struct ODMoviePage: View {
     @State private var info: JSON = .null
     @State private var resume: Double?
     @State private var watching: LiveRequest?
+    @State private var casting = false
 
     private var duration: Double? { info["duration_s"].double }
 
@@ -214,7 +215,7 @@ struct ODMoviePage: View {
                         if let cast = info["cast"].string {
                             Text(cast).font(.system(size: F(22))).foregroundStyle(Theme.dim).lineLimit(2).frame(maxWidth: W(1100), alignment: .leading)
                         }
-                        HStack(spacing: S(30)) {
+                        AdaptiveStack(phoneAlignment: .leading, spacing: S(30)) {
                             if let resume {
                                 Button { play(resume) } label: {
                                     Label("Resume \u{00B7} \(OnDemand.minutes(resume)) in", systemImage: "play.fill")
@@ -223,6 +224,9 @@ struct ODMoviePage: View {
                             } else {
                                 Button { play(0) } label: { Label("Play", systemImage: "play.fill") }
                             }
+                            #if os(iOS)
+                            Button { casting = true } label: { Label("Cast", systemImage: "tv.badge.wifi") }
+                            #endif
                         }
                         .tvFocusSection()
                         Text("Plays through your PC. Your plan plays one stream at a time, so this stops live TV on any other screen.")
@@ -242,6 +246,13 @@ struct ODMoviePage: View {
         .fullScreenCover(item: $watching, onDismiss: {
             Task { resume = await OnDemand.positions(rtx.base)["movie-\(item.id)"] }
         }) { LivePlayerScreen(request: $0) }
+        .sheet(isPresented: $casting) {
+            CastSheet(target: CastTarget(title: item.title, path: "tv/ondemand/cast", query: [
+                URLQueryItem(name: "kind", value: "movie"), URLQueryItem(name: "id", value: item.id),
+                URLQueryItem(name: "ext", value: info["ext"].string ?? item.ext),
+                URLQueryItem(name: "t", value: String(Int(resume ?? 0))), URLQueryItem(name: "title", value: item.title),
+                URLQueryItem(name: "d", value: String(format: "%.0f", duration ?? 0))]))
+        }
     }
 
     private var meta: String {

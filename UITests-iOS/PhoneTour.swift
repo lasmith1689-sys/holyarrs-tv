@@ -144,6 +144,20 @@ final class PhoneTour: XCTestCase {
                           "Resume on a part-watched On Demand film")
             sleep(2)
             shot("ondemand-movie")
+            // Cast: the PC lists its Cast TVs; picking one plays it there (the stand-in TV reports playing).
+            let cast = app.buttons["Cast"]
+            if cast.waitForExistence(timeout: 5) {
+                cast.tap()
+                let tv = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Patio TV'")).firstMatch
+                XCTAssertTrue(tv.waitForExistence(timeout: 15), "a Cast TV in the list")
+                shot("cast-devices")
+                tv.tap()
+                XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Playing on Patio TV'")).firstMatch
+                    .waitForExistence(timeout: 15), "cast reported playing")
+                shot("cast-playing")
+            } else {
+                XCTFail("no Cast button on an On Demand film")
+            }
         } else {
             XCTFail("The Odyssey not in On Demand")
         }
