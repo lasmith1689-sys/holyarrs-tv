@@ -28,7 +28,9 @@ final class RTXServer: ObservableObject {
 
     init() {
         address = UserDefaults.standard.string(forKey: "rtxAddress") ?? RTXServer.defaultAddress
-        enabled = UserDefaults.standard.object(forKey: "rtxEnabled") as? Bool ?? true
+        // On unless switched off. bool(forKey:) also reads a value given at launch ("-rtxEnabled NO" arrives as text,
+        // which `as? Bool` silently took for "not set", leaving it on).
+        enabled = UserDefaults.standard.object(forKey: "rtxEnabled") == nil ? true : UserDefaults.standard.bool(forKey: "rtxEnabled")
     }
 
     var base: URL? {
