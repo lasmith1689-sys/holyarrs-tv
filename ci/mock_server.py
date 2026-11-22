@@ -347,6 +347,11 @@ class Handler(BaseHTTPRequestHandler):
         # The RTX 4K server.
         if path == "/library":
             return self._send(200, fixture("rtx_library"))
+        if path == "/find":
+            # The PC's own matching, asked by a movie page that found no match in its list: by title, case-blind.
+            want = q.get("title", "").lower()
+            film = next((f for f in fixture("rtx_library")["films"] if f["title"].lower() == want), None)
+            return self._send(200, {"film": film}) if film else self._send(404, {"error": "no match"})
         if path in ("/play", "/stop"):
             return self._send(200, {"session": "s1", "url": "/missing.m3u8", "ready": True})
         if path == "/positions":

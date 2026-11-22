@@ -13,10 +13,11 @@ final class PhoneTour: XCTestCase {
 
     /// Launches on a tab. Pages are only passed when given: a value passed at launch can't be changed by the app,
     /// so passing one every time would hide what the app itself saves (Home's Browse choice, the Downloads page).
-    private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live") {
+    private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live",
+                        more: [String] = []) {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage] + more
         if let explore { app.launchArguments += ["-exploreKind", explore] }
         if let page { app.launchArguments += ["-downloadsPage", page] }
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
@@ -363,6 +364,22 @@ final class PhoneTour: XCTestCase {
             }
         } else {
             XCTFail("ESPN is not on TV")
+        }
+
+        // Play in 4K switched off in Settings: a movie the PC has says so and switches it back on in one tap.
+        launch(tab: "home", more: ["-rtxEnabled", "NO"])
+        let film = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
+        if scrollTo(film) {
+            film.tap()
+            let turnOn = app.buttons["Turn on Play in 4K"]
+            check(turnOn.waitForExistence(timeout: 15) && !app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.exists,
+                  "Play in 4K off: the movie page says so and offers to turn it on")
+            shot("title-4k-off")
+            turnOn.tap()
+            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
+                  "Turn on Play in 4K brings Resume in 4K back")
+        } else {
+            XCTFail("The Matrix not on Home")
         }
     }
 }
