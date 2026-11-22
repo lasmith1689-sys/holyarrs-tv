@@ -153,6 +153,6 @@ struct ContinueCell: View {
         }
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel("\(card?.name ?? film.title), \(entry.left)")
+        .accessibilityLabel("Resume \(card?.name ?? film.title), \(entry.left)")
     }
 }

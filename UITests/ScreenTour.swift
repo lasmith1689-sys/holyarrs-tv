@@ -77,9 +77,13 @@ final class ScreenTour: XCTestCase {
         launch(tab: "home")
         _ = app.buttons["More info"].waitForExistence(timeout: 15)
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
-        // Tab bar -> hero buttons -> Just arrived (The Matrix is its first card).
+        // Tab bar -> hero buttons -> Continue Watching -> Just arrived (The Matrix is its first card).
         press(.down)
         sleep(1)
+        press(.down)
+        sleep(1)
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.exists,
+                      "Continue Watching card for the part-watched Matrix")
         press(.down)
         sleep(1)
         if focus(matrix, .left, limit: 3) {

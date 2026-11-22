@@ -48,6 +48,8 @@ final class PhoneTour: XCTestCase {
         launch(tab: "home")
         XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 15), "home hero")
         XCTAssertTrue(app.staticTexts["Continue Watching"].waitForExistence(timeout: 10), "Continue Watching row on Home")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.exists,
+                      "Continue Watching card for the part-watched Matrix")
         shot("home")
         app.swipeUp()
         sleep(1)
