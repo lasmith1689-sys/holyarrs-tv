@@ -43,8 +43,6 @@ struct BackgroundVideo: UIViewRepresentable {
     }
 }
 
-/// The big picture at the top of Home and Explore: a rotating set of titles; the focused one's trailer starts
-/// muted after a moment, like Netflix and the Apple TV app.
 /// How many full-screen players are open. Anything that plays by itself in the background (the hero's muted
 /// trailers) waits while one is: a trailer starting under a live game used to take over what was playing.
 @MainActor
@@ -62,6 +60,8 @@ extension View {
     }
 }
 
+/// The big picture at the top of Home and a genre's page: a rotating set of titles; the focused one's trailer starts
+/// muted after a moment, like Netflix and the Apple TV app.
 struct Hero: View {
     let items: [Card]
     /// Home's Find button (opens Search): the quickest way to something new to get or watch.
@@ -167,10 +167,12 @@ struct Hero: View {
     }
 }
 
-/// Home: what is new for this person (GET /home) under a hero of what's trending (GET /explore/head).
+/// Home: what is new for this person (GET /home) under a hero of what's trending (GET /explore/head), then Browse
+/// (what was the Explore tab: All, Movies, Shows or Music, with the genres). On iPhone, Settings opens from the gear.
 struct HomeView: View {
     @EnvironmentObject private var api: HolyArrs
     @AppStorage("tab") private var tab = "home"
+    @AppStorage("homeSettings") private var settingsOpen = false
     @State private var hero: [Card] = []
     @State private var rows: [(String, String?, [Card], Bool)] = []
     @State private var approvals = 0
@@ -189,7 +191,7 @@ struct HomeView: View {
                     AdaptiveStack(spacing: S(30)) {
                         if approvals > 0 { Label("\(approvals) waiting for your OK", systemImage: "hand.raised") }
                         if stuck > 0 { Label("\(stuck) need a decision", systemImage: "exclamationmark.triangle") }
-                        Text("See Requests").foregroundStyle(Theme.dim)
+                        Text("See Requests in Downloads").foregroundStyle(Theme.dim)
                     }
                     .font(.title3)
                     .foregroundStyle(Theme.accent)
@@ -207,13 +209,23 @@ struct HomeView: View {
                 ForEach(rows.indices, id: \.self) { i in
                     CardRow(title: rows[i].0, subtitle: rows[i].1, cards: rows[i].2, wide: rows[i].3)
                 }
-                if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing new yet. Ask for something in Explore or Search.") { Task { await load() } } }
+                if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing new in the Library yet. Browse below, or use Search.") { Task { await load() } } }
+                BrowseSection()
             }
             .padding(.bottom, S(80))
         }
         .ignoresSafeArea(edges: .top)
         .refreshable { await load() }
         .task { await load() }
+        #if os(iOS)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button { settingsOpen = true } label: { Image(systemName: "gearshape") }
+                    .accessibilityLabel("Settings")
+            }
+        }
+        .navigationDestination(isPresented: $settingsOpen) { SettingsView() }
+        #endif
     }
 
     private func load() async {
@@ -240,12 +252,7 @@ struct HomeView: View {
             self.error = error.localizedDescription
         }
         if let head = try? await headJ {
-            hero = head["hero"].array.map { Card(provider: $0, row: "hero") }
-            // Home ends with a few of Explore's rows, so it is never empty on a new install.
-            let extra = head["head"].array.prefix(4).map { r in
-                (r["title"].string ?? "", r["subtitle"].string, r["items"].array.map { Card(provider: $0, row: r["id"].string ?? "") }, true)
-            }
-            rows += extra
+            hero = head["hero"].array.map { Card(provider: $0, row: "hero") }  // Browse, below, shows the rows
         }
         if api.me?.canApprove == true, let a = try? await api.get("asks", ["state": "asked", "limit": "1"]) {
             approvals = a["counts"]["pending"].int ?? a["total"].int ?? 0

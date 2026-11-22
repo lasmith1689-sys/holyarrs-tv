@@ -8,6 +8,14 @@ struct ExploreRow: Identifiable {
     let cards: [Card]
     let wide: Bool
 
+    init(id: String, title: String, subtitle: String? = nil, cards: [Card], wide: Bool = false) {
+        self.id = id
+        self.title = title
+        self.subtitle = subtitle
+        self.cards = cards
+        self.wide = wide
+    }
+
     init(_ r: JSON, music: Bool = false) {
         id = r["id"].string ?? UUID().uuidString
         title = r["title"].string ?? ""
@@ -18,9 +26,10 @@ struct ExploreRow: Identifiable {
     }
 }
 
-/// Explore: All, Movies, Shows or Music, each the page HolyArrs builds for this person (head rows, then more
-/// rows by pages), with its genre tiles.
-struct ExploreView: View {
+/// Browse, at the end of Home (it was the Explore tab): All, Movies, Shows or Music, each the page HolyArrs builds
+/// for this person (head rows, then more rows by pages), with its genre tiles after the first two rows. Music and
+/// every genre are one press from Home. No hero of its own: Home's hero is above it.
+struct BrowseSection: View {
     enum Kind: String, CaseIterable, Identifiable {
         case all = "All", movies = "Movies", shows = "Shows", music = "Music"
         var id: String { rawValue }
@@ -29,7 +38,6 @@ struct ExploreView: View {
 
     @EnvironmentObject private var api: HolyArrs
     @AppStorage("exploreKind") private var kind: Kind = .all
-    @State private var hero: [Card] = []
     @State private var rows: [ExploreRow] = []
     @State private var genres: [JSON] = []
     @State private var page = 0
@@ -40,40 +48,42 @@ struct ExploreView: View {
     @State private var building = false
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: S(50)) {
-                Picker("Show", selection: $kind) {
-                    ForEach(Kind.allCases) { Text($0.rawValue).tag($0) }
+        VStack(alignment: .leading, spacing: S(50)) {
+            AdaptiveStack(spacing: S(30)) {
+                Text("Browse").font(.system(size: F(48), weight: .bold))
+                // Buttons, not a segmented picker: on Apple TV a picker switches as focus passes over it, and this
+                // one sits in the middle of the page where focus passes on the way down.
+                HStack(spacing: S(18)) {
+                    ForEach(Kind.allCases) { k in
+                        Button { kind = k } label: {
+                            Text(k.rawValue).font(.system(size: F(26), weight: .semibold)).padding(.horizontal, S(10))
+                        }
+                        .buttonStyle(KindButtonStyle(selected: k == kind))
+                        .accessibilityIdentifier("browse-\(k.param)")
+                        .accessibilityAddTraits(k == kind ? .isSelected : [])
+                    }
                 }
-                .pickerStyle(.segmented)
-                .frame(width: W(900))
-                .padding(.horizontal, Theme.sidePadding)
-                .padding(.top, S(20))
-                .tvFocusSection()
-
-                Hero(items: hero)
-                if building { Text("HolyArrs is still putting your page together. More rows appear in a moment.").foregroundStyle(Theme.dim).padding(.horizontal, Theme.sidePadding) }
-                ForEach(rows.prefix(2)) { CardRow(title: $0.title, subtitle: $0.subtitle, cards: $0.cards, wide: $0.wide) }
-                if !genres.isEmpty { GenreTiles(type: kind.param, genres: genres) }
-                ForEach(rows.dropFirst(2)) { CardRow(title: $0.title, subtitle: $0.subtitle, cards: $0.cards, wide: $0.wide) }
-                if more || cursor != nil {
-                    Button("More rows") { Task { await loadMore() } }
-                        .padding(.horizontal, Theme.sidePadding)
-                        .onAppear { Task { await loadMore() } }
-                }
-                if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing to show yet.") { Task { await load() } } }
             }
-            .padding(.bottom, S(80))
+            .padding(.horizontal, Theme.sidePadding)
+            .tvFocusSection()
+            if building { Text("HolyArrs is still putting your page together. More rows appear in a moment.").foregroundStyle(Theme.dim).padding(.horizontal, Theme.sidePadding) }
+            ForEach(rows.prefix(2)) { CardRow(title: $0.title, subtitle: $0.subtitle, cards: $0.cards, wide: $0.wide) }
+            if !genres.isEmpty { GenreTiles(type: kind.param, genres: genres) }
+            ForEach(rows.dropFirst(2)) { CardRow(title: $0.title, subtitle: $0.subtitle, cards: $0.cards, wide: $0.wide) }
+            if more || cursor != nil {
+                Button("More rows") { Task { await loadMore() } }
+                    .padding(.horizontal, Theme.sidePadding)
+                    .onAppear { Task { await loadMore() } }
+            }
+            if rows.isEmpty { LoadState(loading: loading, error: error, empty: "Nothing to show yet.") { Task { await load() } } }
         }
-        .refreshable { await load() }
         .task(id: kind) { await load() }
     }
 
-    private func load() async {
+    func load() async {
         loading = true
         defer { loading = false }
         rows = []
-        hero = []
         genres = []
         page = 0
         more = false
@@ -81,15 +91,16 @@ struct ExploreView: View {
         do {
             if kind == .music {
                 let j = try await api.get("explore/music")
-                hero = ([j["hero"]] + j["hero_alts"].array).filter { !$0.isNull }.map { Card(music: $0, row: "hero") }
-                rows = j["rows"].array.map { ExploreRow($0, music: true) }.filter { !$0.cards.isEmpty }
+                // Explore's music hero becomes the first row here (Home's hero is above).
+                let featured = ([j["hero"]] + j["hero_alts"].array).filter { !$0.isNull }.map { Card(music: $0, row: "hero") }
+                rows = (featured.isEmpty ? [] : [ExploreRow(id: "music-featured", title: "Featured", cards: featured)])
+                    + j["rows"].array.map { ExploreRow($0, music: true) }.filter { !$0.cards.isEmpty }
                 cursor = j["next"].string
                 building = j["partial"].bool
             } else {
                 async let headJ = api.get("explore/head", ["type": kind.param, "tz": TimeZone.current.identifier])
                 async let genreJ = api.get("explore/genre-row", ["type": kind.param])
                 let h = try await headJ
-                hero = h["hero"].array.map { Card(provider: $0, row: "hero") }
                 rows = h["head"].array.map { ExploreRow($0) }.filter { !$0.cards.isEmpty }
                 building = h["building"].bool
                 more = (h["tail_rows"].int ?? 0) > 0 || (h["tail_cap"].int ?? 0) > 0
@@ -121,6 +132,30 @@ struct ExploreView: View {
         } catch {
             // A failed page leaves what is shown; the next scroll tries again.
             more = kind != .music
+        }
+    }
+}
+
+/// A Browse choice: filled when picked, lit when focused.
+private struct KindButtonStyle: ButtonStyle {
+    let selected: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        KindButtonBody(configuration: configuration, selected: selected)
+    }
+
+    private struct KindButtonBody: View {
+        let configuration: ButtonStyleConfiguration
+        let selected: Bool
+        @Environment(\.isFocused) private var focused
+
+        var body: some View {
+            configuration.label
+                .padding(.horizontal, S(18)).padding(.vertical, S(12))
+                .foregroundStyle(selected || focused ? Color.black : Color.white)
+                .background(selected ? Theme.accent : (focused ? Color.white : Color.white.opacity(0.12)), in: Capsule())
+                .scaleEffect(focused ? 1.08 : (configuration.isPressed ? 0.96 : 1))
+                .animation(.easeOut(duration: 0.15), value: focused)
         }
     }
 }

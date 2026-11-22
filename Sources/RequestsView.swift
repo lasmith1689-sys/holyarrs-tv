@@ -1,18 +1,24 @@
 import SwiftUI
 
-/// The Requests tab: asks, plus Downloads (for people who manage the Library) and the Calendar, picked at the top.
+/// The Downloads tab: the downloads list (for people who manage the Library; it opens there), then Requests (asks)
+/// and the Calendar, picked at the top. People who can't manage the Library see Requests and Calendar.
 struct RequestsHub: View {
     let canManage: Bool
-    @AppStorage("requestsPage") private var page = "requests"
+    @AppStorage("downloadsPage") private var page = "downloads"
 
     private var pages: [(id: String, name: String)] {
-        canManage ? [("requests", "Requests"), ("downloads", "Downloads"), ("calendar", "Calendar")]
+        canManage ? [("downloads", "Downloads"), ("requests", "Requests"), ("calendar", "Calendar")]
             : [("requests", "Requests"), ("calendar", "Calendar")]
+    }
+
+    /// The page to show: the saved one if this person has it, else the first (Downloads for a manager).
+    private var shown: Binding<String> {
+        Binding(get: { pages.contains { $0.id == page } ? page : pages[0].id }, set: { page = $0 })
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Picker("Show", selection: $page) {
+            Picker("Show", selection: shown) {
                 ForEach(pages, id: \.id) { p in Text(p.name).tag(p.id) }
             }
             .pickerStyle(.segmented)
@@ -20,8 +26,8 @@ struct RequestsHub: View {
             .padding(.horizontal, Theme.sidePadding)
             .padding(.top, S(30))
             .tvFocusSection()
-            switch page {
-            case "downloads" where canManage: DownloadsView()
+            switch shown.wrappedValue {
+            case "downloads": DownloadsView()
             case "calendar": CalendarView()
             default: RequestsView()
             }

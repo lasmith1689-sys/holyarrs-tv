@@ -42,14 +42,29 @@ struct HolyArrsTVApp: App {
     }
 }
 
-/// Signs in first, then the tab bar: Home, Explore, Sports, TV, Search, Requests (with Downloads and Calendar),
-/// Settings.
+/// Signs in first, then the tab bar. iPhone: Home, Sports, TV, Downloads, Search (five, so no More); Settings opens
+/// from the gear on Home. Apple TV: Home, Sports, TV, Downloads, then Search and Settings as icons. Explore's rows
+/// are on Home (Browse); Requests and Calendar are inside Downloads.
 struct RootView: View {
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
     @EnvironmentObject private var sportarr: Sportarr
     @Environment(\.scenePhase) private var scenePhase
     @AppStorage("tab") private var tab = "home"
+    @AppStorage("downloadsPage") private var downloadsPage = "downloads"
+    /// iPhone: Settings open on Home's stack (it was a tab).
+    @AppStorage("homeSettings") private var homeSettings = false
+
+    /// Where a saved tab from an older layout lives now. Read through this (not only rewritten once at launch) so a
+    /// value that can't be rewritten, such as one passed at launch, still opens the right tab.
+    static func current(_ saved: String) -> String {
+        switch saved {
+        case "explore": return "home"
+        case "requests", "calendar": return "downloads"
+        case "settings" where !Device.isTV: return "home"
+        default: return saved
+        }
+    }
 
     var body: some View {
         ZStack {
@@ -57,29 +72,24 @@ struct RootView: View {
             if api.checking && api.me == nil {
                 ProgressView()
             } else if let me = api.me {
-                TabView(selection: $tab) {
+                TabView(selection: Binding(get: { RootView.current(tab) }, set: { tab = $0 })) {
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
-                    // iPhone shows four tabs and More: Home, Sports, TV and Search up front, Explore in More.
-                    if Device.isTV {
-                        Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
-                    }
                     if sportarr.enabled || rtx.liveTV {
                         Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
                     }
                     if rtx.liveTV {
                         Tab("TV", systemImage: "tv", value: "tv") { Stack { TVView() } }
                     }
-                    // On Apple TV, Search and Settings are icon-only so the tabs fit across the top. Downloads and
-                    // Calendar live inside Requests.
+                    // Downloads opens on the downloads list; Requests and Calendar are picked at its top.
+                    Tab("Downloads", systemImage: "arrow.down.circle", value: "downloads") { Stack { RequestsHub(canManage: me.canManage) } }
+                    // On Apple TV, Search and Settings are icon-only at the right so the tabs fit across the top.
                     Tab(value: "search", role: .search) { Stack { SearchView() } } label: {
                         if Device.isTV { Image(systemName: "magnifyingglass").accessibilityLabel("Search") } else { Label("Search", systemImage: "magnifyingglass") }
                     }
-                    if !Device.isTV {
-                        Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
-                    }
-                    Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsHub(canManage: me.canManage) } }
-                    Tab(value: "settings") { Stack { SettingsView() } } label: {
-                        if Device.isTV { Image(systemName: "gearshape").accessibilityLabel("Settings") } else { Label("Settings", systemImage: "gearshape") }
+                    if Device.isTV {
+                        Tab(value: "settings") { Stack { SettingsView() } } label: {
+                            Image(systemName: "gearshape").accessibilityLabel("Settings")
+                        }
                     }
                 }
             } else if api.unreachable, !Device.isTV, !OfflineStore.shared.items.isEmpty {
@@ -91,11 +101,21 @@ struct RootView: View {
             }
         }
         .onAppear {
-            // Downloads and Calendar used to be tabs of their own: a saved choice of either opens it inside Requests.
-            if tab == "downloads" || tab == "calendar" {
-                UserDefaults.standard.set(tab, forKey: "requestsPage")
-                tab = "requests"
+            // Saved places from older layouts. Explore is on Home now. Requests was a tab (showing the page kept in
+            // "requestsPage"), and before that Calendar and Downloads were tabs: each opens its page inside Downloads.
+            // A saved "downloads" needs nothing: it is the Downloads tab, which opens on the downloads list.
+            // On iPhone Settings was a tab: it opens on Home's stack.
+            switch tab {
+            case "requests":
+                downloadsPage = UserDefaults.standard.string(forKey: "requestsPage") ?? "requests"
+            case "calendar":
+                downloadsPage = "calendar"
+            case "settings" where !Device.isTV:
+                homeSettings = true
+            default:
+                break
             }
+            tab = RootView.current(tab)
         }
         .task(id: api.address) { await api.restore() }
         .task(id: rtx.address) {
