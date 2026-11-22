@@ -194,6 +194,13 @@ struct TitlePage: View {
                         .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                 }
                 .buttonStyle(.borderedProminent)
+                if resume != nil {
+                    Button {
+                        playing = PlayRequest(label: info.name, film: film, seconds: 0, backdrop: info.backdrop)
+                    } label: {
+                        Label("Start over", systemImage: "backward.end").font(.system(size: F(28), weight: .semibold))
+                    }
+                }
                 OutsideButton(film: film, label: info.name)
                 OfflineButton(film: film, title: info.name, subtitle: info.year.map(String.init))
             }

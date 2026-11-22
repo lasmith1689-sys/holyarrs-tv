@@ -333,7 +333,10 @@ struct PlayerScreen: View {
                 #endif
             }
         }
-        .task { await model.load(request: request, rtx: rtx.base, cookies: api.cookies) }
+        .task {
+            await model.load(request: request, rtx: rtx.base, cookies: api.cookies)
+            await model.describe(title: request.label, art: api.image(request.backdrop, width: 780))
+        }
         .onChange(of: model.finished) { _, finished in if finished { dismiss() } }
         .onDisappear { model.close() }
     }
@@ -387,6 +390,29 @@ final class PlaybackModel: ObservableObject {
         } catch {
             if !Task.isCancelled { self.error = error.localizedDescription }
         }
+    }
+
+    /// The title and picture the system player shows (the Apple TV info panel, the iPhone lock screen and
+    /// Control Center) instead of a blank "Unknown".
+    func describe(title: String, art: URL?) async {
+        guard let item = player?.currentItem else { return }
+        func entry(_ id: AVMetadataIdentifier, _ value: NSCopying & NSObjectProtocol) -> AVMetadataItem {
+            let m = AVMutableMetadataItem()
+            m.identifier = id
+            m.value = value
+            m.extendedLanguageTag = "und"
+            return m
+        }
+        var items = [entry(.commonIdentifierTitle, title as NSString)]
+        if let art, let data = try? await URLSession.shared.data(from: art).0 {
+            let m = AVMutableMetadataItem()
+            m.identifier = .commonIdentifierArtwork
+            m.value = data as NSData
+            m.dataType = kCMMetadataBaseDataType_JPEG as String
+            m.extendedLanguageTag = "und"
+            items.append(m)
+        }
+        item.externalMetadata = items
     }
 
     private func start(_ item: AVPlayerItem) {
