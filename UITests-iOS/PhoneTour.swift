@@ -44,7 +44,7 @@ final class PhoneTour: XCTestCase {
     /// Swipes until the element can be tapped: up to reach something further down the page, down if it is above.
     @discardableResult
     private func scrollTo(_ e: XCUIElement, limit: Int = 10) -> Bool {
-        _ = e.waitForExistence(timeout: 10)
+        guard e.waitForExistence(timeout: 10) else { return false }
         for _ in 0..<limit where !e.isHittable {
             if e.frame.maxY < app.frame.height * 0.2 { app.swipeDown() } else { app.swipeUp() }
             usleep(500_000)
@@ -379,6 +379,9 @@ final class PhoneTour: XCTestCase {
 
         // Play in 4K switched off in Settings: a movie the PC has says so and switches it back on in one tap.
         launch(tab: "home", more: ["-rtxEnabled", "NO"])
+        // Settings was left open on Home by the gear above (the app keeps it open across launches): back to Home.
+        let settingsOpen = app.navigationBars["Settings"]
+        if settingsOpen.waitForExistence(timeout: 8) { settingsOpen.buttons.firstMatch.tap() }
         let film = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
         if scrollTo(film) {
             film.tap()
