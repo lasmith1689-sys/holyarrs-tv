@@ -356,8 +356,23 @@ struct EventPage: View {
         .fullScreenCover(item: $playing) { PlayerScreen(request: $0) }
     }
 
+    /// The buttons in one row when they fit, otherwise one under another (never wrapped mid-word).
     @ViewBuilder private var actions: some View {
-        AdaptiveStack(spacing: S(24)) {
+        Group {
+            if Device.isTV {
+                ViewThatFits(in: .horizontal) {
+                    HStack(spacing: S(24)) { actionButtons }
+                    VStack(alignment: .leading, spacing: S(24)) { actionButtons }
+                }
+            } else {
+                VStack(alignment: .leading, spacing: S(24)) { actionButtons }
+            }
+        }
+        .lineLimit(1)
+        .tvFocusSection()
+    }
+
+    @ViewBuilder private var actionButtons: some View {
             if let film = rtx.sport(for: event) {
                 Button {
                     playing = PlayRequest(label: event.matchup ?? event.title, film: film, seconds: rtx.startPoint(film) ?? 0, backdrop: event.thumb)
@@ -378,8 +393,6 @@ struct EventPage: View {
                 Label(event.monitored ? "Don't get automatically" : "Get automatically", systemImage: event.monitored ? "bell.slash" : "bell")
             }
             .disabled(busy)
-        }
-        .tvFocusSection()
     }
 
     private func reload() async {

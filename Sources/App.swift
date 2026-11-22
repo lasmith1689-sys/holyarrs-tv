@@ -68,7 +68,9 @@ struct RootView: View {
                     }
                     // On Apple TV, Search and Settings are icon-only so the tabs fit across the top. Downloads and
                     // Calendar live inside Requests.
-                    Tab(value: "search", role: .search) { Stack { SearchView() } }
+                    Tab(value: "search", role: .search) { Stack { SearchView() } } label: {
+                        if Device.isTV { Image(systemName: "magnifyingglass").accessibilityLabel("Search") } else { Label("Search", systemImage: "magnifyingglass") }
+                    }
                     Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsHub(canManage: me.canManage) } }
                     Tab(value: "settings") { Stack { SettingsView() } } label: {
                         if Device.isTV { Image(systemName: "gearshape").accessibilityLabel("Settings") } else { Label("Settings", systemImage: "gearshape") }
