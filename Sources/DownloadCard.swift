@@ -23,7 +23,9 @@ struct TitleDownloadCard: View {
     private var looking: Bool { rows.isEmpty && (askedAt.map { Date().timeIntervalSince($0) < 15 * 60 } ?? false) }
 
     var body: some View {
-        Group {
+        // A container that is always there (an empty Group has nothing to run .task on, so it never polled).
+        VStack(alignment: .leading, spacing: 0) {
+            Color.clear.frame(width: 0, height: 0)
             if !rows.isEmpty || looking {
                 VStack(alignment: .leading, spacing: S(18)) {
                     if rows.isEmpty {
