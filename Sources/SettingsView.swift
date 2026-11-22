@@ -27,7 +27,7 @@ struct SignInView: View {
     var body: some View {
         AdaptiveStack(tvAlignment: .top, spacing: S(120)) {
             VStack(alignment: .leading, spacing: S(20)) {
-                Text("HolyArrs").font(.system(size: F(90), weight: .heavy)).foregroundStyle(Theme.accent)
+                Text("Afterglow").font(.system(size: F(90), weight: .heavy)).foregroundStyle(Theme.accent)
                 Text(needsSetup ? "This HolyArrs has no owner yet. Set it up with your Plex account and you are its owner."
                                 : "Movies, shows and music: browse, ask for and follow them from the couch.")
                     .font(.title3).foregroundStyle(Theme.dim).frame(maxWidth: W(640), alignment: .leading)

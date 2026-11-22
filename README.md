@@ -1,7 +1,9 @@
-# HolyArrs TV
+# Afterglow (was HolyArrs TV)
 
-An Apple TV and iPhone app for [HolyArrs](https://github.com/HolyArrs/HolyArrs), in the look of the RTX 4K
-player app. HolyArrs runs on the PC; this app is its front end for the couch and the phone.
+An Apple TV and iPhone app for [HolyArrs](https://github.com/HolyArrs/HolyArrs), live TV, sports and the RTX 4K
+server, in the look of the RTX 4K player app. HolyArrs and the RTX 4K server run on the PC; this app is their front end
+for the couch and the phone (shown on the home screen as "Afterglow" since 22 Nov 2026; the App Store Connect record and
+TestFlight still say "HolyArrs TV").
 
 One code base (`Sources/`), two targets: `HolyArrsTV` (tvOS 18+) and `HolyArrsPhone` (iOS 18+, iPhone), with the
 same bundle ID, so both are the one App Store Connect app "HolyArrs TV". Screens are written at TV sizes;
