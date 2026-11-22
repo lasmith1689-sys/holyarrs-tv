@@ -40,11 +40,14 @@ final class PhoneTour: XCTestCase {
         return b.waitForExistence(timeout: 10) && b.isSelected
     }
 
-    /// Swipes up until the element can be tapped.
+    /// Swipes until the element can be tapped: up to reach something further down the page, down if it is above.
     @discardableResult
     private func scrollTo(_ e: XCUIElement, limit: Int = 10) -> Bool {
         _ = e.waitForExistence(timeout: 10)
-        for _ in 0..<limit where !e.isHittable { app.swipeUp(); usleep(500_000) }
+        for _ in 0..<limit where !e.isHittable {
+            if e.frame.maxY < app.frame.height * 0.2 { app.swipeDown() } else { app.swipeUp() }
+            usleep(500_000)
+        }
         return e.exists && e.isHittable
     }
 
@@ -301,8 +304,9 @@ final class PhoneTour: XCTestCase {
             second.tap()
             waitPlaying()
             tapPicture()
-            check(feeds.waitForExistence(timeout: 3) && cast.exists && app.buttons["Close"].exists,
-                  "live player: after switching, a tap shows Close, Feeds and Cast")
+            let systemClose = app.buttons["Close Button"]
+            check(feeds.waitForExistence(timeout: 3) && cast.exists && systemClose.exists && !app.buttons["xmark"].exists,
+                  "live player: after switching, a tap shows Feeds and Cast, with the system's Close (no second Close of the app's)")
             shot("live-player")
             check(feeds.waitForNonExistence(timeout: 8), "live player: the buttons go again by themselves")
             tapPicture()
@@ -331,6 +335,29 @@ final class PhoneTour: XCTestCase {
                 check(main.waitForExistence(timeout: 5) && main.label.hasSuffix("main") && spare.label.hasSuffix("spare"),
                       "a channel's Other feeds: its main and spare feeds (found \(main.label); \(spare.label))")
                 shot("live-channel-feeds")
+                app.buttons["Done"].tap()
+                // The system's Close (the only Close over a picture since iOS 26) closes the player, and the next
+                // channel opens.
+                sleep(1)
+                let systemClose = app.buttons["Close Button"]
+                tapPicture()
+                if !systemClose.waitForExistence(timeout: 2) { tapPicture() }  // the first tap may have hidden them
+                if systemClose.waitForExistence(timeout: 3) {
+                    systemClose.tap()
+                    check(systemClose.waitForNonExistence(timeout: 10) && !app.buttons["Play/Pause"].exists && !feeds.exists,
+                          "the system's Close closes the live player")
+                    let cnn = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'CNN'")).firstMatch
+                    if scrollTo(cnn) {
+                        cnn.tap()
+                        waitPlaying()
+                        tapPicture()
+                        check(cast.waitForExistence(timeout: 3), "after the system's Close, the next channel opens and plays (a tap shows Cast)")
+                    } else {
+                        XCTFail("CNN is not on TV")
+                    }
+                } else {
+                    XCTFail("no system Close on the live player")
+                }
             } else {
                 XCTFail("no Feeds on a channel with a spare feed")
             }

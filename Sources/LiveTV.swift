@@ -916,7 +916,7 @@ struct LivePlayerScreen: View {
             if let player = model.player {
                 SystemPlayer(player: player, menu: feedActions, onTap: { toggleControls() }).ignoresSafeArea()
                 #if os(iOS)
-                if model.paused || controls { closeBar.transition(.opacity) }
+                if model.paused || controls { closeBar(playing: true).transition(.opacity) }
                 #endif
             } else {
                 VStack(spacing: S(34)) {
@@ -934,7 +934,7 @@ struct LivePlayerScreen: View {
                 }
                 .padding(S(100))
                 #if os(iOS)
-                closeBar
+                closeBar(playing: false)
                 #endif
             }
         }
@@ -988,15 +988,22 @@ struct LivePlayerScreen: View {
     }
 
     #if os(iOS)
-    private var closeBar: some View {
-        VStack {
+    /// Since iOS 26 the system player shows its own Close (and AirPlay) at the top left with its controls, and this bar
+    /// only shows with them: so over a picture it leaves Close to the system and sits on the same line, at the right.
+    /// While tuning in, and before iOS 26, it has its own Close.
+    private func closeBar(playing: Bool) -> some View {
+        var systemClose = false
+        if #available(iOS 26, *) { systemClose = playing }
+        return VStack {
             HStack {
-                Button { dismiss() } label: {
-                    Image(systemName: "xmark").font(.subheadline.weight(.semibold))
-                        .padding(.horizontal, 14).padding(.vertical, 8)
-                        .background(.ultraThinMaterial, in: Capsule())
+                if !systemClose {
+                    Button { dismiss() } label: {
+                        Image(systemName: "xmark").font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .background(.ultraThinMaterial, in: Capsule())
+                    }
+                    .accessibilityLabel("Close")
                 }
-                .accessibilityLabel("Close")
                 Spacer()
                 if request.switchable.count > 1 {
                     Button { choosingFeed = true } label: {
@@ -1016,7 +1023,7 @@ struct LivePlayerScreen: View {
                 }
             }
             .padding(.horizontal, 20)
-            .padding(.top, 54)
+            .padding(.top, systemClose ? 6 : 54)  // 6: level with the system's Close and AirPlay
             Spacer()
         }
         .tint(.white)
