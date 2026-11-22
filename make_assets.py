@@ -2,9 +2,10 @@
 
 Run: python3 make_assets.py   (needs Pillow; uses DejaVu Sans Bold, or pass a .ttf path as the first argument)
 
-Design, in the RTX 4K app's colours: the back layer is a dark wall of blank poster frames lit from below in
-amber, like a cinema foyer; a soft halo glows in the middle layer; the front layer is the word HolyArrs with a
-thin amber halo arc over it. On the Apple TV the three layers shift against each other when focused.
+Design (art/ holds the two pictures ChatGPT drew from Luke's brief): three 1970s racing stripes, amber, orange
+and rust, on charcoal; a glowing amber halo over a rounded cream play triangle. On the Apple TV the stripes are
+the back layer, the halo the middle and the play triangle the front, so they shift against each other when
+focused.
 """
 import json
 import sys
@@ -20,86 +21,91 @@ INFO = {"author": "xcode", "version": 1}
 DEEP = (12, 12, 14)
 
 
+ART = HERE / "art"
+CREAM = (244, 235, 221)
+
+
+def _fill(img, w, h):
+    """Scales to cover w x h and crops the middle."""
+    s = max(w / img.width, h / img.height)
+    img = img.resize((round(img.width * s), round(img.height * s)), Image.LANCZOS)
+    x, y = (img.width - w) // 2, (img.height - h) // 2
+    return img.crop((x, y, x + w, y + h))
+
+
 def back(w, h):
-    img = Image.new("RGB", (w, h), DEEP)
-    d = ImageDraw.Draw(img)
-    # Vertical gradient.
-    for y in range(h):
-        t = y / max(1, h - 1)
-        c = tuple(int(28 * (1 - t) + 8 * t) for _ in range(3))
-        d.line([(0, y), (w, y)], fill=c)
-    # A wall of poster frames, warmer near the bottom.
-    pw = max(8, w // 11)
-    ph = int(pw * 1.5)
-    gap = max(3, pw // 6)
-    for row, y in enumerate(range(-ph // 3, h, ph + gap)):
-        off = (row % 2) * (pw // 2)
-        for x in range(-pw + off, w, pw + gap):
-            t = min(1.0, max(0.0, (y + ph) / h))
-            base = int(30 + 40 * t)
-            fill = (base + int(60 * t * t), base + int(35 * t * t), base)
-            d.rounded_rectangle([x, y, x + pw, y + ph], radius=max(2, pw // 10), fill=fill)
-    glow = Image.new("RGB", (w, h), (0, 0, 0))
-    ImageDraw.Draw(glow).ellipse([w * 0.1, h * 0.55, w * 0.9, h * 1.5], fill=(150, 95, 20))
-    glow = glow.filter(ImageFilter.GaussianBlur(radius=max(4, w // 12)))
-    img = Image.blend(img, Image.composite(glow, img, glow.convert("L")), 0.6)
-    shade = Image.new("RGB", (w, h), (0, 0, 0))
-    return Image.blend(img, shade, 0.25)
+    """The three 1970s stripes on charcoal (art/icon-tv-back.png, made with ChatGPT from Luke's brief)."""
+    return _fill(Image.open(ART / "icon-tv-back.png").convert("RGB"), w, h)
+
+
+# The mark, in the iPhone icon's own coordinates (art/icon-phone.png is 1254 square): a tilted amber halo over
+# a rounded cream play triangle. Drawn here as vectors so the Apple TV layers stay sharp and separable.
+MARK = (262, 140, 965, 1050)  # bounding box of halo + triangle in that picture
+
+
+def _mark_layer(w, h, part):
+    k = 4  # drawn 4x then shrunk, for smooth edges
+    W, H = w * k, h * k
+    bw, bh = MARK[2] - MARK[0], MARK[3] - MARK[1]
+    s = min(W * 0.62 / bw, H * 0.80 / bh)
+    ox, oy = W / 2 - (MARK[0] + bw / 2) * s, H / 2 - (MARK[1] + bh / 2) * s
+    P = lambda x, y: (ox + x * s, oy + y * s)
+    img = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    if part == "halo":
+        ring = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        cx, cy = P(612, 280)
+        rx, ry = 340 * s, 112 * s
+        ImageDraw.Draw(ring).ellipse([cx - rx, cy - ry, cx + rx, cy + ry], outline=AMBER + (255,), width=round(52 * s))
+        ring = ring.rotate(11, center=(cx, cy), resample=Image.BICUBIC)
+        glow = ring.filter(ImageFilter.GaussianBlur(radius=22 * s))
+        img = Image.alpha_composite(img, glow)
+        img = Image.alpha_composite(img, glow)
+        img = Image.alpha_composite(img, ring)
+    else:
+        tri = [P(372, 440), P(372, 1040), P(905, 738)]
+        shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ImageDraw.Draw(shadow).polygon([(x, y + 18 * s) for x, y in tri], fill=(0, 0, 0, 150))
+        img = Image.alpha_composite(img, shadow.filter(ImageFilter.GaussianBlur(radius=24 * s)))
+        # Rounded corners: shrink the triangle towards its incentre by the corner radius, then draw it with a
+        # round-jointed outline of that radius, which brings it back to full size with round corners.
+        r = 68 * s
+        (ax, ay), (bx, by), (cx, cy) = tri
+        la, lb, lc = (((bx - cx) ** 2 + (by - cy) ** 2) ** 0.5, ((ax - cx) ** 2 + (ay - cy) ** 2) ** 0.5,
+                      ((ax - bx) ** 2 + (ay - by) ** 2) ** 0.5)
+        per = la + lb + lc
+        ix, iy = (la * ax + lb * bx + lc * cx) / per, (la * ay + lb * by + lc * cy) / per
+        inr = abs((bx - ax) * (cy - ay) - (cx - ax) * (by - ay)) / per
+        f = (inr - r) / inr
+        small = [(ix + (x - ix) * f, iy + (y - iy) * f) for x, y in tri]
+        layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        d = ImageDraw.Draw(layer)
+        d.polygon(small, fill=CREAM + (255,))
+        d.line(small + [small[0]], fill=CREAM + (255,), width=round(2 * r), joint="curve")
+        for x, y in small:
+            d.ellipse([x - r, y - r, x + r, y + r], fill=CREAM + (255,))
+        img = Image.alpha_composite(img, layer)
+    return img.resize((w, h), Image.LANCZOS)
 
 
 def middle(w, h):
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    halo = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    ImageDraw.Draw(halo).ellipse([w * 0.18, h * 0.08, w * 0.82, h * 0.92], fill=AMBER + (70,))
-    return Image.alpha_composite(img, halo.filter(ImageFilter.GaussianBlur(radius=max(4, w // 14))))
+    return _mark_layer(w, h, "halo")
 
 
-def front(w, h, word="HolyArrs"):
-    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    d = ImageDraw.Draw(img)
-    size = int(h * 0.36)
-    f = ImageFont.truetype(FONT, size)
-    while d.textlength(word, font=f) > w * 0.8 and size > 8:
-        size -= 2
-        f = ImageFont.truetype(FONT, size)
-    tw = d.textlength(word, font=f)
-    x = (w - tw) / 2
-    y = h * 0.42 - size / 2
-    shadow = Image.new("RGBA", (w, h), (0, 0, 0, 0))
-    ImageDraw.Draw(shadow).text((x, y + size * 0.06), word, font=f, fill=(0, 0, 0, 200))
-    img = Image.alpha_composite(img, shadow.filter(ImageFilter.GaussianBlur(radius=max(2, size // 14))))
-    d = ImageDraw.Draw(img)
-    d.text((x, y), word, font=f, fill=(255, 255, 255, 255))
-    # The halo: a thin amber arc above the word.
-    aw = tw * 0.42
-    ax = w / 2 - aw / 2
-    ay = y - size * 0.42
-    d.arc([ax, ay, ax + aw, ay + size * 0.5], start=200, end=340, fill=AMBER + (255,), width=max(2, size // 11))
-    # Underline in amber, like a marquee rule.
-    d.rounded_rectangle([w / 2 - tw * 0.18, y + size * 1.22, w / 2 + tw * 0.18, y + size * 1.22 + max(2, size // 14)],
-                        radius=max(1, size // 28), fill=AMBER + (255,))
-    return img
+def front(w, h):
+    return _mark_layer(w, h, "play")
 
 
 def topshelf(w, h):
     img = back(w, h).convert("RGBA")
-    img = Image.alpha_composite(img, middle(w, h))
-    word = front(int(h * 1.6), h)
-    img.alpha_composite(word, (int(w * 0.06), 0))
-    d = ImageDraw.Draw(img)
-    f = ImageFont.truetype(FONT, int(h * 0.075))
-    d.text((int(w * 0.06 + h * 0.16), int(h * 0.80)), "Browse, ask for and follow movies, shows and music",
-           font=f, fill=(255, 255, 255, 170))
+    mw = int(h * 1.4)
+    for part in ("halo", "play"):
+        img.alpha_composite(_mark_layer(mw, h, part), (int(w * 0.04), 0))
     return img.convert("RGB")
 
 
 def phone_icon(n=1024):
-    """The iPhone icon: the same three layers flattened into one square (iOS draws its own rounded corners)."""
-    img = back(n, n).convert("RGBA")
-    img = Image.alpha_composite(img, middle(n, n))
-    word = front(n, int(n * 0.6))
-    img.alpha_composite(word, (0, int(n * 0.2)))
-    return img.convert("RGB")
+    """The iPhone icon as ChatGPT drew it (iOS rounds the corners itself)."""
+    return _fill(Image.open(ART / "icon-phone.png").convert("RGB"), n, n)
 
 
 def save(img, path):
