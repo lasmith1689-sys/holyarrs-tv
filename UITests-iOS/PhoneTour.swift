@@ -1,7 +1,9 @@
 import XCTest
 
 /// The iPhone screen check: opens every tab against ci/mock_server.py (each by launching with -tab <name>),
-/// opens a title page by tapping, and saves a screenshot of each to $SHOTS_DIR.
+/// opens a title page by tapping, and saves a screenshot of each to $SHOTS_DIR. Saved tabs from older layouts
+/// (explore, requests, calendar, settings) are launched too, to check where they open now. Ends in the live
+/// player: what shows over a playing picture, and Other feeds.
 final class PhoneTour: XCTestCase {
     private var app: XCUIApplication!
     private var step = 0
@@ -9,13 +11,54 @@ final class PhoneTour: XCTestCase {
 
     override func setUp() { continueAfterFailure = true }
 
-    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests", tvPage: String = "live") {
+    /// Launches on a tab. Pages are only passed when given: a value passed at launch can't be changed by the app,
+    /// so passing one every time would hide what the app itself saves (Home's Browse choice, the Downloads page).
+    private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page, "-tvPage", tvPage]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage]
+        if let explore { app.launchArguments += ["-exploreKind", explore] }
+        if let page { app.launchArguments += ["-downloadsPage", page] }
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
+    }
+
+    /// An assertion that also prints its message, passed or failed, so the run log shows every check made.
+    private func check(_ ok: Bool, _ message: String) {
+        XCTAssertTrue(ok, message)
+        print("CHECK \(ok ? "passed" : "FAILED"): \(message)")
+    }
+
+    /// The tab bar's buttons, left to right.
+    private func tabLabels() -> [String] {
+        app.tabBars.firstMatch.buttons.allElementsBoundByIndex.map(\.label)
+    }
+
+    private func tabSelected(_ name: String) -> Bool {
+        let b = app.tabBars.firstMatch.buttons[name]
+        return b.waitForExistence(timeout: 10) && b.isSelected
+    }
+
+    /// Swipes up until the element can be tapped.
+    @discardableResult
+    private func scrollTo(_ e: XCUIElement, limit: Int = 10) -> Bool {
+        _ = e.waitForExistence(timeout: 10)
+        for _ in 0..<limit where !e.isHittable { app.swipeUp(); usleep(500_000) }
+        return e.exists && e.isHittable
+    }
+
+    /// Waits for the live player to tune in, then a moment for the picture to start.
+    private func waitPlaying() {
+        let tuning = app.staticTexts["Tuning in on the PC..."]
+        _ = tuning.waitForExistence(timeout: 3)
+        _ = tuning.waitForNonExistence(timeout: 25)
+        sleep(4)
+    }
+
+    /// A tap on the picture (above the middle, clear of the system's play button).
+    private func tapPicture() {
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.25)).tap()
     }
 
     private func shot(_ name: String) {
@@ -52,6 +95,10 @@ final class PhoneTour: XCTestCase {
                       "Continue Watching card for the part-watched Matrix")
         XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch.exists,
                       "subscription warning on Home")
+        let tabs = tabLabels()
+        check(tabs == ["Home", "Sports", "TV", "Downloads", "Search"] && !app.tabBars.firstMatch.buttons["More"].exists,
+              "iPhone tab bar has exactly 5 items, Home, Sports, TV, Downloads, Search, and no More (found \(tabs))")
+        check(app.navigationBars.buttons["Settings"].exists, "Settings gear in Home's toolbar")
         shot("home")
         app.swipeUp()
         sleep(1)
@@ -86,12 +133,25 @@ final class PhoneTour: XCTestCase {
             XCTFail("The Matrix not on Home")
         }
 
+        // Explore is Browse on Home now: a saved "explore" opens Home; Music and the genres are one tap from there.
         launch(tab: "explore")
+        check(tabSelected("Home"), "saved tab explore opens Home")
+        let browseAll = app.buttons["browse-all"]
+        check(scrollTo(browseAll), "Browse on Home, under Home's rows")
+        check(browseAll.isSelected, "Browse starts on All")
         shot("explore")
         app.swipeUp()
         sleep(1)
+        check(app.buttons.matching(NSPredicate(format: "label == 'Science Fiction'")).firstMatch.exists, "Browse by genre tiles on Home")
         shot("explore-rows")
-        launch(tab: "explore", explore: "Music")
+        let music = app.buttons["browse-music"]
+        if scrollTo(music) {
+            music.tap()
+            sleep(2)
+            check(music.isSelected && app.staticTexts["Top albums"].waitForExistence(timeout: 10), "Music one tap from Home: its rows")
+        } else {
+            XCTFail("no Music in Browse")
+        }
         shot("explore-music")
         launch(tab: "sports")
         XCTAssertTrue(app.staticTexts["Ready to watch"].waitForExistence(timeout: 15), "sports: ready to watch")
@@ -176,15 +236,33 @@ final class PhoneTour: XCTestCase {
         }
         launch(tab: "search")
         shot("search")
+        // Downloads opens on the downloads list (nothing saved yet); saved Requests and Calendar tabs open their page in it.
+        launch(tab: "downloads")
+        check(tabSelected("Downloads") && app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch
+            .waitForExistence(timeout: 10), "Downloads tab opens on the downloads list")
         launch(tab: "requests")
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10), "an ask waiting for an OK")
+        check(tabSelected("Downloads"), "saved tab requests opens Downloads")
+        check(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10),
+              "saved tab requests opens the Requests page: an ask waiting for an OK")
         shot("requests-waiting")
-        launch(tab: "requests", page: "downloads")
+        launch(tab: "downloads", page: "downloads")
+        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch.waitForExistence(timeout: 10), "a download")
         shot("downloads")
-        launch(tab: "requests", page: "calendar")
-        XCTAssertTrue(app.staticTexts["Coming up"].waitForExistence(timeout: 10), "calendar inside Requests")
+        launch(tab: "calendar")
+        check(tabSelected("Downloads") && app.staticTexts["Coming up"].waitForExistence(timeout: 10), "saved tab calendar opens Calendar inside Downloads")
         shot("calendar")
+        // Settings was a tab: a saved "settings" opens it on Home. Back on Home, the gear opens it.
         launch(tab: "settings")
+        let settingsBar = app.navigationBars["Settings"]
+        check(settingsBar.waitForExistence(timeout: 10) && tabSelected("Home"), "saved tab settings opens Settings on Home")
+        settingsBar.buttons.firstMatch.tap()
+        check(app.buttons["More info"].waitForExistence(timeout: 10), "back from Settings to Home")
+        launch(tab: "home")
+        let gear = app.navigationBars.buttons["Settings"]
+        check(gear.waitForExistence(timeout: 15), "Settings gear on Home")
+        gear.tap()
+        check(app.navigationBars["Settings"].waitForExistence(timeout: 10), "the gear opens Settings")
+        sleep(1)
         shot("settings")
         app.swipeUp()
         sleep(1)
@@ -197,6 +275,67 @@ final class PhoneTour: XCTestCase {
             shot("setup-guide")
         } else {
             XCTFail("no Picture setup guide")
+        }
+
+        // The live player: nothing of the app's own over a playing picture; a tap on it shows Close, Feeds and Cast
+        // (and they go again by themselves); Other feeds lists the game's feeds and switches to the one picked.
+        let feeds = app.buttons["Other feeds"]
+        let cast = app.buttons["Cast to a Chromecast or Google TV"]
+        launch(tab: "sports")
+        let bears = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Saints at Bears'")).firstMatch
+        if bears.waitForExistence(timeout: 15) {
+            bears.tap()
+            waitPlaying()
+            check(!feeds.exists && !cast.exists, "live player: nothing of the app's own over the playing picture until it is tapped")
+            tapPicture()
+            check(feeds.waitForExistence(timeout: 3), "live player: a tap on the picture shows Feeds")
+            feeds.tap()
+            let first = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 1'")).firstMatch
+            let second = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 2'")).firstMatch
+            let third = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 3'")).firstMatch
+            check(first.waitForExistence(timeout: 5) && first.label.hasSuffix("1080p60 (best)") && first.isSelected,
+                  "Other feeds: Feed 1, 1080p60 (best), marked playing (found \(first.label))")
+            check(second.label.hasSuffix("720p60") && third.label.hasSuffix("not measured yet") && !second.isSelected,
+                  "Other feeds: the game's other two feeds (found \(second.label); \(third.label))")
+            shot("live-feeds")
+            second.tap()
+            waitPlaying()
+            tapPicture()
+            check(feeds.waitForExistence(timeout: 3) && cast.exists && app.buttons["Close"].exists,
+                  "live player: after switching, a tap shows Close, Feeds and Cast")
+            shot("live-player")
+            check(feeds.waitForNonExistence(timeout: 8), "live player: the buttons go again by themselves")
+            tapPicture()
+            if feeds.waitForExistence(timeout: 3) {
+                feeds.tap()
+                check(second.waitForExistence(timeout: 5) && second.isSelected && !first.isSelected, "Other feeds: Feed 2 now playing")
+                shot("live-feed-switched")
+                app.buttons["Done"].tap()
+            } else {
+                XCTFail("no Feeds after the second tap")
+            }
+        } else {
+            XCTFail("the Bears game is not on Sports")
+        }
+        // A channel with a spare feed (ESPN) offers it too.
+        launch(tab: "tv")
+        let espn = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'ESPN'")).firstMatch
+        if espn.waitForExistence(timeout: 15) {
+            espn.tap()
+            waitPlaying()
+            tapPicture()
+            if feeds.waitForExistence(timeout: 3) {
+                feeds.tap()
+                let main = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 1'")).firstMatch
+                let spare = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 2'")).firstMatch
+                check(main.waitForExistence(timeout: 5) && main.label.hasSuffix("main") && spare.label.hasSuffix("spare"),
+                      "a channel's Other feeds: its main and spare feeds (found \(main.label); \(spare.label))")
+                shot("live-channel-feeds")
+            } else {
+                XCTFail("no Feeds on a channel with a spare feed")
+            }
+        } else {
+            XCTFail("ESPN is not on TV")
         }
     }
 }

@@ -64,6 +64,7 @@ struct BrowseSection: View {
                     }
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)  // the focus section spans the page, so Down from any card lands here
             .padding(.horizontal, Theme.sidePadding)
             .tvFocusSection()
             if building { Text("HolyArrs is still putting your page together. More rows appear in a moment.").foregroundStyle(Theme.dim).padding(.horizontal, Theme.sidePadding) }

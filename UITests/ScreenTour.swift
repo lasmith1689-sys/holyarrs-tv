@@ -2,7 +2,8 @@ import XCTest
 
 /// Opens every screen against ci/mock_server.py and saves a screenshot of each (plus the accessibility tree)
 /// to $SHOTS_DIR, so the layout can be checked by eye without an Apple TV. Each tab is opened by launching
-/// with -tab <name>; the title, person and season pages are reached with the Siri Remote.
+/// with -tab <name>; the title, person and season pages are reached with the Siri Remote. Saved tabs from older
+/// layouts (explore, requests, calendar) are launched too, to check where they open now.
 final class ScreenTour: XCTestCase {
     private let remote = XCUIRemote.shared
     private var app: XCUIApplication!
@@ -13,13 +14,29 @@ final class ScreenTour: XCTestCase {
         continueAfterFailure = true
     }
 
-    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests", tvPage: String = "live") {
+    /// Launches on a tab. Pages are only passed when given: a value passed at launch can't be changed by the app,
+    /// so passing one every time would hide what the app itself saves (Home's Browse choice, the Downloads page).
+    private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page, "-tvPage", tvPage]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage]
+        if let explore { app.launchArguments += ["-exploreKind", explore] }
+        if let page { app.launchArguments += ["-downloadsPage", page] }
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
+    }
+
+    /// An assertion that also prints its message, passed or failed, so the run log shows every check made.
+    private func check(_ ok: Bool, _ message: String) {
+        XCTAssertTrue(ok, message)
+        print("CHECK \(ok ? "passed" : "FAILED"): \(message)")
+    }
+
+    /// The tab on screen: the tab bar's focused (just launched) or selected button.
+    private func tabShown(_ name: String) -> Bool {
+        let b = app.tabBars.firstMatch.buttons[name]
+        return b.waitForExistence(timeout: 10) && (b.hasFocus || b.isSelected)
     }
 
     private func shot(_ name: String) {
@@ -88,6 +105,13 @@ final class ScreenTour: XCTestCase {
         // The stand-in PC says the IPTV plan runs out in 9 days: Home warns.
         XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch
             .waitForExistence(timeout: 10), "subscription warning on Home")
+        let bar = app.tabBars.firstMatch
+        let tabs = bar.buttons.allElementsBoundByIndex.map(\.label)
+        check(tabs == ["Home", "Sports", "TV", "Downloads", "Search", "Settings"],
+              "Apple TV tab bar: Home, Sports, TV, Downloads, then Search and Settings (found \(tabs))")
+        let widths = Dictionary(bar.buttons.allElementsBoundByIndex.map { ($0.label, $0.frame.width) }, uniquingKeysWith: { a, _ in a })
+        check(["Search", "Settings"].allSatisfy { (widths[$0] ?? 999) < 70 } && ["Home", "Sports", "TV", "Downloads"].allSatisfy { (widths[$0] ?? 0) > 80 },
+              "Apple TV tab bar: Home, Sports, TV, Downloads as text, Search and Settings as icons (widths \(widths))")
         shot("home")
         press(.down, 3)
         shot("home-rows")
@@ -128,14 +152,36 @@ final class ScreenTour: XCTestCase {
             XCTFail("could not focus The Matrix on Home")
         }
 
-        // Explore, a genre, and Music.
+        // Explore is Browse on Home now: a saved "explore" opens Home; Music is one press from there.
         launch(tab: "explore")
-        sleep(2)
+        check(tabShown("Home"), "saved tab explore opens Home")
+        _ = app.buttons["More info"].waitForExistence(timeout: 15)
+        let kinds = ["all", "movies", "shows", "music"].map { app.buttons["browse-\($0)"] }
+        var reached = false
+        for _ in 0..<16 {
+            if kinds.contains(where: { $0.exists && $0.hasFocus }) { reached = true; break }
+            press(.down)
+            usleep(400_000)
+        }
+        check(reached && focus(kinds[0], .left, limit: 4), "Browse on Home, under Home's rows, reached with the remote")
+        check(kinds[0].isSelected, "Browse starts on All")
+        sleep(1)
         shot("explore")
         press(.down, 5)
         shot("explore-rows")
-        launch(tab: "explore", explore: "Music")
-        sleep(2)
+        launch(tab: "home")
+        _ = app.buttons["More info"].waitForExistence(timeout: 15)
+        for _ in 0..<16 where !kinds.contains(where: { $0.exists && $0.hasFocus }) {
+            press(.down)
+            usleep(400_000)
+        }
+        if focus(kinds[3], .right, limit: 4) {
+            press(.select)
+            sleep(2)
+            check(kinds[3].isSelected && app.staticTexts["Top albums"].waitForExistence(timeout: 10), "Music one press from Home: its rows")
+        } else {
+            XCTFail("could not focus Music in Browse")
+        }
         shot("explore-music")
 
         // Sports (Sportarr): ready to watch, downloading, the next two weeks, leagues; an event with Play in 4K.
@@ -205,17 +251,23 @@ final class ScreenTour: XCTestCase {
             XCTFail("could not focus The Witch Farm in On Demand")
         }
 
-        // Search, Requests (with Downloads and Calendar inside), Settings.
+        // Search, Downloads (opens on the downloads list; Requests and Calendar inside; saved tabs for those open
+        // their page), Settings.
         launch(tab: "search")
         shot("search")
+        launch(tab: "downloads")
+        check(tabShown("Downloads") && app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch
+            .waitForExistence(timeout: 10), "Downloads tab opens on the downloads list")
         launch(tab: "requests")
-        XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10), "an ask waiting for an OK")
+        check(tabShown("Downloads"), "saved tab requests opens Downloads")
+        check(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10),
+              "saved tab requests opens the Requests page: an ask waiting for an OK")
         shot("requests-waiting")
-        launch(tab: "requests", page: "downloads")
+        launch(tab: "downloads", page: "downloads")
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch.waitForExistence(timeout: 10), "a download")
         shot("downloads")
-        launch(tab: "requests", page: "calendar")
-        XCTAssertTrue(app.staticTexts["Coming up"].waitForExistence(timeout: 10), "calendar inside Requests")
+        launch(tab: "calendar")
+        check(tabShown("Downloads") && app.staticTexts["Coming up"].waitForExistence(timeout: 10), "saved tab calendar opens Calendar inside Downloads")
         shot("calendar")
         launch(tab: "settings")
         shot("settings")
