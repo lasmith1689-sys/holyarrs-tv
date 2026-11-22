@@ -384,6 +384,7 @@ struct PlayerScreen: View {
         }
         .onChange(of: model.finished) { _, finished in if finished { dismiss() } }
         .onDisappear { model.close() }
+        .fullScreenPlayer()  // background trailers wait while this plays
     }
 }
 

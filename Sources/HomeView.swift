@@ -45,6 +45,23 @@ struct BackgroundVideo: UIViewRepresentable {
 
 /// The big picture at the top of Home and Explore: a rotating set of titles; the focused one's trailer starts
 /// muted after a moment, like Netflix and the Apple TV app.
+/// How many full-screen players are open. Anything that plays by itself in the background (the hero's muted
+/// trailers) waits while one is: a trailer starting under a live game used to take over what was playing.
+@MainActor
+final class FullScreenPlayers: ObservableObject {
+    static let shared = FullScreenPlayers()
+    @Published private(set) var open = 0
+    func began() { open += 1 }
+    func ended() { open = max(0, open - 1) }
+}
+
+extension View {
+    /// Marks a full-screen player: background trailers stop while it is up.
+    func fullScreenPlayer() -> some View {
+        onAppear { FullScreenPlayers.shared.began() }.onDisappear { FullScreenPlayers.shared.ended() }
+    }
+}
+
 struct Hero: View {
     let items: [Card]
     /// Home's Find button (opens Search): the quickest way to something new to get or watch.
@@ -54,6 +71,11 @@ struct Hero: View {
     @State private var trailer: Trailer?
     @State private var playing: PlayRequest?
     @FocusState private var focused: String?
+    @ObservedObject private var players = FullScreenPlayers.shared
+    @Environment(\.scenePhase) private var scenePhase
+    /// On screen: not on another tab, not under a player, app in front. Only then does it rotate or play trailers.
+    @State private var shown = false
+    private var active: Bool { shown && players.open == 0 && scenePhase == .active }
 
     private var item: Card? { items.isEmpty ? nil : items[index % items.count] }
 
@@ -64,7 +86,7 @@ struct Hero: View {
                     .overlay {
                         ZStack {
                             Artwork(raw: item.backdrop ?? item.poster, width: 1280)
-                            if let trailer { BackgroundVideo(url: trailer.muted, cookies: api.cookies).transition(.opacity) }
+                            if let trailer, active { BackgroundVideo(url: trailer.muted, cookies: api.cookies).transition(.opacity) }
                         }
                     }
                     .clipped()
@@ -124,18 +146,21 @@ struct Hero: View {
             }
             .frame(height: S(860))
             .ignoresSafeArea(edges: .horizontal)  // edge to edge, like the Apple TV app's heroes
-            .task(id: item.id) {
+            .onAppear { shown = true }
+            .onDisappear { shown = false }
+            .task(id: "\(item.id)|\(active)") {
                 trailer = nil
                 // Give the picture a moment first; a title skipped past quickly never loads its trailer.
                 try? await Task.sleep(nanoseconds: 1_800_000_000)
-                guard !Task.isCancelled, let tmdb = item.tmdb else { return }
+                guard !Task.isCancelled, active, let tmdb = item.tmdb else { return }
                 let t = await Trailer.find(api, kind: item.kind, tmdb: tmdb)
                 if !Task.isCancelled { withAnimation(.easeIn(duration: 0.8)) { trailer = t } }
             }
-            .task(id: index) {
-                // Moves on every 20 s unless the person is on the hero's buttons.
+            .task(id: "\(index)|\(active)") {
+                // Moves on every 20 s unless the person is on the hero's buttons, and only while it is on screen.
+                guard active else { return }
                 try? await Task.sleep(nanoseconds: 20_000_000_000)
-                if !Task.isCancelled, focused == nil, items.count > 1 { index = (index + 1) % items.count }
+                if !Task.isCancelled, active, focused == nil, items.count > 1 { index = (index + 1) % items.count }
             }
             .fullScreenCover(item: $playing) { PlayerScreen(request: $0) }
         }

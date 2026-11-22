@@ -926,6 +926,7 @@ struct LivePlayerScreen: View {
         }
         .task(id: attempt) { await model.tune(request, base: rtx.base) }
         .onDisappear { model.close() }
+        .fullScreenPlayer()  // background trailers wait while this plays
         #if os(iOS)
         // Cast: the PC hands the same stream to the TV; once it plays there, this player closes.
         .sheet(isPresented: $casting, onDismiss: { if castStarted { dismiss() } }) {
