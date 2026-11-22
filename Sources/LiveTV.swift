@@ -482,7 +482,11 @@ struct AllChannelsView: View {
                 .padding(.vertical, S(40))
             }
         }
+        #if os(iOS)
+        .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search every channel")
+        #else
         .searchable(text: $query, prompt: "Search every channel")
+        #endif
         .task { await loadCategories() }
         .task(id: query) {
             guard !query.isEmpty else { return }

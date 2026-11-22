@@ -59,7 +59,10 @@ struct RootView: View {
             } else if let me = api.me {
                 TabView(selection: $tab) {
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
-                    Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
+                    // iPhone shows four tabs and More: Home, Sports, TV and Search up front, Explore in More.
+                    if Device.isTV {
+                        Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
+                    }
                     if sportarr.enabled || rtx.liveTV {
                         Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
                     }
@@ -70,6 +73,9 @@ struct RootView: View {
                     // Calendar live inside Requests.
                     Tab(value: "search", role: .search) { Stack { SearchView() } } label: {
                         if Device.isTV { Image(systemName: "magnifyingglass").accessibilityLabel("Search") } else { Label("Search", systemImage: "magnifyingglass") }
+                    }
+                    if !Device.isTV {
+                        Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
                     }
                     Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsHub(canManage: me.canManage) } }
                     Tab(value: "settings") { Stack { SettingsView() } } label: {
