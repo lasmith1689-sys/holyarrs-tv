@@ -58,6 +58,42 @@ struct LiveGroup: Identifiable, Hashable {
     }
 }
 
+/// One team on a game card: its crest (kept on the PC, from ESPN's lists) and colours (src/teams.py).
+struct LiveTeam: Hashable {
+    let abbr: String
+    let short: String
+    let color: String
+    let alt: String
+    let logo: String?
+    /// Lower-case names it goes by (only in /tv/teams, for matching Sportarr's team names).
+    var aliases: [String] = []
+
+    init?(_ j: JSON) {
+        guard let abbr = j["abbr"].string else { return nil }
+        self.abbr = abbr
+        short = j["short"].string ?? abbr
+        color = j["color"].string ?? "333333"
+        alt = j["alt"].string ?? "ffffff"
+        logo = j["logo"].string
+        aliases = j["aliases"].array.compactMap(\.string)
+    }
+
+    /// The card colour: the team's main colour, its second one when the main is near white, else a dark grey.
+    var cardColor: Color {
+        for hex in [color, alt] {
+            if let c = LiveTeam.rgb(hex), (0.2126 * c.0 + 0.7152 * c.1 + 0.0722 * c.2) < 0.78 {
+                return Color(red: c.0, green: c.1, blue: c.2)
+            }
+        }
+        return Color(white: 0.24)
+    }
+
+    static func rgb(_ hex: String) -> (Double, Double, Double)? {
+        guard hex.count == 6, let n = Int(hex, radix: 16) else { return nil }
+        return (Double((n >> 16) & 255) / 255, Double((n >> 8) & 255) / 255, Double(n & 255) / 255)
+    }
+}
+
 /// A game or race with its own feed (the provider's event channels), from the PC's guide.
 struct LiveEvent: Identifiable, Hashable {
     let id: String
@@ -67,6 +103,8 @@ struct LiveEvent: Identifiable, Hashable {
     let end: Date
     let mine: Bool
     let alt: [String]
+    /// The two teams (away or first, then home) when the PC knows both: the card shows their crests.
+    let teams: [LiveTeam]
 
     init?(_ j: JSON) {
         guard let id = j["id"].string, let title = j["title"].string, let s = j["start"].double else { return nil }
@@ -77,7 +115,12 @@ struct LiveEvent: Identifiable, Hashable {
         end = Date(timeIntervalSince1970: j["end"].double ?? s + 3 * 3600)
         mine = !j["mine"].array.isEmpty
         alt = j["alt"].array.compactMap(\.string)
+        let t = j["teams"].array.compactMap(LiveTeam.init)
+        teams = t.count == 2 ? t : []
     }
+
+    /// "Dolphins at Bills" (away at home) rather than "Liverpool vs Manchester United".
+    var isAt: Bool { title.range(of: #"\sat\s|@"#, options: [.regularExpression, .caseInsensitive]) != nil }
 
     var live: Bool {
         let now = Date()
@@ -109,12 +152,26 @@ enum LiveRoute: Hashable {
     case category(LiveCategory)
 }
 
-/// What to play full screen: a channel or an event feed, with spare feeds to try if the first will not start.
+/// What to play full screen: a channel or an event feed, with spare feeds to try if the first will not start, or
+/// an On Demand film or episode (played through the PC from `start`).
 struct LiveRequest: Identifiable {
     let id = UUID()
     let stream: String
     let title: String
     var alt: [String] = []
+    var vod: VODRef? = nil
+}
+
+/// An On Demand title to play: "movie" or "episode", the provider's id and file type, where to start.
+struct VODRef: Hashable {
+    let kind: String
+    let id: String
+    let ext: String
+    var start: Double = 0
+    var duration: Double? = nil
+
+    /// Its key in the PC's positions ("od:movie-123"), shared by every screen.
+    var positionKey: String { "\(kind)-\(id)" }
 }
 
 enum LiveTV {
@@ -141,6 +198,17 @@ enum LiveTV {
         case "Golf": return [Color(red: 0.06, green: 0.30, blue: 0.16), Color(red: 0.02, green: 0.11, blue: 0.06)]
         case "F1": return [Color(red: 0.42, green: 0.04, blue: 0.05), Color(red: 0.14, green: 0.02, blue: 0.02)]
         default: return [Color(white: 0.22), Color(white: 0.10)]
+        }
+    }
+
+    /// A large faint symbol behind a card with no crests (golf, racing, a game whose teams aren't known).
+    static func symbol(_ league: String) -> String? {
+        switch league {
+        case "Golf": return "figure.golf"
+        case "F1": return "flag.checkered"
+        case "NFL": return "football.fill"
+        case "Premier League": return "soccerball"
+        default: return nil
         }
     }
 
@@ -176,7 +244,46 @@ struct LivePill: View {
     }
 }
 
-/// A 16:9 card for a game or race: league colours, LIVE when it is on, a star for your teams.
+/// Two crests on the teams' own colours, split down the middle, with "AT" or "VS" between them.
+struct MatchupArt: View {
+    let first: LiveTeam
+    let second: LiveTeam
+    var at = true
+    var crest: CGFloat = S(132)
+    @EnvironmentObject private var rtx: RTXServer
+
+    var body: some View {
+        ZStack {
+            LinearGradient(stops: [.init(color: first.cardColor, location: 0), .init(color: first.cardColor, location: 0.45),
+                                   .init(color: second.cardColor, location: 0.55), .init(color: second.cardColor, location: 1)],
+                           startPoint: UnitPoint(x: 0, y: 0.35), endPoint: UnitPoint(x: 1, y: 0.65))
+            LinearGradient(colors: [.white.opacity(0.10), .clear, .black.opacity(0.45)], startPoint: .top, endPoint: .bottom)
+            HStack(spacing: 0) {
+                badge(first).frame(maxWidth: .infinity)
+                Text(at ? "AT" : "VS").font(.system(size: F(20), weight: .heavy)).tracking(2)
+                    .foregroundStyle(Color.white.opacity(0.75))
+                badge(second).frame(maxWidth: .infinity)
+            }
+            .padding(.horizontal, S(16))
+        }
+    }
+
+    private func badge(_ t: LiveTeam) -> some View {
+        AsyncImage(url: LiveTV.logoURL(t.logo, base: rtx.base), transaction: Transaction(animation: .easeIn(duration: 0.2))) { phase in
+            if let image = phase.image {
+                image.resizable().aspectRatio(contentMode: .fit)
+            } else {
+                Text(t.abbr).font(.system(size: F(38), weight: .heavy)).foregroundStyle(Color.white)
+            }
+        }
+        .frame(width: crest, height: crest)
+        .shadow(color: .black.opacity(0.45), radius: S(10), y: S(6))
+        .accessibilityHidden(true)
+    }
+}
+
+/// A 16:9 card for a game or race: both teams' crests on their colours (else the league's colours and the title),
+/// LIVE when it is on, a star for your teams.
 struct LiveEventCell: View {
     let event: LiveEvent
     @Environment(\.isFocused) private var focused
@@ -184,16 +291,26 @@ struct LiveEventCell: View {
     var body: some View {
         VStack(alignment: .leading, spacing: S(10)) {
             ZStack(alignment: .bottomLeading) {
-                LinearGradient(colors: LiveTV.colors(event.league), startPoint: .topLeading, endPoint: .bottomTrailing)
-                VStack(alignment: .leading, spacing: S(8)) {
-                    Text(event.league.uppercased()).font(.system(size: F(18), weight: .bold)).tracking(1.2)
-                        .foregroundStyle(Color.white.opacity(0.7))
+                if event.teams.count == 2 {
+                    MatchupArt(first: event.teams[0], second: event.teams[1], at: event.isAt)
+                } else {
+                    LinearGradient(colors: LiveTV.colors(event.league), startPoint: .topLeading, endPoint: .bottomTrailing)
+                    if let symbol = LiveTV.symbol(event.league) {
+                        Image(systemName: symbol).font(.system(size: F(150), weight: .light))
+                            .foregroundStyle(Color.white.opacity(0.10))
+                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                            .padding(.trailing, S(24))
+                    }
                     Text(event.title).font(.system(size: F(30), weight: .heavy)).lineLimit(2).minimumScaleFactor(0.75)
                         .foregroundStyle(Color.white)
+                        .padding(S(20))
                 }
-                .padding(S(20))
             }
             .frame(width: W(480), height: S(270))
+            .overlay(alignment: .topLeading) {
+                Text(event.league.uppercased()).font(.system(size: F(18), weight: .bold)).tracking(1.2)
+                    .foregroundStyle(Color.white.opacity(0.75)).padding(S(18))
+            }
             .overlay(alignment: .topTrailing) {
                 HStack(spacing: S(10)) {
                     if event.mine { Image(systemName: "star.fill").font(.system(size: F(22))).foregroundStyle(Theme.accent) }
@@ -202,9 +319,14 @@ struct LiveEventCell: View {
                 .padding(S(14))
             }
             .modifier(LiveCardChrome(focused: focused))
-            Text(event.when).font(.system(size: F(21))).foregroundStyle(event.live ? Color.white : Theme.dim).lineLimit(1)
-                .frame(width: W(480), alignment: .leading)
-                .offset(y: focused ? S(12) : 0)
+            VStack(alignment: .leading, spacing: S(4)) {
+                if event.teams.count == 2 {
+                    Text(event.title).font(.system(size: F(22), weight: .semibold)).lineLimit(1)
+                }
+                Text(event.when).font(.system(size: F(21))).foregroundStyle(event.live ? Color.white : Theme.dim).lineLimit(1)
+            }
+            .frame(width: W(480), alignment: .leading)
+            .offset(y: focused ? S(12) : 0)
         }
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
@@ -216,6 +338,8 @@ struct LiveEventCell: View {
 struct LiveChannelCell: View {
     let channel: LiveChannel
     var wide = false
+    /// Pinned to the front of Your teams (NFL RedZone): marked with a pin.
+    var pinned = false
     @EnvironmentObject private var rtx: RTXServer
     @Environment(\.isFocused) private var focused
 
@@ -239,6 +363,12 @@ struct LiveChannelCell: View {
                 }
             }
             .frame(width: width, height: height)
+            .overlay(alignment: .topLeading) {
+                if pinned {
+                    Image(systemName: "pin.fill").font(.system(size: F(20), weight: .semibold)).foregroundStyle(Theme.accent)
+                        .padding(S(16))
+                }
+            }
             .overlay(alignment: .bottom) {
                 if let now = channel.now {
                     GeometryReader { g in
@@ -260,7 +390,7 @@ struct LiveChannelCell: View {
         }
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(channel.now.map { "\(channel.name), \($0.title)" } ?? channel.name)
+        .accessibilityLabel((channel.now.map { "\(channel.name), \($0.title)" } ?? channel.name) + (pinned ? ", pinned" : ""))
     }
 
     private var nameStandIn: some View {
@@ -269,12 +399,13 @@ struct LiveChannelCell: View {
     }
 }
 
-/// A titled row of game cards, then (optionally) channel cards.
+/// A titled row of game cards, then (optionally) channel cards; pinned channels come before the games.
 struct LiveRow: View {
     let title: String
     var events: [LiveEvent] = []
     var channels: [LiveChannel] = []
     var wideChannels = false
+    var pinned: [LiveChannel] = []
     let play: (LiveRequest) -> Void
 
     var body: some View {
@@ -282,6 +413,12 @@ struct LiveRow: View {
             Text(title).font(.system(size: F(34), weight: .bold)).padding(.horizontal, Theme.sidePadding)
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(alignment: .top, spacing: S(40)) {
+                    ForEach(pinned) { c in
+                        Button { play(LiveRequest(stream: c.id, title: c.name, alt: c.alt)) } label: {
+                            LiveChannelCell(channel: c, wide: true, pinned: true)
+                        }
+                        .buttonStyle(QuietButtonStyle())
+                    }
                     ForEach(events) { e in
                         Button { play(LiveRequest(stream: e.id, title: e.title, alt: e.alt)) } label: { LiveEventCell(event: e) }
                             .buttonStyle(QuietButtonStyle())
@@ -305,6 +442,7 @@ struct LiveRow: View {
 /// channels, all playable live. Replays (Sportarr) follow underneath. Hidden when Live TV isn't set up on the PC.
 struct LiveSportsSection: View {
     @EnvironmentObject private var rtx: RTXServer
+    @State private var pinned: [LiveChannel] = []
     @State private var yours: [LiveEvent] = []
     @State private var live: [LiveEvent] = []
     @State private var today: [LiveEvent] = []
@@ -315,7 +453,9 @@ struct LiveSportsSection: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: S(46)) {
-            if !yours.isEmpty { LiveRow(title: "Your teams", events: yours, play: { watching = $0 }) }
+            if !yours.isEmpty || !pinned.isEmpty {
+                LiveRow(title: "Your teams", events: yours, pinned: pinned, play: { watching = $0 })
+            }
             if !live.isEmpty { LiveRow(title: "Live now", events: live, play: { watching = $0 }) }
             if !today.isEmpty { LiveRow(title: "Later today", events: today, play: { watching = $0 }) }
             if !golf.isEmpty || groups["golf"] != nil {
@@ -344,6 +484,7 @@ struct LiveSportsSection: View {
         let order: (LiveEvent, LiveEvent) -> Bool = { a, b in
             a.live != b.live ? a.live : a.start < b.start
         }
+        pinned = j["pinned"].array.compactMap(LiveChannel.init)
         yours = j["yours"].array.compactMap(LiveEvent.init).sorted(by: order)
         live = j["live"].array.compactMap(LiveEvent.init).sorted(by: order)
         today = j["today"].array.compactMap(LiveEvent.init).sorted(by: order)
@@ -355,10 +496,12 @@ struct LiveSportsSection: View {
     }
 }
 
-/// The TV tab: the short lineup (sports, golf, racing, news, entertainment, cooking and home, documentary, New
-/// York), what is on now on each, and every channel the plan has under All channels.
+/// The TV tab: Live (the short lineup: sports, golf, racing, news, entertainment, cooking and home, documentary,
+/// New York, what is on now on each, and every channel under All channels) or On Demand (the plan's films and
+/// series), picked at the top.
 struct TVView: View {
     @EnvironmentObject private var rtx: RTXServer
+    @AppStorage("tvPage") private var page = "live"
     @State private var groups: [LiveGroup] = []
     @State private var loading = true
     @State private var error: String?
@@ -368,20 +511,35 @@ struct TVView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(46)) {
                 AdaptiveStack(spacing: S(30)) {
-                    Text("Live TV").font(.system(size: F(64), weight: .bold))
-                    if Device.isTV { Text("Through your PC").font(.title3).foregroundStyle(Theme.dim) }
+                    Text(page == "ondemand" ? "On Demand" : "Live TV").font(.system(size: F(64), weight: .bold))
+                    Picker("Show", selection: $page) {
+                        Text("Live").tag("live")
+                        Text("On Demand").tag("ondemand")
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: W(520))
                     Spacer()
-                    NavigationLink(value: LiveRoute.all) {
-                        Label("All channels", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                    if page == "ondemand" {
+                        NavigationLink(value: ODRoute.search) {
+                            Label("Search", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                        }
+                    } else {
+                        NavigationLink(value: LiveRoute.all) {
+                            Label("All channels", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                        }
                     }
                 }
                 .padding(.horizontal, Theme.sidePadding)
                 .tvFocusSection()
-                ForEach(groups) { g in
-                    LiveRow(title: g.name, channels: g.channels, play: { watching = $0 })
-                }
-                if groups.isEmpty {
-                    LoadState(loading: loading, error: error, empty: "No channels yet.", retry: { Task { await load() } })
+                if page == "ondemand" {
+                    OnDemandRows()
+                } else {
+                    ForEach(groups) { g in
+                        LiveRow(title: g.name, channels: g.channels, play: { watching = $0 })
+                    }
+                    if groups.isEmpty {
+                        LoadState(loading: loading, error: error, empty: "No channels yet.", retry: { Task { await load() } })
+                    }
                 }
             }
             .padding(.vertical, S(40))
@@ -399,6 +557,7 @@ struct TVView: View {
             case let .category(c): CategoryChannelsView(category: c)
             }
         }
+        .navigationDestination(for: ODRoute.self) { route in route.page }
         .fullScreenCover(item: $watching) { LivePlayerScreen(request: $0) }
     }
 
@@ -566,16 +725,30 @@ final class LivePlayerModel: ObservableObject {
     @Published private(set) var error: String?
     @Published private(set) var paused = false
     private var rateObserver: NSKeyValueObservation?
+    private var timeObserver: Any?
+    private var base: URL?
+    /// The PC's session (tv-...): stopped when the player closes, so the plan's one stream is free at once.
+    private var session: String?
+    private var vod: VODRef?
+    /// On Demand: where the PC's stream starts in the film (the player's time 0).
+    private var offset: Double = 0
 
-    /// Asks the PC to start the channel (answered once the first seconds are ready), trying spare feeds in turn.
+    /// Asks the PC to start the channel (answered once the first seconds are ready), trying spare feeds in turn,
+    /// or the On Demand title from where it was left.
     func tune(_ request: LiveRequest, base: URL?) async {
         error = nil
+        self.base = base
         guard let base else { error = "The PC's address isn't set. Open Settings."; return }
+        if let vod = request.vod {
+            await tuneVOD(vod, title: request.title, base: base)
+            return
+        }
         var busy = false
         for stream in [request.stream] + request.alt {
             do {
                 let j = try await RTXAPI(base: base).get("tv/play", [URLQueryItem(name: "stream", value: stream)])
                 guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else { continue }
+                session = j["session"].string
                 start(url)
                 return
             } catch APIError.server(let code, _) where code == 503 {
@@ -589,6 +762,29 @@ final class LivePlayerModel: ObservableObject {
             : "Couldn't reach Live TV on the PC."
     }
 
+    private func tuneVOD(_ vod: VODRef, title: String, base: URL) async {
+        let q = [URLQueryItem(name: "kind", value: vod.kind), URLQueryItem(name: "id", value: vod.id),
+                 URLQueryItem(name: "ext", value: vod.ext), URLQueryItem(name: "t", value: String(Int(max(0, vod.start)))),
+                 URLQueryItem(name: "title", value: title)]
+        do {
+            let j = try await RTXAPI(base: base).get("tv/ondemand/play", q)
+            guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else {
+                error = "The PC didn't send a stream."
+                return
+            }
+            session = j["session"].string
+            offset = j["start_s"].double ?? vod.start
+            var v = vod
+            if v.duration == nil { v.duration = j["duration_s"].double }
+            self.vod = v
+            start(url)
+        } catch APIError.server(let code, _) where code == 503 {
+            error = "It didn't start. Your plan plays one stream at a time: if live TV is on another screen, stop it there and try again."
+        } catch {
+            self.error = "Couldn't reach On Demand on the PC."
+        }
+    }
+
     private func start(_ url: URL) {
         let p = AVPlayer(url: url)
         #if os(iOS)
@@ -600,13 +796,35 @@ final class LivePlayerModel: ObservableObject {
             let status = player.timeControlStatus
             Task { @MainActor in self?.paused = status == .paused }
         }
-        player = p
+        if vod != nil {  // On Demand: every 15 s the PC hears where it is, so any screen resumes it
+            timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 15, preferredTimescale: 1), queue: .main) { [weak self] _ in
+                MainActor.assumeIsolated { self?.savePosition() }
+            }
+        }
+        player = p  // SystemPlayer starts it
+    }
+
+    private func savePosition() {
+        guard let vod, let base, let p = player else { return }
+        let t = p.currentTime().seconds
+        guard t.isFinite, t > 0 else { return }
+        let q = [URLQueryItem(name: "key", value: vod.positionKey), URLQueryItem(name: "t", value: String(format: "%.1f", t + offset)),
+                 URLQueryItem(name: "d", value: String(format: "%.1f", vod.duration ?? 0)),
+                 URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone")]
+        Task { _ = try? await RTXAPI(base: base).get("tv/ondemand/position", q) }
     }
 
     func close() {
+        savePosition()
+        if let o = timeObserver { player?.removeTimeObserver(o) }
+        timeObserver = nil
         player?.pause()
         rateObserver = nil
         player = nil
+        if let session, let base {
+            Task { _ = try? await RTXAPI(base: base).get("tv/stop", [URLQueryItem(name: "session", value: session)]) }
+        }
+        session = nil
     }
 }
 

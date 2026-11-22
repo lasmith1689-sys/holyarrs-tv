@@ -149,6 +149,7 @@ struct HomeView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(50)) {
                 Hero(items: hero)
+                SubscriptionWarning()
                 ContinueRow()
                 if approvals > 0 || stuck > 0 {
                     AdaptiveStack(spacing: S(30)) {

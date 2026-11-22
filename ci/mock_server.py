@@ -34,6 +34,22 @@ def png(w, h, rgb):
     return b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0)) + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b"")
 
 
+def crest(size, rgb):
+    """A filled circle on a clear background (a stand-in team crest)."""
+    r = size / 2
+    rows = []
+    for y in range(size):
+        row = bytearray(b"\x00")
+        for x in range(size):
+            inside = (x - r + 0.5) ** 2 + (y - r + 0.5) ** 2 <= (r - 1) ** 2
+            row += bytes(rgb) + (b"\xff" if inside else b"\x00")
+        rows.append(bytes(row))
+    def chunk(t, d):
+        return struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d) & 0xFFFFFFFF)
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 6, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(b"".join(rows), 9)) + chunk(b"IEND", b""))
+
+
 def fixture(name):
     p = HERE / f"{name}.json"
     return json.loads(p.read_text()) if p.exists() else None
@@ -103,9 +119,45 @@ def sport_events():
     ]
 
 
-def tv_event(i, title, league, start_h, mine=()):
+# Stand-in teams (the PC's /tv/teams answers ESPN's real lists): abbr, short name, colour, second colour, names.
+TEAMS = {
+    "NFL": [("CHI", "Bears", "0b1c3a", "e64100", ["chicago bears", "bears"]), ("NO", "Saints", "d3bc8d", "000000", ["new orleans saints", "saints"]),
+            ("TEN", "Titans", "4b92db", "002a5c", ["tennessee titans", "titans"]), ("DAL", "Cowboys", "002a5c", "b0b7bc", ["dallas cowboys", "cowboys"]),
+            ("LV", "Raiders", "000000", "a5acaf", ["las vegas raiders", "raiders"]), ("DEN", "Broncos", "0a2343", "fc4c02", ["denver broncos", "broncos"]),
+            ("PHI", "Eagles", "06424d", "a5acaf", ["philadelphia eagles", "eagles"]), ("NYG", "Giants", "003c7f", "a6192e", ["new york giants", "giants"])],
+    "Premier League": [("LIV", "Liverpool", "d11317", "ffffff", ["liverpool"]), ("MAN", "Man Utd", "da020e", "ffe500", ["manchester united", "man united", "man utd"]),
+                       ("ARS", "Arsenal", "e20520", "ffffff", ["arsenal"]), ("CHE", "Chelsea", "034694", "ffffff", ["chelsea"])],
+}
+
+
+def team(league, abbr):
+    key = "nfl" if league == "NFL" else "epl"
+    a, short, color, alt, names = next(t for t in TEAMS[league] if t[0] == abbr)
+    return {"abbr": a, "name": names[0].title(), "short": short, "color": color, "alt": alt, "logo": f"/tv/teamlogo/{key}/{a.lower()}.png"}
+
+
+def tv_event(i, title, league, start_h, mine=(), teams=None):
     s = time.time() + start_h * 3600
-    return {"id": str(9000 + i), "title": title, "league": league, "start": s, "end": s + 3.5 * 3600, "mine": list(mine), "alt": []}
+    e = {"id": str(9000 + i), "title": title, "league": league, "start": s, "end": s + 3.5 * 3600, "mine": list(mine), "alt": []}
+    if teams:
+        e["teams"] = [team(league, t) for t in teams]
+    return e
+
+
+def on_demand_item(i, title, year, kind="movie"):
+    return {"id": str(70000 + i), "kind": kind, "title": title, "year": year, "rating": 7.1,
+            "poster": f"https://image.tmdb.org/t/p/w600_and_h900_bestv2/od{i}.jpg", "ext": "mkv"}
+
+
+def on_demand():
+    films = [on_demand_item(i, t, y) for i, (t, y) in enumerate([("The Odyssey", 2026), ("Nimrods", 2026), ("The Fix", 2026),
+                                                                   ("Heartland", 2026), ("Kalocsa", 2026), ("The Beast", 2026)])]
+    series = [on_demand_item(20 + i, t, y, "series") for i, (t, y) in enumerate([("The Witch Farm", 2026), ("Slow Horses", 2022),
+                                                                                  ("Severance", 2022)])]
+    return {"rows": [{"id": "new", "title": "New releases", "kind": "movie", "category": "163", "items": films},
+                     {"id": "series-new", "title": "New series", "kind": "series", "category": "156", "items": series},
+                     {"id": "imdb", "title": "IMDb Top 250", "kind": "movie", "category": "1453", "items": films[::-1]}],
+            "counts": {"movies": 34102, "series": 8519}}
 
 
 def tv_groups():
@@ -125,11 +177,12 @@ def tv_groups():
 
 def tv_sports():
     groups = {g["id"]: g for g in tv_groups()}
-    return {"now": time.time(),
-            "yours": [tv_event(1, "Saints at Bears", "NFL", -0.5, ["Bears"]),
-                      tv_event(2, "Liverpool vs Manchester United", "Premier League", 26, ["Man United"])],
-            "live": [tv_event(3, "Titans at Cowboys", "NFL", -0.4)],
-            "today": [tv_event(4, "Raiders at Broncos", "NFL", 3.2)],
+    redzone = groups["sports"]["channels"][1]
+    return {"now": time.time(), "pinned": [redzone],
+            "yours": [tv_event(1, "Saints at Bears", "NFL", -0.5, ["Bears"], ["NO", "CHI"]),
+                      tv_event(2, "Liverpool vs Manchester United", "Premier League", 26, ["Man United"], ["LIV", "MAN"])],
+            "live": [tv_event(3, "Titans at Cowboys", "NFL", -0.4, teams=["TEN", "DAL"])],
+            "today": [tv_event(4, "Raiders at Broncos", "NFL", 3.2, teams=["LV", "DEN"])],
             "golf": [tv_event(5, "CME Group Tour Championship: Round 4", "Golf", 1)],
             "racing": [tv_event(6, "Qatar Grand Prix \u00b7 Race", "F1", 150)],
             "channels": [groups["sports"], groups["golf"], groups["racing"]]}
@@ -139,7 +192,9 @@ class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     plex_checks = 0
     # One film part-way through, so Home's Continue Watching row has something to show.
-    positions = {"matrix": {"t": 3120.0, "duration": 8160.0, "at": 1795300000.0, "where": "iphone"}}
+    # And an On Demand film part-way through, so its page offers Resume.
+    positions = {"matrix": {"t": 3120.0, "duration": 8160.0, "at": 1795300000.0, "where": "iphone"},
+                 "od:movie-70000": {"t": 2700.0, "duration": 10320.0, "at": 1795300100.0, "where": "apple-tv"}}
     cast = {"state": "idle", "film": None, "stalls": 0}
 
     def log_message(self, *a):
@@ -237,6 +292,50 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, png(160, 90, (235, 235, 240)), "image/png")
         if path == "/tv/play":
             return self._send(200, {"ok": True, "session": "tv-0000000000", "url": "/missing.m3u8", "attempts": 1})
+        if path == "/tv/stop":
+            return self._send(200, {"stopped": True})
+        if path == "/tv/teams":
+            return self._send(200, {"leagues": {lg: [{**team(lg, t[0]), "aliases": t[4]} for t in ts] for lg, ts in TEAMS.items()}})
+        if path.startswith("/tv/teamlogo/"):
+            abbr = path.rsplit("/", 1)[-1][:-4].upper()
+            t = next((t for ts in TEAMS.values() for t in ts if t[0] == abbr), None)
+            rgb = tuple(int(t[3][j:j + 2], 16) for j in (0, 2, 4)) if t else (200, 200, 200)  # its second colour
+            return self._send(200, crest(120, rgb), "image/png")
+        if path == "/subscriptions":
+            return self._send(200, {"warn_days": 14, "warnings": 1, "today": time.strftime("%Y-%m-%d"), "items": [
+                {"id": "iptv", "name": "IPTV", "what": "Live TV, live sports and On Demand", "state": "soon", "days_left": 9,
+                 "expires": time.strftime("%Y-%m-%d", time.localtime(time.time() + 9 * 86400)), "source": "account check"},
+                {"id": "newshosting", "name": "Newshosting", "what": "Usenet downloads (SABnzbd)", "state": "ok", "days_left": 190,
+                 "expires": time.strftime("%Y-%m-%d", time.localtime(time.time() + 190 * 86400)), "source": "entered"},
+                {"id": "nzbgeek", "name": "NZBgeek", "what": "Usenet search for HolyArrs and Sportarr", "state": "unknown",
+                 "days_left": None, "expires": None, "source": None}]})
+        if path == "/tv/ondemand":
+            return self._send(200, on_demand())
+        if path in ("/tv/ondemand/search", "/tv/ondemand/category"):
+            items = [i for r in on_demand()["rows"] for i in r["items"]]
+            qq = q.get("q", "").lower()
+            return self._send(200, {"items": [i for i in items if qq in i["title"].lower()]})
+        if path == "/tv/ondemand/categories":
+            return self._send(200, {"categories": [{"id": "163", "name": "NEW RELEASE", "count": 6671},
+                                                   {"id": "1453", "name": "IMDB TOP 250", "count": 250}]})
+        if path == "/tv/ondemand/movie":
+            it = next((i for r in on_demand()["rows"] for i in r["items"] if i["id"] == q.get("id")), on_demand()["rows"][0]["items"][0])
+            return self._send(200, {**it, "plot": "Odysseus makes the long journey home after the Trojan War.",
+                                    "duration_s": 10320, "genre": "Adventure, Drama", "cast": "Matt Damon, Tom Holland",
+                                    "backdrop": "https://image.tmdb.org/t/p/w1280/odback.jpg"})
+        if path == "/tv/ondemand/series":
+            it = next((i for r in on_demand()["rows"] for i in r["items"] if i["id"] == q.get("id")), on_demand()["rows"][1]["items"][0])
+            eps = [{"id": str(80000 + n), "episode": n, "title": f"Chapter {n}", "plot": "A remote farmhouse, 1989.",
+                    "duration_s": 3480, "still": f"https://image.tmdb.org/t/p/w185/ep{n}.jpg", "ext": "mp4"} for n in range(1, 5)]
+            return self._send(200, {**it, "plot": "A family moves to a remote Welsh farmhouse.", "seasons": [
+                {"season": 1, "episodes": eps}, {"season": 2, "episodes": eps[:2]}]})
+        if path == "/tv/ondemand/play":
+            return self._send(200, {"ok": True, "session": "tv-1111111111", "url": "/missing.m3u8", "attempts": 1,
+                                    "start_s": float(q.get("t", 0)), "duration_s": 10320})
+        if path == "/tv/ondemand/position":
+            Handler.positions["od:" + q.get("key", "")] = {"t": float(q.get("t", 0)), "duration": float(q.get("d", 0)),
+                                                           "at": time.time(), "where": q.get("where", "")}
+            return self._send(200, {})
         # Sportarr: hands its key to its own page while its login is off, then wants it in X-Api-Key.
         if path == "/initialize.json":
             return self._send(200, {"apiKey": SPORTARR_KEY, "version": "4.1.12.1122", "urlBase": ""})

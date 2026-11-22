@@ -169,23 +169,37 @@ struct EventRow: View {
     }
 }
 
-/// A 16:9 event card: Sportarr's picture of the event, its league badge, title and start time.
+/// A 16:9 event card: both teams' crests on their colours when the PC knows the teams (NFL, Premier League), else
+/// Sportarr's picture of the event; its league badge, title and start time.
 struct SportCell: View {
     let event: SportEvent
+    @EnvironmentObject private var rtx: RTXServer
     @Environment(\.isFocused) private var focused
 
     var body: some View {
         VStack(alignment: .leading, spacing: S(10)) {
             ZStack(alignment: .bottomLeading) {
-                Artwork(raw: event.thumb, width: 780, title: event.thumb == nil ? event.title : "")
-                LinearGradient(colors: [.clear, .black.opacity(0.85)], startPoint: .center, endPoint: .bottom)
-                VStack(alignment: .leading, spacing: S(6)) {
-                    if let logo = event.leagueLogo {
-                        Artwork(raw: logo, width: 154, plain: true, fit: true).frame(width: S(60), height: S(60), alignment: .leading)
+                if let m = rtx.matchup(league: event.league, home: event.home, away: event.away) {
+                    MatchupArt(first: m.away, second: m.home, at: true, crest: S(118))
+                    LinearGradient(colors: [.clear, .black.opacity(0.7)], startPoint: .center, endPoint: .bottom)
+                    Text(event.matchup ?? event.title).font(.system(size: F(24), weight: .heavy)).lineLimit(1)
+                        .minimumScaleFactor(0.7).shadow(radius: S(6)).padding(S(18))
+                } else {
+                    Artwork(raw: event.thumb, width: 780, title: event.thumb == nil ? event.title : "")
+                    LinearGradient(colors: [.clear, .black.opacity(0.85)], startPoint: .center, endPoint: .bottom)
+                    VStack(alignment: .leading, spacing: S(6)) {
+                        if let logo = event.leagueLogo {
+                            Artwork(raw: logo, width: 154, plain: true, fit: true).frame(width: S(60), height: S(60), alignment: .leading)
+                        }
+                        Text(event.matchup ?? event.title).font(.system(size: F(26), weight: .heavy)).lineLimit(2).shadow(radius: S(6))
                     }
-                    Text(event.matchup ?? event.title).font(.system(size: F(26), weight: .heavy)).lineLimit(2).shadow(radius: S(6))
+                    .padding(S(18))
                 }
-                .padding(S(18))
+            }
+            .overlay(alignment: .topLeading) {
+                if rtx.matchup(league: event.league, home: event.home, away: event.away) != nil, let logo = event.leagueLogo {
+                    Artwork(raw: logo, width: 154, plain: true, fit: true).frame(width: S(50), height: S(50)).padding(S(14))
+                }
             }
             .frame(width: W(480), height: S(270))
             .overlay(alignment: .topTrailing) {

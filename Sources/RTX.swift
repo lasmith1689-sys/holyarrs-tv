@@ -21,6 +21,10 @@ final class RTXServer: ObservableObject {
     @Published private(set) var error: String?
     /// Live TV is set up on the PC (an IPTV login saved there): shows the TV tab and the live part of Sports.
     @Published private(set) var liveTV = false
+    /// NFL and Premier League teams with their crests and colours (GET /tv/teams), for Sportarr's game cards.
+    @Published private(set) var teams: [String: [LiveTeam]] = [:]
+    /// What the setup pays for, and when each runs out (GET /subscriptions).
+    @Published private(set) var subscriptions: [Subscription] = []
 
     init() {
         address = UserDefaults.standard.string(forKey: "rtxAddress") ?? RTXServer.defaultAddress
@@ -52,6 +56,14 @@ final class RTXServer: ObservableObject {
             await syncPositions()
             await refreshSports()
             liveTV = (try? await RTXAPI(base: base).get("tv/status"))?["configured"].bool ?? false
+            if let s = try? await RTXAPI(base: base).get("subscriptions") {
+                subscriptions = s["items"].array.compactMap(Subscription.init)
+            }
+            if teams.isEmpty, let t = try? await RTXAPI(base: base).get("tv/teams") {
+                var out: [String: [LiveTeam]] = [:]
+                for (league, list) in t["leagues"].object { out[league] = list.array.compactMap(LiveTeam.init) }
+                teams = out
+            }
         } catch {
             films = []
             liveTV = false
@@ -79,6 +91,32 @@ final class RTXServer: ObservableObject {
 
     /// Everything left part-way on any screen, newest first (from the PC's positions).
     @Published private(set) var continueList: [ContinueEntry] = []
+
+    /// Both teams of a Sportarr game, when the PC knows them ("Buffalo Bills", "Manchester United"): the longest of
+    /// a team's names found as whole words wins.
+    func matchup(league: String, home: String?, away: String?) -> (away: LiveTeam, home: LiveTeam)? {
+        guard let home, let away else { return nil }
+        let l = league.lowercased()
+        guard let key = l.contains("nfl") ? "NFL" : l.contains("premier") ? "Premier League" : nil, let list = teams[key] else { return nil }
+        func norm(_ s: String) -> String {
+            " " + s.lowercased().replacingOccurrences(of: #"[^a-z0-9']+"#, with: " ", options: .regularExpression)
+                .trimmingCharacters(in: .whitespaces) + " "
+        }
+        func find(_ name: String) -> LiveTeam? {
+            let n = norm(name)
+            var best: LiveTeam?
+            var size = 0
+            for t in list {
+                for a in t.aliases {
+                    let k = norm(a)
+                    if k.count > size, k.count > 2, n.contains(k) { best = t; size = k.count }
+                }
+            }
+            return best
+        }
+        guard let a = find(away), let h = find(home), a != h else { return nil }
+        return (a, h)
+    }
 
     func film(id: String) -> RTXFilm? {
         films.first { $0.id == id } ?? sports.values.first { $0.id == id }
@@ -526,7 +564,7 @@ enum Resume {
         var out: [String: (t: Double, d: Double, at: Double, place: String)] = [:]
         var push: [(id: String, t: Double, d: Double)] = []
         if case let .object(o) = pc {
-            for (id, v) in o {
+            for (id, v) in o where !id.hasPrefix("od:") {  // On Demand titles keep their own (OnDemand.swift)
                 guard let t = v["t"].double else { continue }
                 out[id] = (t, v["duration"].double ?? 0, v["at"].double ?? 0, v["where"].string ?? "")
             }

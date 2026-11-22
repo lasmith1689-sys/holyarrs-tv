@@ -9,10 +9,10 @@ final class PhoneTour: XCTestCase {
 
     override func setUp() { continueAfterFailure = true }
 
-    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests") {
+    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests", tvPage: String = "live") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page, "-tvPage", tvPage]
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
@@ -50,6 +50,8 @@ final class PhoneTour: XCTestCase {
         XCTAssertTrue(app.staticTexts["Continue Watching"].waitForExistence(timeout: 10), "Continue Watching row on Home")
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.exists,
                       "Continue Watching card for the part-watched Matrix")
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch.exists,
+                      "subscription warning on Home")
         shot("home")
         app.swipeUp()
         sleep(1)
@@ -111,6 +113,8 @@ final class PhoneTour: XCTestCase {
         }
         launch(tab: "sports")
         XCTAssertTrue(app.staticTexts["Your teams"].waitForExistence(timeout: 15), "sports: your teams live")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'NFL RedZone' AND label ENDSWITH 'pinned'")).firstMatch.exists,
+                      "NFL RedZone pinned in Your teams")
         shot("sports-live")
         launch(tab: "tv")
         XCTAssertTrue(app.staticTexts["Live TV"].waitForExistence(timeout: 15), "TV tab")
@@ -129,6 +133,31 @@ final class PhoneTour: XCTestCase {
         } else {
             XCTFail("no All channels button")
         }
+        // On Demand: rows, a part-watched film (Resume), a series' seasons and episodes.
+        launch(tab: "tv", tvPage: "ondemand")
+        XCTAssertTrue(app.staticTexts["New releases"].waitForExistence(timeout: 15), "On Demand rows")
+        shot("tv-ondemand")
+        let odyssey = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Odyssey'")).firstMatch
+        if odyssey.waitForExistence(timeout: 5) {
+            odyssey.tap()
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume'")).firstMatch.waitForExistence(timeout: 10),
+                          "Resume on a part-watched On Demand film")
+            sleep(2)
+            shot("ondemand-movie")
+        } else {
+            XCTFail("The Odyssey not in On Demand")
+        }
+        launch(tab: "tv", tvPage: "ondemand")
+        let farm = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Witch Farm'")).firstMatch
+        if farm.waitForExistence(timeout: 10) {
+            for _ in 0..<3 where !farm.isHittable { app.swipeUp() }
+            farm.tap()
+            XCTAssertTrue(app.buttons["Season 2"].waitForExistence(timeout: 10), "a series' seasons")
+            sleep(2)
+            shot("ondemand-series")
+        } else {
+            XCTFail("The Witch Farm not in On Demand")
+        }
         launch(tab: "search")
         shot("search")
         launch(tab: "requests")
@@ -141,6 +170,9 @@ final class PhoneTour: XCTestCase {
         shot("calendar")
         launch(tab: "settings")
         shot("settings")
+        app.swipeUp()
+        sleep(1)
+        shot("settings-subscriptions")
         let guide = app.buttons["Picture setup guide"]
         for _ in 0..<4 where !guide.isHittable { app.swipeUp() }
         if guide.waitForExistence(timeout: 5) {

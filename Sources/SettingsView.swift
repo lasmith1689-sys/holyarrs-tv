@@ -222,6 +222,7 @@ struct SettingsView: View {
             } footer: {
                 Text("Titles that are also in the RTX 4K library get a Play in 4K button, which plays them upscaled by the PC's GPU.")
             }
+            SubscriptionsSection()
             RoomsSection()
             Section {
                 Toggle("Show the Sports tab", isOn: $sportarr.enabled)

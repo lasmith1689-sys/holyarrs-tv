@@ -13,10 +13,10 @@ final class ScreenTour: XCTestCase {
         continueAfterFailure = true
     }
 
-    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests") {
+    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests", tvPage: String = "live") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page, "-tvPage", tvPage]
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
@@ -69,6 +69,9 @@ final class ScreenTour: XCTestCase {
         // Home with its hero and rows.
         launch(tab: "home")
         XCTAssertTrue(app.buttons["More info"].waitForExistence(timeout: 15), "home hero")
+        // The stand-in PC says the IPTV plan runs out in 9 days: Home warns.
+        XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch
+            .waitForExistence(timeout: 10), "subscription warning on Home")
         shot("home")
         press(.down, 3)
         shot("home-rows")
@@ -142,13 +145,45 @@ final class ScreenTour: XCTestCase {
         launch(tab: "sports")
         XCTAssertTrue(app.staticTexts["Your teams"].waitForExistence(timeout: 15), "sports: your teams live")
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Saints at Bears'")).firstMatch.exists, "the Bears game")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'NFL RedZone' AND label ENDSWITH 'pinned'")).firstMatch.exists,
+                      "NFL RedZone pinned in Your teams")
         shot("sports-live")
+        press(.down, 2)
+        shot("sports-live-crests")
         launch(tab: "tv")
         XCTAssertTrue(app.staticTexts["Live TV"].waitForExistence(timeout: 15), "TV tab")
         XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'ESPN'")).firstMatch.waitForExistence(timeout: 10), "a channel in the lineup")
         shot("tv")
         press(.down, 4)
         shot("tv-rows")
+
+        // On Demand: the plan's films and series, a film part-way through (Resume), a series' episodes.
+        launch(tab: "tv", tvPage: "ondemand")
+        XCTAssertTrue(app.staticTexts["New releases"].waitForExistence(timeout: 15), "On Demand rows")
+        shot("tv-ondemand")
+        let odyssey = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Odyssey'")).firstMatch
+        if focus(odyssey, .down, limit: 4) || focus(odyssey, .left, limit: 3) {
+            press(.select)
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume'")).firstMatch.waitForExistence(timeout: 10),
+                          "Resume on a part-watched On Demand film")
+            XCTAssertTrue(app.buttons["Start over"].exists, "Start over next to Resume")
+            sleep(2)
+            shot("ondemand-movie")
+        } else {
+            XCTFail("could not focus The Odyssey in On Demand")
+        }
+        launch(tab: "tv", tvPage: "ondemand")
+        _ = app.staticTexts["New series"].waitForExistence(timeout: 15)
+        let farm = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Witch Farm'")).firstMatch
+        if focus(farm, .down, limit: 6) || focus(farm, .left, limit: 3) {
+            press(.select)
+            XCTAssertTrue(app.buttons["Season 2"].waitForExistence(timeout: 10), "a series' seasons")
+            XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Episode 1'")).firstMatch.exists, "its episodes")
+            sleep(2)
+            shot("ondemand-series")
+        } else {
+            XCTFail("could not focus The Witch Farm in On Demand")
+        }
 
         // Search, Requests (with Downloads and Calendar inside), Settings.
         launch(tab: "search")
@@ -164,5 +199,7 @@ final class ScreenTour: XCTestCase {
         shot("calendar")
         launch(tab: "settings")
         shot("settings")
+        press(.down, 6)
+        shot("settings-subscriptions")
     }
 }
