@@ -341,12 +341,23 @@ final class PhoneTour: XCTestCase {
                 // channel opens.
                 sleep(1)
                 let systemClose = app.buttons["Close Button"]
-                tapPicture()
-                if !systemClose.waitForExistence(timeout: 2) { tapPicture() }  // the first tap may have hidden them
-                if systemClose.waitForExistence(timeout: 3) {
-                    systemClose.tap()
-                    check(systemClose.waitForNonExistence(timeout: 10) && !app.buttons["Play/Pause"].exists && !feeds.exists,
-                          "the system's Close closes the live player")
+                let video = app.otherElements["Video"]  // the system player's picture, there with or without its controls
+                // The system's controls show and hide with each tap and fade out by themselves: let each tap settle,
+                // and tap Close where it is while it is there. A tap that lands after they faded only shows them
+                // again, so try a few times.
+                var closed = false
+                for _ in 0..<4 where !closed {
+                    tapPicture()
+                    sleep(1)
+                    if !systemClose.exists { tapPicture(); sleep(1) }
+                    if systemClose.exists {
+                        let f = systemClose.frame
+                        app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: f.midX, dy: f.midY)).tap()
+                    }
+                    closed = video.waitForNonExistence(timeout: 5)
+                }
+                if closed {
+                    check(!feeds.exists && !cast.exists, "the system's Close closes the live player")
                     let cnn = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'CNN'")).firstMatch
                     if scrollTo(cnn) {
                         cnn.tap()
@@ -357,7 +368,7 @@ final class PhoneTour: XCTestCase {
                         XCTFail("CNN is not on TV")
                     }
                 } else {
-                    XCTFail("no system Close on the live player")
+                    XCTFail("the system's Close did not close the live player")
                 }
             } else {
                 XCTFail("no Feeds on a channel with a spare feed")
