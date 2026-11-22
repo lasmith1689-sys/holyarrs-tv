@@ -167,6 +167,14 @@ struct LiveRequest: Identifiable {
     var grow: String? = nil
     /// Every feed of a game, best first, with its measured picture ("1080p60"), for Other feeds.
     var feeds: [LiveFeed] = []
+
+    /// What Other feeds offers: a game's ranked feeds, else a channel's own stream and its spares (the PC's lineup
+    /// lists them best first; not measured). Nothing for On Demand or a download.
+    var switchable: [LiveFeed] {
+        guard vod == nil, grow == nil else { return [] }
+        if !feeds.isEmpty { return feeds }
+        return ([stream] + alt).map { LiveFeed(id: $0, quality: nil) }
+    }
 }
 
 /// One feed of a game: the provider's stream and its picture as the PC measured it (nil: not measured yet).
@@ -744,8 +752,8 @@ final class LivePlayerModel: ObservableObject {
     private var vod: VODRef?
     /// On Demand: where the PC's stream starts in the film (the player's time 0).
     private var offset: Double = 0
-    /// The feed that started (the request's own, or a spare one).
-    private var tuned: String?
+    /// The feed playing now (the request's own, or a spare one): marked in Other feeds.
+    @Published private(set) var currentFeed: String?
 
     /// Asks the PC to start the channel (answered once the first seconds are ready), trying spare feeds in turn,
     /// or the On Demand title from where it was left.
@@ -781,7 +789,7 @@ final class LivePlayerModel: ObservableObject {
                 let j = try await RTXAPI(base: base).get("tv/play", [URLQueryItem(name: "stream", value: stream)])
                 guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else { continue }
                 session = j["session"].string
-                tuned = stream
+                currentFeed = stream
                 start(url)
                 return
             } catch APIError.server(let code, _) where code == 503 {
@@ -848,7 +856,7 @@ final class LivePlayerModel: ObservableObject {
                 URLQueryItem(name: "d", value: String(format: "%.0f", v.duration ?? 0))])
         }
         return CastTarget(title: request.title, path: "tv/cast", query: [
-            URLQueryItem(name: "stream", value: tuned ?? request.stream), URLQueryItem(name: "title", value: request.title)])
+            URLQueryItem(name: "stream", value: currentFeed ?? request.stream), URLQueryItem(name: "title", value: request.title)])
     }
 
     private func savePosition() {
@@ -861,16 +869,15 @@ final class LivePlayerModel: ObservableObject {
         Task { _ = try? await RTXAPI(base: base).get("tv/ondemand/position", q) }
     }
 
-    /// Other feeds: plays this feed of the game instead (the PC hands over the plan's one stream).
+    /// Other feeds: plays this feed instead (the PC hands over the plan's one stream). If it won't start, the others
+    /// are tried in order, and Other feeds marks the one that played.
     func switchFeed(_ feed: String, request: LiveRequest, base: URL?) async {
         close()
         error = nil
-        let all = [request.stream] + request.alt
-        await tune(LiveRequest(stream: feed, title: request.title, alt: all.filter { $0 != feed }, feeds: request.feeds), base: base)
+        currentFeed = nil
+        let others = request.switchable.map(\.id).filter { $0 != feed }
+        await tune(LiveRequest(stream: feed, title: request.title, alt: others), base: base)
     }
-
-    /// The feed playing now (for marking it in Other feeds).
-    var currentFeed: String? { tuned }
 
     func close() {
         savePosition()
@@ -887,6 +894,8 @@ final class LivePlayerModel: ObservableObject {
 }
 
 /// Full-screen live playback in the system player. The PC stops the channel a few minutes after nobody watches.
+/// Other feeds (a game's other feeds, or a channel's spares): Apple TV, in the player's menu with its controls;
+/// iPhone, tap the picture and pick Feeds. Nothing of the app's own sits over the playing picture until it is asked for.
 struct LivePlayerScreen: View {
     let request: LiveRequest
     @EnvironmentObject private var rtx: RTXServer
@@ -895,14 +904,19 @@ struct LivePlayerScreen: View {
     @State private var attempt = 0
     @State private var casting = false
     @State private var castStarted = false
+    @State private var choosingFeed = false
+    /// iPhone: Close, Feeds and Cast, shown by a tap on the picture (with the system's controls) and gone again
+    /// after a few seconds; always there while paused.
+    @State private var controls = false
+    @State private var hideControls: Task<Void, Never>?
 
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
             if let player = model.player {
-                SystemPlayer(player: player, menu: feedActions).ignoresSafeArea()
+                SystemPlayer(player: player, menu: feedActions, onTap: { toggleControls() }).ignoresSafeArea()
                 #if os(iOS)
-                if model.paused { closeBar }
+                if model.paused || controls { closeBar.transition(.opacity) }
                 #endif
             } else {
                 VStack(spacing: S(34)) {
@@ -932,18 +946,41 @@ struct LivePlayerScreen: View {
         .sheet(isPresented: $casting, onDismiss: { if castStarted { dismiss() } }) {
             CastSheet(target: model.castTarget(request), started: { castStarted = true })
         }
+        .sheet(isPresented: $choosingFeed) {
+            FeedSheet(feeds: request.switchable, current: model.currentFeed, name: feedName) { id in
+                choosingFeed = false
+                controls = false
+                Task { await model.switchFeed(id, request: request, base: rtx.base) }
+            }
+            .presentationDetents([.medium, .large])
+        }
         #endif
     }
 
-    /// "Feed 1 · 1080p60 (best)", "Feed 2 · not measured yet".
-    private func feedName(_ i: Int, _ f: LiveFeed) -> String {
-        "Feed \(i + 1) \u{00B7} " + (f.quality ?? "not measured yet") + (i == 0 ? " (best)" : "")
+    /// A tap on the picture shows the buttons (or hides them, like the system's controls); they go by themselves.
+    private func toggleControls() {
+        hideControls?.cancel()
+        withAnimation(.easeOut(duration: 0.2)) { controls.toggle() }
+        guard controls else { return }
+        hideControls = Task { @MainActor in
+            try? await Task.sleep(nanoseconds: 4_000_000_000)
+            guard !Task.isCancelled else { return }
+            withAnimation(.easeOut(duration: 0.3)) { controls = false }
+        }
     }
 
-    /// Other feeds in the Apple TV player's menu (swipe down while playing); nothing when the game has one feed.
+    /// A game: "Feed 1 · 1080p60 (best)", "Feed 2 · not measured yet". A channel: "Feed 1 · main", "Feed 2 · spare".
+    private func feedName(_ i: Int, _ f: LiveFeed) -> String {
+        let game = !request.feeds.isEmpty
+        let what = f.quality ?? (game ? "not measured yet" : (i == 0 ? "main" : "spare"))
+        return "Feed \(i + 1) \u{00B7} " + what + (game && i == 0 ? " (best)" : "")
+    }
+
+    /// Other feeds in the Apple TV player's menu, shown with its controls; nothing when there is only one feed.
     private var feedActions: [UIAction] {
-        guard request.feeds.count > 1 else { return [] }
-        return request.feeds.enumerated().map { i, f in
+        let feeds = request.switchable
+        guard feeds.count > 1 else { return [] }
+        return feeds.enumerated().map { i, f in
             UIAction(title: feedName(i, f), image: UIImage(systemName: f.id == model.currentFeed ? "checkmark" : "antenna.radiowaves.left.and.right")) { _ in
                 Task { await model.switchFeed(f.id, request: request, base: rtx.base) }
             }
@@ -961,16 +998,8 @@ struct LivePlayerScreen: View {
                 }
                 .accessibilityLabel("Close")
                 Spacer()
-                if request.feeds.count > 1 {
-                    Menu {
-                        ForEach(Array(request.feeds.enumerated()), id: \.element.id) { i, f in
-                            Button {
-                                Task { await model.switchFeed(f.id, request: request, base: rtx.base) }
-                            } label: {
-                                Label(feedName(i, f), systemImage: f.id == model.currentFeed ? "checkmark" : "antenna.radiowaves.left.and.right")
-                            }
-                        }
-                    } label: {
+                if request.switchable.count > 1 {
+                    Button { choosingFeed = true } label: {
                         Label("Feeds", systemImage: "antenna.radiowaves.left.and.right").font(.subheadline.weight(.semibold))
                             .padding(.horizontal, 14).padding(.vertical, 8)
                             .background(.ultraThinMaterial, in: Capsule())
@@ -994,3 +1023,40 @@ struct LivePlayerScreen: View {
     }
     #endif
 }
+
+#if os(iOS)
+/// iPhone: Other feeds, as a list. Picking one switches to it (the PC changes the stream; a few seconds).
+struct FeedSheet: View {
+    let feeds: [LiveFeed]
+    let current: String?
+    let name: (Int, LiveFeed) -> String
+    let pick: (String) -> Void
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        NavigationStack {
+            List {
+                Section {
+                    ForEach(Array(feeds.enumerated()), id: \.element.id) { i, f in
+                        Button { if f.id == current { dismiss() } else { pick(f.id) } } label: {
+                            HStack {
+                                Label(name(i, f), systemImage: "antenna.radiowaves.left.and.right")
+                                Spacer()
+                                if f.id == current { Image(systemName: "checkmark").foregroundStyle(Theme.accent) }
+                            }
+                        }
+                        .accessibilityLabel(name(i, f))
+                        .accessibilityAddTraits(f.id == current ? .isSelected : [])
+                    }
+                } footer: {
+                    Text("Switching takes a few seconds: the PC changes the stream. If a feed won't start, the next one plays.")
+                }
+            }
+            .navigationTitle("Other feeds")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+        }
+        .tint(Theme.accent)
+    }
+}
+#endif

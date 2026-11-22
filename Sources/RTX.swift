@@ -645,12 +645,38 @@ struct SystemPlayer: UIViewControllerRepresentable {
     let player: AVPlayer
     var model: PlaybackModel? = nil
     var outside: (() -> Void)? = nil
-    /// More items for the Apple TV player's menu (Other feeds for a live game), under one heading.
+    /// More items for the Apple TV player's menu (Other feeds for a live game or channel), under one heading.
     var menu: [UIAction] = []
+    /// iPhone: called on a tap on the picture (the same tap that shows or hides the system's controls), so a screen
+    /// can show its own buttons only when asked. Taps on the system's buttons don't count.
+    var onTap: (() -> Void)? = nil
+
+    @MainActor
+    final class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        var onTap: (() -> Void)?
+
+        @objc func tapped() { onTap?() }
+
+        // Alongside the player's own tap (which shows its controls), never instead of it.
+        func gestureRecognizer(_ g: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith other: UIGestureRecognizer) -> Bool { true }
+
+        func gestureRecognizer(_ g: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool { !(touch.view is UIControl) }
+    }
+
+    func makeCoordinator() -> Coordinator { Coordinator() }
 
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let c = AVPlayerViewController()
         c.player = player
+        #if os(iOS)
+        context.coordinator.onTap = onTap
+        if onTap != nil {
+            let tap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.tapped))
+            tap.cancelsTouchesInView = false
+            tap.delegate = context.coordinator
+            c.view.addGestureRecognizer(tap)
+        }
+        #endif
         #if os(tvOS)
         // Swipe down while playing: a Stats tab (measured from the player), and Continue outside in the menu.
         if let model {
@@ -674,6 +700,7 @@ struct SystemPlayer: UIViewControllerRepresentable {
 
     func updateUIViewController(_ c: AVPlayerViewController, context: Context) {
         if c.player !== player { c.player = player }
+        context.coordinator.onTap = onTap
     }
 }
 
