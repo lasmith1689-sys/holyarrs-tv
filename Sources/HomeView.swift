@@ -47,6 +47,8 @@ struct BackgroundVideo: UIViewRepresentable {
 /// muted after a moment, like Netflix and the Apple TV app.
 struct Hero: View {
     let items: [Card]
+    /// Home's Find button (opens Search): the quickest way to something new to get or watch.
+    var find: (() -> Void)? = nil
     @EnvironmentObject private var api: HolyArrs
     @State private var index = 0
     @State private var trailer: Trailer?
@@ -108,6 +110,12 @@ struct Hero: View {
                             .focused($focused, equals: "next")
                             .accessibilityLabel("Next title")
                         }
+                        if let find {
+                            Button(action: find) {
+                                Label(Device.isTV ? "Find a movie or show" : "Find", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                            }
+                            .focused($focused, equals: "find")
+                        }
                     }
                     .tvFocusSection()
                 }
@@ -137,6 +145,7 @@ struct Hero: View {
 /// Home: what is new for this person (GET /home) under a hero of what's trending (GET /explore/head).
 struct HomeView: View {
     @EnvironmentObject private var api: HolyArrs
+    @AppStorage("tab") private var tab = "home"
     @State private var hero: [Card] = []
     @State private var rows: [(String, String?, [Card], Bool)] = []
     @State private var approvals = 0
@@ -148,7 +157,7 @@ struct HomeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(50)) {
-                Hero(items: hero)
+                Hero(items: hero, find: { tab = "search" })
                 SubscriptionWarning()
                 ContinueRow()
                 if approvals > 0 || stuck > 0 {

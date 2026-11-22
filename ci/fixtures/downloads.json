@@ -44,6 +44,26 @@
    "updated_at": "2026-11-20T21:00:00Z",
    "can_act": true,
    "kind": "movie"
+  },
+  {
+   "id": 43,
+   "state": "downloading",
+   "label": "Downloading",
+   "progress": 0.18,
+   "speed": 61000000,
+   "eta": 540,
+   "active": true,
+   "phase": "downloading",
+   "name": "The.Matrix.1999.2160p.UHD.BluRay.REMUX",
+   "title_id": 1,
+   "title": "The Matrix",
+   "year": 1999,
+   "version": "4K",
+   "downloader": "SABnzbd",
+   "size": 58000000000,
+   "updated_at": "2026-11-22T19:00:00Z",
+   "can_act": true,
+   "kind": "movie"
   }
  ]
 }

@@ -112,6 +112,8 @@ final class ScreenTour: XCTestCase {
                           "Resume in 4K on a part-watched film")
             XCTAssertTrue(app.buttons["Start over"].exists, "Start over next to Resume")
             XCTAssertTrue(app.buttons["Play outside"].exists, "Play outside next to Play in 4K")
+            XCTAssertTrue(app.buttons["Play now while it downloads"].waitForExistence(timeout: 10),
+                          "the 4K copy coming in shows on the page, playable while it downloads")
             sleep(2)
             shot("title-movie")
             press(.down, 2)

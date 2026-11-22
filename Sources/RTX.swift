@@ -644,6 +644,8 @@ struct SystemPlayer: UIViewControllerRepresentable {
     let player: AVPlayer
     var model: PlaybackModel? = nil
     var outside: (() -> Void)? = nil
+    /// More items for the Apple TV player's menu (Other feeds for a live game), under one heading.
+    var menu: [UIAction] = []
 
     func makeUIViewController(context: Context) -> AVPlayerViewController {
         let c = AVPlayerViewController()
@@ -656,9 +658,14 @@ struct SystemPlayer: UIViewControllerRepresentable {
             h.preferredContentSize = CGSize(width: 1800, height: 240)
             c.customInfoViewControllers = [h]
         }
+        var items: [UIMenuElement] = []
         if let outside {
-            c.transportBarCustomMenuItems = [UIAction(title: "Continue outside", image: UIImage(systemName: "sun.max")) { _ in outside() }]
+            items.append(UIAction(title: "Continue outside", image: UIImage(systemName: "sun.max")) { _ in outside() })
         }
+        if !menu.isEmpty {
+            items.append(UIMenu(title: "Other feeds", image: UIImage(systemName: "antenna.radiowaves.left.and.right"), children: menu))
+        }
+        if !items.isEmpty { c.transportBarCustomMenuItems = items }
         #endif
         player.play()
         return c

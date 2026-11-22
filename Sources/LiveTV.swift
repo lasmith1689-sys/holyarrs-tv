@@ -105,6 +105,8 @@ struct LiveEvent: Identifiable, Hashable {
     let alt: [String]
     /// The two teams (away or first, then home) when the PC knows both: the card shows their crests.
     let teams: [LiveTeam]
+    /// Every feed of the game, best first (the PC ranks them by measured picture and reliability).
+    let feeds: [LiveFeed]
 
     init?(_ j: JSON) {
         guard let id = j["id"].string, let title = j["title"].string, let s = j["start"].double else { return nil }
@@ -117,6 +119,7 @@ struct LiveEvent: Identifiable, Hashable {
         alt = j["alt"].array.compactMap(\.string)
         let t = j["teams"].array.compactMap(LiveTeam.init)
         teams = t.count == 2 ? t : []
+        feeds = j["feeds"].array.compactMap { f in f["id"].string.map { LiveFeed(id: $0, quality: f["quality"].string) } }
     }
 
     /// "Dolphins at Bills" (away at home) rather than "Liverpool vs Manchester United".
@@ -160,6 +163,16 @@ struct LiveRequest: Identifiable {
     let title: String
     var alt: [String] = []
     var vod: VODRef? = nil
+    /// A download still in progress (its release name): played from the PC's growing copy (GET /grow/play).
+    var grow: String? = nil
+    /// Every feed of a game, best first, with its measured picture ("1080p60"), for Other feeds.
+    var feeds: [LiveFeed] = []
+}
+
+/// One feed of a game: the provider's stream and its picture as the PC measured it (nil: not measured yet).
+struct LiveFeed: Hashable, Identifiable {
+    let id: String
+    let quality: String?
 }
 
 /// An On Demand title to play: "movie" or "episode", the provider's id and file type, where to start.
@@ -420,7 +433,7 @@ struct LiveRow: View {
                         .buttonStyle(QuietButtonStyle())
                     }
                     ForEach(events) { e in
-                        Button { play(LiveRequest(stream: e.id, title: e.title, alt: e.alt)) } label: { LiveEventCell(event: e) }
+                        Button { play(LiveRequest(stream: e.id, title: e.title, alt: e.alt, feeds: e.feeds)) } label: { LiveEventCell(event: e) }
                             .buttonStyle(QuietButtonStyle())
                     }
                     ForEach(channels) { c in
@@ -557,7 +570,6 @@ struct TVView: View {
             case let .category(c): CategoryChannelsView(category: c)
             }
         }
-        .navigationDestination(for: ODRoute.self) { route in route.page }
         .fullScreenCover(item: $watching) { LivePlayerScreen(request: $0) }
     }
 
@@ -745,6 +757,24 @@ final class LivePlayerModel: ObservableObject {
             await tuneVOD(vod, title: request.title, base: base)
             return
         }
+        if let grow = request.grow {
+            do {
+                let j = try await RTXAPI(base: base).get("grow/play", [URLQueryItem(name: "name", value: grow),
+                                                                    URLQueryItem(name: "title", value: request.title)])
+                guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else {
+                    error = "The PC didn't send a stream."
+                    return
+                }
+                session = j["session"].string
+                start(url)
+            } catch APIError.server(let code, let body) {
+                // 409: not far enough along yet; 404: no video file yet; 503: the PC couldn't start it
+                error = (try? JSON.parse(Data(body.utf8)))?["error"].string ?? (code == 409 ? "Not far enough along to play yet." : "The PC couldn't start it.")
+            } catch {
+                self.error = "Couldn't reach the PC."
+            }
+            return
+        }
         var busy = false
         for stream in [request.stream] + request.alt {
             do {
@@ -831,6 +861,17 @@ final class LivePlayerModel: ObservableObject {
         Task { _ = try? await RTXAPI(base: base).get("tv/ondemand/position", q) }
     }
 
+    /// Other feeds: plays this feed of the game instead (the PC hands over the plan's one stream).
+    func switchFeed(_ feed: String, request: LiveRequest, base: URL?) async {
+        close()
+        error = nil
+        let all = [request.stream] + request.alt
+        await tune(LiveRequest(stream: feed, title: request.title, alt: all.filter { $0 != feed }, feeds: request.feeds), base: base)
+    }
+
+    /// The feed playing now (for marking it in Other feeds).
+    var currentFeed: String? { tuned }
+
     func close() {
         savePosition()
         if let o = timeObserver { player?.removeTimeObserver(o) }
@@ -859,7 +900,7 @@ struct LivePlayerScreen: View {
         ZStack {
             Color.black.ignoresSafeArea()
             if let player = model.player {
-                SystemPlayer(player: player).ignoresSafeArea()
+                SystemPlayer(player: player, menu: feedActions).ignoresSafeArea()
                 #if os(iOS)
                 if model.paused { closeBar }
                 #endif
@@ -893,6 +934,21 @@ struct LivePlayerScreen: View {
         #endif
     }
 
+    /// "Feed 1 · 1080p60 (best)", "Feed 2 · not measured yet".
+    private func feedName(_ i: Int, _ f: LiveFeed) -> String {
+        "Feed \(i + 1) \u{00B7} " + (f.quality ?? "not measured yet") + (i == 0 ? " (best)" : "")
+    }
+
+    /// Other feeds in the Apple TV player's menu (swipe down while playing); nothing when the game has one feed.
+    private var feedActions: [UIAction] {
+        guard request.feeds.count > 1 else { return [] }
+        return request.feeds.enumerated().map { i, f in
+            UIAction(title: feedName(i, f), image: UIImage(systemName: f.id == model.currentFeed ? "checkmark" : "antenna.radiowaves.left.and.right")) { _ in
+                Task { await model.switchFeed(f.id, request: request, base: rtx.base) }
+            }
+        }
+    }
+
     #if os(iOS)
     private var closeBar: some View {
         VStack {
@@ -904,12 +960,30 @@ struct LivePlayerScreen: View {
                 }
                 .accessibilityLabel("Close")
                 Spacer()
-                Button { casting = true } label: {
-                    Label("Cast", systemImage: "tv.badge.wifi").font(.subheadline.weight(.semibold))
-                        .padding(.horizontal, 14).padding(.vertical, 8)
-                        .background(.ultraThinMaterial, in: Capsule())
+                if request.feeds.count > 1 {
+                    Menu {
+                        ForEach(Array(request.feeds.enumerated()), id: \.element.id) { i, f in
+                            Button {
+                                Task { await model.switchFeed(f.id, request: request, base: rtx.base) }
+                            } label: {
+                                Label(feedName(i, f), systemImage: f.id == model.currentFeed ? "checkmark" : "antenna.radiowaves.left.and.right")
+                            }
+                        }
+                    } label: {
+                        Label("Feeds", systemImage: "antenna.radiowaves.left.and.right").font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .background(.ultraThinMaterial, in: Capsule())
+                    }
+                    .accessibilityLabel("Other feeds")
                 }
-                .accessibilityLabel("Cast to a Chromecast or Google TV")
+                if request.grow == nil {
+                    Button { casting = true } label: {
+                        Label("Cast", systemImage: "tv.badge.wifi").font(.subheadline.weight(.semibold))
+                            .padding(.horizontal, 14).padding(.vertical, 8)
+                            .background(.ultraThinMaterial, in: Capsule())
+                    }
+                    .accessibilityLabel("Cast to a Chromecast or Google TV")
+                }
             }
             .padding(.horizontal, 20)
             .padding(.top, 54)

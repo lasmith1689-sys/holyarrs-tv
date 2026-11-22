@@ -73,8 +73,13 @@ struct DownloadRowView: View {
     let pause: () -> Void
     let resume: () -> Void
     let remove: () -> Void
+    @EnvironmentObject private var rtx: RTXServer
+    /// From the PC (GET /grow/status): whether this Usenet download can already play start to finish.
+    @State private var grow: JSON = .null
+    @State private var watching: LiveRequest?
 
     private var phase: String { d["phase"].string ?? "" }
+    private var release: String? { d["downloader"].string == "SABnzbd" && phase == "downloading" ? d["name"].string : nil }
     private var progress: Double { min(1, max(0, d["progress"].double ?? 0)) }
 
     var body: some View {
@@ -89,9 +94,19 @@ struct DownloadRowView: View {
                 }
                 .frame(width: W(900), height: S(10))
                 Text(line).font(.callout).foregroundStyle(Theme.dim).lineLimit(1).frame(width: W(1000), alignment: .leading)
+                if release != nil, let wait = grow["playable_in_s"].int, wait > 0 {
+                    Label("Playable in about \(TitleDownloadCard.minutes(wait))", systemImage: "clock")
+                        .font(.callout.weight(.semibold)).foregroundStyle(Theme.accent)
+                }
             }
             Spacer()
             HStack(spacing: S(30)) {
+                if let release, grow["playable"].bool {
+                    Button {
+                        watching = LiveRequest(stream: release, title: d["title"].string ?? release, grow: release)
+                    } label: { Label("Play now", systemImage: "play.fill") }
+                    .accessibilityLabel("Play now while it downloads")
+                }
                 Badge(text: (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())
                 if phase == "downloading" || phase == "stalled" || phase == "waiting" {
                     Button(action: pause) { Image(systemName: "pause.fill") }.accessibilityLabel("Pause")
@@ -105,6 +120,11 @@ struct DownloadRowView: View {
         }
         .padding(.vertical, S(12))
         .tvFocusSection()
+        .task(id: "\(release ?? "")|\(Int(progress * 100))") {
+            guard let release, let base = rtx.base else { grow = .null; return }
+            grow = (try? await RTXAPI(base: base).get("grow/status", [URLQueryItem(name: "name", value: release)])) ?? .null
+        }
+        .fullScreenCover(item: $watching) { LivePlayerScreen(request: $0) }
     }
 
     private var episodes: String? {

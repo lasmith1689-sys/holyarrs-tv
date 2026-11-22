@@ -143,6 +143,7 @@ struct Stack<Content: View>: View {
                     GenreView(type: type, genre: id, name: name)
                 }
             }
+            .navigationDestination(for: ODRoute.self) { route in route.page }  // On Demand pages, from TV or Search
         }
     }
 }

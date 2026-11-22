@@ -97,7 +97,11 @@ w("downloads", {"downloads": [
      "episodes": [{"label": "S2"}]},
     {"id": 42, "state": "paused", "label": "Paused", "progress": 0.88, "speed": 0, "active": False, "phase": "paused", "name": "Inception.2010.2160p",
      "title_id": 11, "title": "Inception", "year": 2010, "version": "Main", "downloader": "SABnzbd", "size": 62_000_000_000,
-     "updated_at": "2026-11-20T21:00:00Z", "can_act": True, "kind": "movie"}]})
+     "updated_at": "2026-11-20T21:00:00Z", "can_act": True, "kind": "movie"},
+    # A 4K copy of The Matrix coming in: its page shows the download, and Play while it downloads (stand-in /grow/status).
+    {"id": 43, "state": "downloading", "label": "Downloading", "progress": 0.18, "speed": 61_000_000, "eta": 540, "active": True,
+     "phase": "downloading", "name": "The.Matrix.1999.2160p.UHD.BluRay.REMUX", "title_id": 1, "title": "The Matrix", "year": 1999,
+     "version": "4K", "downloader": "SABnzbd", "size": 58_000_000_000, "updated_at": "2026-11-22T19:00:00Z", "can_act": True, "kind": "movie"}]})
 w("calendar", {"from": "2026-11-20", "to": "2026-12-20", "dates": [
     {"kind": "episode", "title_id": 2, "name": "Breaking Bad", "season": 6, "episode": 1, "episode_name": "Pilot (again)", "date": "2026-11-21T02:00:00Z",
      "timed": True, "air_day": "2026-11-20", "poster": T.format("p1396"), "state": "missing", "item_id": 501},

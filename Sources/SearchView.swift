@@ -4,8 +4,11 @@ import SwiftUI
 /// and plain descriptions ("space movie with a robot from 2014") through HolyArrs' plain-words search.
 struct SearchView: View {
     @EnvironmentObject private var api: HolyArrs
+    @EnvironmentObject private var rtx: RTXServer
     @State private var text = ""
     @State private var titles: [Card] = []
+    /// The same name in the IPTV plan's On Demand: watch now, nothing to download.
+    @State private var onDemand: [ODItem] = []
     @State private var people: [CastMember] = []
     @State private var music: [Card] = []
     @State private var understood: String?
@@ -18,6 +21,9 @@ struct SearchView: View {
                 if let understood { Text("Understood as: \(understood)").font(.title3).foregroundStyle(Theme.accent).padding(.horizontal, Theme.sidePadding) }
                 if !titles.isEmpty {
                     PosterGrid(cards: titles).padding(.horizontal, Theme.sidePadding)
+                }
+                if !onDemand.isEmpty {
+                    ODItemRow(title: "Watch now On Demand", items: onDemand)
                 }
                 if !people.isEmpty {
                     VStack(alignment: .leading, spacing: S(18)) {
@@ -38,13 +44,14 @@ struct SearchView: View {
                 if text.count < 2 {
                     Text("Type a name, or describe it: \"80s horror movies\", \"shows with Pedro Pascal\".")
                         .font(.title3).foregroundStyle(Theme.dim).padding(.horizontal, Theme.sidePadding)
-                } else if titles.isEmpty && people.isEmpty && music.isEmpty {
+                } else if titles.isEmpty && people.isEmpty && music.isEmpty && onDemand.isEmpty {
                     LoadState(loading: searching, error: error, empty: "Nothing found for \"\(text)\".")
                 }
             }
             .padding(.vertical, S(40))
         }
         .searchable(text: $text, prompt: "Movies, shows, people, artists")
+        // Every result says what one tap does: In library (play), Get it (download), or Watch now On Demand.
         .task(id: text) {
             // Waits for a pause in typing, like HolyArrs' own search field.
             try? await Task.sleep(nanoseconds: 350_000_000)
@@ -54,9 +61,15 @@ struct SearchView: View {
     }
 
     private func search(_ q: String) async {
-        guard q.count >= 2 else { titles = []; people = []; music = []; understood = nil; return }
+        guard q.count >= 2 else { titles = []; people = []; music = []; onDemand = []; understood = nil; return }
         searching = true
         defer { searching = false }
+        if rtx.liveTV, let base = rtx.base {  // the plan's On Demand, alongside: some titles can play right now
+            Task {
+                let j = try? await RTXAPI(base: base).get("tv/ondemand/search", [URLQueryItem(name: "q", value: q)])
+                if text.trimmingCharacters(in: .whitespaces) == q { onDemand = Array((j?["items"].array ?? []).compactMap(ODItem.init).prefix(20)) }
+            }
+        }
         do {
             if SearchView.describes(q) {
                 let j = try await api.get("search", ["q": q])

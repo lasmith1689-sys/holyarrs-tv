@@ -76,6 +76,8 @@ struct TitlePage: View {
     @State private var choosingQuality = false
     @State private var pendingSeasons: (seasons: [Int], futureOnly: Bool) = ([], false)
     @State private var checkedPC = false
+    /// Asked for here just now: the download card shows "Looking for the best copy" until the download appears.
+    @State private var askedAt: Date?
 
     var body: some View {
         ZStack {
@@ -158,6 +160,9 @@ struct TitlePage: View {
                 }
                 actions(info).padding(.top, S(20))
                 if let message { Text(message).foregroundStyle(Theme.accent).font(.callout) }
+                // Its download, right here: looking for a copy, progress, and Play once it can play while downloading.
+                TitleDownloadCard(name: info.name, year: info.year, titleId: info.titleId, runtimeMinutes: info.runtime,
+                                  askedAt: askedAt, finished: { Task { await load(); await rtx.refresh() } })
                 if let film = rtxFilm {
                     OutsideNote(film: film)
                 } else if checkedPC, info.inLibrary, info.kind == .movie {
@@ -208,7 +213,7 @@ struct TitlePage: View {
                 Button {
                     if info.kind == .show && info.seasons.count > 1 { choosingSeasons = true } else { startAsk(seasons: [], futureOnly: false) }
                 } label: {
-                    Label(info.kind == .show ? "Ask for this show" : "Ask for this movie", systemImage: "plus")
+                    Label(info.kind == .show ? "Get this show" : "Get it", systemImage: "arrow.down.circle")
                         .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                 }
                 .buttonStyle(.borderedProminent)
@@ -430,7 +435,9 @@ struct TitlePage: View {
         do {
             let a = try await api.post("asks", body)
             let label = a["ask"]["state_label"].string ?? "Asked"
-            message = a["joined"].bool ? "You joined an earlier ask: \(label)." : a["already"].bool ? "Already asked: \(label)." : "Asked: \(label)."
+            // The download card below shows what happens next (looking for a copy, then progress): no status line.
+            message = a["joined"].bool ? "You joined an earlier ask: \(label)." : a["already"].bool ? "Already asked: \(label)." : nil
+            askedAt = Date()
             await load()
         } catch {
             message = error.localizedDescription

@@ -53,6 +53,8 @@ struct Card: Identifiable, Hashable {
             status = "In library"
         } else if let label = d["ask"]["state_label"].string, d["ask"]["state"].string != "turned_down" {
             status = label
+        } else if row == "more", tmdb != nil, kind != .artist {
+            status = "Get it"  // a search result that isn't here yet: one tap on its page downloads it
         } else {
             status = nil
         }
@@ -112,7 +114,8 @@ struct Card: Identifiable, Hashable {
         case "have": status = "In library"
         case "asked": status = "Asked"
         case "following": status = "Following"
-        default: status = nil
+        // Not here yet: one tap on its page gets it.
+        default: status = tmdb != nil && titleId == nil && kind != .artist ? "Get it" : nil
         }
         genres = []
         id = "s-\(kind.rawValue)-\(tmdb ?? mbid ?? titleId.map(String.init) ?? name)"
