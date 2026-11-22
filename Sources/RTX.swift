@@ -19,6 +19,8 @@ final class RTXServer: ObservableObject {
     @Published var outsideNote: String?
     @Published private(set) var castingFilm: String?
     @Published private(set) var error: String?
+    /// Live TV is set up on the PC (an IPTV login saved there): shows the TV tab and the live part of Sports.
+    @Published private(set) var liveTV = false
 
     init() {
         address = UserDefaults.standard.string(forKey: "rtxAddress") ?? RTXServer.defaultAddress
@@ -49,8 +51,10 @@ final class RTXServer: ObservableObject {
             Resume.server = base
             await syncPositions()
             await refreshSports()
+            liveTV = (try? await RTXAPI(base: base).get("tv/status"))?["configured"].bool ?? false
         } catch {
             films = []
+            liveTV = false
             self.error = "not reachable"
         }
     }

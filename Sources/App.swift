@@ -42,7 +42,8 @@ struct HolyArrsTVApp: App {
     }
 }
 
-/// Signs in first, then the tab bar: Home, Explore, Sports, Search, Requests, Downloads, Calendar, Settings.
+/// Signs in first, then the tab bar: Home, Explore, Sports, TV, Search, Requests (with Downloads and Calendar),
+/// Settings.
 struct RootView: View {
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
@@ -59,16 +60,16 @@ struct RootView: View {
                 TabView(selection: $tab) {
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
                     Tab("Explore", systemImage: "sparkles.tv", value: "explore") { Stack { ExploreView() } }
-                    if sportarr.enabled {
+                    if sportarr.enabled || rtx.liveTV {
                         Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
                     }
-                    // On Apple TV, Search and Settings are icon-only so all eight tabs fit across the top.
-                    Tab(value: "search", role: .search) { Stack { SearchView() } }
-                    Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsView() } }
-                    if me.canManage {
-                        Tab("Downloads", systemImage: "arrow.down.circle", value: "downloads") { Stack { DownloadsView() } }
+                    if rtx.liveTV {
+                        Tab("TV", systemImage: "tv", value: "tv") { Stack { TVView() } }
                     }
-                    Tab("Calendar", systemImage: "calendar", value: "calendar") { Stack { CalendarView() } }
+                    // On Apple TV, Search and Settings are icon-only so the tabs fit across the top. Downloads and
+                    // Calendar live inside Requests.
+                    Tab(value: "search", role: .search) { Stack { SearchView() } }
+                    Tab("Requests", systemImage: "tray.full", value: "requests") { Stack { RequestsHub(canManage: me.canManage) } }
                     Tab(value: "settings") { Stack { SettingsView() } } label: {
                         if Device.isTV { Image(systemName: "gearshape").accessibilityLabel("Settings") } else { Label("Settings", systemImage: "gearshape") }
                     }
@@ -79,6 +80,13 @@ struct RootView: View {
                 #endif
             } else {
                 SignInView()
+            }
+        }
+        .onAppear {
+            // Downloads and Calendar used to be tabs of their own: a saved choice of either opens it inside Requests.
+            if tab == "downloads" || tab == "calendar" {
+                UserDefaults.standard.set(tab, forKey: "requestsPage")
+                tab = "requests"
             }
         }
         .task(id: api.address) { await api.restore() }

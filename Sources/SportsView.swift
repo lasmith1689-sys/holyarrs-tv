@@ -26,6 +26,8 @@ struct SportsView: View {
                     Spacer()
                 }
                 .padding(.horizontal, Theme.sidePadding)
+                LiveSportsSection()  // live games and sports channels first, replays underneath
+                if sportarr.enabled {
                 switch sportarr.state {
                 case .checking:
                     LoadState(loading: true, error: nil).frame(maxWidth: .infinity)
@@ -35,6 +37,7 @@ struct SportsView: View {
                     LoadState(loading: false, error: why, retry: { Task { await sportarr.connect() } }).frame(maxWidth: .infinity)
                 case .ready:
                     content
+                }
                 }
             }
             .padding(.vertical, S(40))

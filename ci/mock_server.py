@@ -103,6 +103,38 @@ def sport_events():
     ]
 
 
+def tv_event(i, title, league, start_h, mine=()):
+    s = time.time() + start_h * 3600
+    return {"id": str(9000 + i), "title": title, "league": league, "start": s, "end": s + 3.5 * 3600, "mine": list(mine), "alt": []}
+
+
+def tv_groups():
+    def ch(i, name, show):
+        now = time.time()
+        return {"id": str(100 + i), "alt": [], "name": name, "logo": f"/tv/logo/{100 + i}.png",
+                "now": {"title": show, "start": now - 1200, "end": now + 2400}, "next": None}
+    return [
+        {"id": "sports", "name": "Sports", "channels": [ch(1, "ESPN", "SportsCenter"), ch(2, "NFL RedZone", "RedZone"),
+                                                       ch(3, "Sky Sports Premier League", "Super Sunday")]},
+        {"id": "golf", "name": "Golf", "channels": [ch(4, "Golf Channel", "Golf Central")]},
+        {"id": "racing", "name": "Racing", "channels": [ch(5, "F1 TV", "Qatar Grand Prix build-up")]},
+        {"id": "news", "name": "News", "channels": [ch(6, "CNN", "State of the Union"), ch(7, "BBC News", "BBC News")]},
+        {"id": "local", "name": "New York", "channels": [ch(8, "FOX 5 New York", "FOX NFL Sunday")]},
+    ]
+
+
+def tv_sports():
+    groups = {g["id"]: g for g in tv_groups()}
+    return {"now": time.time(),
+            "yours": [tv_event(1, "Saints at Bears", "NFL", -0.5, ["Bears"]),
+                      tv_event(2, "Liverpool vs Manchester United", "Premier League", 26, ["Man United"])],
+            "live": [tv_event(3, "Titans at Cowboys", "NFL", -0.4)],
+            "today": [tv_event(4, "Raiders at Broncos", "NFL", 3.2)],
+            "golf": [tv_event(5, "CME Group Tour Championship: Round 4", "Golf", 1)],
+            "racing": [tv_event(6, "Qatar Grand Prix \u00b7 Race", "F1", 150)],
+            "channels": [groups["sports"], groups["golf"], groups["racing"]]}
+
+
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     plex_checks = 0
@@ -187,6 +219,24 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/sports":
             return self._send(200, {"files": [{"id": "0123456789ab", "name": F1_FILE, "title": F1_FILE[:-4], "duration_s": 7340.0,
                                                "width": 1920, "height": 1080, "range": "SDR", "upscale": True, "note": ""}]})
+        # Live TV on the PC (IPTV through rtx-upscale-stream).
+        if path == "/tv/status":
+            return self._send(200, {"configured": True, "kind": "xtream", "host": "tv.example", "check": {"state": "ok"}})
+        if path == "/tv/sports":
+            return self._send(200, tv_sports())
+        if path == "/tv/lineup":
+            return self._send(200, {"groups": tv_groups(), "epg_at": time.time()})
+        if path == "/tv/categories":
+            return self._send(200, {"categories": [{"id": "1", "name": "US| SPORTS \u1d34\u1d30/\u1d3f\u1d2c\u1d42", "count": 3},
+                                                   {"id": "2", "name": "UK| NEWS", "count": 2}]})
+        if path == "/tv/channels":
+            qq = q.get("q", "").lower()
+            chans = [c for g in tv_groups() for c in g["channels"] if qq in c["name"].lower()]
+            return self._send(200, {"channels": [{"id": c["id"], "name": c["name"], "logo": c["logo"]} for c in chans]})
+        if path.startswith("/tv/logo/"):
+            return self._send(200, png(160, 90, (235, 235, 240)), "image/png")
+        if path == "/tv/play":
+            return self._send(200, {"ok": True, "session": "tv-0000000000", "url": "/missing.m3u8", "attempts": 1})
         # Sportarr: hands its key to its own page while its login is off, then wants it in X-Api-Key.
         if path == "/initialize.json":
             return self._send(200, {"apiKey": SPORTARR_KEY, "version": "4.1.12.1122", "urlBase": ""})

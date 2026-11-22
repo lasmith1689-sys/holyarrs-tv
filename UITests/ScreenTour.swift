@@ -13,10 +13,10 @@ final class ScreenTour: XCTestCase {
         continueAfterFailure = true
     }
 
-    private func launch(tab: String, signedIn: Bool = true, explore: String = "All") {
+    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page]
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
@@ -126,10 +126,10 @@ final class ScreenTour: XCTestCase {
         launch(tab: "sports")
         _ = app.staticTexts["Ready to watch"].waitForExistence(timeout: 15)
         let race = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Las Vegas Grand Prix - Race'")).firstMatch
-        // Tab bar -> Ready to watch (the race is its first card).
+        // Tab bar -> down past the live rows to Ready to watch (the race is its first card).
         press(.down)
         sleep(1)
-        if focus(race, .left, limit: 3) {
+        if focus(race, .down, limit: 10) || focus(race, .left, limit: 3) {
             press(.select)
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a downloaded race")
             sleep(2)
@@ -138,16 +138,29 @@ final class ScreenTour: XCTestCase {
             XCTFail("could not focus the Las Vegas race")
         }
 
-        // Search, Requests, Downloads, Calendar, Settings.
+        // Live TV: the live part of Sports, then the TV tab's short lineup with what's on now.
+        launch(tab: "sports")
+        XCTAssertTrue(app.staticTexts["Your teams"].waitForExistence(timeout: 15), "sports: your teams live")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Saints at Bears'")).firstMatch.exists, "the Bears game")
+        shot("sports-live")
+        launch(tab: "tv")
+        XCTAssertTrue(app.staticTexts["Live TV"].waitForExistence(timeout: 15), "TV tab")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'ESPN'")).firstMatch.waitForExistence(timeout: 10), "a channel in the lineup")
+        shot("tv")
+        press(.down, 4)
+        shot("tv-rows")
+
+        // Search, Requests (with Downloads and Calendar inside), Settings.
         launch(tab: "search")
         shot("search")
         launch(tab: "requests")
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10), "an ask waiting for an OK")
         shot("requests-waiting")
-        launch(tab: "downloads")
+        launch(tab: "requests", page: "downloads")
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch.waitForExistence(timeout: 10), "a download")
         shot("downloads")
-        launch(tab: "calendar")
+        launch(tab: "requests", page: "calendar")
+        XCTAssertTrue(app.staticTexts["Coming up"].waitForExistence(timeout: 10), "calendar inside Requests")
         shot("calendar")
         launch(tab: "settings")
         shot("settings")

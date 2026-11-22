@@ -9,10 +9,10 @@ final class PhoneTour: XCTestCase {
 
     override func setUp() { continueAfterFailure = true }
 
-    private func launch(tab: String, signedIn: Bool = true, explore: String = "All") {
+    private func launch(tab: String, signedIn: Bool = true, explore: String = "All", page: String = "requests") {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore]
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-exploreKind", explore, "-requestsPage", page]
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
         app.launch()
         sleep(4)
@@ -101,6 +101,7 @@ final class PhoneTour: XCTestCase {
         launch(tab: "sports")
         let race = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Las Vegas Grand Prix - Race'")).firstMatch
         if race.waitForExistence(timeout: 10) {
+            for _ in 0..<6 where !race.isHittable { app.swipeUp() }  // below the live rows
             race.tap()
             XCTAssertTrue(app.buttons["Play in 4K"].waitForExistence(timeout: 10), "Play in 4K on a downloaded race")
             sleep(2)
@@ -108,14 +109,35 @@ final class PhoneTour: XCTestCase {
         } else {
             XCTFail("the Las Vegas race is not on Sports")
         }
+        launch(tab: "sports")
+        XCTAssertTrue(app.staticTexts["Your teams"].waitForExistence(timeout: 15), "sports: your teams live")
+        shot("sports-live")
+        launch(tab: "tv")
+        XCTAssertTrue(app.staticTexts["Live TV"].waitForExistence(timeout: 15), "TV tab")
+        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'ESPN'")).firstMatch.waitForExistence(timeout: 10), "a channel in the lineup")
+        shot("tv")
+        app.swipeUp()
+        sleep(1)
+        shot("tv-rows")
+        let all = app.buttons["All channels"]
+        if all.waitForExistence(timeout: 5) {
+            app.swipeDown()
+            all.tap()
+            XCTAssertTrue(app.staticTexts["All channels"].waitForExistence(timeout: 10), "All channels page")
+            sleep(1)
+            shot("tv-all")
+        } else {
+            XCTFail("no All channels button")
+        }
         launch(tab: "search")
         shot("search")
         launch(tab: "requests")
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10), "an ask waiting for an OK")
         shot("requests-waiting")
-        launch(tab: "downloads")
+        launch(tab: "requests", page: "downloads")
         shot("downloads")
-        launch(tab: "calendar")
+        launch(tab: "requests", page: "calendar")
+        XCTAssertTrue(app.staticTexts["Coming up"].waitForExistence(timeout: 10), "calendar inside Requests")
         shot("calendar")
         launch(tab: "settings")
         shot("settings")

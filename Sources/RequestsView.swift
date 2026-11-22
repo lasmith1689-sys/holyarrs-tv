@@ -1,5 +1,34 @@
 import SwiftUI
 
+/// The Requests tab: asks, plus Downloads (for people who manage the Library) and the Calendar, picked at the top.
+struct RequestsHub: View {
+    let canManage: Bool
+    @AppStorage("requestsPage") private var page = "requests"
+
+    private var pages: [(id: String, name: String)] {
+        canManage ? [("requests", "Requests"), ("downloads", "Downloads"), ("calendar", "Calendar")]
+            : [("requests", "Requests"), ("calendar", "Calendar")]
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Picker("Show", selection: $page) {
+                ForEach(pages, id: \.id) { p in Text(p.name).tag(p.id) }
+            }
+            .pickerStyle(.segmented)
+            .frame(width: W(900))
+            .padding(.horizontal, Theme.sidePadding)
+            .padding(.top, S(30))
+            .tvFocusSection()
+            switch page {
+            case "downloads" where canManage: DownloadsView()
+            case "calendar": CalendarView()
+            default: RequestsView()
+            }
+        }
+    }
+}
+
 /// Requests: asks waiting for an OK (for people who approve), your own asks, everyone's, and the movies
 /// HolyArrs got stuck on (Needs a decision, for people who manage the Library).
 struct RequestsView: View {
