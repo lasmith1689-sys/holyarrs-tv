@@ -165,8 +165,16 @@ final class PhoneTour: XCTestCase {
             check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10),
                   "a show with episodes on the PC offers Resume S5 E3 at the top of its page")
             shot("title-show")
+            // The seasons are a sideways row: bring it up, then slide it along to Season 5.
             let season = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 5'")).firstMatch
-            if scrollTo(season) {
+            let first = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 1'")).firstMatch
+            if scrollTo(first) {
+                for _ in 0..<6 where !(season.exists && season.isHittable) {
+                    first.exists && first.isHittable ? first.swipeLeft() : app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season'")).element(boundBy: 1).swipeLeft()
+                    usleep(500_000)
+                }
+            }
+            if season.exists && season.isHittable {
                 season.tap()
                 check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10)
                       && app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Play S5 E4'")).firstMatch.exists,
