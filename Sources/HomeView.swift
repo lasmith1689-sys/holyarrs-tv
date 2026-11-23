@@ -192,6 +192,8 @@ struct HomeView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(50)) {
                 Hero(items: hero, find: { tab = "search" }, height: Device.isTV ? 600 : 700)
+                // No hero (HolyArrs not answering, or still loading): keep the rest clear of the tab bar.
+                if hero.isEmpty { Color.clear.frame(height: Device.isTV ? 150 : S(260)) }
                 ConnectionLine()
                 ContinueRow(focus: $homeFocus)
                 SubscriptionWarning()
