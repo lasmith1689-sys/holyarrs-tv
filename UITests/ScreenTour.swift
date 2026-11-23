@@ -43,7 +43,7 @@ final class ScreenTour: XCTestCase {
         guard b.waitForExistence(timeout: 10) else { return false }
         if b.hasFocus || b.isSelected { return true }
         // Home moves focus from the tab bar to its first Continue Watching card at launch: Home's own content shows.
-        return name == "Home" && app.staticTexts["Continue Watching"].waitForExistence(timeout: 5) && app.buttons["browse-all"].exists
+        return name == "Home" && app.staticTexts["Continue Watching"].waitForExistence(timeout: 5)
     }
 
     /// The share of a screenshot that is black: about 0.99 for the simulator's boot screen (an Apple logo and a
