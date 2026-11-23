@@ -40,7 +40,10 @@ final class ScreenTour: XCTestCase {
     /// The tab on screen: the tab bar's focused (just launched) or selected button.
     private func tabShown(_ name: String) -> Bool {
         let b = app.tabBars.firstMatch.buttons[name]
-        return b.waitForExistence(timeout: 10) && (b.hasFocus || b.isSelected)
+        guard b.waitForExistence(timeout: 10) else { return false }
+        if b.hasFocus || b.isSelected { return true }
+        // Home moves focus from the tab bar to its first Continue Watching card at launch: Home's own content shows.
+        return name == "Home" && app.staticTexts["Continue Watching"].waitForExistence(timeout: 5) && app.buttons["browse-all"].exists
     }
 
     /// The share of a screenshot that is black: about 0.99 for the simulator's boot screen (an Apple logo and a
