@@ -156,6 +156,29 @@ final class PhoneTour: XCTestCase {
             XCTFail("The Matrix not on Home")
         }
 
+        // A Library show whose episodes are on the PC (Breaking Bad; S5 E3 left 20 minutes in): Resume on its page,
+        // and its episodes play from the season sheet.
+        launch(tab: "home")
+        let show = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Breaking Bad'")).firstMatch
+        if scrollTo(show) {
+            show.tap()
+            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10),
+                  "a show with episodes on the PC offers Resume S5 E3 at the top of its page")
+            shot("title-show")
+            let season = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 5'")).firstMatch
+            if scrollTo(season) {
+                season.tap()
+                check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10)
+                      && app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Play S5 E4'")).firstMatch.exists,
+                      "the season's episodes play from the PC: Resume S5 E3, Play S5 E4")
+                shot("show-episodes")
+            } else {
+                XCTFail("no Season 5 on Breaking Bad's page")
+            }
+        } else {
+            XCTFail("Breaking Bad not on Home")
+        }
+
         // The PC not answering (a closed port): Continue Watching and the TV tab stay, Home says so.
         launch(tab: "home", rtx: "http://127.0.0.1:9")
         check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),

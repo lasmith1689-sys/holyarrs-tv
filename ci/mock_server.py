@@ -9,6 +9,7 @@ PNGs. RTX routes (/library, /play, /stop) answer from rtx_library.json. Every re
 <fixtures dir>/requests.log with its status, so the run shows what the app called.
 """
 import base64
+import hashlib
 import json
 import struct
 import time
@@ -293,13 +294,20 @@ def tv_sports():
             "channels": [groups["sports"], groups["golf"], groups["racing"]]}
 
 
+def ep_id(season, episode):
+    """An episode's playable id, as the PC makes it: a hash of what it is."""
+    return hashlib.sha1(f"e:tmdb1396:s{season:02d}e{episode:02d}".encode()).hexdigest()[:12]
+
+
 class Handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     plex_checks = 0
     # One film part-way through, so Home's Continue Watching row has something to show.
     # And an On Demand film part-way through, so its page offers Resume.
     positions = {"matrix": {"t": 3120.0, "duration": 8160.0, "at": 1795300000.0, "where": "iphone"},
-                 "od:movie-70000": {"t": 2700.0, "duration": 10320.0, "at": 1795300100.0, "where": "apple-tv"}}
+                 "od:movie-70000": {"t": 2700.0, "duration": 10320.0, "at": 1795300100.0, "where": "apple-tv"},
+                 # Breaking Bad S5 E3, 20 minutes in, so its page offers Resume S5 E3
+                 ep_id(5, 3): {"t": 1200.0, "duration": 2820.0, "at": 1795300200.0, "where": "apple-tv"}}
     cleared = {}
     cast = {"state": "idle", "film": None, "stalls": 0}
 
@@ -355,6 +363,14 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {"film": film}) if film else self._send(404, {"error": "no match"})
         if path in ("/play", "/stop"):
             return self._send(200, {"session": "s1", "url": "/missing.m3u8", "ready": True})
+        if path == "/show":
+            # The PC's episodes of a HolyArrs show (rtx-upscale-stream src/episodes.py): Breaking Bad's season 5.
+            if q.get("title") != "2":
+                return self._send(200, {"title_id": int(q.get("title") or 0), "episodes": []})
+            return self._send(200, {"title_id": 2, "episodes": [
+                {"id": ep_id(5, n), "key": f"e:tmdb1396:s05e{n:02d}", "kind": "episode", "title": f"Breaking Bad S5 E{n}",
+                 "name": f"Episode {n}", "season": 5, "episode": n, "duration_s": 2820.0, "width": 1920, "height": 1080,
+                 "range": "SDR", "upscale": True} for n in range(1, 9)]})
         if path == "/positions":
             return self._send(200, {"positions": Handler.positions, "cleared": Handler.cleared})
         if path == "/position":

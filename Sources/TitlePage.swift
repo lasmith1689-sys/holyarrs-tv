@@ -78,6 +78,8 @@ struct TitlePage: View {
     @State private var checkedPC = false
     /// Asked for here just now: the download card shows "Looking for the best copy" until the download appears.
     @State private var askedAt: Date?
+    /// A Library show's episodes the PC can play (GET /show), in order.
+    @State private var pcEpisodes: [RTXEpisode] = []
 
     var body: some View {
         ZStack {
@@ -101,8 +103,11 @@ struct TitlePage: View {
         .task(id: info?.name) {
             await rtx.refreshIfStale(maxAge: 30)
             await checkPC()
+            if let info, info.kind == .show, let id = info.titleId { pcEpisodes = await rtx.show(titleId: id) }
         }
-        .fullScreenCover(item: $playing) { PlayerScreen(request: $0) }
+        .fullScreenCover(item: $playing) { req in
+            PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
+        }
         .confirmationDialog("Which quality?", isPresented: $choosingQuality, titleVisibility: .visible) {
             ForEach(qualities, id: \.id) { q in
                 Button(q.name) { Task { await ask(seasons: pendingSeasons.seasons, futureOnly: pendingSeasons.futureOnly, quality: q.id) } }
@@ -115,7 +120,7 @@ struct TitlePage: View {
             if let info { SeasonPicker(info: info) { seasons, futureOnly in startAsk(seasons: seasons, futureOnly: futureOnly) } }
         }
         .sheet(item: Binding(get: { openSeason.map { SeasonID(number: $0) } }, set: { openSeason = $0?.number })) { s in
-            if let info { EpisodesSheet(info: info, season: s.number) }
+            if let info { EpisodesSheet(info: info, season: s.number, pc: pcEpisodes) }
         }
     }
 
@@ -187,8 +192,28 @@ struct TitlePage: View {
         checkedPC = true
     }
 
+    /// The episode a show's page offers first: the one left part-way most recently, else the first the PC has.
+    private var nextEpisode: (episode: RTXEpisode, resume: Double?)? {
+        let started = pcEpisodes.filter { Resume.position($0.id) != nil }
+        if let e = started.max(by: { (Resume.savedAt($0.id) ?? 0) < (Resume.savedAt($1.id) ?? 0) }) {
+            return (e, Resume.position(e.id))
+        }
+        return pcEpisodes.first.map { ($0, nil) }
+    }
+
     @ViewBuilder private func actions(_ info: TitleInfo) -> some View {
         AdaptiveStack(spacing: S(30)) {
+            if info.kind == .show, let next = nextEpisode {
+                Button {
+                    playing = PlayRequest(label: "\(info.name) \u{00B7} \(next.episode.code)", film: next.episode.film,
+                                          seconds: next.resume ?? 0, backdrop: info.backdrop)
+                } label: {
+                    Label(next.resume.map { "Resume \(next.episode.code) from \(Resume.label($0))" } ?? "Play \(next.episode.code)",
+                          systemImage: "play.fill")
+                        .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
+                }
+                .buttonStyle(.borderedProminent)
+            }
             if let film = rtxFilm {
                 let resume = rtx.startPoint(film)
                 Button {
@@ -525,27 +550,38 @@ struct SeasonPicker: View {
 struct EpisodesSheet: View {
     let info: TitleInfo
     let season: Int
+    /// The show's episodes the PC can play: those rows play (or resume) on a press.
+    var pc: [RTXEpisode] = []
     @EnvironmentObject private var api: HolyArrs
+    @EnvironmentObject private var rtx: RTXServer
     @State private var rows: [EpisodeRow] = []
     @State private var error: String?
+    @State private var playing: PlayRequest?
+
+    private func playable(_ n: Int) -> RTXEpisode? { pc.first { $0.season == season && $0.episode == n } }
 
     var body: some View {
         NavigationStack {
             List {
                 ForEach(rows) { e in
-                    HStack(spacing: S(24)) {
-                        Artwork(raw: e.still, width: 300).frame(width: W(240), height: S(135)).clipShape(RoundedRectangle(cornerRadius: S(8)))
-                        VStack(alignment: .leading, spacing: S(6)) {
-                            Text("\(e.n). \(e.name)").font(.headline)
-                            Text(e.line).font(.callout).foregroundStyle(.secondary).lineLimit(2)
+                    if let ep = playable(e.n) {
+                        let resume = Resume.position(ep.id)
+                        Button {
+                            playing = PlayRequest(label: "\(info.name) \u{00B7} \(ep.code)", film: ep.film, seconds: resume ?? 0, backdrop: info.backdrop)
+                        } label: {
+                            row(e, trailing: resume.map { "Resume \(Resume.label($0))" } ?? "Play", progress: resume.map { $0 / max(1, ep.film.duration) })
                         }
-                        Spacer()
-                        if let s = e.state { Text(s).font(.callout.bold()).foregroundStyle(Theme.accent) }
+                        .accessibilityLabel("\(resume == nil ? "Play" : "Resume") \(ep.code): \(e.name)")
+                    } else {
+                        row(e, trailing: e.state, progress: nil)
                     }
                 }
                 if rows.isEmpty { Text(error ?? "Loading...").foregroundStyle(.secondary) }
             }
             .navigationTitle("\(info.name): Season \(season)")
+        }
+        .fullScreenCover(item: $playing) { req in
+            PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
         }
         .task {
             if let id = info.titleId, let j = try? await api.get("titles/\(id)/episodes", ["season": String(season)]) {
@@ -563,6 +599,27 @@ struct EpisodesSheet: View {
                     }
                 } catch { self.error = error.localizedDescription }
             }
+        }
+    }
+
+    private func row(_ e: EpisodeRow, trailing: String?, progress: Double?) -> some View {
+        HStack(spacing: S(24)) {
+            Artwork(raw: e.still, width: 300).frame(width: W(240), height: S(135)).clipShape(RoundedRectangle(cornerRadius: S(8)))
+            VStack(alignment: .leading, spacing: S(6)) {
+                Text("\(e.n). \(e.name)").font(.headline)
+                Text(e.line).font(.callout).foregroundStyle(.secondary).lineLimit(2)
+                if let progress {
+                    GeometryReader { g in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Color.white.opacity(0.2))
+                            Capsule().fill(Theme.accent).frame(width: g.size.width * min(1, progress))
+                        }
+                    }
+                    .frame(width: W(240), height: S(5))
+                }
+            }
+            Spacer()
+            if let trailing { Text(trailing).font(.callout.bold()).foregroundStyle(Theme.accent) }
         }
     }
 }

@@ -172,6 +172,14 @@ final class RTXServer: ObservableObject {
         continueList.removeAll { $0.id == id }
     }
 
+    /// A HolyArrs show's episodes the PC can play (GET /show: HolyArrs' own records of which file holds each), in
+    /// order; empty when it has none or doesn't answer.
+    func show(titleId: Int) async -> [RTXEpisode] {
+        guard let base, let j = try? await RTXAPI(base: base, quick: true).get("show", [URLQueryItem(name: "title", value: String(titleId))])
+        else { return [] }
+        return j["episodes"].array.compactMap(RTXEpisode.init)
+    }
+
     /// Asks the PC itself for a title's film (its own matching), for when the list here has no match.
     func find(name: String, year: Int?) async -> RTXFilm? {
         guard let base else { return nil }
@@ -302,6 +310,26 @@ struct RTXFilm: Identifiable, Hashable {
     }
 
     var label: String { upscale ? "4K UPSCALE" : "4K" }
+}
+
+/// One TV episode on the PC: played like a film (same player, same positions), known by show, season and episode.
+struct RTXEpisode: Identifiable, Hashable {
+    let film: RTXFilm
+    let season: Int
+    let episode: Int
+    let name: String
+
+    var id: String { film.id }
+    /// "S1 E3"
+    var code: String { "S\(season) E\(episode)" }
+
+    init?(_ j: JSON) {
+        guard let film = RTXFilm(j), let s = j["season"].int, let e = j["episode"].int else { return nil }
+        self.film = film
+        season = s
+        episode = e
+        name = j["name"].string ?? "Episode \(e)"
+    }
 }
 
 struct RTXAPI {
