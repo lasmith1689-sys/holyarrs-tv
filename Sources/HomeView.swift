@@ -185,6 +185,8 @@ struct HomeView: View {
     @ObservedObject private var offline = OfflineStore.shared
     /// Apple TV: coming down from the tab bar lands on the first Continue Watching card (the hero when the row is empty).
     @FocusState private var homeFocus: String?
+    /// The Apple TV starts on Continue Watching once per launch (not every time Home's tab is passed over).
+    private static var startedOnRow = false
 
     var body: some View {
         ScrollView {
@@ -222,6 +224,13 @@ struct HomeView: View {
         }
         #if os(tvOS)
         .defaultFocus($homeFocus, ContinueRow.firstFocus, priority: .userInitiated)
+        .task {
+            // At launch, focus moves from the tab bar to the first Continue Watching card (if there is one).
+            guard !HomeView.startedOnRow else { return }
+            HomeView.startedOnRow = true
+            try? await Task.sleep(nanoseconds: 600_000_000)
+            homeFocus = ContinueRow.firstFocus
+        }
         #endif
         .ignoresSafeArea(edges: .top)
         .refreshable { await load() }

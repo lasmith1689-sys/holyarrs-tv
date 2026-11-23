@@ -163,10 +163,9 @@ final class ScreenTour: XCTestCase {
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
         let resumeCard = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch
         XCTAssertTrue(resumeCard.waitForExistence(timeout: 10), "Continue Watching card for the part-watched Matrix")
-        // Tab bar -> Continue Watching (its first card takes focus) -> Just arrived (The Matrix is its first card).
-        press(.down)
+        // At launch focus is on the first Continue Watching card; Down goes to Just arrived (The Matrix is its first card).
         sleep(1)
-        check(resumeCard.hasFocus, "one press down from the tab bar lands on the first Continue Watching card")
+        check(resumeCard.hasFocus, "the Apple TV starts on the first Continue Watching card")
         if !resumeCard.hasFocus { _ = reachRow(["Resume The Matrix"]) }
         press(.down)
         sleep(1)

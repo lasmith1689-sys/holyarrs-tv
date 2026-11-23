@@ -53,6 +53,18 @@ final class PhoneTour: XCTestCase {
         return e.exists && e.isHittable
     }
 
+    /// The labels and identifiers of every button on screen, read in one snapshot.
+    private func buttonNames() -> Set<String> {
+        guard let root = try? app.snapshot() else { return [] }
+        var out = Set<String>()
+        func walk(_ e: XCUIElementSnapshot) {
+            if e.elementType == .button { out.insert(e.label); out.insert(e.identifier) }
+            e.children.forEach(walk)
+        }
+        walk(root)
+        return out
+    }
+
     /// Waits for the live player to tune in, then a moment for the picture to start.
     private func waitPlaying() {
         let tuning = app.staticTexts["Tuning in on the PC..."]
@@ -320,8 +332,11 @@ final class PhoneTour: XCTestCase {
             second.tap()
             waitPlaying()
             tapPicture()
-            let systemClose = app.buttons["Close Button"]
-            check(feeds.waitForExistence(timeout: 3) && cast.exists && systemClose.exists && !app.buttons["xmark"].exists,
+            // Read every button from one snapshot: the buttons hide again after 4 s, and asking for them one by one
+            // took 4.4 s on a slow runner (run 45236765575).
+            let shown = feeds.waitForExistence(timeout: 3) ? buttonNames() : []
+            check(shown.contains("Other feeds") && shown.contains("Cast to a Chromecast or Google TV") && shown.contains("Close Button")
+                  && !shown.contains("xmark"),
                   "live player: after switching, a tap shows Feeds and Cast, with the system's Close (no second Close of the app's)")
             shot("live-player")
             check(feeds.waitForNonExistence(timeout: 8), "live player: the buttons go again by themselves")
