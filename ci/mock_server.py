@@ -300,6 +300,7 @@ class Handler(BaseHTTPRequestHandler):
     # And an On Demand film part-way through, so its page offers Resume.
     positions = {"matrix": {"t": 3120.0, "duration": 8160.0, "at": 1795300000.0, "where": "iphone"},
                  "od:movie-70000": {"t": 2700.0, "duration": 10320.0, "at": 1795300100.0, "where": "apple-tv"}}
+    cleared = {}
     cast = {"state": "idle", "film": None, "stalls": 0}
 
     def log_message(self, *a):
@@ -355,11 +356,25 @@ class Handler(BaseHTTPRequestHandler):
         if path in ("/play", "/stop"):
             return self._send(200, {"session": "s1", "url": "/missing.m3u8", "ready": True})
         if path == "/positions":
-            return self._send(200, {"positions": Handler.positions})
+            return self._send(200, {"positions": Handler.positions, "cleared": Handler.cleared})
         if path == "/position":
-            Handler.positions[q.get("id", "")] = {"t": float(q.get("t", 0)), "duration": float(q.get("d", 0)),
-                                                  "at": time.time(), "where": q.get("where", "")}
-            return self._send(200, Handler.positions[q.get("id", "")])
+            # The PC's rules (rtx-upscale-stream src/positions.py): a clear leaves a tombstone; a save that says
+            # when it happened (at=) loses to anything newer; one that doesn't can't bring back a cleared title.
+            fid, t, d = q.get("id", ""), float(q.get("t", 0)), float(q.get("d", 0))
+            at = float(q["at"]) if q.get("at") else None
+            cur_at = Handler.positions.get(fid, {}).get("at") or Handler.cleared.get(fid) or 0
+            if at is not None and at < cur_at:
+                return self._send(200, {})
+            if at is None and fid in Handler.cleared:
+                return self._send(200, {})
+            when = at if at is not None else time.time()
+            if t < 60 or (d > 0 and t > d - 240):
+                Handler.positions.pop(fid, None)
+                Handler.cleared[fid] = when
+                return self._send(200, {})
+            Handler.cleared.pop(fid, None)
+            Handler.positions[fid] = {"t": t, "duration": d, "at": when, "where": q.get("where", "")}
+            return self._send(200, Handler.positions[fid])
         if path == "/cast/status":
             return self._send(200, Handler.cast)
         if path == "/cast/devices":

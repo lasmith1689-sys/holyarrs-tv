@@ -28,9 +28,25 @@ final class RTXServer: ObservableObject {
     /// What the setup pays for, and when each runs out (GET /subscriptions).
     @Published private(set) var subscriptions: [Subscription] = []
 
+    /// Whether the PC answered the last time it was asked (nil: not asked yet). Home says so when it didn't.
+    @Published private(set) var reachable: Bool?
+    @Published private(set) var checking = false
+
     init() {
         address = UserDefaults.standard.string(forKey: "rtxAddress") ?? RTXServer.defaultAddress
         UserDefaults.standard.removeObject(forKey: "rtxEnabled")  // the old Show Play in 4K switch
+        Resume.server = base
+        loadLastGood()
+    }
+
+    /// The last answers that worked, shown at launch before the PC answers and kept while it doesn't, so Continue
+    /// Watching, Play in 4K and the TV tab never vanish because the PC is asleep or restarting.
+    private func loadLastGood() {
+        if let j = LastGood.read("library") { films = j["films"].array.compactMap(RTXFilm.init) }
+        if let j = LastGood.read("sports") { sports = RTXServer.sportsByName(j) }
+        if let j = LastGood.read("tv-status") { liveTV = j["configured"].bool }
+        if let j = LastGood.read("subscriptions") { subscriptions = j["items"].array.compactMap(Subscription.init) }
+        if let j = LastGood.read("teams") { teams = RTXServer.teamsByLeague(j) }
     }
 
     var base: URL? {
@@ -49,50 +65,75 @@ final class RTXServer: ObservableObject {
 
     func refresh() async {
         refreshedAt = Date()
-        guard let base else { films = []; error = "address not valid"; return }
+        guard let base else { error = "address not valid"; reachable = false; return }
+        checking = true
+        defer { checking = false }
         do {
-            let j = try await RTXAPI(base: base).get("library")
+            let (j, raw) = try await RTXAPI(base: base, quick: true).fetch("library")
             films = j["films"].array.compactMap(RTXFilm.init)
+            LastGood.write("library", raw)
             error = nil
+            reachable = true
             Resume.server = base
             await syncPositions()
             await refreshSports()
-            liveTV = (try? await RTXAPI(base: base).get("tv/status"))?["configured"].bool ?? false
-            if let s = try? await RTXAPI(base: base).get("subscriptions") {
-                subscriptions = s["items"].array.compactMap(Subscription.init)
+            // Only the PC's answer changes the TV tab: a failed check leaves it as it was.
+            if case let (s, raw)? = try? await RTXAPI(base: base, quick: true).fetch("tv/status") {
+                liveTV = s["configured"].bool
+                LastGood.write("tv-status", raw)
             }
-            if teams.isEmpty, let t = try? await RTXAPI(base: base).get("tv/teams") {
-                var out: [String: [LiveTeam]] = [:]
-                for (league, list) in t["leagues"].object { out[league] = list.array.compactMap(LiveTeam.init) }
-                teams = out
+            if case let (s, raw)? = try? await RTXAPI(base: base, quick: true).fetch("subscriptions") {
+                subscriptions = s["items"].array.compactMap(Subscription.init)
+                LastGood.write("subscriptions", raw)
+            }
+            if teams.isEmpty, case let (t, raw)? = try? await RTXAPI(base: base, quick: true).fetch("tv/teams") {
+                teams = RTXServer.teamsByLeague(t)
+                LastGood.write("teams", raw)
             }
         } catch {
-            films = []
-            liveTV = false
+            // Keep what we had (films, Continue Watching, the TV tab); Home says the PC isn't answering.
+            reachable = false
             self.error = "not reachable"
         }
+    }
+
+    nonisolated static func teamsByLeague(_ t: JSON) -> [String: [LiveTeam]] {
+        var out: [String: [LiveTeam]] = [:]
+        for (league, list) in t["leagues"].object { out[league] = list.array.compactMap(LiveTeam.init) }
+        return out
+    }
+
+    nonisolated static func sportsByName(_ j: JSON) -> [String: RTXFilm] {
+        var byName: [String: RTXFilm] = [:]
+        for f in j["files"].array {
+            if let name = f["name"].string, let film = RTXFilm(f) { byName[name.lowercased()] = film }
+        }
+        return byName
     }
 
     /// Where everything was left on any screen (kept on the PC), merged with this device's own notes: progress
     /// made offline goes up to the PC instead of being overwritten by it.
     func syncPositions() async {
-        guard let base, let j = try? await RTXAPI(base: base).get("positions") else { return }
-        let (merged, push) = Resume.merge(j["positions"])
+        guard let base, let j = try? await RTXAPI(base: base, quick: true).get("positions") else { return }
+        let (merged, push) = Resume.merge(j["positions"], cleared: j["cleared"])
         for p in push {
             let q = [URLQueryItem(name: "id", value: p.id), URLQueryItem(name: "t", value: String(format: "%.1f", p.t)),
                      URLQueryItem(name: "d", value: String(format: "%.1f", p.d)),
-                     URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone")]
-            _ = try? await RTXAPI(base: base).get("position", q)
+                     URLQueryItem(name: "where", value: Resume.here), URLQueryItem(name: "at", value: String(format: "%.3f", p.at))]
+            _ = try? await RTXAPI(base: base, quick: true).get("position", q)
         }
-        var list: [ContinueEntry] = []
-        for (id, v) in merged where v.t > 0 {
-            list.append(ContinueEntry(id: id, seconds: v.t, duration: v.d, at: Date(timeIntervalSince1970: v.at), place: v.place))
-        }
-        continueList = list.sorted { $0.at > $1.at }
+        continueList = RTXServer.entries(merged)
+    }
+
+    /// Continue Watching's entries, newest first.
+    nonisolated static func entries(_ list: [String: Resume.Entry]) -> [ContinueEntry] {
+        list.filter { $0.value.t > 0 }
+            .map { ContinueEntry(id: $0.key, seconds: $0.value.t, duration: $0.value.d, at: Date(timeIntervalSince1970: $0.value.at), place: $0.value.place) }
+            .sorted { $0.at > $1.at }
     }
 
     /// Everything left part-way on any screen, newest first (from the PC's positions).
-    @Published private(set) var continueList: [ContinueEntry] = []
+    @Published private(set) var continueList: [ContinueEntry] = RTXServer.entries(Resume.local())
 
     /// Both teams of a Sportarr game, when the PC knows them ("Buffalo Bills", "Manchester United"): the longest of
     /// a team's names found as whole words wins.
@@ -142,6 +183,7 @@ final class RTXServer: ObservableObject {
 
     /// Why a Library movie has no Play in 4K, in plain words (shown on its page).
     var diagnosis: String {
+        if reachable == false { return "Can't reach the PC right now. Check that it's on, then try again from Home." }
         if let error { return "The RTX server is \(error) at \(address)." }
         return "Not on the RTX server yet (\(films.count) films loaded from it). New downloads appear there within 5 minutes."
     }
@@ -185,12 +227,9 @@ final class RTXServer: ObservableObject {
     }
 
     func refreshSports() async {
-        guard let base, let j = try? await RTXAPI(base: base).get("sports") else { return }
-        var byName: [String: RTXFilm] = [:]
-        for f in j["files"].array {
-            if let name = f["name"].string, let film = RTXFilm(f) { byName[name.lowercased()] = film }
-        }
-        sports = byName
+        guard let base, case let (j, raw)? = try? await RTXAPI(base: base, quick: true).fetch("sports") else { return }
+        sports = RTXServer.sportsByName(j)
+        LastGood.write("sports", raw)
     }
 
     /// The RTX copy of a Sportarr event: the first of its files the PC can play.
@@ -267,6 +306,9 @@ struct RTXFilm: Identifiable, Hashable {
 
 struct RTXAPI {
     let base: URL
+    /// Lists and notes (library, positions, status): a short timeout, so a PC that is asleep shows as such in
+    /// seconds. Starting a stream keeps the long one.
+    var quick = false
 
     private static let session: URLSession = {
         let c = URLSessionConfiguration.default
@@ -275,14 +317,26 @@ struct RTXAPI {
         return URLSession(configuration: c)
     }()
 
+    private static let quickSession: URLSession = {
+        let c = URLSessionConfiguration.default
+        c.timeoutIntervalForRequest = 10
+        c.requestCachePolicy = .reloadIgnoringLocalCacheData
+        return URLSession(configuration: c)
+    }()
+
     func get(_ path: String, _ query: [URLQueryItem] = []) async throws -> JSON {
+        try await fetch(path, query).0
+    }
+
+    /// The answer and its bytes (kept as the last good copy by the caller).
+    func fetch(_ path: String, _ query: [URLQueryItem] = []) async throws -> (JSON, Data) {
         guard var comps = URLComponents(url: base.appendingPathComponent(path), resolvingAgainstBaseURL: false) else { throw APIError.badAddress }
         if !query.isEmpty { comps.queryItems = query }
         guard let url = comps.url else { throw APIError.badAddress }
-        let (data, response) = try await RTXAPI.session.data(from: url)
+        let (data, response) = try await (quick ? RTXAPI.quickSession : RTXAPI.session).data(from: url)
         let code = (response as? HTTPURLResponse)?.statusCode ?? 0
         guard code == 200 else { throw APIError.server(code, String(data: data, encoding: .utf8) ?? "") }
-        return try JSON.parse(data)
+        return (try JSON.parse(data), data)
     }
 
     func play(film: String, seconds: Double) async throws -> (URL, String) {
@@ -555,95 +609,19 @@ final class PlaybackModel: ObservableObject {
     }
 }
 
-/// Where each RTX film was left in this app (UserDefaults, per RTX film id). Not kept for the first minute or the last 4.
-enum Resume {
+extension Resume {
     /// The RTX server, which keeps every screen's positions (set once the server answers).
     @MainActor static var server: URL?
-    private static func key(_ id: String) -> String { "resume.\(id)" }
 
-    /// Merges the PC's positions with this device's: for each title, whichever screen saved (or cleared) it
-    /// last wins. Returns the merged list and what the PC hasn't heard yet (progress made offline, or while the
-    /// PC was unreachable), so the caller can send those up. Before 2026-11-22 the PC's list simply replaced
-    /// this device's, which wiped anything watched offline.
-    static func merge(_ pc: JSON) -> (positions: [String: (t: Double, d: Double, at: Double, place: String)],
-                                      push: [(id: String, t: Double, d: Double)]) {
-        let d = UserDefaults.standard
-        var out: [String: (t: Double, d: Double, at: Double, place: String)] = [:]
-        var push: [(id: String, t: Double, d: Double)] = []
-        if case let .object(o) = pc {
-            for (id, v) in o where !id.hasPrefix("od:") {  // On Demand titles keep their own (OnDemand.swift)
-                guard let t = v["t"].double else { continue }
-                out[id] = (t, v["duration"].double ?? 0, v["at"].double ?? 0, v["where"].string ?? "")
-            }
-        }
-        let keys = d.dictionaryRepresentation().keys
-        // Titles finished or started over here after the PC's note: clear them there too.
-        for k in keys where k.hasPrefix("resume.cleared.") {
-            let id = String(k.dropFirst("resume.cleared.".count))
-            let cleared = d.double(forKey: k)
-            if let p = out[id], p.at < cleared {
-                out[id] = nil
-                push.append((id, 0, p.d))
-            } else if out[id] == nil || out[id]!.at >= cleared {
-                d.removeObject(forKey: k)  // settled: the PC agrees, or another screen watched it since
-            }
-        }
-        // Positions saved here after the PC's note (or that the PC never got).
-        for k in keys where k.hasPrefix("resume.") && !k.hasPrefix("resume.at.") && !k.hasPrefix("resume.d.")
-            && !k.hasPrefix("resume.cleared.") {
-            let id = String(k.dropFirst("resume.".count))
-            let t = d.double(forKey: k), at = d.double(forKey: "resume.at.\(id)")
-            guard t > 0 else { continue }
-            if let p = out[id], p.at >= at { continue }
-            let dur = d.double(forKey: "resume.d.\(id)")
-            out[id] = (t, dur > 0 ? dur : (out[id]?.d ?? 0), at, Device.isTV ? "apple-tv" : "iphone")
-            push.append((id, t, out[id]!.d))
-        }
-        // This device now mirrors the merged list.
-        for k in keys where k.hasPrefix("resume.") && !k.hasPrefix("resume.cleared.") { d.removeObject(forKey: k) }
-        for (id, p) in out {
-            d.set(p.t, forKey: key(id))
-            d.set(p.at, forKey: "resume.at.\(id)")
-            if p.d > 0 { d.set(p.d, forKey: "resume.d.\(id)") }
-        }
-        return (out, push)
-    }
-
-    @MainActor static func send(_ id: String, _ seconds: Double, duration: Double) {
+    /// Tells the PC where this device left a title (seconds 0: cleared), with when that happened here, so an older
+    /// note from another screen can't overwrite it and a stale one from here can't undo a clear made elsewhere.
+    @MainActor static func send(_ id: String, _ seconds: Double, duration: Double, at: Double? = nil) {
         guard let base = server else { return }
+        let when = at ?? savedAt(id) ?? Date().timeIntervalSince1970
         let q = [URLQueryItem(name: "id", value: id), URLQueryItem(name: "t", value: String(format: "%.1f", seconds)),
                  URLQueryItem(name: "d", value: String(format: "%.1f", duration)),
-                 URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone")]
-        Task { _ = try? await RTXAPI(base: base).get("position", q) }
-    }
-
-    static func position(_ id: String) -> Double? {
-        let v = UserDefaults.standard.double(forKey: key(id))
-        return v > 0 ? v : nil
-    }
-
-    static func save(_ id: String, _ seconds: Double, duration: Double) {
-        if seconds < 60 || (duration > 0 && seconds > duration - 240) {
-            clear(id)
-        } else {
-            UserDefaults.standard.set(seconds, forKey: key(id))
-            UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "resume.at.\(id)")
-            if duration > 0 { UserDefaults.standard.set(duration, forKey: "resume.d.\(id)") }
-            UserDefaults.standard.removeObject(forKey: "resume.cleared.\(id)")
-        }
-    }
-
-    static func clear(_ id: String) {
-        UserDefaults.standard.removeObject(forKey: key(id))
-        UserDefaults.standard.removeObject(forKey: "resume.at.\(id)")
-        UserDefaults.standard.removeObject(forKey: "resume.d.\(id)")
-        // Remembered until the PC has heard, so a finish watched offline isn't undone by the PC's older note.
-        UserDefaults.standard.set(Date().timeIntervalSince1970, forKey: "resume.cleared.\(id)")
-    }
-
-    static func label(_ seconds: Double) -> String {
-        let s = Int(seconds)
-        return s >= 3600 ? String(format: "%d:%02d:%02d", s / 3600, s / 60 % 60, s % 60) : String(format: "%d:%02d", s / 60, s % 60)
+                 URLQueryItem(name: "where", value: here), URLQueryItem(name: "at", value: String(format: "%.3f", when))]
+        Task { _ = try? await RTXAPI(base: base, quick: true).get("position", q) }
     }
 }
 

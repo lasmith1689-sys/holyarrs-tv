@@ -1,3 +1,4 @@
+import UIKit
 import XCTest
 
 /// Opens every screen against ci/mock_server.py and saves a screenshot of each (plus the accessibility tree)
@@ -16,10 +17,13 @@ final class ScreenTour: XCTestCase {
 
     /// Launches on a tab. Pages are only passed when given: a value passed at launch can't be changed by the app,
     /// so passing one every time would hide what the app itself saves (Home's Browse choice, the Downloads page).
-    private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live") {
+    /// `rtx` / `holyarrs`: another address for that server (a closed port: the PC or HolyArrs not answering).
+    private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live",
+                        rtx: String? = nil, holyarrs: String? = nil) {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage]
+        app.launchArguments += ["-holyarrsAddress", holyarrs ?? server, "-rtxAddress", rtx ?? server, "-sportarrAddress", server,
+                                "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage]
         if let explore { app.launchArguments += ["-exploreKind", explore] }
         if let page { app.launchArguments += ["-downloadsPage", page] }
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
@@ -39,10 +43,44 @@ final class ScreenTour: XCTestCase {
         return b.waitForExistence(timeout: 10) && (b.hasFocus || b.isSelected)
     }
 
+    /// The share of a screenshot that is black: about 0.99 for the simulator's boot screen (an Apple logo and a
+    /// progress bar on black), under 0.1 for any screen of the app. Measured on a small copy of the picture.
+    private func blackShare(_ s: XCUIScreenshot) -> Double {
+        guard let cg = s.image.cgImage else { return 0 }
+        let w = 96, h = 54
+        var px = [UInt8](repeating: 0, count: w * h * 4)
+        let drawn: Bool = px.withUnsafeMutableBytes { buf in
+            guard let ctx = CGContext(data: buf.baseAddress, width: w, height: h, bitsPerComponent: 8, bytesPerRow: w * 4,
+                                      space: CGColorSpaceCreateDeviceRGB(), bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)
+            else { return false }
+            ctx.draw(cg, in: CGRect(x: 0, y: 0, width: w, height: h))
+            return true
+        }
+        guard drawn else { return 0 }
+        var dark = 0
+        for i in stride(from: 0, to: px.count, by: 4) where Int(px[i]) + Int(px[i + 1]) + Int(px[i + 2]) <= 12 { dark += 1 }
+        return Double(dark) / Double(w * h)
+    }
+
+    /// A screenshot of what the app shows: never the simulator's boot screen or a black frame (run 45216775979 saved
+    /// 19 boot screens while the app was on the right page). Retakes for a while, then fails the check.
+    private func appScreenshot(wait: Int = 3) -> XCUIScreenshot {
+        var s = XCUIScreen.main.screenshot()
+        var tries = 0
+        while blackShare(s) > 0.95 && tries < wait {
+            tries += 1
+            sleep(5)
+            s = XCUIScreen.main.screenshot()
+        }
+        return s
+    }
+
     private func shot(_ name: String) {
         step += 1
         let label = String(format: "%02d-%@", step, name)
-        let screenshot = XCUIScreen.main.screenshot()
+        let screenshot = appScreenshot()
+        let share = blackShare(screenshot)
+        check(share <= 0.95, "screenshot \(label) shows the app, not a boot or black screen (black share \(String(format: "%.2f", share)))")
         let attachment = XCTAttachment(screenshot: screenshot)
         attachment.name = label
         attachment.lifetime = .keepAlways
@@ -86,8 +124,11 @@ final class ScreenTour: XCTestCase {
     }
 
     func testTour() {
-        // Signed out: the sign-in screen.
+        // Signed out: the sign-in screen. First, wait for the simulator to show the app at all (up to 8 minutes):
+        // a first boot can keep its progress screen up for minutes after the app is running.
         launch(tab: "home", signedIn: false)
+        let first = appScreenshot(wait: 96)
+        check(blackShare(first) <= 0.95, "the simulator shows the app before the tour starts")
         let plex = app.buttons["Sign in with Plex"]
         XCTAssertTrue(plex.waitForExistence(timeout: 10), "sign-in screen with Plex")
         shot("sign-in")
@@ -120,13 +161,13 @@ final class ScreenTour: XCTestCase {
         launch(tab: "home")
         _ = app.buttons["More info"].waitForExistence(timeout: 15)
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
-        // Tab bar -> hero buttons -> Continue Watching -> Just arrived (The Matrix is its first card).
+        let resumeCard = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch
+        XCTAssertTrue(resumeCard.waitForExistence(timeout: 10), "Continue Watching card for the part-watched Matrix")
+        // Tab bar -> Continue Watching (its first card takes focus) -> Just arrived (The Matrix is its first card).
         press(.down)
         sleep(1)
-        press(.down)
-        sleep(1)
-        XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.exists,
-                      "Continue Watching card for the part-watched Matrix")
+        check(resumeCard.hasFocus, "one press down from the tab bar lands on the first Continue Watching card")
+        if !resumeCard.hasFocus { _ = reachRow(["Resume The Matrix"]) }
         press(.down)
         sleep(1)
         if focus(matrix, .left, limit: 3) {
@@ -151,6 +192,22 @@ final class ScreenTour: XCTestCase {
         } else {
             XCTFail("could not focus The Matrix on Home")
         }
+
+        // The PC not answering (a closed port): the last good lists stay, the TV tab stays, Home says so.
+        launch(tab: "home", rtx: "http://127.0.0.1:9")
+        check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),
+              "PC not answering: Continue Watching keeps The Matrix")
+        check(app.staticTexts["PC not answering"].waitForExistence(timeout: 25), "PC not answering: Home says so")
+        check(app.tabBars.firstMatch.buttons["TV"].exists, "PC not answering: the TV tab stays")
+        shot("home-pc-down")
+        // HolyArrs not answering: the tabs and Home (with the PC's rows), not the sign-in screen.
+        launch(tab: "home", holyarrs: "http://127.0.0.1:9")
+        check(app.staticTexts["HolyArrs not answering"].waitForExistence(timeout: 25), "HolyArrs not answering: Home says so")
+        check(!app.buttons["Sign in with Plex"].exists && app.tabBars.firstMatch.buttons["Home"].exists,
+              "HolyArrs not answering: the app opens on its tabs, not the sign-in screen")
+        check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.exists,
+              "HolyArrs not answering: Continue Watching still plays from the PC")
+        shot("home-holyarrs-down")
 
         // Explore is Browse on Home now: a saved "explore" opens Home; Music is one press from there.
         launch(tab: "explore")

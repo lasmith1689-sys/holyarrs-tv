@@ -66,6 +66,8 @@ struct Hero: View {
     let items: [Card]
     /// Home's Find button (opens Search): the quickest way to something new to get or watch.
     var find: (() -> Void)? = nil
+    /// Its height at TV size (scaled on iPhone). Home's is shorter, so Continue Watching sits right under it.
+    var height: CGFloat = 860
     @EnvironmentObject private var api: HolyArrs
     @State private var index = 0
     @State private var trailer: Trailer?
@@ -107,7 +109,8 @@ struct Hero: View {
                     .font(.title3).foregroundStyle(Color.white.opacity(0.8))
                     .lineLimit(1).minimumScaleFactor(0.6)
                     if let o = item.overview {
-                        Text(o).font(.system(size: F(26))).foregroundStyle(Color.white.opacity(0.75)).lineLimit(3).frame(maxWidth: W(1100), alignment: .leading)
+                        Text(o).font(.system(size: F(26))).foregroundStyle(Color.white.opacity(0.75))
+                            .lineLimit(height < 860 && !Device.isTV ? 2 : 3).frame(maxWidth: W(1100), alignment: .leading)
                     }
                     HStack(spacing: S(30)) {
                         NavigationLink(value: item.route) {
@@ -144,7 +147,7 @@ struct Hero: View {
                 .padding(.horizontal, Theme.sidePadding + S(30))
                 .padding(.bottom, S(60))
             }
-            .frame(height: S(860))
+            .frame(height: S(height))
             .ignoresSafeArea(edges: .horizontal)  // edge to edge, like the Apple TV app's heroes
             .onAppear { shown = true }
             .onDisappear { shown = false }
@@ -180,13 +183,16 @@ struct HomeView: View {
     @State private var loading = true
     @State private var error: String?
     @ObservedObject private var offline = OfflineStore.shared
+    /// Apple TV: coming down from the tab bar lands on the first Continue Watching card (the hero when the row is empty).
+    @FocusState private var homeFocus: String?
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(50)) {
-                Hero(items: hero, find: { tab = "search" })
+                Hero(items: hero, find: { tab = "search" }, height: Device.isTV ? 600 : 700)
+                ConnectionLine()
+                ContinueRow(focus: $homeFocus)
                 SubscriptionWarning()
-                ContinueRow()
                 if approvals > 0 || stuck > 0 {
                     AdaptiveStack(spacing: S(30)) {
                         if approvals > 0 { Label("\(approvals) waiting for your OK", systemImage: "hand.raised") }
@@ -214,6 +220,9 @@ struct HomeView: View {
             }
             .padding(.bottom, S(80))
         }
+        #if os(tvOS)
+        .defaultFocus($homeFocus, ContinueRow.firstFocus, priority: .userInitiated)
+        #endif
         .ignoresSafeArea(edges: .top)
         .refreshable { await load() }
         .task { await load() }

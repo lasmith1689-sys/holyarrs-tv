@@ -53,6 +53,9 @@ final class ContinueArt: ObservableObject {
 }
 
 struct ContinueRow: View {
+    /// Home's focus: the first card answers to `firstFocus`, so the Apple TV starts there.
+    var focus: FocusState<String?>.Binding
+    static let firstFocus = "continue-first"
     @EnvironmentObject private var rtx: RTXServer
     @EnvironmentObject private var api: HolyArrs
     @ObservedObject private var art = ContinueArt.shared
@@ -69,7 +72,9 @@ struct ContinueRow: View {
                     .padding(.horizontal, Theme.sidePadding)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .top, spacing: S(40)) {
-                        ForEach(entries, id: \.0.id) { entry, film in
+                        let list = entries
+                        ForEach(list.indices, id: \.self) { i in
+                            let (entry, film) = list[i]
                             let card = art.cards[film.id]
                             Button {
                                 playing = PlayRequest(label: card?.name ?? film.title, film: film, seconds: entry.seconds,
@@ -78,6 +83,7 @@ struct ContinueRow: View {
                                 ContinueCell(entry: entry, film: film, card: card)
                             }
                             .buttonStyle(QuietButtonStyle())
+                            .focused(focus, equals: i == 0 ? ContinueRow.firstFocus : "continue-\(entry.id)")
                             .contextMenu {
                                 if let card {
                                     NavigationLink(value: card.route) { Label("Details", systemImage: "info.circle") }
@@ -154,5 +160,49 @@ struct ContinueCell: View {
         .animation(.easeOut(duration: 0.18), value: focused)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("Resume \(card?.name ?? film.title), \(entry.left)")
+    }
+}
+
+/// One line under Home's hero when the PC or HolyArrs isn't answering: what still works stays on screen (the last
+/// good lists), and Retry asks again now. Nothing shows while both answer.
+struct ConnectionLine: View {
+    @EnvironmentObject private var rtx: RTXServer
+    @EnvironmentObject private var api: HolyArrs
+
+    private var text: String? {
+        let pc = rtx.reachable == false, holyarrs = api.unreachable
+        if pc && holyarrs { return "PC and HolyArrs not answering" }
+        if pc { return "PC not answering" }
+        if holyarrs { return "HolyArrs not answering" }
+        return nil
+    }
+
+    var body: some View {
+        if let text {
+            HStack(spacing: S(24)) {
+                Image(systemName: "wifi.exclamationmark").foregroundStyle(Theme.accent)
+                Text(text).font(.system(size: F(26), weight: .semibold))
+                Text("What's here is from the last time it answered.").font(.system(size: F(22))).foregroundStyle(Theme.dim)
+                    .lineLimit(2)
+                Spacer(minLength: 0)
+                Button {
+                    Task {
+                        if api.unreachable { await api.restore() }
+                        await rtx.refresh()
+                    }
+                } label: {
+                    Label(rtx.checking || api.checking ? "Trying..." : "Retry", systemImage: "arrow.clockwise")
+                        .font(.system(size: F(24), weight: .semibold))
+                }
+                .disabled(rtx.checking || api.checking)
+                .accessibilityLabel("Retry")
+            }
+            .padding(.horizontal, S(28))
+            .padding(.vertical, S(16))
+            .overlay(RoundedRectangle(cornerRadius: S(16), style: .continuous).stroke(Theme.accent.opacity(0.7), lineWidth: 1.5))
+            .padding(.horizontal, Theme.sidePadding)
+            .accessibilityElement(children: .contain)
+            .accessibilityIdentifier("connection-line")
+        }
     }
 }

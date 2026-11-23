@@ -55,6 +55,11 @@ struct RootView: View {
     /// iPhone: Settings open on Home's stack (it was a tab).
     @AppStorage("homeSettings") private var homeSettings = false
 
+    /// iPhone away from home (HolyArrs and the PC both silent) with films downloaded: their list, not the tabs.
+    private var awayWithDownloads: Bool {
+        !Device.isTV && api.unreachable && rtx.reachable != true && !OfflineStore.shared.items.isEmpty
+    }
+
     /// Where a saved tab from an older layout lives now. Read through this (not only rewritten once at launch) so a
     /// value that can't be rewritten, such as one passed at launch, still opens the right tab.
     static func current(_ saved: String) -> String {
@@ -71,7 +76,7 @@ struct RootView: View {
             Backdrop()
             if api.checking && api.me == nil {
                 ProgressView()
-            } else if let me = api.me {
+            } else if let me = api.me, !awayWithDownloads {
                 TabView(selection: Binding(get: { RootView.current(tab) }, set: { tab = $0 })) {
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
                     if sportarr.enabled || rtx.liveTV {
@@ -117,7 +122,14 @@ struct RootView: View {
             }
             tab = RootView.current(tab)
         }
-        .task(id: api.address) { await api.restore() }
+        .task(id: api.address) {
+            await api.restore()
+            // HolyArrs not answering (the PC restarting): ask again every minute until it does.
+            while !Task.isCancelled {
+                try? await Task.sleep(nanoseconds: 60_000_000_000)
+                if api.unreachable { await api.restore() }
+            }
+        }
         .task(id: rtx.address) {
             // The PC's film list changes as downloads land: read it again every few minutes while the app is open.
             await rtx.refresh()
@@ -132,6 +144,7 @@ struct RootView: View {
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
                 Task {
+                    if api.unreachable { await api.restore() }
                     await rtx.refreshIfStale(maxAge: 30)
                     #if os(iOS)
                     await OfflineStore.shared.resumeWanted(rtx: rtx.error == nil ? rtx.base : nil)

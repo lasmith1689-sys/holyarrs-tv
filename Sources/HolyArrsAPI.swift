@@ -82,14 +82,18 @@ final class HolyArrs: ObservableObject {
             j = try await get("auth/me")
             unreachable = false
         } catch {
-            // No answer at all (away from home, no network) as opposed to "signed out": the iPhone then opens
-            // its downloads instead of the sign-in screen.
-            unreachable = error is URLError
-            me = nil
+            // No answer at all (away from home, the PC restarting) as opposed to "signed out". Someone who signed
+            // in here before keeps the app (the last account details, Home says HolyArrs isn't answering) instead of
+            // the sign-in screen; the iPhone away from home opens its downloads.
+            var down = error is URLError
+            if case let APIError.server(code, _) = error, code >= 500 { down = true }
+            unreachable = down
+            me = down ? Me.lastSignedIn : nil
             return false
         }
         csrf = j["csrf"].string ?? csrf
         me = Me(j)
+        Me.lastSignedIn = me
         return true
     }
 
@@ -167,6 +171,7 @@ final class HolyArrs: ObservableObject {
         if let base { HTTPCookieStorage.shared.cookies(for: base)?.forEach { HTTPCookieStorage.shared.deleteCookie($0) } }
         csrf = ""
         me = nil
+        Me.lastSignedIn = nil
     }
 
     // MARK: Requests
@@ -260,6 +265,25 @@ struct Me: Equatable {
         role = j["role"].string ?? ""
         // "perms" is the caller's effective permissions (webserver.Caller.Effective), already expanded for the role.
         permissions = Set(j.first("perms", "permissions").array.compactMap(\.string))
+    }
+
+    /// Who last signed in on this device (name, role and permissions only), so the app still opens when
+    /// HolyArrs is down. Cleared by Sign out.
+    static var lastSignedIn: Me? {
+        get {
+            guard let d = UserDefaults.standard.dictionary(forKey: "lastMe"), let id = d["id"] as? Int, let name = d["name"] as? String
+            else { return nil }
+            let perms = (d["perms"] as? [String] ?? []).map(JSON.string)
+            return Me(.object(["id": .number(Double(id)), "name": .string(name), "role": .string(d["role"] as? String ?? ""),
+                               "perms": .array(perms)]))
+        }
+        set {
+            if let m = newValue {
+                UserDefaults.standard.set(["id": m.id, "name": m.name, "role": m.role, "perms": Array(m.permissions)], forKey: "lastMe")
+            } else {
+                UserDefaults.standard.removeObject(forKey: "lastMe")
+            }
+        }
     }
 
     var isOwner: Bool { role == "owner" }

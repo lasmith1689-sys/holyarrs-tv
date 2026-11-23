@@ -14,10 +14,11 @@ final class PhoneTour: XCTestCase {
     /// Launches on a tab. Pages are only passed when given: a value passed at launch can't be changed by the app,
     /// so passing one every time would hide what the app itself saves (Home's Browse choice, the Downloads page).
     private func launch(tab: String, signedIn: Bool = true, explore: String? = nil, page: String? = nil, tvPage: String = "live",
-                        more: [String] = []) {
+                        more: [String] = [], rtx: String? = nil) {
         app?.terminate()
         app = XCUIApplication()
-        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", server, "-sportarrAddress", server, "-outsideOn", "YES", "-tab", tab, "-tvPage", tvPage] + more
+        app.launchArguments += ["-holyarrsAddress", server, "-rtxAddress", rtx ?? server, "-sportarrAddress", server, "-outsideOn", "YES",
+                                "-tab", tab, "-tvPage", tvPage] + more
         if let explore { app.launchArguments += ["-exploreKind", explore] }
         if let page { app.launchArguments += ["-downloadsPage", page] }
         if signedIn { app.launchArguments += ["-testSignIn", "luke:test-password-1"] }
@@ -103,6 +104,12 @@ final class PhoneTour: XCTestCase {
         check(tabs == ["Home", "Sports", "TV", "Downloads", "Search"] && !app.tabBars.firstMatch.buttons["More"].exists,
               "iPhone tab bar has exactly 5 items, Home, Sports, TV, Downloads, Search, and no More (found \(tabs))")
         check(app.navigationBars.buttons["Settings"].exists, "Settings gear in Home's toolbar")
+        let card = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch
+        let bar = app.tabBars.firstMatch
+        check(card.exists && card.frame.minY > 0 && card.frame.maxY < bar.frame.minY,
+              "Continue Watching card on the first screen, above the tab bar (card \(card.frame), tab bar top \(bar.frame.minY))")
+        let warning = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch
+        check(app.staticTexts["Continue Watching"].frame.minY < warning.frame.minY, "Continue Watching comes before the subscription warning")
         shot("home")
         app.swipeUp()
         sleep(1)
@@ -136,6 +143,14 @@ final class PhoneTour: XCTestCase {
         } else {
             XCTFail("The Matrix not on Home")
         }
+
+        // The PC not answering (a closed port): Continue Watching and the TV tab stay, Home says so.
+        launch(tab: "home", rtx: "http://127.0.0.1:9")
+        check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),
+              "PC not answering: Continue Watching keeps The Matrix")
+        check(app.staticTexts["PC not answering"].waitForExistence(timeout: 25), "PC not answering: Home says so")
+        check(app.tabBars.firstMatch.buttons["TV"].exists, "PC not answering: the TV tab stays")
+        shot("home-pc-down")
 
         // Explore is Browse on Home now: a saved "explore" opens Home; Music and the genres are one tap from there.
         launch(tab: "explore")
