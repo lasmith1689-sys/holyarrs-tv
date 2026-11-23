@@ -135,7 +135,7 @@ struct DownloadRowView: View {
     private var line: String {
         var parts = ["\(Int(progress * 100))%"]
         if let s = d["speed"].double, s > 0 { parts.append(ByteCountFormatter.string(fromByteCount: Int64(s), countStyle: .file) + "/s") }
-        if let eta = d["eta"].int, eta > 0 { parts.append(eta >= 3600 ? "\(eta / 3600)h \(eta / 60 % 60)m left" : "\(max(1, eta / 60))m left") }
+        if let eta = d["eta"].int, eta > 0, eta < 7 * 86400 { parts.append(eta >= 3600 ? "\(eta / 3600)h \(eta / 60 % 60)m left" : "\(max(1, eta / 60))m left") }
         if let size = d["size"].double, size > 0 { parts.append(ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)) }
         if let t = d["text"].string { parts.append(t) }
         if let dl = d["downloader"].string { parts.append(dl) }

@@ -386,21 +386,22 @@ final class PhoneTour: XCTestCase {
             XCTFail("ESPN is not on TV")
         }
 
-        // Play in 4K switched off in Settings: a movie the PC has says so and switches it back on in one tap.
+        // Play in 4K can no longer be switched off: an old build's saved "off" (given here at launch) still leaves the
+        // movie playable, and Settings has no such switch.
         launch(tab: "home", more: ["-rtxEnabled", "NO"])
-        // Settings was left open on Home by the gear above (the app keeps it open across launches): back to Home.
+        // Settings was left open on Home by the gear above (the app keeps it open across launches).
         let settingsOpen = app.navigationBars["Settings"]
-        if settingsOpen.waitForExistence(timeout: 8) { settingsOpen.buttons.firstMatch.tap() }
+        if settingsOpen.waitForExistence(timeout: 8) {
+            check(!app.switches["Show Play in 4K"].exists, "Settings has no Show Play in 4K switch")
+            settingsOpen.buttons.firstMatch.tap()
+        }
         let film = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
         if scrollTo(film) {
             film.tap()
-            let turnOn = app.buttons["Turn on Play in 4K"]
-            check(turnOn.waitForExistence(timeout: 15) && !app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.exists,
-                  "Play in 4K off: the movie page says so and offers to turn it on")
-            shot("title-4k-off")
-            turnOn.tap()
-            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
-                  "Turn on Play in 4K brings Resume in 4K back")
+            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 15)
+                  && !app.buttons["Turn on Play in 4K"].exists,
+                  "an old saved Play in 4K off no longer hides Resume in 4K")
+            shot("title-4k-always")
         } else {
             XCTFail("The Matrix not on Home")
         }

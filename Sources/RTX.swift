@@ -9,7 +9,9 @@ final class RTXServer: ObservableObject {
     static let defaultAddress = "http://192.168.68.100:8787"
 
     @Published var address: String { didSet { UserDefaults.standard.set(address, forKey: "rtxAddress") } }
-    @Published var enabled: Bool { didSet { UserDefaults.standard.set(enabled, forKey: "rtxEnabled") } }
+    /// Play in 4K is how Afterglow plays movies (Plex is no longer the player), so it is always on. It used to be a
+    /// switch in Settings; switched off, a movie the PC had showed no way to play it.
+    let enabled = true
     @Published private(set) var films: [RTXFilm] = []
     /// Sportarr's downloaded games and races on the PC (GET /sports), matched to events by file name.
     @Published private(set) var sports: [String: RTXFilm] = [:]
@@ -28,9 +30,7 @@ final class RTXServer: ObservableObject {
 
     init() {
         address = UserDefaults.standard.string(forKey: "rtxAddress") ?? RTXServer.defaultAddress
-        // On unless switched off. bool(forKey:) also reads a value given at launch ("-rtxEnabled NO" arrives as text,
-        // which `as? Bool` silently took for "not set", leaving it on).
-        enabled = UserDefaults.standard.object(forKey: "rtxEnabled") == nil ? true : UserDefaults.standard.bool(forKey: "rtxEnabled")
+        UserDefaults.standard.removeObject(forKey: "rtxEnabled")  // the old Show Play in 4K switch
     }
 
     var base: URL? {
@@ -142,7 +142,6 @@ final class RTXServer: ObservableObject {
 
     /// Why a Library movie has no Play in 4K, in plain words (shown on its page).
     var diagnosis: String {
-        if !enabled { return "Play in 4K is turned off in Settings." }
         if let error { return "The RTX server is \(error) at \(address)." }
         return "Not on the RTX server yet (\(films.count) films loaded from it). New downloads appear there within 5 minutes."
     }
@@ -408,6 +407,7 @@ final class PlaybackModel: ObservableObject {
     private var loadStarted = Date()
     private var startup: Double?
     private var rateObserver: NSKeyValueObservation?
+    private var sentAt: Date?  // when the PC was last told the position
 
     func load(request: PlayRequest, rtx: URL?, cookies: [HTTPCookie]) async {
         loadStarted = Date()
@@ -512,9 +512,13 @@ final class PlaybackModel: ObservableObject {
         stats = rows
     }
 
-    private func savePosition(_ seconds: Double) {
+    /// Saved here on every tick; the PC hears at most every 8 s (the time observer also fires on every skip, which
+    /// sent it bursts of requests) and always on leaving.
+    private func savePosition(_ seconds: Double, leaving: Bool = false) {
         guard let film, !finished, seconds.isFinite else { return }
         Resume.save(film.id, seconds, duration: film.duration)
+        if !leaving, let sentAt, Date().timeIntervalSince(sentAt) < 8 { return }
+        sentAt = Date()
         Resume.send(film.id, seconds, duration: film.duration)
     }
 
@@ -538,7 +542,7 @@ final class PlaybackModel: ObservableObject {
         rateObserver = nil
         if !stopServer { session = nil }
         if let p = player {
-            savePosition(p.currentTime().seconds)
+            savePosition(p.currentTime().seconds, leaving: true)
             p.pause()
             if let o = timeObserver { p.removeTimeObserver(o) }
         }

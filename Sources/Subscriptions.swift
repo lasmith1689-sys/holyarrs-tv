@@ -48,8 +48,8 @@ struct Subscription: Identifiable, Hashable {
     var line: String {
         switch state {
         case "lifetime": return "Lifetime plan"
-        case "expired": return "Ran out on \(date)"
-        case "soon": return (daysLeft ?? 0) == 0 ? "Runs out today" : "Runs out in \(days) (\(date))"
+        case "expired": return expires == nil ? "Ran out" : "Ran out on \(date)"
+        case "soon": return daysLeft == nil ? "Runs out soon" : daysLeft == 0 ? "Runs out today" : "Runs out in \(days) (\(date))"
         case "ok": return "Until \(date) \u{00B7} \(days) left"
         default: return "Date not set yet"
         }

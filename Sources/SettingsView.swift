@@ -214,13 +214,12 @@ struct SettingsView: View {
             Section {
                 TextField(RTXServer.defaultAddress, text: $rtx.address)
                     .keyboardType(.URL).autocorrectionDisabled().textInputAutocapitalization(.never)
-                Toggle("Show Play in 4K", isOn: $rtx.enabled)
                 LabeledContent("Films on the PC", value: rtx.films.isEmpty ? (rtx.error ?? "none found") : "\(rtx.films.count)")
                 Button("Check again") { Task { await rtx.refresh() } }
             } header: {
                 Text("RTX 4K upscaling server")
             } footer: {
-                Text("Titles that are also in the RTX 4K library get a Play in 4K button, which plays them upscaled by the PC's GPU.")
+                Text("Movies on the PC play through it: Play in 4K upscales them to 4K with its GPU (4K films play at full quality).")
             }
             SubscriptionsSection()
             RoomsSection()

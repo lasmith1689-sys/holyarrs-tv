@@ -94,7 +94,7 @@ struct TitleDownloadCard: View {
             bits.append(String(format: "%.1f of %.1f GB", got / 1e9, size / 1e9))
         }
         if let sp = d["speed"].double, sp > 0 { bits.append(String(format: "%.0f MB/s", sp / 1e6)) }
-        if let eta = d["eta"].int, eta > 0 { bits.append("\(Self.minutes(eta)) left") }
+        if let eta = d["eta"].int, eta > 0, eta < 7 * 86400 { bits.append("\(Self.minutes(eta)) left") }
         return bits.isEmpty ? (d["text"].string ?? " ") : bits.joined(separator: " \u{00B7} ")
     }
 

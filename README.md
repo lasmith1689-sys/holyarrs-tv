@@ -29,7 +29,7 @@ on Home.
 
 Title pages: ask for a movie or a show (whole, chosen seasons, or only what airs from now on), take back an ask,
 follow a show, watch the trailer, seasons and episodes, cast (opens the person), collection, similar titles, and
-**Play in 4K** when the same film is in the RTX 4K server's library (matched by name and year here, else the
+**Play in 4K** (always on: it is how Afterglow plays movies) when the same film is in the RTX 4K server's library (matched by name and year here, else the
 page asks the server's `GET /find`, and says why when there is no match), **Play outside** (the PC casts to the
 outdoor Hisense; untested on the TV itself), and the 1080p / 4K choice when asking (HolyArrs' quality lines:
 1080p uses the "1080p for RTX" pick rules, 4K uses "Best"). Artist pages: ask for the whole artist or picked

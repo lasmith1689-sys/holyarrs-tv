@@ -165,16 +165,6 @@ struct TitlePage: View {
                                   askedAt: askedAt, finished: { Task { await load(); await rtx.refresh() } })
                 if let film = rtxFilm {
                     OutsideNote(film: film)
-                } else if !rtx.enabled, foundFilm != nil {
-                    // The PC has it but Play in 4K is switched off (one stray press in Settings does that on Apple TV):
-                    // say so and offer to switch it back on here, instead of a page with no way to play.
-                    AdaptiveStack(spacing: S(24)) {
-                        Text("The PC has this in 4K, but Play in 4K is turned off.").font(.system(size: F(22))).foregroundStyle(Theme.dim)
-                        Button { rtx.enabled = true } label: {
-                            Label("Turn on Play in 4K", systemImage: "play.fill").font(.system(size: F(24), weight: .semibold))
-                        }
-                    }
-                    .tvFocusSection()
                 } else if checkedPC, info.inLibrary, info.kind == .movie {
                     Text(rtx.diagnosis).font(.system(size: F(20))).foregroundStyle(Theme.dim)
                 }
@@ -187,7 +177,7 @@ struct TitlePage: View {
 
     private var rtxFilm: RTXFilm? {
         guard let info, info.kind == .movie else { return nil }
-        return rtx.match(name: info.name, year: info.year) ?? (rtx.enabled ? foundFilm : nil)
+        return rtx.match(name: info.name, year: info.year) ?? foundFilm
     }
 
     /// No match in the list here: ask the PC directly (its own matching), once per page.
