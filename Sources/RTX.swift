@@ -776,7 +776,9 @@ final class PlaybackModel: ObservableObject {
     /// Saved here on every tick; the PC hears at most every 8 s (the time observer also fires on every skip, which
     /// sent it bursts of requests) and always on leaving.
     private func savePosition(_ seconds: Double, leaving: Bool = false) {
-        guard let film, !finished, seconds.isFinite else { return }
+        // Only once the picture has played: a stream that fails before its first frame reads 0, and saving that
+        // would wipe the resume spot (found by the iPhone tour's drop check, Release 3).
+        guard let film, !finished, seconds.isFinite, seconds > 1, startup != nil else { return }
         Resume.save(film.id, seconds, duration: film.duration)
         if !leaving, let sentAt, Date().timeIntervalSince(sentAt) < 8 { return }
         sentAt = Date()

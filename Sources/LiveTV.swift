@@ -916,7 +916,7 @@ final class LivePlayerModel: ObservableObject {
     private func savePosition() {
         guard let vod, let base, let p = player else { return }
         let t = p.currentTime().seconds
-        guard t.isFinite, t > 0 else { return }
+        guard played, t.isFinite, t > 1 else { return }  // never a 0 from a stream that hasn't played (it would clear)
         var q = [URLQueryItem(name: "key", value: vod.positionKey), URLQueryItem(name: "t", value: String(format: "%.1f", t + offset)),
                  URLQueryItem(name: "d", value: String(format: "%.1f", vod.duration ?? 0)),
                  URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone"),
