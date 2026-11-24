@@ -126,6 +126,17 @@ final class ScreenTour: XCTestCase {
         return inRow()
     }
 
+    /// Release 4: a Top Shelf card's link (afterglow://play) opens straight into the player for that film.
+    func testTopShelfLink() {
+        launch(tab: "home")
+        _ = app.buttons["More info"].waitForExistence(timeout: 15)
+        app.open(URL(string: "afterglow://play?id=matrix&t=3120&d=8160&title=The%20Matrix")!)
+        // The stand-in PC answers that another screen has its one 4K film: proof the player started for this one.
+        check(app.staticTexts["The PC is upscaling Dune for the Apple TV."].waitForExistence(timeout: 20),
+              "a Top Shelf link opens the film's player straight from the Home Screen")
+        shot("top-shelf-link")
+    }
+
     func testTour() {
         // Signed out: the sign-in screen. First, wait for the simulator to show the app at all (up to 8 minutes):
         // a first boot can keep its progress screen up for minutes after the app is running.
@@ -183,6 +194,14 @@ final class ScreenTour: XCTestCase {
                           "the 4K copy coming in shows on the page, playable while it downloads")
             sleep(2)
             shot("title-movie")
+            // Release 4: Back from a page lands on the card it was opened from.
+            press(.menu)
+            sleep(2)
+            check(matrix.hasFocus, "Back from a film's page returns focus to its card on Home")
+            if !matrix.hasFocus { _ = focus(matrix, .left, limit: 3) }
+            press(.select)
+            _ = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10)
+            sleep(1)
             press(.down, 2)
             shot("title-cast")
             let person = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Keanu Reeves'")).firstMatch

@@ -80,6 +80,8 @@ struct TitlePage: View {
     @State private var askedAt: Date?
     /// A Library show's episodes the PC can play (GET /show), in order.
     @State private var pcEpisodes: [RTXEpisode] = []
+    /// iPhone: the summary opened past its first three lines.
+    @State private var moreOverview = false
 
     var body: some View {
         ZStack {
@@ -87,7 +89,7 @@ struct TitlePage: View {
             if let info {
                 ScrollView {
                     VStack(alignment: .leading, spacing: S(60)) {
-                        header(info)
+                        if Device.isTV { header(info) } else { phoneHeader(info) }
                         if !info.seasons.isEmpty { seasonsRow(info) }
                         if !info.cast.isEmpty { castRow(info) }
                         if let c = info.collection { CardRow(title: c.name, cards: c.parts) }
@@ -140,19 +142,7 @@ struct TitlePage: View {
                 } else {
                     Text(info.name).font(.system(size: F(72), weight: .bold)).lineLimit(2).minimumScaleFactor(0.6)
                 }
-                HStack(spacing: S(24)) {
-                    if let y = info.year { Text(String(y)) }
-                    if let r = info.runtime, r > 0 { Text(r >= 60 ? "\(r / 60)h \(r % 60)m" : "\(r)m") }
-                    if let n = info.network { Text(n) }
-                    if let r = info.rating { Badge(text: r) }
-                    if let q = info.quality { Badge(text: q) }
-                    if let f = rtxFilm { Badge(text: f.label) }
-                    if let hdr = rtxFilm?.range, hdr != "SDR" { Badge(text: hdr) }
-                }
-                .font(.title3)
-                .lineLimit(1)
-                .minimumScaleFactor(0.6)
-                .foregroundStyle(Color.white.opacity(0.8))
+                facts(info)
                 if !info.genres.isEmpty || !info.moods.isEmpty {
                     Text((info.genres + info.moods).prefix(5).joined(separator: " · ")).font(.system(size: F(24))).foregroundStyle(Theme.dim)
                 }
@@ -178,6 +168,81 @@ struct TitlePage: View {
         }
         .padding(.horizontal, S(110))
         .tvFocusSection()
+    }
+
+    /// Year, length, network and badges, on one line.
+    private func facts(_ info: TitleInfo) -> some View {
+        HStack(spacing: S(24)) {
+            if let y = info.year { Text(String(y)) }
+            if let r = info.runtime, r > 0 { Text(r >= 60 ? "\(r / 60)h \(r % 60)m" : "\(r)m") }
+            if let n = info.network { Text(n) }
+            if let r = info.rating { Badge(text: r) }
+            if let q = info.quality { Badge(text: q) }
+            if let f = rtxFilm { Badge(text: f.label) }
+            if let hdr = rtxFilm?.range, hdr != "SDR" { Badge(text: hdr) }
+        }
+        .font(Device.isTV ? .title3 : .system(size: F(26)))
+        .lineLimit(1)
+        .minimumScaleFactor(0.6)
+        .foregroundStyle(Color.white.opacity(0.8))
+    }
+
+    /// iPhone (Release 4): Play within reach. A short backdrop band, a small poster beside the title, year and
+    /// badges, then Play or Resume, then the summary in three lines with More. The full header pushed Play under
+    /// the tab bar on a title with a logo and a long summary.
+    private func phoneHeader(_ info: TitleInfo) -> some View {
+        VStack(alignment: .leading, spacing: 14) {
+            if let band = info.backdrop {
+                Artwork(raw: band, width: 780, plain: true)
+                    .frame(maxWidth: .infinity).frame(height: 120).clipped()
+                    .overlay(LinearGradient(colors: [.clear, .black.opacity(0.6)], startPoint: .top, endPoint: .bottom))
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .accessibilityHidden(true)
+            }
+            HStack(alignment: .top, spacing: 14) {
+                Artwork(raw: info.poster, width: 342, title: info.name, subtitle: info.year.map(String.init))
+                    .frame(width: 96, height: 144)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .shadow(color: .black.opacity(0.5), radius: 10, y: 6)
+                VStack(alignment: .leading, spacing: 8) {
+                    if let logo = info.logo {
+                        Artwork(raw: logo, width: 500, plain: true, fit: true)
+                            .frame(maxWidth: 210, maxHeight: 60, alignment: .leading)
+                            .accessibilityLabel(info.name)
+                    } else {
+                        Text(info.name).font(.system(size: F(48), weight: .bold)).lineLimit(3).minimumScaleFactor(0.7)
+                    }
+                    facts(info)
+                    if let state = info.stateLabel ?? info.askLabel {
+                        Label(state, systemImage: info.inLibrary ? "checkmark.circle.fill" : "clock")
+                            .font(.system(size: F(24), weight: .semibold)).foregroundStyle(Theme.accent).lineLimit(2)
+                    }
+                }
+            }
+            actions(info)
+            if let message { Text(message).foregroundStyle(Theme.accent).font(.callout) }
+            if let o = info.overview {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(o).font(.system(size: F(26))).foregroundStyle(Color.white.opacity(0.75))
+                        .lineLimit(moreOverview ? nil : 3)
+                    if o.count > 140 {
+                        Button(moreOverview ? "Less" : "More") { withAnimation { moreOverview.toggle() } }
+                            .font(.system(size: F(24), weight: .semibold))
+                    }
+                }
+            }
+            if !info.genres.isEmpty || !info.moods.isEmpty {
+                Text((info.genres + info.moods).prefix(5).joined(separator: " · ")).font(.system(size: F(22))).foregroundStyle(Theme.dim)
+            }
+            TitleDownloadCard(name: info.name, year: info.year, titleId: info.titleId, runtimeMinutes: info.runtime,
+                              askedAt: askedAt, finished: { Task { await load(); await rtx.refresh() } })
+            if let film = rtxFilm {
+                OutsideNote(film: film)
+            } else if checkedPC, info.inLibrary, info.kind == .movie {
+                Text(rtx.diagnosis).font(.system(size: F(20))).foregroundStyle(Theme.dim)
+            }
+        }
+        .padding(.horizontal, 16)
     }
 
     private var rtxFilm: RTXFilm? {

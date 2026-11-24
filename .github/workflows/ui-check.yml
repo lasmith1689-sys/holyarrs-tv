@@ -5,7 +5,7 @@ name: Screen check
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, r4]  # r4: Release 4 checks before it merges
     paths: ["Sources/**", "UITests/**", "UITests-iOS/**", "ci/**", "project.yml", ".github/workflows/ui-check.yml"]
 
 concurrency:

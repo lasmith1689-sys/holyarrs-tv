@@ -32,13 +32,25 @@ struct HolyArrsTVApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            TextSizeRoot()
                 .environmentObject(api)
                 .environmentObject(rtx)
                 .environmentObject(sportarr)
                 .preferredColorScheme(.dark)
                 .tint(Theme.accent)
         }
+    }
+}
+
+/// Redraws everything when the iPhone's Text Size changes, so F() sizes follow it (Release 4).
+struct TextSizeRoot: View {
+    @Environment(\.dynamicTypeSize) private var size
+    var body: some View {
+        #if os(iOS)
+        RootView().id(size)
+        #else
+        RootView()
+        #endif
     }
 }
 
@@ -54,6 +66,30 @@ struct RootView: View {
     @AppStorage("downloadsPage") private var downloadsPage = "downloads"
     /// iPhone: Settings open on Home's stack (it was a tab).
     @AppStorage("homeSettings") private var homeSettings = false
+    /// A Top Shelf card (afterglow://play or afterglow://od): straight into the player (Release 4).
+    @State private var linkedFilm: PlayRequest?
+    @State private var linkedOD: LiveRequest?
+
+    /// afterglow://play?id=<film or episode>&t=&d=&title=[&label=], afterglow://od?kind=&id=&ext=&t=&d=&title=
+    static func request(_ url: URL) -> (film: PlayRequest?, od: LiveRequest?) {
+        guard url.scheme == "afterglow", let c = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return (nil, nil) }
+        var q: [String: String] = [:]
+        for i in c.queryItems ?? [] { q[i.name] = i.value }
+        let t = Double(q["t"] ?? "") ?? 0, d = Double(q["d"] ?? "") ?? 0
+        let title = q["title"] ?? ""
+        switch url.host {
+        case "play":
+            guard let id = q["id"], !id.isEmpty else { return (nil, nil) }
+            let film = RTXFilm(JSON.object(["id": .string(id), "title": .string(title), "duration_s": .number(d)]))
+            return (PlayRequest(label: q["label"] ?? title, film: film, seconds: t), nil)
+        case "od":
+            guard let kind = q["kind"], let id = q["id"], ["movie", "episode"].contains(kind) else { return (nil, nil) }
+            return (nil, LiveRequest(stream: id, title: title, vod: VODRef(kind: kind, id: id, ext: q["ext"] ?? "mp4", start: t,
+                                                                         duration: d > 0 ? d : nil)))
+        default:
+            return (nil, nil)
+        }
+    }
 
     /// iPhone away from home (HolyArrs and the PC both silent) with films downloaded: their list, not the tabs.
     private var awayWithDownloads: Bool {
@@ -104,6 +140,17 @@ struct RootView: View {
             } else {
                 SignInView()
             }
+        }
+        .onOpenURL { url in
+            let r = RootView.request(url)
+            tab = "home"
+            if let f = r.film { linkedFilm = f } else if let o = r.od { linkedOD = o }
+        }
+        .fullScreenCover(item: $linkedFilm) { req in
+            PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
+        }
+        .fullScreenCover(item: $linkedOD) { req in
+            LivePlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
         }
         .onAppear {
             // Saved places from older layouts. Explore is on Home now. Requests was a tab (showing the page kept in

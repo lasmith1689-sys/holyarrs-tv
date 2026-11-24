@@ -111,7 +111,8 @@ lookup_movie = {"movies": [{"name": "The Matrix", "year": 1999, "ids": {"tmdb": 
 w("titles_lookup", lookup_movie)
 w("shows_lookup", {"shows": [{"name": "Breaking Bad", "year": 2008, "ids": {"tmdb": "1396"}, "poster": T.format("p1396"), "title_id": 2, "never_add": False}]})
 w("people_search", {"people": [{"id": "6384", "name": "Keanu Reeves", "profile": T.format("kr")}], "page": 1, "total_pages": 1})
-w("title_movie", {"id": 1, "kind": "movie", "name": "The Matrix", "year": 1999, "overview": "A hacker learns the world is a simulation and joins the fight against its makers.",
+w("title_movie", {"id": 1, "kind": "movie", "name": "The Matrix", "year": 1999, "overview": "A hacker learns the world is a simulation and joins the fight against its makers. Thomas Anderson works a quiet desk job by day and breaks into systems by night, until a stranger called Morpheus offers him the truth about the life he thinks he lives. What follows is a war fought in two worlds at once, against machines that can rewrite the rules of the one he grew up in, and a choice about who he is.", "logo": "https://image.tmdb.org/t/p/w500/logo603.png",  # a real page: logo + long summary (Release 4)
+   
                   "ids": {"tmdb": "603", "imdb": "tt0133093"}, "keep_up_to_date": True, "why_added": "ask", "release_gate": "any", "gate_delay_days": 0,
                   "stage": "done", "gate_open": True, "gate_reason": "", "artwork": [], "backdrop": B.format("b603"),
                   "genres": ["Action", "Science Fiction"], "runtime_minutes": 136, "rating": "R", "versions": [{"id": 1, "name": "Main"}],

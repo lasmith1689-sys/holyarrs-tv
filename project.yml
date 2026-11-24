@@ -35,6 +35,10 @@ targets:
           NSAllowsLocalNetworking: true
         NSLocalNetworkUsageDescription: Connects to HolyArrs and the RTX 4K server on your PC.
         ITSAppUsesNonExemptEncryption: false
+        # Top Shelf cards open afterglow://play?id=... (a film or episode) or afterglow://od?... (On Demand).
+        CFBundleURLTypes:
+          - CFBundleURLName: Afterglow
+            CFBundleURLSchemes: [afterglow]
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: ${APP_BUNDLE_ID}
@@ -44,9 +48,40 @@ targets:
         CODE_SIGN_STYLE: Automatic
         TARGETED_DEVICE_FAMILY: "3"
         GENERATE_INFOPLIST_FILE: NO
+    dependencies:
+      - target: HolyArrsTopShelf  # Release 4: Continue Watching in the Apple TV's Top Shelf
     scheme:
       testTargets:
         - HolyArrsTVUITests
+  # The Apple TV Top Shelf (TopShelf/ContentProvider.swift), embedded in HolyArrsTV.
+  HolyArrsTopShelf:
+    type: app-extension
+    platform: tvOS
+    sources:
+      - path: TopShelf
+    info:
+      path: TopShelf/Info.plist
+      properties:
+        CFBundleDisplayName: Afterglow
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.tv-top-shelf
+          NSExtensionPrincipalClass: $(PRODUCT_MODULE_NAME).ContentProvider
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: true
+          NSAllowsLocalNetworking: true
+        NSLocalNetworkUsageDescription: Shows Continue Watching from the RTX 4K server on your PC.
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ${APP_BUNDLE_ID}.topshelf
+        PRODUCT_NAME: HolyArrsTopShelf
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "3"
+        GENERATE_INFOPLIST_FILE: NO
+        SKIP_INSTALL: YES
+        APPLICATION_EXTENSION_API_ONLY: YES
+
   # Simulator-only screen check (.github/workflows/ui-check.yml); never archived or uploaded.
   HolyArrsTVUITests:
     type: bundle.ui-testing

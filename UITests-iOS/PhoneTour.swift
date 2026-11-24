@@ -93,6 +93,20 @@ final class PhoneTour: XCTestCase {
         }
     }
 
+    /// Release 4: at the largest accessibility text size the film page still opens with Resume above the tab bar
+    /// (iPhone text follows the Text Size setting, capped at Accessibility 1).
+    func testLargeText() {
+        launch(tab: "home", more: ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
+        let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
+        guard scrollTo(matrix) else { return XCTFail("The Matrix not on Home at the largest text size") }
+        matrix.tap()
+        let resume = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch
+        check(resume.waitForExistence(timeout: 10), "the film page opens at the largest text size")
+        check(resume.frame.maxY < app.tabBars.firstMatch.frame.minY,
+              "largest text size: Resume in 4K above the tab bar (button bottom \(resume.frame.maxY), tab bar top \(app.tabBars.firstMatch.frame.minY))")
+        shot("large-text-title")
+    }
+
     func testTour() {
         launch(tab: "home", signedIn: false)
         let plex = app.buttons["Sign in with Plex"]
@@ -137,6 +151,10 @@ final class PhoneTour: XCTestCase {
             // The stand-in PC has The Matrix part-watched, so it offers Resume (and Start over) instead of Play.
             XCTAssertTrue(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
                           "Resume in 4K on a part-watched film")
+            // Release 4: a real page (a logo and a six-line summary) keeps Resume above the tab bar.
+            let resumeButton = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch
+            check(resumeButton.frame.maxY < app.tabBars.firstMatch.frame.minY,
+                  "Resume in 4K sits above the tab bar on first view (button bottom \(resumeButton.frame.maxY), tab bar top \(app.tabBars.firstMatch.frame.minY))")
             XCTAssertTrue(app.buttons["Start over"].exists, "Start over next to Resume")
             XCTAssertTrue(app.buttons["Play now while it downloads"].waitForExistence(timeout: 10),
                           "the 4K copy coming in shows on the page, playable while it downloads")
