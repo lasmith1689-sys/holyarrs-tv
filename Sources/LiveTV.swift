@@ -754,11 +754,30 @@ final class LivePlayerModel: ObservableObject {
     private var offset: Double = 0
     /// The feed playing now (the request's own, or a spare one): marked in Other feeds.
     @Published private(set) var currentFeed: String?
+    /// What the waiting screen says while it comes back (nil: "Tuning in on the PC...").
+    @Published private(set) var notice: String?
+    /// Another screen took the plan's one stream: said, with Take it back (never retried on its own).
+    @Published private(set) var taken: String?
+    private var request: LiveRequest?
+    private var recovery = Recovery()
+    private var recovering = false
+    private var closed = false
+    private var waitingSince: Date?
+    private var playingSince: Date?
+    /// This stream has played: only then is a failure or stall a drop (one that never starts shows as before).
+    private var played = false
+    private var failObserver: NSObjectProtocol?
+    private var itemObserver: NSKeyValueObservation?
+    private var watchTimer: Timer?
+    private var work: Task<Void, Never>?
+    private static var here: String { Device.isTV ? "apple-tv" : "iphone" }
 
     /// Asks the PC to start the channel (answered once the first seconds are ready), trying spare feeds in turn,
     /// or the On Demand title from where it was left.
     func tune(_ request: LiveRequest, base: URL?) async {
         error = nil
+        taken = nil
+        if self.request == nil { self.request = request }
         self.base = base
         guard let base else { error = "The PC's address isn't set. Open Settings."; return }
         if let vod = request.vod {
@@ -786,7 +805,8 @@ final class LivePlayerModel: ObservableObject {
         var busy = false
         for stream in [request.stream] + request.alt {
             do {
-                let j = try await RTXAPI(base: base).get("tv/play", [URLQueryItem(name: "stream", value: stream)])
+                let j = try await RTXAPI(base: base).get("tv/play", [URLQueryItem(name: "stream", value: stream),
+                                                                  URLQueryItem(name: "where", value: Self.here)])
                 guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else { continue }
                 session = j["session"].string
                 currentFeed = stream
@@ -806,7 +826,7 @@ final class LivePlayerModel: ObservableObject {
     private func tuneVOD(_ vod: VODRef, title: String, base: URL) async {
         let q = [URLQueryItem(name: "kind", value: vod.kind), URLQueryItem(name: "id", value: vod.id),
                  URLQueryItem(name: "ext", value: vod.ext), URLQueryItem(name: "t", value: String(Int(max(0, vod.start)))),
-                 URLQueryItem(name: "title", value: title)]
+                 URLQueryItem(name: "title", value: title), URLQueryItem(name: "where", value: Self.here)]
         do {
             let j = try await RTXAPI(base: base).get("tv/ondemand/play", q)
             guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else {
@@ -835,8 +855,39 @@ final class LivePlayerModel: ObservableObject {
         #endif
         rateObserver = p.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
             let status = player.timeControlStatus
-            Task { @MainActor in self?.paused = status == .paused }
+            Task { @MainActor in
+                guard let self else { return }
+                self.paused = status == .paused
+                if status == .playing {
+                    self.played = true
+                    self.waitingSince = nil
+                    if self.playingSince == nil { self.playingSince = Date() }
+                } else {
+                    self.playingSince = nil
+                    if status == .waitingToPlayAtSpecifiedRate, self.played { if self.waitingSince == nil { self.waitingSince = Date() } }
+                    else { self.waitingSince = nil }
+                }
+            }
         }
+        // Release 3: a failed or stalled stream (over 15 s) is noticed, and handled by why it stopped.
+        if let item = p.currentItem {
+            failObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: item, queue: .main) { [weak self] _ in
+                Task { @MainActor in self?.dropped() }
+            }
+            itemObserver = item.observe(\.status, options: [.new]) { [weak self] item, _ in
+                let failed = item.status == .failed
+                Task { @MainActor in if failed { self?.dropped() } }
+            }
+        }
+        watchTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                guard let self else { return }
+                if let since = self.playingSince, Date().timeIntervalSince(since) > Recovery.healthy { self.recovery.reset() }
+                if Recovery.stalled(since: self.waitingSince) { self.waitingSince = nil; self.dropped() }
+            }
+        }
+        recovering = false
+        notice = nil
         if vod != nil {  // On Demand: every 15 s the PC hears where it is, so any screen resumes it
             timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 15, preferredTimescale: 1), queue: .main) { [weak self] _ in
                 MainActor.assumeIsolated { self?.savePosition() }
@@ -872,7 +923,14 @@ final class LivePlayerModel: ObservableObject {
     /// Other feeds: plays this feed instead (the PC hands over the plan's one stream). If it won't start, the others
     /// are tried in order, and Other feeds marks the one that played.
     func switchFeed(_ feed: String, request: LiveRequest, base: URL?) async {
-        close()
+        work?.cancel()
+        recovering = false
+        teardown()
+        if let session, let base {
+            Task { _ = try? await RTXAPI(base: base).get("tv/stop", [URLQueryItem(name: "session", value: session)]) }
+        }
+        session = nil
+        taken = nil
         error = nil
         currentFeed = nil
         let others = request.switchable.map(\.id).filter { $0 != feed }
@@ -880,16 +938,122 @@ final class LivePlayerModel: ObservableObject {
     }
 
     func close() {
-        savePosition()
-        if let o = timeObserver { player?.removeTimeObserver(o) }
-        timeObserver = nil
-        player?.pause()
-        rateObserver = nil
-        player = nil
+        closed = true
+        work?.cancel()
+        work = nil
+        teardown()
         if let session, let base {
             Task { _ = try? await RTXAPI(base: base).get("tv/stop", [URLQueryItem(name: "session", value: session)]) }
         }
         session = nil
+    }
+
+    /// Drops the player here (not the PC's session).
+    private func teardown() {
+        savePosition()
+        if let o = timeObserver { player?.removeTimeObserver(o) }
+        timeObserver = nil
+        if let o = failObserver { NotificationCenter.default.removeObserver(o) }
+        failObserver = nil
+        itemObserver = nil
+        watchTimer?.invalidate()
+        watchTimer = nil
+        waitingSince = nil
+        playingSince = nil
+        player?.pause()
+        rateObserver = nil
+        player = nil
+    }
+
+    /// Where an On Demand title is now (in the film's time).
+    private var vodNow: Double? {
+        guard vod != nil, let t = player?.currentTime().seconds, t.isFinite, t > 0 else { return nil }
+        return t + offset
+    }
+
+    /// The stream failed or stalled. The PC says why: another screen took the plan's one stream (say so, offer
+    /// Take it back, never retry into it), or it dropped: On Demand comes back where it was (three tries), a channel
+    /// or game tries its feed once more and then the next of Other feeds, saying which.
+    private func dropped() {
+        guard played, !recovering, !closed, let base, let request else { return }
+        recovering = true
+        played = false
+        let sid = session
+        let at = vodNow
+        if var v = vod, let at { v.start = max(0, at - 2); vod = v }
+        teardown()
+        notice = "The stream stopped. Checking with the PC..."
+        work?.cancel()
+        work = Task { [weak self] in
+            guard let self else { return }
+            if let sid, let j = try? await RTXAPI(base: base, quick: true).get("tv/session", [URLQueryItem(name: "session", value: sid)]),
+               j["ended"]["reason"].string == "taken" {
+                let by = j["ended"]["by"].string ?? "Something else"
+                self.notice = nil
+                self.recovering = false
+                self.taken = "\(LiveTV.clean(by)) started on \(Recovery.screen(j["ended"]["where"].string ?? "")). Your plan plays one stream at a time."
+                return
+            }
+            self.session = nil
+            if let v = self.vod {
+                while let wait = self.recovery.next() {
+                    self.notice = Recovery.lost(at: v.start, attempt: self.recovery.tries)
+                    try? await Task.sleep(nanoseconds: UInt64(wait * 1e9))
+                    if Task.isCancelled || self.closed { return }
+                    self.error = nil
+                    await self.tuneVOD(v, title: request.title, base: base)
+                    if self.player != nil { return }
+                }
+                self.recovering = false
+                self.notice = nil
+                self.error = Recovery.gaveUp(at: v.start)
+                return
+            }
+            // A channel or a game: the same feed once, then the others in order (best first), saying which.
+            let feeds = request.switchable.map(\.id)
+            let cur = self.currentFeed ?? request.stream
+            let order = [cur] + feeds.filter { $0 != cur }
+            for (i, feed) in order.enumerated() {
+                let n = (feeds.firstIndex(of: feed) ?? 0) + 1
+                self.notice = i == 0 ? "The feed dropped. Trying it again..." : "Switching to Feed \(n)..."
+                try? await Task.sleep(nanoseconds: UInt64((i == 0 ? 3 : 1) * 1e9))
+                if Task.isCancelled || self.closed { return }
+                if let j = try? await RTXAPI(base: base).get("tv/play", [URLQueryItem(name: "stream", value: feed),
+                                                                       URLQueryItem(name: "where", value: Self.here)]),
+                   let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL {
+                    self.session = j["session"].string
+                    self.currentFeed = feed
+                    self.start(url)
+                    return
+                }
+            }
+            self.recovering = false
+            self.notice = nil
+            self.error = "The channel dropped and no feed came back."
+        }
+    }
+
+    /// Take it back: the viewer chose to take the plan's one stream from the other screen.
+    func takeBack(base: URL?) async {
+        taken = nil
+        await retry(base: base)
+    }
+
+    /// Try again: from the feed last picked (or where On Demand was), not back at the first feed.
+    func retry(base: URL?) async {
+        guard let request else { return }
+        work?.cancel()
+        recovering = false
+        recovery.reset()
+        error = nil
+        taken = nil
+        teardown()
+        let cur = currentFeed ?? request.stream
+        let rest = ([request.stream] + request.alt).filter { $0 != cur }
+        var again = LiveRequest(stream: cur, title: request.title, alt: rest, vod: vod ?? request.vod, grow: request.grow,
+                                feeds: request.feeds)
+        if vod == nil, let v = request.vod { again.vod = v }
+        await tune(again, base: base)
     }
 }
 
@@ -921,15 +1085,21 @@ struct LivePlayerScreen: View {
             } else {
                 VStack(spacing: S(34)) {
                     Text(request.title).font(.system(size: F(60), weight: .bold)).multilineTextAlignment(.center)
-                    if let error = model.error {
+                    if let taken = model.taken {
+                        Text(taken).foregroundStyle(Color.white.opacity(0.75)).multilineTextAlignment(.center).frame(maxWidth: W(1300))
+                        HStack(spacing: S(40)) {
+                            Button("Take it back") { Task { await model.takeBack(base: rtx.base) } }
+                            Button("Back") { dismiss() }
+                        }
+                    } else if let error = model.error {
                         Text(error).foregroundStyle(Color.white.opacity(0.65)).multilineTextAlignment(.center).frame(maxWidth: W(1300))
                         HStack(spacing: S(40)) {
-                            Button("Try again") { attempt += 1 }
+                            Button("Try again") { Task { await model.retry(base: rtx.base) } }
                             Button("Back") { dismiss() }
                         }
                     } else {
                         ProgressView()
-                        Text("Tuning in on the PC...").foregroundStyle(Color.white.opacity(0.7))
+                        Text(model.notice ?? "Tuning in on the PC...").foregroundStyle(Color.white.opacity(0.7)).multilineTextAlignment(.center)
                     }
                 }
                 .padding(S(100))
