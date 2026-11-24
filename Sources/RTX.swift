@@ -465,14 +465,14 @@ struct PlayerScreen: View {
                         Text(Recovery.busyNote).foregroundStyle(Color.white.opacity(0.6)).multilineTextAlignment(.center)
                         HStack(spacing: S(30)) {
                             Button(busy.taken ? "Take it back" : "Play here") { model.playHere() }
-                            Button("Back") { dismiss() }
+                            Button("Back") { dismiss() }.accessibilityIdentifier("player-back")
                         }
                     } else if let error = model.error {
                         Text(model.canRetry ? "Lost the connection" : "Couldn't start").font(.title3.bold())
                         Text(error).foregroundStyle(Color.white.opacity(0.6)).multilineTextAlignment(.center).frame(maxWidth: W(1300))
                         HStack(spacing: S(30)) {
                             if model.canRetry { Button("Try again") { model.tryAgain() } }
-                            Button("Back") { dismiss() }
+                            Button("Back") { dismiss() }.accessibilityIdentifier("player-back")
                         }
                     } else {
                         ProgressView()

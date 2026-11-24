@@ -158,7 +158,8 @@ final class PhoneTour: XCTestCase {
                       "after three tries the viewer gets Try again and Back")
                 shot("player-lost")
             }
-            if app.buttons["Back"].exists { app.buttons["Back"].tap() }
+            let back = app.buttons["player-back"]  // the player's own Back (the page's is behind it, also "Back")
+            if back.exists { back.tap() }
             check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
                   "Back returns to the film's page with its resume spot kept")
             // Play outside: the stand-in PC answers that the TV is playing.
