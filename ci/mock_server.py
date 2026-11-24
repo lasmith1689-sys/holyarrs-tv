@@ -306,6 +306,9 @@ class Handler(BaseHTTPRequestHandler):
     # And an On Demand film part-way through, so its page offers Resume.
     positions = {"matrix": {"t": 3120.0, "duration": 8160.0, "at": 1795300000.0, "where": "iphone"},
                  "od:movie-70000": {"t": 2700.0, "duration": 10320.0, "at": 1795300100.0, "where": "apple-tv"},
+                 # Release 3: saved with its title and poster, so it is a card in Continue Watching (after The Matrix)
+                 "od:movie-70001": {"t": 1800.0, "duration": 6000.0, "at": 1795299000.0, "where": "apple-tv",
+                                    "title": "Sicario", "ext": "mp4", "kind": "od", "key": "od:movie-70001"},
                  # Breaking Bad S5 E3, 20 minutes in, so its page offers Resume S5 E3
                  ep_id(5, 3): {"t": 1200.0, "duration": 2820.0, "at": 1795300200.0, "where": "apple-tv"}}
     cleared = {}
@@ -512,9 +515,18 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {"ok": True, "session": "tv-1111111111", "url": "/missing.m3u8", "attempts": 1,
                                     "start_s": float(q.get("t", 0)), "duration_s": 10320})
         if path == "/tv/ondemand/position":
-            Handler.positions["od:" + q.get("key", "")] = {"t": float(q.get("t", 0)), "duration": float(q.get("d", 0)),
-                                                           "at": time.time(), "where": q.get("where", "")}
+            # As the PC (positions.save_od): under a minute clears it; title, poster and file type are kept.
+            k = "od:" + q.get("key", "")
+            if float(q.get("t", 0)) < 60:
+                Handler.positions.pop(k, None)
+                return self._send(200, {})
+            old = Handler.positions.get(k, {})
+            meta = {m: q.get(m) or old.get(m) for m in ("title", "poster", "series", "ext") if q.get(m) or old.get(m)}
+            Handler.positions[k] = {"t": float(q.get("t", 0)), "duration": float(q.get("d", 0)),
+                                    "at": time.time(), "where": q.get("where", ""), **meta}
             return self._send(200, {})
+        if path == "/tv/active":
+            return self._send(200, {"active": []})
         # Sportarr: hands its key to its own page while its login is off, then wants it in X-Api-Key.
         if path == "/initialize.json":
             return self._send(200, {"apiKey": SPORTARR_KEY, "version": "4.1.12.1122", "urlBase": ""})

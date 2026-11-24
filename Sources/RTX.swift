@@ -123,6 +123,26 @@ final class RTXServer: ObservableObject {
             _ = try? await RTXAPI(base: base, quick: true).get("position", q)
         }
         continueList = RTXServer.entries(merged)
+        odList = ODContinue.list(j["positions"])
+    }
+
+    /// On Demand left part-way on any screen, with what a card needs (Release 3; newest first).
+    @Published private(set) var odList: [ODContinue] = []
+
+    /// Takes an On Demand title off Continue Watching on every screen (the PC clears a position under a minute).
+    func forget(_ od: ODContinue) {
+        odList.removeAll { $0.id == od.id }
+        guard let base else { return }
+        let q = [URLQueryItem(name: "key", value: od.key), URLQueryItem(name: "t", value: "0"),
+                 URLQueryItem(name: "d", value: String(format: "%.1f", od.duration)), URLQueryItem(name: "where", value: Resume.here)]
+        Task { _ = try? await RTXAPI(base: base, quick: true).get("tv/ondemand/position", q) }
+    }
+
+    /// Live TV or On Demand another screen is watching now (the plan's one stream), or nil.
+    func otherStream() async -> (name: String, place: String)? {
+        guard let base, let j = try? await RTXAPI(base: base, quick: true).get("tv/active") else { return nil }
+        let other = j["active"].array.first { ($0["where"].string ?? "") != Resume.here }
+        return other.map { (LiveTV.clean($0["name"].string ?? "live TV"), $0["where"].string ?? "") }
     }
 
     /// Continue Watching's entries, newest first.

@@ -190,6 +190,9 @@ struct VODRef: Hashable {
     let ext: String
     var start: Double = 0
     var duration: Double? = nil
+    /// For Continue Watching cards on every screen (saved with the position on the PC).
+    var poster: String? = nil
+    var series: String? = nil
 
     /// Its key in the PC's positions ("od:movie-123"), shared by every screen.
     var positionKey: String { "\(kind)-\(id)" }
@@ -914,9 +917,14 @@ final class LivePlayerModel: ObservableObject {
         guard let vod, let base, let p = player else { return }
         let t = p.currentTime().seconds
         guard t.isFinite, t > 0 else { return }
-        let q = [URLQueryItem(name: "key", value: vod.positionKey), URLQueryItem(name: "t", value: String(format: "%.1f", t + offset)),
+        var q = [URLQueryItem(name: "key", value: vod.positionKey), URLQueryItem(name: "t", value: String(format: "%.1f", t + offset)),
                  URLQueryItem(name: "d", value: String(format: "%.1f", vod.duration ?? 0)),
-                 URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone")]
+                 URLQueryItem(name: "where", value: Device.isTV ? "apple-tv" : "iphone"),
+                 URLQueryItem(name: "ext", value: vod.ext)]
+        // What Continue Watching shows for it on every screen (Release 3).
+        if let title = request?.title { q.append(URLQueryItem(name: "title", value: title)) }
+        if let poster = vod.poster { q.append(URLQueryItem(name: "poster", value: poster)) }
+        if let series = vod.series { q.append(URLQueryItem(name: "series", value: series)) }
         Task { _ = try? await RTXAPI(base: base).get("tv/ondemand/position", q) }
     }
 

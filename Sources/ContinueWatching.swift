@@ -28,6 +28,45 @@ struct ContinueEntry: Identifiable, Hashable {
     }
 }
 
+/// An On Demand title left part-way (from the PC's "od:" positions, which carry its title and poster from
+/// Release 3 on): a card in the same row as the films, played by the live player from where it was left.
+struct ODContinue: Identifiable, Hashable {
+    let key: String  // "movie-123", "episode-456"
+    let kind: String
+    let vid: String
+    let ext: String
+    let title: String
+    let poster: String?
+    let series: String?
+    let seconds: Double
+    let duration: Double
+    let at: Date
+    let place: String
+
+    var id: String { "od:" + key }
+    var entry: ContinueEntry { ContinueEntry(id: id, seconds: seconds, duration: duration, at: at, place: place) }
+
+    var request: LiveRequest {
+        LiveRequest(stream: vid, title: title, vod: VODRef(kind: kind, id: vid, ext: ext, start: seconds,
+                                                          duration: duration > 0 ? duration : nil, poster: poster, series: series))
+    }
+
+    /// Only entries saved with a title (older apps saved a time alone: those stay on the On Demand screen).
+    static func list(_ positions: JSON) -> [ODContinue] {
+        positions.object.compactMap { k, v -> ODContinue? in
+            guard k.hasPrefix("od:"), let title = v["title"].string, !title.isEmpty, let t = v["t"].double, t > 0 else { return nil }
+            let key = String(k.dropFirst(3))
+            let parts = key.split(separator: "-", maxSplits: 1).map(String.init)
+            guard parts.count == 2, ["movie", "episode"].contains(parts[0]) else { return nil }
+            return ODContinue(key: key, kind: parts[0], vid: parts[1], ext: v["ext"].string ?? "mp4", title: title,
+                              poster: v["poster"].string, series: v["series"].string, seconds: t,
+                              duration: v["duration"].double ?? 0, at: Date(timeIntervalSince1970: v["at"].double ?? 0),
+                              place: v["where"].string ?? "")
+        }
+        .sorted { $0.at > $1.at }
+    }
+}
+
 /// Art for an RTX film: the HolyArrs Library title with the same name and year (looked up once per film).
 @MainActor
 final class ContinueArt: ObservableObject {
@@ -60,21 +99,73 @@ struct ContinueRow: View {
     @EnvironmentObject private var api: HolyArrs
     @ObservedObject private var art = ContinueArt.shared
     @State private var playing: PlayRequest?
+    @State private var watchingOD: LiveRequest?
+    /// An On Demand card while live TV plays on another screen: asked first (the plan plays one stream).
+    @State private var confirmOD: ODContinue?
+    @State private var confirmLine = ""
 
     private var entries: [(ContinueEntry, RTXFilm)] {
         rtx.continueList.compactMap { e in rtx.film(id: e.id).map { (e, $0) } }
     }
 
+    private enum Item {
+        case film(ContinueEntry, RTXFilm)
+        case od(ODContinue)
+        var at: Date {
+            switch self {
+            case let .film(e, _): e.at
+            case let .od(o): o.at
+            }
+        }
+        var id: String {
+            switch self {
+            case let .film(e, _): e.id
+            case let .od(o): o.id
+            }
+        }
+    }
+
+    /// Films, episodes, sports and On Demand in one row, newest first.
+    private var items: [Item] {
+        (entries.map { Item.film($0.0, $0.1) } + rtx.odList.map { Item.od($0) }).sorted { $0.at > $1.at }
+    }
+
+    private func play(_ od: ODContinue) {
+        Task {
+            if let other = await rtx.otherStream() {
+                confirmLine = "This stops \(other.name) on \(Recovery.screen(other.place)). Your plan plays one stream at a time."
+                confirmOD = od
+            } else {
+                watchingOD = od.request
+            }
+        }
+    }
+
     var body: some View {
-        if !entries.isEmpty {
+        if !items.isEmpty {
             VStack(alignment: .leading, spacing: S(18)) {
                 Text("Continue Watching").font(.system(size: F(34), weight: .bold))
                     .padding(.horizontal, Theme.sidePadding)
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(alignment: .top, spacing: S(40)) {
-                        let list = entries
+                        let list = items
                         ForEach(list.indices, id: \.self) { i in
-                            let (entry, film) = list[i]
+                            switch list[i] {
+                            case let .od(od):
+                                Button { play(od) } label: { ODContinueCell(od: od) }
+                                    .buttonStyle(QuietButtonStyle())
+                                    .focused(focus, equals: i == 0 ? ContinueRow.firstFocus : "continue-\(od.id)")
+                                    .contextMenu {
+                                        Button {
+                                            var r = od.request
+                                            r.vod?.start = 0
+                                            watchingOD = r
+                                        } label: { Label("Start from the beginning", systemImage: "backward.end") }
+                                        Button(role: .destructive) { rtx.forget(od) } label: {
+                                            Label("Remove from Continue Watching", systemImage: "xmark")
+                                        }
+                                    }
+                            case let .film(entry, film):
                             let card = art.cards[film.id]
                             Button {
                                 playing = PlayRequest(label: card?.name ?? film.title, film: film, seconds: entry.seconds,
@@ -96,6 +187,7 @@ struct ContinueRow: View {
                                 }
                             }
                             .task { await art.card(for: film, api: api) }
+                            }
                         }
                     }
                     .padding(.vertical, S(30))
@@ -106,7 +198,53 @@ struct ContinueRow: View {
             .fullScreenCover(item: $playing) { req in
                 PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
             }
+            .fullScreenCover(item: $watchingOD) { req in
+                LivePlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
+            }
+            .confirmationDialog("Play here?", isPresented: Binding(get: { confirmOD != nil }, set: { if !$0 { confirmOD = nil } })) {
+                Button("Play anyway") { if let od = confirmOD { watchingOD = od.request }; confirmOD = nil }
+                Button("Cancel", role: .cancel) { confirmOD = nil }
+            } message: { Text(confirmLine) }
         }
+    }
+}
+
+/// An On Demand card: its poster as the picture, how far in, and "On Demand" under it.
+struct ODContinueCell: View {
+    let od: ODContinue
+    @Environment(\.isFocused) private var focused
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: S(12)) {
+            ZStack(alignment: .bottomLeading) {
+                Artwork(raw: od.poster, width: 780, title: od.poster == nil ? od.title : "")
+                LinearGradient(colors: [.clear, .black.opacity(0.85)], startPoint: .center, endPoint: .bottom)
+                VStack(alignment: .leading, spacing: S(12)) {
+                    Text(od.title).font(.system(size: F(28), weight: .heavy)).lineLimit(2).shadow(radius: S(6))
+                    GeometryReader { g in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Color.white.opacity(0.25))
+                            Capsule().fill(Theme.accent).frame(width: g.size.width * od.entry.progress)
+                        }
+                    }
+                    .frame(height: S(6))
+                }
+                .padding(S(20))
+            }
+            .frame(width: W(480), height: S(270))
+            .clipShape(RoundedRectangle(cornerRadius: S(14), style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: S(14), style: .continuous)
+                .stroke(Color.white.opacity(focused ? 0.9 : 0.08), lineWidth: focused ? 4 : 1))
+            .shadow(color: .black.opacity(focused ? 0.7 : 0.35), radius: focused ? 30 : 10, y: focused ? 20 : 6)
+            .scaleEffect(focused ? 1.06 : 1.0)
+            Text([od.entry.left, "On Demand", od.entry.placeLabel].compactMap { $0 }.joined(separator: " · "))
+                .font(.system(size: F(21))).foregroundStyle(Theme.dim).lineLimit(1)
+                .frame(width: W(480), alignment: .leading)
+                .offset(y: focused ? S(12) : 0)
+        }
+        .animation(.easeOut(duration: 0.18), value: focused)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("Resume \(od.title), \(od.entry.left), On Demand")
     }
 }
 

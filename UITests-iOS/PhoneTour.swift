@@ -122,6 +122,9 @@ final class PhoneTour: XCTestCase {
               "Continue Watching card on the first screen, above the tab bar (card \(card.frame), tab bar top \(bar.frame.minY))")
         let warning = app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch
         check(app.staticTexts["Continue Watching"].frame.minY < warning.frame.minY, "Continue Watching comes before the subscription warning")
+        // Release 3: On Demand left part-way is a card in the same row (the stand-in PC has Sicario 30 minutes in).
+        let od = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume Sicario' AND label CONTAINS 'On Demand'")).firstMatch
+        check(od.waitForExistence(timeout: 5), "an On Demand title left part-way is in Continue Watching")
         shot("home")
         app.swipeUp()
         sleep(1)

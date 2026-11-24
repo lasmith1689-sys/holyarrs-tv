@@ -262,7 +262,8 @@ struct ODMoviePage: View {
 
     private func play(_ t: Double) {
         watching = LiveRequest(stream: item.id, title: item.title,
-                               vod: VODRef(kind: "movie", id: item.id, ext: info["ext"].string ?? item.ext, start: t, duration: duration))
+                               vod: VODRef(kind: "movie", id: item.id, ext: info["ext"].string ?? item.ext, start: t, duration: duration,
+                                           poster: item.poster))
     }
 }
 
@@ -343,7 +344,7 @@ struct ODSeriesPage: View {
         return Button {
             watching = LiveRequest(stream: id, title: "\(item.title) \u{00B7} S\(s) E\(n)",
                                    vod: VODRef(kind: "episode", id: id, ext: e["ext"].string ?? "mp4", start: at ?? 0,
-                                               duration: e["duration_s"].double))
+                                               duration: e["duration_s"].double, poster: item.poster, series: item.title))
         } label: {
             ODEpisodeRow(number: n, title: title, plot: e["plot"].string, still: e["still"].string,
                          detail: [e["duration_s"].double.map { OnDemand.minutes($0) }, at.map { "Resume at \(OnDemand.minutes($0))" }]
