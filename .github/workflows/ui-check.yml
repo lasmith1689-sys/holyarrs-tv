@@ -5,7 +5,7 @@ name: Screen check
 on:
   workflow_dispatch:
   push:
-    branches: [main, dl]  # dl: episode downloads checks before it merges
+    branches: [main]
     paths: ["Sources/**", "UITests/**", "UITests-iOS/**", "ci/**", "project.yml", ".github/workflows/ui-check.yml"]
 
 concurrency:
