@@ -47,7 +47,9 @@ final class HolyArrs: ObservableObject {
         address = UserDefaults.standard.string(forKey: "holyarrsAddress") ?? HolyArrs.defaultAddress
     }
 
-    var base: URL? {
+    var base: URL? { Away.shared.route(homeBase) }  // the PC's Tailscale name while away (Away.swift)
+
+    var homeBase: URL? {
         let trimmed = address.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         guard let url = URL(string: trimmed), url.scheme != nil, url.host != nil else { return nil }
         return url

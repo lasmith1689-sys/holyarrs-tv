@@ -34,7 +34,7 @@ final class Sportarr: ObservableObject {
     var base: URL? {
         let t = address.trimmingCharacters(in: .whitespacesAndNewlines).trimmingCharacters(in: CharacterSet(charactersIn: "/"))
         guard let url = URL(string: t), url.scheme != nil, url.host != nil else { return nil }
-        return url
+        return Away.shared.route(url)
     }
 
     var ready: Bool { state == .ready }

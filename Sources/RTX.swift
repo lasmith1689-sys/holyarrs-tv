@@ -49,7 +49,10 @@ final class RTXServer: ObservableObject {
         if let j = LastGood.read("teams") { teams = RTXServer.teamsByLeague(j) }
     }
 
-    var base: URL? {
+    var base: URL? { Away.shared.route(homeBase) }
+
+    /// The address as set (home); `base` swaps in the PC's Tailscale name while away.
+    var homeBase: URL? {
         let t = address.trimmingCharacters(in: .whitespacesAndNewlines)
         guard let url = URL(string: t), url.scheme != nil, url.host != nil else { return nil }
         return url
@@ -65,6 +68,7 @@ final class RTXServer: ObservableObject {
 
     func refresh() async {
         refreshedAt = Date()
+        if reachable != true || Away.shared.active { await Away.shared.check(home: homeBase) }
         guard let base else { error = "address not valid"; reachable = false; return }
         checking = true
         defer { checking = false }
@@ -390,14 +394,22 @@ struct RTXAPI {
     /// Starts a film's stream at `seconds`. `ask`: the PC answers 409 "busy" (with the other film and screen)
     /// instead of stopping a film another screen is watching; `force` is the viewer's "Play here".
     func play(film: String, seconds: Double, ask: Bool = true, force: Bool = false) async throws -> (URL, String) {
+        let r = try await start(film: film, seconds: seconds, ask: ask, force: force, away: false)
+        return (r.url, r.session)
+    }
+
+    /// `away`: the PC's phone-sized stream from the file (Release 5), whose time 0 is `startS` in the film.
+    func start(film: String, seconds: Double, ask: Bool = true, force: Bool = false, away: Bool)
+        async throws -> (url: URL, session: String, startS: Double) {
         var q = [URLQueryItem(name: "id", value: film), URLQueryItem(name: "t", value: String(format: "%.1f", max(0, seconds))),
                  URLQueryItem(name: "where", value: Resume.here)]
+        if away { q.append(URLQueryItem(name: "away", value: "1")) }
         if ask { q.append(URLQueryItem(name: "ask", value: "1")) }
         if force { q.append(URLQueryItem(name: "force", value: "1")) }
         let j = try await get("play", q)
         guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL, let session = j["session"].string
         else { throw APIError.badAddress }
-        return (url, session)
+        return (url, session, away ? (j["start_s"].double ?? seconds) : 0)
     }
 
     func stop(session: String) async {
@@ -554,6 +566,8 @@ final class PlaybackModel: ObservableObject {
     private var work: Task<Void, Never>?
     private var closed = false
     private var meta: (title: String, art: URL?)?
+    /// Away from home: the stream starts at this point of the film (positions add it to the player's time).
+    private var offset: Double = 0
 
     func load(request: PlayRequest, rtx: URL?, cookies: [HTTPCookie]) async {
         loadStarted = Date()
@@ -591,9 +605,12 @@ final class PlaybackModel: ObservableObject {
         }
         defer { slow.cancel() }
         do {
-            let (url, id) = try await RTXAPI(base: base).play(film: film.id, seconds: t, force: force)
+            let away = Away.shared.active
+            let r = try await RTXAPI(base: base).start(film: film.id, seconds: t, force: force, away: away)
+            let (url, id) = (r.url, r.session)
             if Task.isCancelled || closed { await RTXAPI(base: base).stop(session: id); return false }
             session = id
+            offset = r.startS
             let item = AVPlayerItem(url: url)
             item.preferredForwardBufferDuration = 30
             busy = nil
@@ -704,7 +721,10 @@ final class PlaybackModel: ObservableObject {
         #endif
         let fromPC = session != nil
         timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 10, preferredTimescale: 1), queue: .main) { [weak self] t in
-            Task { @MainActor in self?.savePosition(t.seconds) }
+            Task { @MainActor in
+                guard let self else { return }
+                self.savePosition(t.seconds + self.offset)
+            }
         }
         endObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in self?.ended() }
@@ -748,7 +768,7 @@ final class PlaybackModel: ObservableObject {
         updateStats()
         guard session != nil, let p = player else { return }
         let t = p.currentTime().seconds
-        if p.timeControlStatus == .playing, t.isFinite, t > 0 { lastGood = t }
+        if p.timeControlStatus == .playing, t.isFinite, t > 0 { lastGood = t + offset }
         if let since = playingSince, Date().timeIntervalSince(since) > Recovery.healthy { recovery.reset() }
         if Recovery.stalled(since: waitingSince) { waitingSince = nil; recover() }
     }
@@ -796,7 +816,7 @@ final class PlaybackModel: ObservableObject {
     /// Where playback is now (for handing over to another room).
     var currentSeconds: Double? {
         guard let t = player?.currentTime().seconds, t.isFinite else { return nil }
-        return t
+        return t + offset
     }
 
     /// Drops the player (keeping the PC's stream, which a recovery asks for again).
@@ -807,7 +827,7 @@ final class PlaybackModel: ObservableObject {
         itemObserver = nil
         if let p = player {
             let t = p.currentTime().seconds
-            if t.isFinite, t > 0 { savePosition(t, leaving: true) }
+            if t.isFinite, t > 0 { savePosition(t + offset, leaving: true) }
             p.pause()
             if let o = timeObserver { p.removeTimeObserver(o) }
         }

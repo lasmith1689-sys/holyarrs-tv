@@ -170,6 +170,7 @@ struct RootView: View {
             tab = RootView.current(tab)
         }
         .task(id: api.address) {
+            await Away.shared.check(home: rtx.homeBase)  // home or away first, so sign-in goes to the right address
             await api.restore()
             // HolyArrs not answering (the PC restarting): ask again every minute until it does.
             while !Task.isCancelled {
@@ -191,7 +192,9 @@ struct RootView: View {
         .onChange(of: scenePhase) { _, phase in
             if phase == .active {
                 Task {
-                    if api.unreachable { await api.restore() }
+                    let wasAway = Away.shared.active
+                    await Away.shared.check(home: rtx.homeBase)  // left home or came back while the app slept
+                    if api.unreachable || wasAway != Away.shared.active { await api.restore() }
                     await rtx.refreshIfStale(maxAge: 30)
                     #if os(iOS)
                     await OfflineStore.shared.resumeWanted(rtx: rtx.error == nil ? rtx.base : nil)

@@ -201,6 +201,7 @@ enum QRCode {
 struct SettingsView: View {
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
+    @ObservedObject private var away = Away.shared
     @EnvironmentObject private var sportarr: Sportarr
 
     var body: some View {
@@ -221,6 +222,17 @@ struct SettingsView: View {
             } footer: {
                 Text("Movies on the PC play through it: Play in 4K upscales them to 4K with its GPU (4K films play at full quality).")
             }
+            #if os(iOS)
+            Section {
+                TextField(Away.defaultHost, text: $away.host)
+                    .keyboardType(.URL).autocorrectionDisabled().textInputAutocapitalization(.never)
+                LabeledContent("Now", value: away.active ? "Away: through Tailscale" : "At home")
+            } header: {
+                Text("Away from home")
+            } footer: {
+                Text("With Tailscale on the PC and this iPhone, the app reaches the PC by this name when the home address doesn't answer. Films and episodes then play at phone size (1080p, a few Mbps) instead of 4K.")
+            }
+            #endif
             SubscriptionsSection()
             RoomsSection()
             Section {
