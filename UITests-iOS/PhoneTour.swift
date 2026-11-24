@@ -205,6 +205,7 @@ final class PhoneTour: XCTestCase {
             show.tap()
             check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10),
                   "a show with episodes on the PC offers Resume S5 E3 at the top of its page")
+            check(app.buttons["Download"].exists, "the show's page offers an iPhone download for that episode")
             shot("title-show")
             // The seasons are a sideways row: bring it up, then slide it along to Season 5.
             let season = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 5'")).firstMatch
@@ -230,6 +231,7 @@ final class PhoneTour: XCTestCase {
                 check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10)
                       && app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Play S5 E4'")).firstMatch.exists,
                       "the season's episodes play from the PC: Resume S5 E3, Play S5 E4")
+                check(app.buttons["Download Breaking Bad S5 E4"].exists, "each playable episode has its own iPhone download")
                 shot("show-episodes")
             } else {
                 XCTFail("no Season 5 on Breaking Bad's page")

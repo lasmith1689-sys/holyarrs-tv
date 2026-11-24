@@ -278,6 +278,8 @@ struct TitlePage: View {
                         .font(.system(size: F(30), weight: .semibold)).padding(.horizontal, S(30))
                 }
                 .buttonStyle(.borderedProminent)
+                // iPhone: download that episode (each episode's own arrow is in the season list).
+                OfflineButton(film: next.episode.film, title: "\(info.name) \(next.episode.code)", subtitle: next.episode.name)
             }
             if let film = rtxFilm {
                 let resume = rtx.startPoint(film)
@@ -631,12 +633,16 @@ struct EpisodesSheet: View {
                 ForEach(rows) { e in
                     if let ep = playable(e.n) {
                         let resume = Resume.position(ep.id)
-                        Button {
-                            playing = PlayRequest(label: "\(info.name) \u{00B7} \(ep.code)", film: ep.film, seconds: resume ?? 0, backdrop: info.backdrop)
-                        } label: {
-                            row(e, trailing: resume.map { "Resume \(Resume.label($0))" } ?? "Play", progress: resume.map { $0 / max(1, ep.film.duration) })
+                        HStack(spacing: 8) {
+                            Button {
+                                playing = PlayRequest(label: "\(info.name) \u{00B7} \(ep.code)", film: ep.film, seconds: resume ?? 0, backdrop: info.backdrop)
+                            } label: {
+                                row(e, trailing: resume.map { "Resume \(Resume.label($0))" } ?? "Play", progress: resume.map { $0 / max(1, ep.film.duration) })
+                            }
+                            .accessibilityLabel("\(resume == nil ? "Play" : "Resume") \(ep.code): \(e.name)")
+                            .phoneBorderless()
+                            OfflineIcon(film: ep.film, title: "\(info.name) \(ep.code)", subtitle: e.name)
                         }
-                        .accessibilityLabel("\(resume == nil ? "Play" : "Resume") \(ep.code): \(e.name)")
                     } else {
                         row(e, trailing: e.state, progress: nil)
                     }

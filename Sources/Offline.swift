@@ -288,6 +288,61 @@ struct OfflineButton: View {
     private var estimate: String { sizeLabel(Int64(film.duration * 4_660_000 / 8)) }
 }
 
+extension View {
+    /// iPhone list rows with two buttons: each keeps its own tap (a plain list row fires every button in it).
+    @ViewBuilder func phoneBorderless() -> some View {
+        #if os(iOS)
+        buttonStyle(.borderless)
+        #else
+        self
+        #endif
+    }
+}
+
+/// An episode row's download control (iPhone): an arrow to start, the PC's and the phone's progress while it
+/// comes, a check once it's here (press again to remove). Same copies as OfflineButton.
+struct OfflineIcon: View {
+    let film: RTXFilm
+    let title: String
+    var subtitle: String? = nil
+    @EnvironmentObject private var rtx: RTXServer
+    @ObservedObject private var store = OfflineStore.shared
+    @State private var confirmRemove = false
+
+    var body: some View {
+        if !Device.isTV {
+            Group {
+                if store.has(film.id) {
+                    Button { confirmRemove = true } label: { Image(systemName: "checkmark.circle.fill") }
+                        .accessibilityLabel("Downloaded: \(title)")
+                        .confirmationDialog("Remove the download?", isPresented: $confirmRemove) {
+                            Button("Remove from this iPhone", role: .destructive) { store.remove(film.id) }
+                        }
+                } else {
+                    switch store.phases[film.id] {
+                    case let .preparing(p), let .downloading(p):
+                        ZStack {
+                            Circle().stroke(Color.white.opacity(0.2), lineWidth: 3)
+                            Circle().trim(from: 0, to: max(0.05, p)).stroke(Theme.accent, lineWidth: 3).rotationEffect(.degrees(-90))
+                        }
+                        .frame(width: 22, height: 22)
+                        .accessibilityLabel("Downloading \(title), \(Int(p * 100))%")
+                    default:
+                        Button { Task { await store.download(film, title: title, subtitle: subtitle, rtx: rtx.base) } } label: {
+                            Image(systemName: "arrow.down.circle")
+                        }
+                        .accessibilityLabel("Download \(title)")
+                    }
+                }
+            }
+            .font(.system(size: 22, weight: .semibold))
+            .foregroundStyle(Theme.accent)
+            .buttonStyle(.borderless)  // its own tap inside a list row that plays
+            .frame(width: 44, height: 44)
+        }
+    }
+}
+
 #if os(iOS)
 /// What's on this iPhone to watch with no connection.
 struct OfflineView: View {
