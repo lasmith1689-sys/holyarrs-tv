@@ -168,13 +168,23 @@ final class PhoneTour: XCTestCase {
             // The seasons are a sideways row: bring it up, then slide it along to Season 5.
             let season = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 5'")).firstMatch
             let first = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 1'")).firstMatch
+            // Position checks, not isHittable: asking an off-screen button whether it is hittable fails the test.
+            let win = app.windows.firstMatch
+            func onScreen(_ e: XCUIElement) -> Bool {
+                guard e.exists else { return false }
+                let f = e.frame, w = win.frame
+                return !f.isEmpty && f.minX >= w.minX && f.maxX <= w.maxX && f.midY > w.minY && f.midY < w.maxY
+            }
             if scrollTo(first) {
-                for _ in 0..<6 where !(season.exists && season.isHittable) {
-                    first.exists && first.isHittable ? first.swipeLeft() : app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season'")).element(boundBy: 1).swipeLeft()
-                    usleep(500_000)
+                let y = first.frame.midY, w = win.frame.width
+                let origin = win.coordinate(withNormalizedOffset: .zero)
+                for _ in 0..<8 where !onScreen(season) {
+                    origin.withOffset(CGVector(dx: w * 0.85, dy: y))
+                        .press(forDuration: 0.05, thenDragTo: origin.withOffset(CGVector(dx: w * 0.15, dy: y)))
+                    usleep(600_000)
                 }
             }
-            if season.exists && season.isHittable {
+            if onScreen(season) {
                 season.tap()
                 check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10)
                       && app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Play S5 E4'")).firstMatch.exists,
