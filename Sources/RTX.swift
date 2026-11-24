@@ -367,8 +367,14 @@ struct RTXAPI {
         return (try JSON.parse(data), data)
     }
 
-    func play(film: String, seconds: Double) async throws -> (URL, String) {
-        let j = try await get("play", [URLQueryItem(name: "id", value: film), URLQueryItem(name: "t", value: String(format: "%.1f", max(0, seconds)))])
+    /// Starts a film's stream at `seconds`. `ask`: the PC answers 409 "busy" (with the other film and screen)
+    /// instead of stopping a film another screen is watching; `force` is the viewer's "Play here".
+    func play(film: String, seconds: Double, ask: Bool = true, force: Bool = false) async throws -> (URL, String) {
+        var q = [URLQueryItem(name: "id", value: film), URLQueryItem(name: "t", value: String(format: "%.1f", max(0, seconds))),
+                 URLQueryItem(name: "where", value: Resume.here)]
+        if ask { q.append(URLQueryItem(name: "ask", value: "1")) }
+        if force { q.append(URLQueryItem(name: "force", value: "1")) }
+        let j = try await get("play", q)
         guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL, let session = j["session"].string
         else { throw APIError.badAddress }
         return (url, session)
@@ -433,15 +439,26 @@ struct PlayerScreen: View {
                 Color.clear.overlay { Artwork(raw: request.backdrop, width: 780).blur(radius: S(70)).opacity(0.35) }.clipped().ignoresSafeArea()
                 VStack(spacing: S(34)) {
                     Text(request.label).font(.system(size: F(60), weight: .bold)).multilineTextAlignment(.center)
-                    if let error = model.error {
-                        Text("Couldn't start").font(.title3.bold())
+                    if let busy = model.busy {
+                        // Another screen has the PC's one 4K film: say who, and let the viewer choose (never automatic).
+                        Text(busy.line).font(.title3.bold()).multilineTextAlignment(.center)
+                        Text(Recovery.busyNote).foregroundStyle(Color.white.opacity(0.6)).multilineTextAlignment(.center)
+                        HStack(spacing: S(30)) {
+                            Button(busy.taken ? "Take it back" : "Play here") { model.playHere() }
+                            Button("Back") { dismiss() }
+                        }
+                    } else if let error = model.error {
+                        Text(model.canRetry ? "Lost the connection" : "Couldn't start").font(.title3.bold())
                         Text(error).foregroundStyle(Color.white.opacity(0.6)).multilineTextAlignment(.center).frame(maxWidth: W(1300))
-                        Button("Back") { dismiss() }
+                        HStack(spacing: S(30)) {
+                            if model.canRetry { Button("Try again") { model.tryAgain() } }
+                            Button("Back") { dismiss() }
+                        }
                     } else {
                         ProgressView()
-                        Text(request.trailer != nil ? "Loading the trailer..." :
-                                request.seconds > 1 ? "Resuming at \(Resume.label(request.seconds))..." : "Upscaling to 4K on the PC...")
-                            .foregroundStyle(Color.white.opacity(0.7))
+                        Text(model.notice ?? (request.trailer != nil ? "Loading the trailer..." :
+                                request.seconds > 1 ? "Resuming at \(Resume.label(request.seconds))..." : "Upscaling to 4K on the PC..."))
+                            .foregroundStyle(Color.white.opacity(0.7)).multilineTextAlignment(.center)
                     }
                 }
                 .padding(S(100))
@@ -476,11 +493,29 @@ final class PlaybackModel: ObservableObject {
     @Published var player: AVPlayer?
     @Published var error: String?
     @Published var finished = false
+    /// What the waiting screen says while a stream starts or comes back (nil: the usual line).
+    @Published private(set) var notice: String?
+    /// Another screen has the PC's one 4K film (before this one started, or it took this one).
+    @Published private(set) var busy: Busy?
+    /// The error is a lost connection that Try again can rebuild.
+    @Published private(set) var canRetry = false
+
+    struct Busy: Equatable {
+        let title: String
+        let place: String
+        let taken: Bool
+        var line: String { Recovery.busy(title: title, place: place, taken: taken) }
+    }
+
     private var session: String?
+    /// The PC's name for this film's stream, known before /play answers, so Back can stop a start in progress.
+    private var pending: String?
     private var base: URL?
     private var film: RTXFilm?
     private var timeObserver: Any?
     private var endObserver: NSObjectProtocol?
+    private var failObserver: NSObjectProtocol?
+    private var itemObserver: NSKeyValueObservation?
     /// Measured from the player (never estimated): picture size, frame rate, bitrates, stalls, dropped frames.
     @Published private(set) var stats: [StatRow] = []
     /// Paused by the viewer (the iPhone shows its extra buttons only then, never over a playing movie).
@@ -490,6 +525,15 @@ final class PlaybackModel: ObservableObject {
     private var startup: Double?
     private var rateObserver: NSKeyValueObservation?
     private var sentAt: Date?  // when the PC was last told the position
+    // Recovery (streams from the PC only; trailers and downloads play as before).
+    private var recovery = Recovery()
+    private var lastGood: Double = 0  // the newest time seen playing
+    private var waitingSince: Date?  // buffering while the viewer wants it to play
+    private var playingSince: Date?
+    private var recovering = false
+    private var work: Task<Void, Never>?
+    private var closed = false
+    private var meta: (title: String, art: URL?)?
 
     func load(request: PlayRequest, rtx: URL?, cookies: [HTTPCookie]) async {
         loadStarted = Date()
@@ -510,21 +554,105 @@ final class PlaybackModel: ObservableObject {
         guard let rtx else { error = "The RTX server address is not valid. Check Settings."; return }
         base = rtx
         self.film = film
+        lastGood = request.seconds
+        _ = await begin(at: request.seconds)
+    }
+
+    /// Asks the PC for the stream at `t` and plays it. False when it didn't start (busy, or an error, which is
+    /// shown unless this is a recovery try).
+    private func begin(at t: Double, force: Bool = false) async -> Bool {
+        guard let base, let film, !closed else { return false }
+        pending = "film-\(film.id)"
+        let started = Date()
+        let slow = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: UInt64(Recovery.slowStart * 1e9))
+            guard !Task.isCancelled, let self, self.player == nil, !self.recovering else { return }
+            self.notice = Recovery.slowLine
+        }
+        defer { slow.cancel() }
         do {
-            let (url, id) = try await RTXAPI(base: rtx).play(film: film.id, seconds: request.seconds)
-            if Task.isCancelled { await RTXAPI(base: rtx).stop(session: id); return }
+            let (url, id) = try await RTXAPI(base: base).play(film: film.id, seconds: t, force: force)
+            if Task.isCancelled || closed { await RTXAPI(base: base).stop(session: id); return false }
             session = id
             let item = AVPlayerItem(url: url)
             item.preferredForwardBufferDuration = 30
+            busy = nil
+            error = nil
+            canRetry = false
+            if !recovering { notice = nil }
+            if startup == nil { loadStarted = started }
             start(item)
+            if let meta { Task { await self.describe(title: meta.title, art: meta.art) } }  // a rebuilt stream too
+            return true
+        } catch APIError.server(409, let body) {
+            let j = (try? JSON.parse(Data(body.utf8))) ?? .null
+            busy = Busy(title: j["busy"]["title"].string ?? "", place: j["busy"]["where"].string ?? "", taken: false)
+            return false
         } catch {
-            if !Task.isCancelled { self.error = error.localizedDescription }
+            if !recovering && !Task.isCancelled && !closed { self.error = error.localizedDescription }
+            return false
+        }
+    }
+
+    /// "Play here" / "Take it back": the viewer chose to stop the other screen's film.
+    func playHere() {
+        guard let wasBusy = busy else { return }
+        busy = nil
+        notice = nil
+        _ = wasBusy
+        let t = lastGood
+        work?.cancel()
+        work = Task { [weak self] in
+            guard let self else { return }
+            if !(await self.begin(at: t, force: true)), self.busy == nil, self.error == nil {
+                self.error = "The PC didn't start it."
+            }
+        }
+    }
+
+    func tryAgain() {
+        error = nil
+        canRetry = false
+        recovery.reset()
+        recover(checkTaken: false)
+    }
+
+    /// The stream failed or buffered too long: rebuild it at the last good time, three tries, unless another
+    /// screen took the PC's film (then ask, never retry into it).
+    private func recover(checkTaken: Bool = true) {
+        guard base != nil, film != nil, !closed, !recovering else { return }
+        recovering = true
+        let t = max(0, lastGood - 2)  // a little before, so nothing is missed
+        teardown()
+        notice = Recovery.lost(at: t, attempt: 1)
+        work?.cancel()
+        work = Task { [weak self] in
+            guard let self else { return }
+            defer { self.recovering = false }
+            if checkTaken, let base = self.base, let sid = self.session ?? self.pending,
+               let st = try? await RTXAPI(base: base, quick: true).get("status", [URLQueryItem(name: "session", value: sid)]),
+               st["ended"]["reason"].string == "taken" {
+                self.notice = nil
+                self.busy = Busy(title: st["ended"]["by"].string ?? "", place: st["ended"]["where"].string ?? "", taken: true)
+                return
+            }
+            while let wait = self.recovery.next() {
+                self.notice = Recovery.lost(at: t, attempt: self.recovery.tries)
+                try? await Task.sleep(nanoseconds: UInt64(wait * 1e9))
+                if Task.isCancelled || self.closed { return }
+                if await self.begin(at: t) { self.lastGood = t; return }
+                if self.busy != nil { self.notice = nil; return }
+            }
+            self.notice = nil
+            self.canRetry = true
+            self.error = Recovery.gaveUp(at: t)
         }
     }
 
     /// The title and picture the system player shows (the Apple TV info panel, the iPhone lock screen and
     /// Control Center) instead of a blank "Unknown".
     func describe(title: String, art: URL?) async {
+        meta = (title, art)
         guard let item = player?.currentItem else { return }
         func entry(_ id: AVMetadataIdentifier, _ value: NSCopying & NSObjectProtocol) -> AVMetadataItem {
             let m = AVMutableMetadataItem()
@@ -554,11 +682,21 @@ final class PlaybackModel: ObservableObject {
         p.usesExternalPlaybackWhileExternalScreenIsActive = true
         try? AVAudioSession.sharedInstance().setActive(true)
         #endif
+        let fromPC = session != nil
         timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 10, preferredTimescale: 1), queue: .main) { [weak self] t in
             Task { @MainActor in self?.savePosition(t.seconds) }
         }
         endObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: item, queue: .main) { [weak self] _ in
             Task { @MainActor in self?.ended() }
+        }
+        if fromPC {
+            failObserver = NotificationCenter.default.addObserver(forName: .AVPlayerItemFailedToPlayToEndTime, object: item, queue: .main) { [weak self] _ in
+                Task { @MainActor in self?.recover() }
+            }
+            itemObserver = item.observe(\.status, options: [.new]) { [weak self] item, _ in
+                let failed = item.status == .failed
+                Task { @MainActor in if failed { self?.recover() } }
+            }
         }
         rateObserver = p.observe(\.timeControlStatus, options: [.new]) { [weak self] player, _ in
             let status = player.timeControlStatus
@@ -566,12 +704,33 @@ final class PlaybackModel: ObservableObject {
                 guard let self else { return }
                 self.paused = status == .paused
                 if status == .playing, self.startup == nil { self.startup = Date().timeIntervalSince(self.loadStarted) }
+                if status == .playing {
+                    self.waitingSince = nil
+                    if self.playingSince == nil { self.playingSince = Date() }
+                } else {
+                    self.playingSince = nil
+                    // Buffering after it has played: a drop if it goes on (paused by the viewer is not).
+                    if status == .waitingToPlayAtSpecifiedRate, self.startup != nil {
+                        if self.waitingSince == nil { self.waitingSince = Date() }
+                    } else {
+                        self.waitingSince = nil
+                    }
+                }
             }
         }
         statsTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.updateStats() }
+            Task { @MainActor in self?.tick() }
         }
         player = p
+    }
+
+    private func tick() {
+        updateStats()
+        guard session != nil, let p = player else { return }
+        let t = p.currentTime().seconds
+        if p.timeControlStatus == .playing, t.isFinite, t > 0 { lastGood = t }
+        if let since = playingSince, Date().timeIntervalSince(since) > Recovery.healthy { recovery.reset() }
+        if Recovery.stalled(since: waitingSince) { waitingSince = nil; recover() }
     }
 
     private func updateStats() {
@@ -618,22 +777,38 @@ final class PlaybackModel: ObservableObject {
         return t
     }
 
-    func close(stopServer: Bool = true) {
+    /// Drops the player (keeping the PC's stream, which a recovery asks for again).
+    private func teardown() {
         statsTimer?.invalidate()
         statsTimer = nil
         rateObserver = nil
-        if !stopServer { session = nil }
+        itemObserver = nil
         if let p = player {
-            savePosition(p.currentTime().seconds, leaving: true)
+            let t = p.currentTime().seconds
+            if t.isFinite, t > 0 { savePosition(t, leaving: true) }
             p.pause()
             if let o = timeObserver { p.removeTimeObserver(o) }
         }
         if let o = endObserver { NotificationCenter.default.removeObserver(o) }
+        if let o = failObserver { NotificationCenter.default.removeObserver(o) }
         timeObserver = nil
         endObserver = nil
+        failObserver = nil
+        waitingSince = nil
+        playingSince = nil
         player = nil
-        if let session, let base { Task { await RTXAPI(base: base).stop(session: session) } }
+    }
+
+    func close(stopServer: Bool = true) {
+        closed = true
+        work?.cancel()
+        work = nil
+        if !stopServer { session = nil; pending = nil }
+        teardown()
+        // A start still waiting for its first chunks is stopped too (backing out while it starts).
+        if let sid = session ?? pending, let base { Task { await RTXAPI(base: base).stop(session: sid) } }
         session = nil
+        pending = nil
     }
 }
 

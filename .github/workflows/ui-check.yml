@@ -5,7 +5,7 @@ name: Screen check
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, r3]  # r3: Release 3 checks before it merges
     paths: ["Sources/**", "UITests/**", "UITests-iOS/**", "ci/**", "project.yml", ".github/workflows/ui-check.yml"]
 
 concurrency:
@@ -51,7 +51,7 @@ jobs:
           grep -E "warning:" "$RUNNER_TEMP/build.log" | grep -v "appintents" | sort -u | head -n 30 || true
       - name: Continue Watching merge rules (logic checks)
         run: |
-          xcrun swiftc -o "$RUNNER_TEMP/logic" Sources/JSON.swift Sources/Resume.swift ci/logic/main.swift
+          xcrun swiftc -o "$RUNNER_TEMP/logic" Sources/JSON.swift Sources/Resume.swift Sources/Recovery.swift ci/logic/main.swift
           "$RUNNER_TEMP/logic"
       - name: Run the screens in the simulator
         run: |

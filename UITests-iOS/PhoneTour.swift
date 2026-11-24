@@ -139,6 +139,25 @@ final class PhoneTour: XCTestCase {
                           "the 4K copy coming in shows on the page, playable while it downloads")
             sleep(2)
             shot("title-movie")
+            // Release 3: the stand-in PC says another screen has its one 4K film; Play here starts this one, whose
+            // stream is missing on purpose, so the player names the drop, tries three times, then offers Try again.
+            app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.tap()
+            let busyLine = app.staticTexts["The PC is upscaling Dune for the Apple TV."]
+            check(busyLine.waitForExistence(timeout: 15) && app.buttons["Play here"].exists,
+                  "a busy PC says which film and screen, and offers Play here (nothing stopped without asking)")
+            shot("player-busy")
+            if app.buttons["Play here"].exists {
+                app.buttons["Play here"].tap()
+                let lost = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH 'Lost the PC at 51:'")).firstMatch
+                check(lost.waitForExistence(timeout: 30), "a dropped stream says where it was lost and that it is trying again")
+                shot("player-reconnecting")
+                check(app.buttons["Try again"].waitForExistence(timeout: 90),
+                      "after three tries the viewer gets Try again and Back")
+                shot("player-lost")
+            }
+            if app.buttons["Back"].exists { app.buttons["Back"].tap() }
+            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch.waitForExistence(timeout: 10),
+                  "Back returns to the film's page with its resume spot kept")
             // Play outside: the stand-in PC answers that the TV is playing.
             let outside = app.buttons["Play outside"]
             if outside.waitForExistence(timeout: 5) {

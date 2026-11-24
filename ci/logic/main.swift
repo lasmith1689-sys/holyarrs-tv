@@ -69,5 +69,20 @@ r = Resume.merge(.object(["od:movie-1": entry(600, 5400, now), "matrix": entry(3
 check(r.positions["od:movie-1"] == nil, "On Demand positions stay out of the films' list")
 check(Resume.local() == r.positions, "the copy kept here is the merged list")
 
+// 8. Release 3 recovery: three tries (3, 10, 20 s), then Try again; a long healthy run starts the count over.
+var rec = Recovery()
+check(rec.next() == 3 && rec.next() == 10 && rec.next() == 20 && rec.next() == nil && rec.tries == 3,
+      "a dropped stream is rebuilt three times, then the viewer gets Try again")
+rec.reset()
+check(rec.next() == 3, "Try again (or a healthy minute of playing) starts the tries over")
+let t0 = Date()
+check(!Recovery.stalled(since: nil, now: t0) && !Recovery.stalled(since: t0.addingTimeInterval(-10), now: t0)
+      && Recovery.stalled(since: t0.addingTimeInterval(-16), now: t0), "buffering over 15 s counts as a drop, 10 s does not")
+check(Recovery.lost(at: 4323, attempt: 2) == "Lost the PC at 1:12:03. Trying again (2 of 3)", "the drop message names the time")
+check(Recovery.busy(title: "Dune", place: "iphone", taken: false) == "The PC is upscaling Dune for the iPhone."
+      && Recovery.busy(title: "Heat", place: "apple-tv", taken: true) == "The PC switched to Heat for the Apple TV."
+      && Recovery.busy(title: "", place: "", taken: false) == "The PC is upscaling another film for another screen.",
+      "a busy PC says which film and which screen")
+
 print(failures == 0 ? "All logic checks passed." : "\(failures) logic check(s) failed.")
 exit(failures == 0 ? 0 : 1)

@@ -310,6 +310,8 @@ class Handler(BaseHTTPRequestHandler):
                  ep_id(5, 3): {"t": 1200.0, "duration": 2820.0, "at": 1795300200.0, "where": "apple-tv"}}
     cleared = {}
     cast = {"state": "idle", "film": None, "stalls": 0}
+    played_here = False
+    plays = []  # every /play asked (Release 3 checks: ask=1, where=, force=1 after Play here)
 
     def log_message(self, *a):
         pass
@@ -361,8 +363,20 @@ class Handler(BaseHTTPRequestHandler):
             want = q.get("title", "").lower()
             film = next((f for f in fixture("rtx_library")["films"] if f["title"].lower() == want), None)
             return self._send(200, {"film": film}) if film else self._send(404, {"error": "no match"})
-        if path in ("/play", "/stop"):
-            return self._send(200, {"session": "s1", "url": "/missing.m3u8", "ready": True})
+        if path == "/play":
+            # Release 3: an app that asks (ask=1) hears another screen has the PC's one 4K film; "Play here"
+            # (force=1) starts it. Its stream is missing on purpose, so the player's drop recovery runs: three
+            # rebuild tries, then Try again (the tour checks the words, rtx-upscale-stream src/vod.py's rules).
+            Handler.plays.append(dict(q))
+            if q.get("force") == "1":
+                Handler.played_here = True  # the PC stopped Dune: later tries are not "busy" (as on the PC)
+            if q.get("ask") == "1" and q.get("force") != "1" and not Handler.played_here:
+                return self._send(409, {"error": "busy", "busy": {"session": "film-dune", "title": "Dune", "where": "apple-tv"}})
+            return self._send(200, {"session": "film-" + q.get("id", ""), "url": "/missing.m3u8", "ready": True})
+        if path == "/stop":
+            return self._send(200, {"session": q.get("session", ""), "stopped": True})
+        if path == "/status":
+            return self._send(200, {"session": q.get("session", ""), "running": False, "ended": None})
         if path == "/show":
             # The PC's episodes of a HolyArrs show (rtx-upscale-stream src/episodes.py): Breaking Bad's season 5.
             if q.get("title") != "2":
