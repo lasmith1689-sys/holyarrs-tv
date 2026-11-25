@@ -69,6 +69,22 @@ final class PhoneTour: XCTestCase {
         return nil
     }
 
+    /// Opens Other feeds over a playing picture: a tap shows the buttons and they hide again after 4 s, and on a slow
+    /// runner one XCUITest tap spent 1.3 s finding its button, so it landed after they had gone and only showed them
+    /// again (run 45693679570). Three tries; the run log says when it took more than one. `mark`: a row of the list.
+    private func openOtherFeeds(_ feeds: XCUIElement, mark: XCUIElement) -> Bool {
+        for attempt in 1...3 {
+            if !feeds.exists { tapPicture() }
+            guard feeds.waitForExistence(timeout: 3) else { continue }
+            feeds.tap()
+            if mark.waitForExistence(timeout: 5) {
+                if attempt > 1 { print("CHECK passed: Other feeds opened on try \(attempt) (the buttons hid before an earlier tap landed)") }
+                return true
+            }
+        }
+        return false
+    }
+
     /// The labels and identifiers of every button on screen, read in one snapshot.
     private func buttonNames() -> Set<String> {
         guard let root = try? app.snapshot() else { return [] }
@@ -458,12 +474,11 @@ final class PhoneTour: XCTestCase {
             check(!feeds.exists && !cast.exists, "live player: nothing of the app's own over the playing picture until it is tapped")
             tapPicture()
             check(feeds.waitForExistence(timeout: 3), "live player: a tap on the picture shows Feeds")
-            feeds.tap()
             let first = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 1'")).firstMatch
             let second = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 2'")).firstMatch
             let third = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 3'")).firstMatch
-            check(first.waitForExistence(timeout: 5) && first.label.hasSuffix("1080p60 (best)") && first.isSelected,
-                  "Other feeds: Feed 1, 1080p60 (best), marked playing (found \(first.label))")
+            check(openOtherFeeds(feeds, mark: first) && first.label.hasSuffix("1080p60 (best)") && first.isSelected,
+                  "Other feeds: Feed 1, 1080p60 (best), marked playing (found \(first.exists ? first.label : "no Feed 1"))")
             check(second.label.hasSuffix("720p60") && third.label.hasSuffix("not measured yet") && !second.isSelected,
                   "Other feeds: the game's other two feeds (found \(second.label); \(third.label))")
             shot("live-feeds")
@@ -479,22 +494,12 @@ final class PhoneTour: XCTestCase {
             shot("live-player")
             check(feeds.waitForNonExistence(timeout: 8), "live player: the buttons go again by themselves")
             sleep(1)  // the controls finish fading first: a tap during the fade can land as a hide (run 45644129814)
-            tapPicture()
-            var feedsBack = feeds.waitForExistence(timeout: 3)
-            if feedsBack {
-                check(true, "live player: a third tap shows Feeds at once")
-            } else {  // one more tap, said in the run log (its filter keeps "passed" lines), so a dropped tap is seen
-                tapPicture()
-                feedsBack = feeds.waitForExistence(timeout: 3)
-                if feedsBack { print("CHECK passed: live player: a third tap shows Feeds, but only on a second tap (the first landed in the fade)") }
-            }
-            if feedsBack {
-                feeds.tap()
-                check(second.waitForExistence(timeout: 5) && second.isSelected && !first.isSelected, "Other feeds: Feed 2 now playing")
+            if openOtherFeeds(feeds, mark: second) {
+                check(second.isSelected && first.waitForExistence(timeout: 3) && !first.isSelected, "Other feeds: Feed 2 now playing")
                 shot("live-feed-switched")
                 app.buttons["Done"].tap()
             } else {
-                XCTFail("no Feeds after the second tap")
+                XCTFail("Other feeds did not open again after the buttons went by themselves")
             }
         } else {
             XCTFail("the Bears game is not on Sports")
@@ -505,13 +510,13 @@ final class PhoneTour: XCTestCase {
         if espn.waitForExistence(timeout: 15) {
             espn.tap()
             waitPlaying()
+            let main = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 1'")).firstMatch
+            let spare = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 2'")).firstMatch
             tapPicture()
-            if feeds.waitForExistence(timeout: 3) {
-                feeds.tap()
-                let main = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 1'")).firstMatch
-                let spare = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Feed 2'")).firstMatch
-                check(main.waitForExistence(timeout: 5) && main.label.hasSuffix("main") && spare.label.hasSuffix("spare"),
-                      "a channel's Other feeds: its main and spare feeds (found \(main.label); \(spare.label))")
+            if openOtherFeeds(feeds, mark: main) {
+                let spareLabel = spare.exists ? spare.label : "no Feed 2"
+                check(main.label.hasSuffix("main") && spareLabel.hasSuffix("spare"),
+                      "a channel's Other feeds: its main and spare feeds (found \(main.label); \(spareLabel))")
                 shot("live-channel-feeds")
                 app.buttons["Done"].tap()
                 // The system's Close (the only Close over a picture since iOS 26) closes the player, and the next
