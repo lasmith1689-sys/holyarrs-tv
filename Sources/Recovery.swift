@@ -39,6 +39,7 @@ struct Recovery {
         case "iphone": return "the iPhone"
         case "ipad": return "the iPad"
         case "web", "tablet": return "the tablet"
+        case "pc": return "the PC"
         default: return "another screen"
         }
     }

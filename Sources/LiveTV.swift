@@ -107,6 +107,10 @@ struct LiveEvent: Identifiable, Hashable {
     let teams: [LiveTeam]
     /// Every feed of the game, best first (the PC ranks them by measured picture and reliability).
     let feeds: [LiveFeed]
+    /// ESPN's id of the game (NFL, Premier League, Champions League): what Record asks the PC for.
+    let game: String?
+    /// The PC is set to record it ("scheduled") or is recording it ("recording").
+    let rec: String?
 
     init?(_ j: JSON) {
         guard let id = j["id"].string, let title = j["title"].string, let s = j["start"].double else { return nil }
@@ -120,6 +124,8 @@ struct LiveEvent: Identifiable, Hashable {
         let t = j["teams"].array.compactMap(LiveTeam.init)
         teams = t.count == 2 ? t : []
         feeds = j["feeds"].array.compactMap { f in f["id"].string.map { LiveFeed(id: $0, quality: f["quality"].string) } }
+        game = j["game"].string
+        rec = j["rec"]["state"].string
     }
 
     /// "Dolphins at Bills" (away at home) rather than "Liverpool vs Manchester United".
@@ -165,13 +171,15 @@ struct LiveRequest: Identifiable {
     var vod: VODRef? = nil
     /// A download still in progress (its release name): played from the PC's growing copy (GET /grow/play).
     var grow: String? = nil
+    /// A recording on the PC (its id): from where it was left, ad breaks skipped (GET /rec/play).
+    var rec: String? = nil
     /// Every feed of a game, best first, with its measured picture ("1080p60"), for Other feeds.
     var feeds: [LiveFeed] = []
 
     /// What Other feeds offers: a game's ranked feeds, else a channel's own stream and its spares (the PC's lineup
     /// lists them best first; not measured). Nothing for On Demand or a download.
     var switchable: [LiveFeed] {
-        guard vod == nil, grow == nil else { return [] }
+        guard vod == nil, grow == nil, rec == nil else { return [] }
         if !feeds.isEmpty { return feeds }
         return ([stream] + alt).map { LiveFeed(id: $0, quality: nil) }
     }
@@ -243,7 +251,7 @@ enum LiveTV {
 }
 
 /// The card look shared with the rest of the app: rounded, lit and lifted when focused.
-private struct LiveCardChrome: ViewModifier {
+struct LiveCardChrome: ViewModifier {
     let focused: Bool
 
     func body(content: Content) -> some View {
@@ -264,6 +272,21 @@ struct LivePill: View {
         }
         .padding(.horizontal, S(12)).padding(.vertical, S(6))
         .background(Color(red: 0.90, green: 0.16, blue: 0.20), in: Capsule())
+        .foregroundStyle(Color.white)
+    }
+}
+
+/// REC on a game set to record (outlined) or recording now (filled).
+struct RecPill: View {
+    var recording: Bool
+    var body: some View {
+        HStack(spacing: S(8)) {
+            Circle().fill(recording ? Color.white : Color(red: 0.90, green: 0.16, blue: 0.20)).frame(width: S(10), height: S(10))
+            Text("REC").font(.system(size: F(18), weight: .heavy)).tracking(1)
+        }
+        .padding(.horizontal, S(12)).padding(.vertical, S(6))
+        .background(recording ? Color(red: 0.90, green: 0.16, blue: 0.20) : Color.black.opacity(0.55), in: Capsule())
+        .overlay(Capsule().stroke(Color(red: 0.90, green: 0.16, blue: 0.20), lineWidth: recording ? 0 : 2))
         .foregroundStyle(Color.white)
     }
 }
@@ -338,6 +361,7 @@ struct LiveEventCell: View {
             .overlay(alignment: .topTrailing) {
                 HStack(spacing: S(10)) {
                     if event.mine { Image(systemName: "star.fill").font(.system(size: F(22))).foregroundStyle(Theme.accent) }
+                    if event.rec != nil { RecPill(recording: event.rec == "recording") }
                     if event.live { LivePill() }
                 }
                 .padding(S(14))
@@ -431,6 +455,8 @@ struct LiveRow: View {
     var wideChannels = false
     var pinned: [LiveChannel] = []
     let play: (LiveRequest) -> Void
+    /// Record or Cancel recording, from a game card's long-press menu (games ESPN knows).
+    var record: ((LiveEvent) -> Void)? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: S(18)) {
@@ -446,6 +472,14 @@ struct LiveRow: View {
                     ForEach(events) { e in
                         Button { play(LiveRequest(stream: e.id, title: e.title, alt: e.alt, feeds: e.feeds)) } label: { LiveEventCell(event: e) }
                             .buttonStyle(QuietButtonStyle())
+                            .contextMenu {
+                                if let record, e.game != nil {
+                                    Button { record(e) } label: {
+                                        Label(e.rec == nil ? "Record" : e.rec == "recording" ? "Stop recording" : "Cancel recording",
+                                              systemImage: e.rec == nil ? "record.circle" : "stop.circle")
+                                    }
+                                }
+                            }
                     }
                     ForEach(channels) { c in
                         Button { play(LiveRequest(stream: c.id, title: c.name, alt: c.alt)) } label: {
@@ -473,15 +507,23 @@ struct LiveSportsSection: View {
     @State private var golf: [LiveEvent] = []
     @State private var racing: [LiveEvent] = []
     @State private var groups: [String: LiveGroup] = [:]
+    @State private var recordings: [Recording] = []
     @State private var watching: LiveRequest?
+    @State private var message: String?
 
     var body: some View {
         VStack(alignment: .leading, spacing: S(46)) {
-            if !yours.isEmpty || !pinned.isEmpty {
-                LiveRow(title: "Your teams", events: yours, pinned: pinned, play: { watching = $0 })
+            if let message {
+                Text(message).font(.system(size: F(24))).foregroundStyle(Theme.dim).padding(.horizontal, Theme.sidePadding)
             }
-            if !live.isEmpty { LiveRow(title: "Live now", events: live, play: { watching = $0 }) }
-            if !today.isEmpty { LiveRow(title: "Later today", events: today, play: { watching = $0 }) }
+            if !recordings.isEmpty {
+                RecordingsRow(recordings: recordings, play: { watching = $0 }, act: { r, action in Task { await act(r, action) } })
+            }
+            if !yours.isEmpty || !pinned.isEmpty {
+                LiveRow(title: "Your teams", events: yours, pinned: pinned, play: { watching = $0 }, record: { e in Task { await record(e) } })
+            }
+            if !live.isEmpty { LiveRow(title: "Live now", events: live, play: { watching = $0 }, record: { e in Task { await record(e) } }) }
+            if !today.isEmpty { LiveRow(title: "Later today", events: today, play: { watching = $0 }, record: { e in Task { await record(e) } }) }
             if !golf.isEmpty || groups["golf"] != nil {
                 LiveRow(title: "Golf", events: golf, channels: groups["golf"]?.channels ?? [], wideChannels: true, play: { watching = $0 })
             }
@@ -500,11 +542,36 @@ struct LiveSportsSection: View {
                 try? await Task.sleep(nanoseconds: 60_000_000_000)
             }
         }
-        .fullScreenCover(item: $watching) { LivePlayerScreen(request: $0) }
+        .fullScreenCover(item: $watching, onDismiss: { Task { await load() } }) { LivePlayerScreen(request: $0) }
+    }
+
+    /// Record a game, or cancel / stop its recording (the PC records it through the plan's one stream).
+    private func record(_ e: LiveEvent) async {
+        guard let base = rtx.base, let game = e.game else { return }
+        do {
+            if e.rec == nil {
+                _ = try await RTXAPI(base: base).get("rec/add", [URLQueryItem(name: "game", value: game)])
+                message = "\(e.title) will record from 5 minutes before kickoff until the game ends, ad breaks skipped when you watch."
+            } else if let r = recordings.first(where: { $0.game == game }) {
+                _ = try await RTXAPI(base: base).get("rec/cancel", [URLQueryItem(name: "id", value: r.id)])
+                message = e.rec == "recording" ? "Stopped recording \(e.title). What was recorded stays." : "\(e.title) won't record."
+            }
+        } catch {
+            message = "Couldn't reach the PC."
+        }
+        await load()
+    }
+
+    private func act(_ r: Recording, _ action: String) async {
+        guard let base = rtx.base else { return }
+        _ = try? await RTXAPI(base: base).get("rec/\(action)", [URLQueryItem(name: "id", value: r.id)])
+        message = action == "delete" ? "Deleted \(r.title)." : nil
+        await load()
     }
 
     private func load() async {
         guard let base = rtx.base, let j = try? await RTXAPI(base: base).get("tv/sports") else { return }
+        recordings = j["recordings"].array.compactMap(Recording.init)
         let order: (LiveEvent, LiveEvent) -> Bool = { a, b in
             a.live != b.live ? a.live : a.start < b.start
         }
@@ -797,6 +864,12 @@ final class LivePlayerModel: ObservableObject {
     /// This stream has played: only then is a failure or stall a drop (one that never starts shows as before).
     private var played = false
     private var failObserver: NSObjectProtocol?
+    /// A recording: its id, its ad breaks (start, end in seconds) and where to pick up after a drop.
+    private var recID: String?
+    private var breaks: [(Double, Double)] = []
+    private var recResume: Double?
+    private var lastT: Double = -1
+    private var lastSaved = Date.distantPast
     private var itemObserver: NSKeyValueObservation?
     private var watchTimer: Timer?
     private var work: Task<Void, Never>?
@@ -812,6 +885,29 @@ final class LivePlayerModel: ObservableObject {
         guard let base else { error = "The PC's address isn't set. Open Settings."; return }
         if let vod = request.vod {
             await tuneVOD(vod, title: request.title, base: base)
+            return
+        }
+        if let rec = request.rec {
+            do {
+                var q = [URLQueryItem(name: "id", value: rec)]
+                if let t = recResume { q.append(URLQueryItem(name: "t", value: String(format: "%.1f", t))) }
+                let j = try await RTXAPI(base: base).get("rec/play", q)
+                guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else {
+                    error = "The PC didn't send the recording."
+                    return
+                }
+                recID = rec
+                breaks = j["breaks"].array.compactMap { b in
+                    let x = b.array.compactMap(\.double)
+                    return x.count == 2 ? (x[0], x[1]) : nil
+                }
+                session = nil  // nothing to stop: the recording carries on
+                start(url)
+            } catch APIError.server(_, let body) {
+                error = (try? JSON.parse(Data(body.utf8)))?["error"].string ?? "The PC couldn't play the recording."
+            } catch {
+                self.error = "Couldn't reach the PC."
+            }
             return
         }
         if let grow = request.grow {
@@ -842,7 +938,12 @@ final class LivePlayerModel: ObservableObject {
                 currentFeed = stream
                 start(url)
                 return
-            } catch APIError.server(let code, _) where code == 503 {
+            } catch APIError.server(let code, let body) where code == 503 {
+                if let why = (try? JSON.parse(Data(body.utf8)))?["recording"]["title"].string, !why.isEmpty,
+                   let text = (try? JSON.parse(Data(body.utf8)))?["error"].string {
+                    error = text  // the PC is recording a game on the plan's one stream: said, not retried
+                    return
+                }
                 busy = true
             } catch {
                 continue
@@ -918,7 +1019,11 @@ final class LivePlayerModel: ObservableObject {
         }
         recovering = false
         notice = nil
-        if vod != nil {  // On Demand: every 15 s the PC hears where it is, so any screen resumes it
+        if recID != nil {  // a recording: ad breaks skipped as play reaches them, the spot saved every 15 s
+            timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.5, preferredTimescale: 10), queue: .main) { [weak self] t in
+                MainActor.assumeIsolated { self?.recTick(t.seconds) }
+            }
+        } else if vod != nil {  // On Demand: every 15 s the PC hears where it is, so any screen resumes it
             timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 15, preferredTimescale: 1), queue: .main) { [weak self] _ in
                 MainActor.assumeIsolated { self?.savePosition() }
             }
@@ -938,6 +1043,33 @@ final class LivePlayerModel: ObservableObject {
         }
         return CastTarget(title: request.title, path: "tv/cast", query: [
             URLQueryItem(name: "stream", value: currentFeed ?? request.stream), URLQueryItem(name: "title", value: request.title)])
+    }
+
+    /// Play crossing the start of an ad break jumps to its end. A seek that lands inside a break is left alone (the
+    /// viewer went there), so a break found by mistake can always be watched.
+    private func recTick(_ t: Double) {
+        guard t.isFinite, let p = player else { return }
+        if lastT >= 0, t > lastT, t - lastT < 2, let b = breaks.first(where: { lastT < $0.0 && $0.0 <= t + 0.25 }) {
+            lastT = b.1
+            p.seek(to: CMTime(seconds: b.1, preferredTimescale: 600), toleranceBefore: .zero, toleranceAfter: CMTime(seconds: 1, preferredTimescale: 600))
+            return
+        }
+        lastT = t
+        if t > 1 { recResume = t }
+        if played, t > 1, Date().timeIntervalSince(lastSaved) > 15, let base, let rec = recID {
+            lastSaved = Date()
+            let q = [URLQueryItem(name: "id", value: rec), URLQueryItem(name: "t", value: String(format: "%.1f", t)),
+                     URLQueryItem(name: "where", value: Self.here)]
+            Task { _ = try? await RTXAPI(base: base).get("rec/position", q) }
+            Task { [weak self] in  // breaks found since it started (it may still be recording)
+                guard let j = try? await RTXAPI(base: base, quick: true).get("rec/breaks", [URLQueryItem(name: "id", value: rec)]) else { return }
+                let found: [(Double, Double)] = j["breaks"].array.compactMap { b in
+                    let x = b.array.compactMap(\.double)
+                    return x.count == 2 ? (x[0], x[1]) : nil
+                }
+                await MainActor.run { if found.count >= (self?.breaks.count ?? 0) { self?.breaks = found } }
+            }
+        }
     }
 
     private func savePosition() {
@@ -1086,7 +1218,7 @@ final class LivePlayerModel: ObservableObject {
         let cur = currentFeed ?? request.stream
         let rest = ([request.stream] + request.alt).filter { $0 != cur }
         var again = LiveRequest(stream: cur, title: request.title, alt: rest, vod: vod ?? request.vod, grow: request.grow,
-                                feeds: request.feeds)
+                                rec: request.rec, feeds: request.feeds)
         if vod == nil, let v = request.vod { again.vod = v }
         await tune(again, base: base)
     }
