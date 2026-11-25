@@ -481,10 +481,12 @@ final class PhoneTour: XCTestCase {
             sleep(1)  // the controls finish fading first: a tap during the fade can land as a hide (run 45644129814)
             tapPicture()
             var feedsBack = feeds.waitForExistence(timeout: 3)
-            if !feedsBack {  // said in the log, so a tap that needed two is seen (the first two taps above are checked)
-                print("NOTE: the third tap on the picture showed nothing; tapped again")
+            if feedsBack {
+                check(true, "live player: a third tap shows Feeds at once")
+            } else {  // one more tap, said in the run log (its filter keeps "passed" lines), so a dropped tap is seen
                 tapPicture()
                 feedsBack = feeds.waitForExistence(timeout: 3)
+                if feedsBack { print("CHECK passed: live player: a third tap shows Feeds, but only on a second tap (the first landed in the fade)") }
             }
             if feedsBack {
                 feeds.tap()
