@@ -116,7 +116,9 @@ struct TitlePage: View {
             }
             Button("Cancel", role: .cancel) {}
         } message: {
-            Text("1080p: a good Blu-ray copy, upscaled to 4K by the PC. 4K: the best real 4K HDR copy there is.")
+            Text(qualities.contains { $0.id == "own-ultra" }
+                 ? "1080p: a good copy, upscaled to 4K by the PC. 4K: a standard 4K HDR copy. Ultra: the full-quality remux, several times bigger."
+                 : "1080p: a good Blu-ray copy, upscaled to 4K by the PC. 4K: the best real 4K HDR copy there is.")
         }
         .sheet(isPresented: $choosingSeasons) {
             if let info { SeasonPicker(info: info) { seasons, futureOnly in startAsk(seasons: seasons, futureOnly: futureOnly) } }
