@@ -203,7 +203,7 @@ struct GuideView: View {
         return HStack(spacing: 0) {
             // Apple TV: logo and name side by side. iPhone: the logo with the name under it (small), so a channel whose
             // logo doesn't load is still named.
-            AdaptiveStack(spacing: S(Device.isTV ? 12 : 2), tvAlignment: .center) {
+            AdaptiveStack(tvAlignment: .center, spacing: S(Device.isTV ? 12 : 2)) {
                 if let logo = c.logo, let base = rtx.base, let u = URL(string: logo, relativeTo: base) {
                     AsyncImage(url: u.absoluteURL) { phase in
                         if let image = phase.image { image.resizable().aspectRatio(contentMode: .fit) } else { Color.clear }
