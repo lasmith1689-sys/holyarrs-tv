@@ -101,9 +101,8 @@ struct RootView: View {
     static func current(_ saved: String) -> String {
         switch saved {
         case "explore": return "home"
-        case "requests", "calendar": return Device.isTV ? "downloads" : "home"
+        case "requests", "calendar", "downloads": return "home"  // opened from Home (Release 6)
         case "settings" where !Device.isTV: return "home"
-        case "downloads" where !Device.isTV: return "home"  // buttons on Home on iPhone (Release 6)
         case "search" where !Device.isTV: return "home"
         default: return saved
         }
@@ -129,10 +128,6 @@ struct RootView: View {
                         Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
                     }
                     if Device.isTV {
-                        // Downloads opens on the downloads list; Requests and Calendar are picked at its top.
-                        Tab(value: "downloads") { Stack { RequestsHub(canManage: me.canManage) } } label: {
-                            Image(systemName: "arrow.down.circle").accessibilityLabel("Downloads")
-                        }
                         Tab(value: "search", role: .search) { Stack { SearchView() } } label: {
                             Image(systemName: "magnifyingglass").accessibilityLabel("Search")
                         }
@@ -176,7 +171,7 @@ struct RootView: View {
                 break
             }
             // iPhone (Release 6): Search and Downloads (with Requests and Calendar) are buttons on Home.
-            if !Device.isTV, ["search", "downloads", "requests", "calendar"].contains(tab) {
+            if ["downloads", "requests", "calendar"].contains(tab) || (tab == "search" && !Device.isTV) {
                 UserDefaults.standard.set(tab == "search" ? "search" : "downloads", forKey: "homeOpen")
             }
             tab = RootView.current(tab)

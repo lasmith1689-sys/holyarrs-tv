@@ -144,6 +144,7 @@ final class ScreenTour: XCTestCase {
         check(app.buttons.matching(NSPredicate(format: "label CONTAINS 'Alien'")).firstMatch.waitForExistence(timeout: 10)
               && app.buttons.matching(NSPredicate(format: "label CONTAINS 'The Matrix'")).firstMatch.exists,
               "Movies: HolyArrs' downloaded films and the films only on the PC")
+        sleep(3)  // the posters
         shot("movies")
         launch(tab: "tv", tvPage: "guide")
         check(app.staticTexts["Guide"].waitForExistence(timeout: 15), "Live & On Demand: the Guide page")
@@ -178,12 +179,12 @@ final class ScreenTour: XCTestCase {
             .waitForExistence(timeout: 10), "subscription warning on Home")
         let bar = app.tabBars.firstMatch
         let tabs = bar.buttons.allElementsBoundByIndex.map(\.label)
-        check(tabs == ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports", "Downloads", "Search", "Settings"],
-              "Apple TV tab bar: Home, Live & On Demand, TV Shows, Movies, Sports, then Downloads, Search and Settings (found \(tabs))")
+        check(tabs == ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports", "Search", "Settings"],
+              "Apple TV tab bar: Home, Live & On Demand, TV Shows, Movies, Sports, then Search and Settings (found \(tabs))")
         let widths = Dictionary(bar.buttons.allElementsBoundByIndex.map { ($0.label, $0.frame.width) }, uniquingKeysWith: { a, _ in a })
-        check(["Downloads", "Search", "Settings"].allSatisfy { (widths[$0] ?? 999) < 70 }
+        check(["Search", "Settings"].allSatisfy { (widths[$0] ?? 999) < 70 }
               && ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports"].allSatisfy { (widths[$0] ?? 0) > 80 },
-              "Apple TV tab bar: the media tabs as text, Downloads, Search and Settings as icons (widths \(widths))")
+              "Apple TV tab bar: the media tabs as text, Search and Settings as icons (widths \(widths))")
         shot("home")
         press(.down, 3)
         shot("home-rows")
@@ -194,10 +195,14 @@ final class ScreenTour: XCTestCase {
         let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
         let resumeCard = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch
         XCTAssertTrue(resumeCard.waitForExistence(timeout: 10), "Continue Watching card for the part-watched Matrix")
-        // At launch focus is on the first Continue Watching card; Down goes to Just arrived (The Matrix is its first card).
+        // At launch focus is on the first Continue Watching card; Down goes to the shortcuts (Release 6), then to Just
+        // arrived (The Matrix is its first card).
         sleep(1)
         check(resumeCard.hasFocus, "the Apple TV starts on the first Continue Watching card")
         if !resumeCard.hasFocus { _ = reachRow(["Resume The Matrix"]) }
+        press(.down)
+        check(app.buttons["shortcut-Guide"].hasFocus || app.buttons["shortcut-Live & On Demand"].hasFocus,
+              "Down from Continue Watching: the Home shortcuts")
         press(.down)
         sleep(1)
         if focus(matrix, .left, limit: 3) {
@@ -351,10 +356,10 @@ final class ScreenTour: XCTestCase {
         launch(tab: "search")
         shot("search")
         launch(tab: "downloads")
-        check(tabShown("Downloads") && app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch
-            .waitForExistence(timeout: 10), "Downloads tab opens on the downloads list")
+        check(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch
+            .waitForExistence(timeout: 10), "a saved Downloads tab opens the downloads list from Home")
         launch(tab: "requests")
-        check(tabShown("Downloads"), "saved tab requests opens Downloads")
+        check(app.tabBars.firstMatch.buttons["Home"].waitForExistence(timeout: 10), "saved tab requests opens Downloads from Home")
         check(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10),
               "saved tab requests opens the Requests page: an ask waiting for an OK")
         shot("requests-waiting")
@@ -362,7 +367,7 @@ final class ScreenTour: XCTestCase {
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch.waitForExistence(timeout: 10), "a download")
         shot("downloads")
         launch(tab: "calendar")
-        check(tabShown("Downloads") && app.staticTexts["Coming up"].waitForExistence(timeout: 10), "saved tab calendar opens Calendar inside Downloads")
+        check(app.staticTexts["Coming up"].waitForExistence(timeout: 10), "saved tab calendar opens Calendar inside Downloads")
         shot("calendar")
         launch(tab: "settings")
         shot("settings")

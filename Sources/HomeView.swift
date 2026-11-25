@@ -210,7 +210,7 @@ struct HomeView: View {
     @AppStorage("tab") private var tab = "home"
     @AppStorage("homeSettings") private var settingsOpen = false
     @EnvironmentObject private var rtx: RTXServer
-    /// iPhone (Release 6): Search and Downloads open from Home's top bar (the five tabs are the media).
+    /// Release 6: Search (iPhone) and Downloads open from Home (the tabs are the media).
     @State private var searchOpen = false
     @State private var downloadsOpen = false
     /// A saved tab from the old layout (search, downloads): opened from Home once.
@@ -235,7 +235,7 @@ struct HomeView: View {
                 if hero.isEmpty { Color.clear.frame(height: Device.isTV ? 150 : S(260)) }
                 ConnectionLine()
                 ContinueRow(focus: $homeFocus)
-                HomeShortcuts(liveTV: rtx.liveTV, open: { tab = $0 }, downloads: { if Device.isTV { tab = "downloads" } else { downloadsOpen = true } })
+                HomeShortcuts(liveTV: rtx.liveTV, open: { tab = $0 }, downloads: { downloadsOpen = true })
                 SubscriptionWarning()
                 if approvals > 0 || stuck > 0 {
                     AdaptiveStack(spacing: S(30)) {
@@ -289,13 +289,15 @@ struct HomeView: View {
             }
         }
         .navigationDestination(isPresented: $settingsOpen) { SettingsView() }
+        .navigationDestination(isPresented: $searchOpen) { SearchView() }
+        #endif
+        // Downloads (with Requests and Calendar) opens from Home on both: the shortcut, the iPhone top bar, or a
+        // saved tab from the old layout. Apple TV's tab bar holds at most seven tabs, so Downloads isn't one.
         .onAppear {
-            if homeOpen == "search" { searchOpen = true } else if homeOpen == "downloads" { downloadsOpen = true }
+            if homeOpen == "search", !Device.isTV { searchOpen = true } else if homeOpen == "downloads" { downloadsOpen = true }
             homeOpen = ""
         }
-        .navigationDestination(isPresented: $searchOpen) { SearchView() }
         .navigationDestination(isPresented: $downloadsOpen) { RequestsHub(canManage: api.me?.canManage ?? false) }
-        #endif
     }
 
     private func load() async {
