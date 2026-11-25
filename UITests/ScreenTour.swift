@@ -137,6 +137,22 @@ final class ScreenTour: XCTestCase {
         shot("top-shelf-link")
     }
 
+    /// Release 6: Movies (HolyArrs' downloaded films and the PC-only ones) and the Guide grid.
+    func testLibraryAndGuide() {
+        launch(tab: "movies")
+        check(app.staticTexts["Movies"].waitForExistence(timeout: 15), "Movies tab")
+        check(app.buttons.matching(NSPredicate(format: "label CONTAINS 'Alien'")).firstMatch.waitForExistence(timeout: 10)
+              && app.buttons.matching(NSPredicate(format: "label CONTAINS 'The Matrix'")).firstMatch.exists,
+              "Movies: HolyArrs' downloaded films and the films only on the PC")
+        shot("movies")
+        launch(tab: "tv", tvPage: "guide")
+        check(app.staticTexts["Guide"].waitForExistence(timeout: 15), "Live & On Demand: the Guide page")
+        check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'ESPN: SportsCenter'")).firstMatch.waitForExistence(timeout: 10),
+              "the guide shows each channel's programmes (ESPN: SportsCenter)")
+        sleep(2)
+        shot("guide")
+    }
+
     func testTour() {
         // Signed out: the sign-in screen. First, wait for the simulator to show the app at all (up to 8 minutes):
         // a first boot can keep its progress screen up for minutes after the app is running.
@@ -162,11 +178,12 @@ final class ScreenTour: XCTestCase {
             .waitForExistence(timeout: 10), "subscription warning on Home")
         let bar = app.tabBars.firstMatch
         let tabs = bar.buttons.allElementsBoundByIndex.map(\.label)
-        check(tabs == ["Home", "Sports", "TV", "Downloads", "Search", "Settings"],
-              "Apple TV tab bar: Home, Sports, TV, Downloads, then Search and Settings (found \(tabs))")
+        check(tabs == ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports", "Downloads", "Search", "Settings"],
+              "Apple TV tab bar: Home, Live & On Demand, TV Shows, Movies, Sports, then Downloads, Search and Settings (found \(tabs))")
         let widths = Dictionary(bar.buttons.allElementsBoundByIndex.map { ($0.label, $0.frame.width) }, uniquingKeysWith: { a, _ in a })
-        check(["Search", "Settings"].allSatisfy { (widths[$0] ?? 999) < 70 } && ["Home", "Sports", "TV", "Downloads"].allSatisfy { (widths[$0] ?? 0) > 80 },
-              "Apple TV tab bar: Home, Sports, TV, Downloads as text, Search and Settings as icons (widths \(widths))")
+        check(["Downloads", "Search", "Settings"].allSatisfy { (widths[$0] ?? 999) < 70 }
+              && ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports"].allSatisfy { (widths[$0] ?? 0) > 80 },
+              "Apple TV tab bar: the media tabs as text, Downloads, Search and Settings as icons (widths \(widths))")
         shot("home")
         press(.down, 3)
         shot("home-rows")
@@ -219,7 +236,7 @@ final class ScreenTour: XCTestCase {
         check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),
               "PC not answering: Continue Watching keeps The Matrix")
         check(app.staticTexts["PC not answering"].waitForExistence(timeout: 25), "PC not answering: Home says so")
-        check(app.tabBars.firstMatch.buttons["TV"].exists, "PC not answering: the TV tab stays")
+        check(app.tabBars.firstMatch.buttons["Live & On Demand"].exists, "PC not answering: the Live & On Demand tab stays")
         shot("home-pc-down")
         // HolyArrs not answering: the tabs and Home (with the PC's rows), not the sign-in screen.
         launch(tab: "home", holyarrs: "http://127.0.0.1:9")

@@ -21,8 +21,15 @@ struct Card: Identifiable, Hashable {
     /// What HolyArrs says about it: "In library", "Asked", "Downloading"...
     let status: String?
     let genres: [String]
+    /// A film on the PC that HolyArrs doesn't have (Movies tab): its RTX film id; the card opens PCFilmPage.
+    var pcFilm: String? = nil
+    /// When HolyArrs added it (Movies and TV Shows: Recently added).
+    var added: Date? = nil
 
-    var route: Route { .title(TitleRef(kind: kind, tmdb: tmdb, titleId: titleId, mbid: mbid, name: name)) }
+    var route: Route {
+        if let pcFilm { return .pcFilm(id: pcFilm) }
+        return .title(TitleRef(kind: kind, tmdb: tmdb, titleId: titleId, mbid: mbid, name: name))
+    }
 
     static func kind(_ s: String?) -> Kind {
         switch s {
@@ -155,6 +162,7 @@ struct TitleRef: Hashable {
 
 enum Route: Hashable {
     case title(TitleRef)
+    case pcFilm(id: String)
     case person(id: String, name: String)
     case genre(type: String, id: Int, name: String)
 }

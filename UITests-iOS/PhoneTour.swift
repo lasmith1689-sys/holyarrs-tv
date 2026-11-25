@@ -107,6 +107,42 @@ final class PhoneTour: XCTestCase {
         shot("large-text-title")
     }
 
+    /// Release 6: TV Shows and Movies are what is downloaded (HolyArrs' titles with files, plus films only on the
+    /// PC); the Guide grid lists each channel's programmes, and a tapped one shows with Watch.
+    func testLibraryAndGuide() {
+        launch(tab: "movies")
+        check(app.staticTexts["Movies"].waitForExistence(timeout: 15), "Movies tab")
+        let matrix = app.buttons.matching(NSPredicate(format: "label CONTAINS 'The Matrix'")).firstMatch
+        let alien = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Alien'")).firstMatch
+        check(matrix.waitForExistence(timeout: 10) && alien.waitForExistence(timeout: 10),
+              "Movies: HolyArrs' downloaded films and the films only on the PC (The Matrix, Alien)")
+        check(!app.buttons.matching(NSPredicate(format: "label CONTAINS 'Wanted Not Here'")).firstMatch.exists,
+              "Movies: only what is downloaded")
+        shot("movies")
+        if scrollTo(alien) {
+            alien.tap()
+            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Play in 4K'")).firstMatch.waitForExistence(timeout: 10),
+                  "a film only on the PC opens its page with Play in 4K")
+            shot("pc-film")
+        }
+        launch(tab: "shows")
+        check(app.buttons.matching(NSPredicate(format: "label CONTAINS 'Breaking Bad'")).firstMatch.waitForExistence(timeout: 15),
+              "TV Shows: the downloaded shows")
+        shot("shows")
+        launch(tab: "tv", tvPage: "guide")
+        check(app.staticTexts["Guide"].waitForExistence(timeout: 15), "Live: the Guide page")
+        let kids = app.buttons["Kids"]
+        if kids.waitForExistence(timeout: 10) { kids.tap() }
+        let paw = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Nick Jr.: PAW Patrol'")).firstMatch
+        check(paw.waitForExistence(timeout: 10), "the guide lists the Kids channels' programmes (Nick Jr.: PAW Patrol)")
+        if paw.exists {
+            paw.tap()
+            check(app.buttons["Watch"].waitForExistence(timeout: 5) && app.staticTexts["PAW Patrol"].exists,
+                  "a tapped programme shows above the grid with Watch")
+        }
+        shot("guide")
+    }
+
     func testTour() {
         launch(tab: "home", signedIn: false)
         let plex = app.buttons["Sign in with Plex"]
@@ -127,9 +163,10 @@ final class PhoneTour: XCTestCase {
         XCTAssertTrue(app.descendants(matching: .any).matching(NSPredicate(format: "label CONTAINS 'Runs out in 9 days'")).firstMatch.exists,
                       "subscription warning on Home")
         let tabs = tabLabels()
-        check(tabs == ["Home", "Sports", "TV", "Downloads", "Search"] && !app.tabBars.firstMatch.buttons["More"].exists,
-              "iPhone tab bar has exactly 5 items, Home, Sports, TV, Downloads, Search, and no More (found \(tabs))")
-        check(app.navigationBars.buttons["Settings"].exists, "Settings gear in Home's toolbar")
+        check(tabs == ["Home", "Live", "TV Shows", "Movies", "Sports"] && !app.tabBars.firstMatch.buttons["More"].exists,
+              "iPhone tab bar has exactly 5 items, Home, Live, TV Shows, Movies, Sports, and no More (found \(tabs))")
+        check(app.navigationBars.buttons["Settings"].exists && app.navigationBars.buttons["Search"].exists
+              && app.navigationBars.buttons["Downloads"].exists, "Search, Downloads and Settings in Home's toolbar")
         let card = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch
         let bar = app.tabBars.firstMatch
         check(card.exists && card.frame.minY > 0 && card.frame.maxY < bar.frame.minY,
@@ -245,7 +282,7 @@ final class PhoneTour: XCTestCase {
         check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),
               "PC not answering: Continue Watching keeps The Matrix")
         check(app.staticTexts["PC not answering"].waitForExistence(timeout: 25), "PC not answering: Home says so")
-        check(app.tabBars.firstMatch.buttons["TV"].exists, "PC not answering: the TV tab stays")
+        check(app.tabBars.firstMatch.buttons["Live"].exists, "PC not answering: the Live tab stays")
         shot("home-pc-down")
 
         // Explore is Browse on Home now: a saved "explore" opens Home; Music and the genres are one tap from there.
@@ -353,10 +390,10 @@ final class PhoneTour: XCTestCase {
         shot("search")
         // Downloads opens on the downloads list (nothing saved yet); saved Requests and Calendar tabs open their page in it.
         launch(tab: "downloads")
-        check(tabSelected("Downloads") && app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch
-            .waitForExistence(timeout: 10), "Downloads tab opens on the downloads list")
+        check(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch
+            .waitForExistence(timeout: 10) && tabSelected("Home"), "Downloads (from Home on iPhone) opens on the downloads list")
         launch(tab: "requests")
-        check(tabSelected("Downloads"), "saved tab requests opens Downloads")
+        check(tabSelected("Home"), "saved tab requests opens Downloads from Home")
         check(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'Dune: Part Two'")).firstMatch.waitForExistence(timeout: 10),
               "saved tab requests opens the Requests page: an ask waiting for an OK")
         shot("requests-waiting")
@@ -364,7 +401,7 @@ final class PhoneTour: XCTestCase {
         XCTAssertTrue(app.staticTexts.matching(NSPredicate(format: "label CONTAINS 'The Last of Us'")).firstMatch.waitForExistence(timeout: 10), "a download")
         shot("downloads")
         launch(tab: "calendar")
-        check(tabSelected("Downloads") && app.staticTexts["Coming up"].waitForExistence(timeout: 10), "saved tab calendar opens Calendar inside Downloads")
+        check(tabSelected("Home") && app.staticTexts["Coming up"].waitForExistence(timeout: 10), "saved tab calendar opens Calendar inside Downloads")
         shot("calendar")
         // Settings was a tab: a saved "settings" opens it on Home. Back on Home, the gear opens it.
         launch(tab: "settings")

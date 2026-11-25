@@ -101,8 +101,10 @@ struct RootView: View {
     static func current(_ saved: String) -> String {
         switch saved {
         case "explore": return "home"
-        case "requests", "calendar": return "downloads"
+        case "requests", "calendar": return Device.isTV ? "downloads" : "home"
         case "settings" where !Device.isTV: return "home"
+        case "downloads" where !Device.isTV: return "home"  // buttons on Home on iPhone (Release 6)
+        case "search" where !Device.isTV: return "home"
         default: return saved
         }
     }
@@ -114,20 +116,26 @@ struct RootView: View {
                 ProgressView()
             } else if let me = api.me, !awayWithDownloads {
                 TabView(selection: Binding(get: { RootView.current(tab) }, set: { tab = $0 })) {
+                    // Release 6 (Luke 2026-11-25): Home; Live & On Demand (everything streaming from the IPTV plan);
+                    // TV Shows and Movies (what is downloaded); Sports. On iPhone that is five, so Search, Downloads and
+                    // Settings are buttons at the top of Home; on Apple TV they stay at the right of the tab bar.
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
+                    if rtx.liveTV {
+                        Tab(Device.isTV ? "Live & On Demand" : "Live", systemImage: "dot.radiowaves.left.and.right", value: "tv") { Stack { TVView() } }
+                    }
+                    Tab("TV Shows", systemImage: "tv", value: "shows") { Stack { LibraryKindView(kind: .show) } }
+                    Tab("Movies", systemImage: "film", value: "movies") { Stack { LibraryKindView(kind: .movie) } }
                     if sportarr.enabled || rtx.liveTV {
                         Tab("Sports", systemImage: "sportscourt", value: "sports") { Stack { SportsView() } }
                     }
-                    if rtx.liveTV {
-                        Tab("TV", systemImage: "tv", value: "tv") { Stack { TVView() } }
-                    }
-                    // Downloads opens on the downloads list; Requests and Calendar are picked at its top.
-                    Tab("Downloads", systemImage: "arrow.down.circle", value: "downloads") { Stack { RequestsHub(canManage: me.canManage) } }
-                    // On Apple TV, Search and Settings are icon-only at the right so the tabs fit across the top.
-                    Tab(value: "search", role: .search) { Stack { SearchView() } } label: {
-                        if Device.isTV { Image(systemName: "magnifyingglass").accessibilityLabel("Search") } else { Label("Search", systemImage: "magnifyingglass") }
-                    }
                     if Device.isTV {
+                        // Downloads opens on the downloads list; Requests and Calendar are picked at its top.
+                        Tab(value: "downloads") { Stack { RequestsHub(canManage: me.canManage) } } label: {
+                            Image(systemName: "arrow.down.circle").accessibilityLabel("Downloads")
+                        }
+                        Tab(value: "search", role: .search) { Stack { SearchView() } } label: {
+                            Image(systemName: "magnifyingglass").accessibilityLabel("Search")
+                        }
                         Tab(value: "settings") { Stack { SettingsView() } } label: {
                             Image(systemName: "gearshape").accessibilityLabel("Settings")
                         }
@@ -166,6 +174,10 @@ struct RootView: View {
                 homeSettings = true
             default:
                 break
+            }
+            // iPhone (Release 6): Search and Downloads (with Requests and Calendar) are buttons on Home.
+            if !Device.isTV, ["search", "downloads", "requests", "calendar"].contains(tab) {
+                UserDefaults.standard.set(tab == "search" ? "search" : "downloads", forKey: "homeOpen")
             }
             tab = RootView.current(tab)
         }
@@ -224,6 +236,8 @@ struct Stack<Content: View>: View {
                     PersonView(id: id, name: name)
                 case let .genre(type, id, name):
                     GenreView(type: type, genre: id, name: name)
+                case let .pcFilm(id):
+                    PCFilmPage(id: id)
                 }
             }
             .navigationDestination(for: ODRoute.self) { route in route.page }  // On Demand pages, from TV or Search

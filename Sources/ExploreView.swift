@@ -138,7 +138,7 @@ struct BrowseSection: View {
 }
 
 /// A Browse choice: filled when picked, lit when focused.
-private struct KindButtonStyle: ButtonStyle {
+struct KindButtonStyle: ButtonStyle {
     let selected: Bool
 
     func makeBody(configuration: Configuration) -> some View {

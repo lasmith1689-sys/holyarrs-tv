@@ -147,6 +147,9 @@ w("artist", {"mbid": "056e4f3e-d505-4dad-8ec1-d04f521cbb56", "name": "Daft Punk"
                         for i, (n, y) in enumerate([("Homework", 1997), ("Discovery", 2001), ("Human After All", 2005), ("Random Access Memories", 2013)])],
              "top": [], "similar": [{"mbid": "j1", "name": "Justice", "image": T.format("j1")}], "related": [], "kid": False, "missing": {"count": 0}})
 w("rtx_library", {"films": [{"id": "matrix", "title": "The Matrix", "year": 1999, "sort": "matrix", "duration_s": 8160, "width": 1920, "height": 800,
-                             "upscale": True, "cleanup": False, "range": "SDR"}],
-                  "status": {"scanned": True, "probed": 1, "posters": 1, "films": 1}})
+                             "upscale": True, "cleanup": False, "range": "SDR"},
+                            # On the PC but not in HolyArrs: the Movies tab shows it too (Release 6)
+                            {"id": "alien", "title": "Alien", "year": 1979, "sort": "alien", "duration_s": 7020, "width": 1920,
+                             "height": 816, "upscale": True, "cleanup": False, "range": "SDR", "poster": "/poster/alien.jpg"}],
+                  "status": {"scanned": True, "probed": 2, "posters": 2, "films": 2}})
 print("wrote", len(list(OUT.glob("*.json"))), "fixtures")

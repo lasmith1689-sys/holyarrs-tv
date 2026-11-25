@@ -531,30 +531,57 @@ struct TVView: View {
     @State private var error: String?
     @State private var watching: LiveRequest?
 
+    /// Live & On Demand (Release 6): everything streaming from the IPTV plan. Live channels by group, the Guide
+    /// grid, and On Demand.
+    private var header: some View {
+        AdaptiveStack(spacing: S(30)) {
+            Text(page == "ondemand" ? "On Demand" : page == "guide" ? "Guide" : "Live TV").font(.system(size: F(64), weight: .bold))
+            Picker("Show", selection: $page) {
+                Text("Live").tag("live")
+                Text("Guide").tag("guide")
+                Text("On Demand").tag("ondemand")
+            }
+            .pickerStyle(.segmented)
+            .frame(width: W(720))
+            Spacer()
+            if page == "ondemand" {
+                NavigationLink(value: ODRoute.search) {
+                    Label("Search", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                }
+            } else {
+                NavigationLink(value: LiveRoute.all) {
+                    Label("All channels", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                }
+            }
+        }
+        .padding(.horizontal, Theme.sidePadding)
+        .tvFocusSection()
+    }
+
     var body: some View {
+        if page == "guide" {
+            // Not inside a ScrollView: the guide scrolls its own rows under a fixed time ruler.
+            VStack(alignment: .leading, spacing: S(24)) {
+                header
+                GuideView(play: { watching = $0 })
+            }
+            .padding(.top, S(40))
+            .navigationDestination(for: LiveRoute.self) { route in
+                switch route {
+                case .all: AllChannelsView()
+                case let .category(c): CategoryChannelsView(category: c)
+                }
+            }
+            .fullScreenCover(item: $watching) { LivePlayerScreen(request: $0) }
+        } else {
+            list
+        }
+    }
+
+    private var list: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(46)) {
-                AdaptiveStack(spacing: S(30)) {
-                    Text(page == "ondemand" ? "On Demand" : "Live TV").font(.system(size: F(64), weight: .bold))
-                    Picker("Show", selection: $page) {
-                        Text("Live").tag("live")
-                        Text("On Demand").tag("ondemand")
-                    }
-                    .pickerStyle(.segmented)
-                    .frame(width: W(520))
-                    Spacer()
-                    if page == "ondemand" {
-                        NavigationLink(value: ODRoute.search) {
-                            Label("Search", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
-                        }
-                    } else {
-                        NavigationLink(value: LiveRoute.all) {
-                            Label("All channels", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
-                        }
-                    }
-                }
-                .padding(.horizontal, Theme.sidePadding)
-                .tvFocusSection()
+                header
                 if page == "ondemand" {
                     OnDemandRows()
                 } else {

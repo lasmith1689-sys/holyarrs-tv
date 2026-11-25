@@ -277,8 +277,26 @@ def tv_groups():
         {"id": "golf", "name": "Golf", "channels": [ch(4, "Golf Channel", "Golf Central")]},
         {"id": "racing", "name": "Racing", "channels": [ch(5, "F1 TV", "Qatar Grand Prix build-up")]},
         {"id": "news", "name": "News", "channels": [ch(6, "CNN", "State of the Union"), ch(7, "BBC News", "BBC News")]},
+        {"id": "kids", "name": "Kids", "channels": [ch(9, "Nick Jr.", "PAW Patrol"), ch(10, "Disney Channel", "Bluey")]},
         {"id": "local", "name": "New York", "channels": [ch(8, "FOX 5 New York", "FOX NFL Sunday")]},
     ]
+
+
+def tv_guide():
+    """As the PC's /tv/guide (Release 6): the lineup with each channel's next hours."""
+    now = time.time()
+    base = now - (now % 1800)
+    groups = tv_groups()
+    for g in groups:
+        for i, c in enumerate(g["channels"]):
+            shows = [c["now"]["title"], "Evening News", "Late Movie", "Overnight"]
+            t, progs = base - 900, []
+            for k, title in enumerate(shows):
+                length = 3600 if (i + k) % 2 else 1800
+                progs.append({"title": title, "start": t, "end": t + length, "desc": f"{title} on {c['name']}."})
+                t += length
+            c["programs"] = progs
+    return {"groups": groups, "now": now, "epg_at": now}
 
 
 def tv_sports():
@@ -359,6 +377,8 @@ class Handler(BaseHTTPRequestHandler):
         path = u.path
         q = {k: v[0] for k, v in parse_qs(u.query).items()}
         # The RTX 4K server.
+        if path.startswith("/poster/"):
+            return self._send(200, png(200, 300, (90, 70, 60)), "image/png")
         if path == "/library":
             return self._send(200, fixture("rtx_library"))
         if path == "/find":
@@ -440,6 +460,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, tv_sports())
         if path == "/tv/lineup":
             return self._send(200, {"groups": tv_groups(), "epg_at": time.time()})
+        if path == "/tv/guide":
+            return self._send(200, tv_guide())
         if path == "/tv/categories":
             return self._send(200, {"categories": [{"id": "1", "name": "US| SPORTS \u1d34\u1d30/\u1d3f\u1d2c\u1d42", "count": 3},
                                                    {"id": "2", "name": "UK| NEWS", "count": 2}]})
@@ -601,6 +623,15 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, fixture("person"))
         if p.startswith("music/artists/"):
             return self._send(200, fixture("artist"))
+        if p == "titles":
+            # The library (Release 6 Movies and TV Shows tabs): downloaded titles have files (size above zero).
+            m = fixture("title_movie")
+            sh = fixture("title_show")
+            return self._send(200, {"titles": [
+                dict(m, size_bytes=24_000_000_000, added_at="2026-11-20T10:00:00Z"),
+                dict(sh, size_bytes=58_000_000_000, added_at="2026-11-22T10:00:00Z"),
+                {"id": 77, "kind": "movie", "name": "Wanted Not Here", "year": 2026, "size_bytes": 0, "artwork": []},
+            ]})
         if p.startswith("trailer/"):
             return self._send(404, {"error": "no trailer kept"})
         for prefix in sorted(GETS, key=len, reverse=True):

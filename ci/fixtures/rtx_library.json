@@ -1,22 +1,35 @@
 {
- "films": [
-  {
-   "id": "matrix",
-   "title": "The Matrix",
-   "year": 1999,
-   "sort": "matrix",
-   "duration_s": 8160,
-   "width": 1920,
-   "height": 800,
-   "upscale": true,
-   "cleanup": false,
-   "range": "SDR"
+  "films": [
+    {
+      "id": "matrix",
+      "title": "The Matrix",
+      "year": 1999,
+      "sort": "matrix",
+      "duration_s": 8160,
+      "width": 1920,
+      "height": 800,
+      "upscale": true,
+      "cleanup": false,
+      "range": "SDR"
+    },
+    {
+      "id": "alien",
+      "title": "Alien",
+      "year": 1979,
+      "sort": "alien",
+      "duration_s": 7020,
+      "width": 1920,
+      "height": 816,
+      "upscale": true,
+      "cleanup": false,
+      "range": "SDR",
+      "poster": "/poster/alien.jpg"
+    }
+  ],
+  "status": {
+    "scanned": true,
+    "probed": 1,
+    "posters": 1,
+    "films": 1
   }
- ],
- "status": {
-  "scanned": true,
-  "probed": 1,
-  "posters": 1,
-  "films": 1
- }
 }

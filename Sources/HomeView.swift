@@ -172,10 +172,49 @@ struct Hero: View {
 
 /// Home: what is new for this person (GET /home) under a hero of what's trending (GET /explore/head), then Browse
 /// (what was the Explore tab: All, Movies, Shows or Music, with the genres). On iPhone, Settings opens from the gear.
+/// Home's way into everything (Release 6): one button per tab, under Continue Watching.
+struct HomeShortcuts: View {
+    let liveTV: Bool
+    let open: (String) -> Void
+    let downloads: () -> Void
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: S(24)) {
+                if liveTV {
+                    shortcut("Live & On Demand", "dot.radiowaves.left.and.right") { UserDefaults.standard.set("live", forKey: "tvPage"); open("tv") }
+                    shortcut("Guide", "list.bullet.rectangle") { UserDefaults.standard.set("guide", forKey: "tvPage"); open("tv") }
+                }
+                shortcut("TV Shows", "tv") { open("shows") }
+                shortcut("Movies", "film") { open("movies") }
+                shortcut("Sports", "sportscourt") { open("sports") }
+                shortcut("Downloads", "arrow.down.circle") { downloads() }
+            }
+            .padding(.horizontal, Theme.sidePadding)
+            .padding(.vertical, S(20))
+        }
+        .tvFocusSection()
+    }
+
+    private func shortcut(_ title: String, _ icon: String, _ action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: icon).font(.system(size: F(26), weight: .semibold)).padding(.horizontal, S(14)).padding(.vertical, S(8))
+        }
+        .buttonStyle(.bordered)
+        .accessibilityIdentifier("shortcut-\(title)")
+    }
+}
+
 struct HomeView: View {
     @EnvironmentObject private var api: HolyArrs
     @AppStorage("tab") private var tab = "home"
     @AppStorage("homeSettings") private var settingsOpen = false
+    @EnvironmentObject private var rtx: RTXServer
+    /// iPhone (Release 6): Search and Downloads open from Home's top bar (the five tabs are the media).
+    @State private var searchOpen = false
+    @State private var downloadsOpen = false
+    /// A saved tab from the old layout (search, downloads): opened from Home once.
+    @AppStorage("homeOpen") private var homeOpen = ""
     @State private var hero: [Card] = []
     @State private var rows: [(String, String?, [Card], Bool)] = []
     @State private var approvals = 0
@@ -191,11 +230,12 @@ struct HomeView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: S(50)) {
-                Hero(items: hero, find: { tab = "search" }, height: Device.isTV ? 600 : 700)
+                Hero(items: hero, find: { if Device.isTV { tab = "search" } else { searchOpen = true } }, height: Device.isTV ? 600 : 700)
                 // No hero (HolyArrs not answering, or still loading): keep the rest clear of the tab bar.
                 if hero.isEmpty { Color.clear.frame(height: Device.isTV ? 150 : S(260)) }
                 ConnectionLine()
                 ContinueRow(focus: $homeFocus)
+                HomeShortcuts(liveTV: rtx.liveTV, open: { tab = $0 }, downloads: { if Device.isTV { tab = "downloads" } else { downloadsOpen = true } })
                 SubscriptionWarning()
                 if approvals > 0 || stuck > 0 {
                     AdaptiveStack(spacing: S(30)) {
@@ -239,12 +279,22 @@ struct HomeView: View {
         .task { await load() }
         #if os(iOS)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Button { searchOpen = true } label: { Image(systemName: "magnifyingglass") }
+                    .accessibilityLabel("Search")
+                Button { downloadsOpen = true } label: { Image(systemName: "arrow.down.circle") }
+                    .accessibilityLabel("Downloads")
                 Button { settingsOpen = true } label: { Image(systemName: "gearshape") }
                     .accessibilityLabel("Settings")
             }
         }
         .navigationDestination(isPresented: $settingsOpen) { SettingsView() }
+        .onAppear {
+            if homeOpen == "search" { searchOpen = true } else if homeOpen == "downloads" { downloadsOpen = true }
+            homeOpen = ""
+        }
+        .navigationDestination(isPresented: $searchOpen) { SearchView() }
+        .navigationDestination(isPresented: $downloadsOpen) { RequestsHub(canManage: api.me?.canManage ?? false) }
         #endif
     }
 
