@@ -140,6 +140,8 @@ final class ScreenTour: XCTestCase {
     /// Release 6: Movies (HolyArrs' downloaded films and the PC-only ones) and the Guide grid.
     func testLibraryAndGuide() {
         launch(tab: "movies")
+        // This test runs first (alphabetical order): wait out the simulator's boot screen, as testTour does.
+        check(blackShare(appScreenshot(wait: 96)) <= 0.95, "the simulator shows the app before the checks start")
         check(app.staticTexts["Movies"].waitForExistence(timeout: 15), "Movies tab")
         check(app.buttons.matching(NSPredicate(format: "label CONTAINS 'Alien'")).firstMatch.waitForExistence(timeout: 10)
               && app.buttons.matching(NSPredicate(format: "label CONTAINS 'The Matrix'")).firstMatch.exists,
