@@ -120,7 +120,7 @@ struct RootView: View {
                     // Settings are buttons at the top of Home; on Apple TV they stay at the right of the tab bar.
                     Tab("Home", systemImage: "house", value: "home") { Stack { HomeView() } }
                     if rtx.liveTV {
-                        Tab(Device.isTV ? "Live & On Demand" : "Live", systemImage: "dot.radiowaves.left.and.right", value: "tv") { Stack { TVView() } }
+                        Tab("Live", systemImage: "dot.radiowaves.left.and.right", value: "tv") { Stack { TVView() } }
                     }
                     Tab("TV Shows", systemImage: "tv", value: "shows") { Stack { LibraryKindView(kind: .show) } }
                     Tab("Movies", systemImage: "film", value: "movies") { Stack { LibraryKindView(kind: .movie) } }

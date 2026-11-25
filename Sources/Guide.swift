@@ -143,7 +143,6 @@ struct GuideView: View {
                         if let d = p.desc { Text(d).font(.system(size: F(24))).foregroundStyle(Color.white.opacity(0.75)).lineLimit(2) }
                     }
                 } else {
-                    Text("Guide").font(.system(size: F(40), weight: .bold))
                     Text(Device.isTV ? "Move around the grid to see what's on; select to watch."
                                      : "Tap a programme to see it; Watch plays the channel.")
                         .font(.system(size: F(24))).foregroundStyle(Theme.dim)
@@ -202,16 +201,16 @@ struct GuideView: View {
     private func row(_ c: GuideChannel, now: Date, start: Date, end: Date, perSecond: CGFloat, width: CGFloat) -> some View {
         let inWindow = c.programs.filter { $0.end > start && $0.start < end }
         return HStack(spacing: 0) {
-            HStack(spacing: S(12)) {
+            // Apple TV: logo and name side by side. iPhone: the logo with the name under it (small), so a channel whose
+            // logo doesn't load is still named.
+            AdaptiveStack(spacing: S(Device.isTV ? 12 : 2), tvAlignment: .center) {
                 if let logo = c.logo, let base = rtx.base, let u = URL(string: logo, relativeTo: base) {
                     AsyncImage(url: u.absoluteURL) { phase in
                         if let image = phase.image { image.resizable().aspectRatio(contentMode: .fit) } else { Color.clear }
                     }
                     .frame(width: Device.isTV ? 90 : 40, height: Device.isTV ? 50 : 24)
                 }
-                if Device.isTV || c.logo == nil {
-                    Text(c.name).font(.system(size: F(22), weight: .semibold)).lineLimit(2)
-                }
+                Text(c.name).font(.system(size: Device.isTV ? F(22) : 11, weight: .semibold)).lineLimit(2)
             }
             .frame(width: channelWidth - 8, height: rowHeight, alignment: .leading)
             .padding(.trailing, 8)

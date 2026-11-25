@@ -149,7 +149,7 @@ final class ScreenTour: XCTestCase {
         sleep(3)  // the posters
         shot("movies")
         launch(tab: "tv", tvPage: "guide")
-        check(app.staticTexts["Guide"].waitForExistence(timeout: 15), "Live & On Demand: the Guide page")
+        check(app.staticTexts["Guide"].waitForExistence(timeout: 15), "Live: the Guide page")
         check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'ESPN: SportsCenter'")).firstMatch.waitForExistence(timeout: 10),
               "the guide shows each channel's programmes (ESPN: SportsCenter)")
         sleep(2)
@@ -181,12 +181,15 @@ final class ScreenTour: XCTestCase {
             .waitForExistence(timeout: 10), "subscription warning on Home")
         let bar = app.tabBars.firstMatch
         let tabs = bar.buttons.allElementsBoundByIndex.map(\.label)
-        check(tabs == ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports", "Search", "Settings"],
-              "Apple TV tab bar: Home, Live & On Demand, TV Shows, Movies, Sports, then Search and Settings (found \(tabs))")
+        check(tabs == ["Home", "Live", "TV Shows", "Movies", "Sports", "Search", "Settings"],
+              "Apple TV tab bar: Home, Live, TV Shows, Movies, Sports, then Search and Settings (found \(tabs))")
         let widths = Dictionary(bar.buttons.allElementsBoundByIndex.map { ($0.label, $0.frame.width) }, uniquingKeysWith: { a, _ in a })
         check(["Search", "Settings"].allSatisfy { (widths[$0] ?? 999) < 70 }
-              && ["Home", "Live & On Demand", "TV Shows", "Movies", "Sports"].allSatisfy { (widths[$0] ?? 0) > 80 },
+              && ["Home", "Live", "TV Shows", "Movies", "Sports"].allSatisfy { (widths[$0] ?? 0) > 80 },
               "Apple TV tab bar: the media tabs as text, Search and Settings as icons (widths \(widths))")
+        let settingsTab = bar.buttons["Settings"]
+        check(settingsTab.exists && settingsTab.frame.maxX <= app.frame.maxX - 40 && bar.buttons["Home"].frame.minX >= 40,
+              "Apple TV tab bar fits on screen, Settings included (Settings ends at \(settingsTab.frame.maxX))")
         shot("home")
         press(.down, 3)
         shot("home-rows")
@@ -243,7 +246,7 @@ final class ScreenTour: XCTestCase {
         check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),
               "PC not answering: Continue Watching keeps The Matrix")
         check(app.staticTexts["PC not answering"].waitForExistence(timeout: 25), "PC not answering: Home says so")
-        check(app.tabBars.firstMatch.buttons["Live & On Demand"].exists, "PC not answering: the Live & On Demand tab stays")
+        check(app.tabBars.firstMatch.buttons["Live"].exists, "PC not answering: the Live tab stays")
         shot("home-pc-down")
         // HolyArrs not answering: the tabs and Home (with the PC's rows), not the sign-in screen.
         launch(tab: "home", holyarrs: "http://127.0.0.1:9")
