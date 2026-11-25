@@ -108,13 +108,25 @@ struct RootView: View {
         }
     }
 
+    /// The saved tab if this launch shows it, else Home: Live and Sports are only there when the PC has live TV (or
+    /// Sportarr is on), and a saved Live with no Live tab selected nothing at all, an empty screen (audit 2026-11-25).
+    private func shown(_ t: String) -> String {
+        switch t {
+        case "tv": return rtx.liveTV ? t : "home"
+        case "sports": return sportarr.enabled || rtx.liveTV ? t : "home"
+        case "search", "settings": return Device.isTV ? t : "home"
+        case "home", "shows", "movies": return t
+        default: return "home"
+        }
+    }
+
     var body: some View {
         ZStack {
             Backdrop()
             if api.checking && api.me == nil {
                 ProgressView()
             } else if let me = api.me, !awayWithDownloads {
-                TabView(selection: Binding(get: { RootView.current(tab) }, set: { tab = $0 })) {
+                TabView(selection: Binding(get: { shown(RootView.current(tab)) }, set: { tab = $0 })) {
                     // Release 6 (Luke 2026-11-25): Home; Live & On Demand (everything streaming from the IPTV plan);
                     // TV Shows and Movies (what is downloaded); Sports. On iPhone that is five, so Search, Downloads and
                     // Settings are buttons at the top of Home; on Apple TV they stay at the right of the tab bar.

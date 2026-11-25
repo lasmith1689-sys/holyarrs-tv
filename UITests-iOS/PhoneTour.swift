@@ -53,6 +53,22 @@ final class PhoneTour: XCTestCase {
         return e.exists && e.isHittable
     }
 
+    /// The first button matching `predicate` that can be tapped, scrolling down in short slow drags (never back up)
+    /// until one is. Any match on screen will do: a row's later posters sit past its right edge, and scrollTo's full
+    /// swipes overshot and went up and down until it gave up (run 45644129814: The Matrix at the largest text size).
+    private func firstHittable(_ predicate: NSPredicate, steps: Int = 14) -> XCUIElement? {
+        let matches = app.buttons.matching(predicate)
+        guard matches.firstMatch.waitForExistence(timeout: 10) else { return nil }
+        for _ in 0...steps {
+            if let e = matches.allElementsBoundByIndex.first(where: { $0.isHittable }) { return e }
+            app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.7))
+                .press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)),
+                       withVelocity: .slow, thenHoldForDuration: 0.2)
+            usleep(500_000)
+        }
+        return nil
+    }
+
     /// The labels and identifiers of every button on screen, read in one snapshot.
     private func buttonNames() -> Set<String> {
         guard let root = try? app.snapshot() else { return [] }
@@ -97,8 +113,9 @@ final class PhoneTour: XCTestCase {
     /// (iPhone text follows the Text Size setting, capped at Accessibility 1).
     func testLargeText() {
         launch(tab: "home", more: ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
-        let matrix = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'The Matrix'")).firstMatch
-        guard scrollTo(matrix) else { return XCTFail("The Matrix not on Home at the largest text size") }
+        guard let matrix = firstHittable(NSPredicate(format: "label BEGINSWITH 'The Matrix'")) else {
+            return XCTFail("The Matrix not on Home at the largest text size")
+        }
         matrix.tap()
         let resume = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume in 4K'")).firstMatch
         check(resume.waitForExistence(timeout: 10), "the film page opens at the largest text size")
@@ -461,8 +478,15 @@ final class PhoneTour: XCTestCase {
                   "live player: after switching, a tap shows Feeds and Cast, with the system's Close (no second Close of the app's)")
             shot("live-player")
             check(feeds.waitForNonExistence(timeout: 8), "live player: the buttons go again by themselves")
+            sleep(1)  // the controls finish fading first: a tap during the fade can land as a hide (run 45644129814)
             tapPicture()
-            if feeds.waitForExistence(timeout: 3) {
+            var feedsBack = feeds.waitForExistence(timeout: 3)
+            if !feedsBack {  // said in the log, so a tap that needed two is seen (the first two taps above are checked)
+                print("NOTE: the third tap on the picture showed nothing; tapped again")
+                tapPicture()
+                feedsBack = feeds.waitForExistence(timeout: 3)
+            }
+            if feedsBack {
                 feeds.tap()
                 check(second.waitForExistence(timeout: 5) && second.isSelected && !first.isSelected, "Other feeds: Feed 2 now playing")
                 shot("live-feed-switched")
