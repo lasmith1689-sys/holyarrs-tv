@@ -15,7 +15,7 @@ struct DownloadsView: View {
             VStack(alignment: .leading, spacing: S(24)) {
                 AdaptiveStack(spacing: S(30)) {
                     Text("Downloads").font(.system(size: F(64), weight: .bold))
-                    Text("\(active) active").font(.title3).foregroundStyle(Theme.dim)
+                    Text(summary).font(.title3).foregroundStyle(Theme.dim)
                     Spacer()
                     HStack(spacing: S(30)) {
                         Button("Pause all") { Task { await act("downloads/pause-all", "Paused everything.") } }
@@ -25,7 +25,7 @@ struct DownloadsView: View {
                 .tvFocusSection()
                 if let note { Text(note).foregroundStyle(Theme.accent) }
                 ForEach(rows.indices, id: \.self) { i in
-                    DownloadRowView(d: rows[i],
+                    DownloadRowView(d: rows[i], queued: queued(rows[i]),
                                     pause: { Task { await act("downloads/\(rows[i]["id"].int ?? 0)/pause", "Paused.") } },
                                     resume: { Task { await act("downloads/\(rows[i]["id"].int ?? 0)/resume", "Resumed.") } },
                                     remove: { removing = rows[i] })
@@ -51,12 +51,39 @@ struct DownloadsView: View {
         }
     }
 
+    /// SABnzbd fetches one job at a time, but HolyArrs reports every job in its queue as "downloading" with the total
+    /// speed split between them. A job with nothing in yet while another is part way through is waiting its turn.
+    private func queued(_ d: JSON) -> Bool {
+        d["phase"].string == "downloading" && (d["progress"].double ?? 0) <= 0
+            && rows.contains { $0["phase"].string == "downloading" && ($0["progress"].double ?? 0) > 0 }
+    }
+
+    private var summary: String {
+        let waiting = rows.filter(queued).count
+        let speed = rows.filter { $0["phase"].string == "downloading" }.compactMap { $0["speed"].double }.reduce(0, +)
+        var bits = ["\(active - waiting) active"]
+        if waiting > 0 { bits.append("\(waiting) queued") }
+        if speed > 0 { bits.append(ByteCountFormatter.string(fromByteCount: Int64(speed), countStyle: .file) + "/s") }
+        return bits.joined(separator: " · ")
+    }
+
+    /// The one coming in first, then the queue in the order it will download (soonest done first).
+    private func ordered(_ r: [JSON]) -> [JSON] {
+        r.enumerated().sorted { a, b in
+            func rank(_ d: JSON) -> Int { d["phase"].string == "downloading" ? ((d["progress"].double ?? 0) > 0 ? 0 : 1) : 2 }
+            let (ra, rb) = (rank(a.element), rank(b.element))
+            if ra != rb { return ra < rb }
+            if ra == 1 { return (a.element["eta"].int ?? .max) < (b.element["eta"].int ?? .max) }
+            return a.offset < b.offset
+        }.map(\.element)
+    }
+
     private var active: Int { rows.filter { ["downloading", "stalled", "waiting", "importing", "waiting_to_import"].contains($0["phase"].string ?? "") }.count }
 
     private func load() async {
         defer { loading = false }
         do {
-            rows = try await api.get("downloads/view", ["limit": "100"])["downloads"].array
+            rows = ordered(try await api.get("downloads/view", ["limit": "100"])["downloads"].array)
             error = nil
         } catch {
             if rows.isEmpty { self.error = error.localizedDescription }
@@ -70,6 +97,7 @@ struct DownloadsView: View {
 
 struct DownloadRowView: View {
     let d: JSON
+    var queued = false
     let pause: () -> Void
     let resume: () -> Void
     let remove: () -> Void
@@ -107,7 +135,7 @@ struct DownloadRowView: View {
                     } label: { Label("Play now", systemImage: "play.fill") }
                     .accessibilityLabel("Play now while it downloads")
                 }
-                Badge(text: (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())
+                Badge(text: queued ? "QUEUED" : (d["label"].string ?? phase.replacingOccurrences(of: "_", with: " ")).uppercased())
                 if phase == "downloading" || phase == "stalled" || phase == "waiting" {
                     Button(action: pause) { Image(systemName: "pause.fill") }.accessibilityLabel("Pause")
                 } else if phase == "paused" {
@@ -133,6 +161,12 @@ struct DownloadRowView: View {
     }
 
     private var line: String {
+        if queued {
+            var parts = ["Waiting its turn"]
+            if let eta = d["eta"].int, eta > 0, eta < 7 * 86400 { parts.append("ready in about " + (eta >= 3600 ? "\(eta / 3600)h \(eta / 60 % 60)m" : "\(max(1, eta / 60))m")) }
+            if let size = d["size"].double, size > 0 { parts.append(ByteCountFormatter.string(fromByteCount: Int64(size), countStyle: .file)) }
+            return parts.joined(separator: " · ")
+        }
         var parts = ["\(Int(progress * 100))%"]
         if let s = d["speed"].double, s > 0 { parts.append(ByteCountFormatter.string(fromByteCount: Int64(s), countStyle: .file) + "/s") }
         if let eta = d["eta"].int, eta > 0, eta < 7 * 86400 { parts.append(eta >= 3600 ? "\(eta / 3600)h \(eta / 60 % 60)m left" : "\(max(1, eta / 60))m left") }
