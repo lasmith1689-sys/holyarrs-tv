@@ -1045,7 +1045,7 @@ final class LivePlayerModel: ObservableObject {
         upgradeNote = nil
         start(url)
         if caughtUp > 1, let np = player {
-            np.seek(to: CMTime(seconds: at + caughtUp, preferredTimescale: 600), toleranceBefore: .zero,
+            _ = await np.seek(to: CMTime(seconds: at + caughtUp, preferredTimescale: 600), toleranceBefore: .zero,
                     toleranceAfter: CMTime(seconds: 1, preferredTimescale: 600))
         }
         filmDuration = duration
