@@ -81,6 +81,46 @@ struct Hero: View {
 
     private var item: Card? { items.isEmpty ? nil : items[index % items.count] }
 
+    @ViewBuilder private func heroButtons(_ item: Card, compact: Bool) -> some View {
+        HStack(spacing: S(compact ? 24 : 30)) {
+            NavigationLink(value: item.route) {
+                Label("More info", systemImage: "info.circle").font(.system(size: F(28), weight: .semibold))
+                    .lineLimit(1).fixedSize().padding(.horizontal, S(20))
+            }
+            .buttonStyle(.borderedProminent)
+            .focused($focused, equals: "info")
+            if let trailer {
+                Button {
+                    playing = PlayRequest(label: item.name, trailer: trailer.withSound, backdrop: item.backdrop)
+                } label: {
+                    Label("Trailer", systemImage: "play.rectangle").font(.system(size: F(28), weight: .semibold))
+                        .labelStyle(HeroLabel(compact: compact))
+                }
+                .focused($focused, equals: "trailer")
+                .accessibilityLabel("Trailer")
+            }
+            if items.count > 1 {
+                Button {
+                    index = (index + 1) % items.count
+                } label: {
+                    Label("Next", systemImage: "chevron.right").font(.system(size: F(28), weight: .semibold))
+                        .labelStyle(HeroLabel(compact: compact))
+                }
+                .focused($focused, equals: "next")
+                .accessibilityLabel("Next title")
+            }
+            if let find {
+                Button(action: find) {
+                    Label(Device.isTV ? "Find a movie or show" : "Find", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
+                        .labelStyle(HeroLabel(compact: compact))
+                }
+                .focused($focused, equals: "find")
+                .accessibilityLabel("Find")
+            }
+        }
+        .fixedSize(horizontal: true, vertical: false)
+    }
+
     var body: some View {
         if let item {
             ZStack(alignment: .bottomLeading) {
@@ -112,35 +152,12 @@ struct Hero: View {
                         Text(o).font(.system(size: F(26))).foregroundStyle(Color.white.opacity(0.75))
                             .lineLimit(height < 860 && !Device.isTV ? 2 : 3).frame(maxWidth: W(1100), alignment: .leading)
                     }
-                    HStack(spacing: S(30)) {
-                        NavigationLink(value: item.route) {
-                            Label("More info", systemImage: "info.circle").font(.system(size: F(28), weight: .semibold)).padding(.horizontal, S(20))
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .focused($focused, equals: "info")
-                        if let trailer {
-                            Button {
-                                playing = PlayRequest(label: item.name, trailer: trailer.withSound, backdrop: item.backdrop)
-                            } label: {
-                                Label("Trailer", systemImage: "play.rectangle").font(.system(size: F(28), weight: .semibold))
-                            }
-                            .focused($focused, equals: "trailer")
-                        }
-                        if items.count > 1 {
-                            Button {
-                                index = (index + 1) % items.count
-                            } label: {
-                                Label("Next", systemImage: "chevron.right").font(.system(size: F(28), weight: .semibold))
-                            }
-                            .focused($focused, equals: "next")
-                            .accessibilityLabel("Next title")
-                        }
-                        if let find {
-                            Button(action: find) {
-                                Label(Device.isTV ? "Find a movie or show" : "Find", systemImage: "magnifyingglass").font(.system(size: F(28), weight: .semibold))
-                            }
-                            .focused($focused, equals: "find")
-                        }
+                    // The buttons keep one line each: when the full labels don't fit across (an iPhone, larger Text
+                    // Size: "More info" was squeezed into a circle, 2026-11-25), Trailer, Next and Find show their
+                    // icons only and More info stays a readable pill.
+                    ViewThatFits(in: .horizontal) {
+                        heroButtons(item, compact: false)
+                        heroButtons(item, compact: true)
                     }
                     .tvFocusSection()
                 }
@@ -173,6 +190,18 @@ struct Hero: View {
 /// Home: what is new for this person (GET /home) under a hero of what's trending (GET /explore/head), then Browse
 /// (what was the Explore tab: All, Movies, Shows or Music, with the genres). On iPhone, Settings opens from the gear.
 /// Home's way into everything (Release 6): one button per tab, under Continue Watching.
+/// A hero button's label: icon and title on one line, or the icon alone when the row is short of room.
+struct HeroLabel: LabelStyle {
+    var compact: Bool
+    func makeBody(configuration: Configuration) -> some View {
+        if compact {
+            configuration.icon.padding(.horizontal, S(8))
+        } else {
+            HStack(spacing: S(10)) { configuration.icon; configuration.title }.lineLimit(1).fixedSize()
+        }
+    }
+}
+
 struct HomeShortcuts: View {
     let liveTV: Bool
     let open: (String) -> Void
