@@ -54,6 +54,7 @@ struct EpisodeRow: Hashable, Identifiable {
     let line: String
     var state: String? = nil
     var still: String? = nil
+    var overview: String? = nil
     var id: Int { n }
 }
 
@@ -128,7 +129,7 @@ struct TitlePage: View {
         .sheet(isPresented: $choosingSeasons) {
             if let info { SeasonPicker(info: info) { seasons, futureOnly in startAsk(seasons: seasons, futureOnly: futureOnly) } }
         }
-        .sheet(item: Binding(get: { openSeason.map { SeasonID(number: $0) } }, set: { openSeason = $0?.number })) { s in
+        .fullScreenCover(item: Binding(get: { openSeason.map { SeasonID(number: $0) } }, set: { openSeason = $0?.number })) { s in
             if let info { EpisodesSheet(info: info, season: s.number, pc: pcEpisodes) }
         }
     }
@@ -652,6 +653,9 @@ struct SeasonPicker: View {
 }
 
 /// One season's episodes: from the Library (with each copy's state) or from TMDB.
+/// A show's episodes, full screen (2026-11-25: the old sheet squeezed The Gilded Age's titles): season chips at the
+/// top, then one roomy row per episode with its picture, name, air date and runtime, and what it's about. Episodes the
+/// PC has play (or resume) on a press, with the iPhone download button beside them.
 struct EpisodesSheet: View {
     let info: TitleInfo
     let season: Int
@@ -659,76 +663,140 @@ struct EpisodesSheet: View {
     var pc: [RTXEpisode] = []
     @EnvironmentObject private var api: HolyArrs
     @EnvironmentObject private var rtx: RTXServer
+    @Environment(\.dismiss) private var dismiss
+    @State private var shown: Int?
     @State private var rows: [EpisodeRow] = []
     @State private var error: String?
     @State private var playing: PlayRequest?
 
-    private func playable(_ n: Int) -> RTXEpisode? { pc.first { $0.season == season && $0.episode == n } }
+    private var current: Int { shown ?? season }
+    private func playable(_ n: Int) -> RTXEpisode? { pc.first { $0.season == current && $0.episode == n } }
 
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(rows) { e in
-                    if let ep = playable(e.n) {
-                        let resume = Resume.position(ep.id)
-                        HStack(spacing: 8) {
-                            Button {
-                                playing = PlayRequest(label: "\(info.name) \u{00B7} \(ep.code)", film: ep.film, seconds: resume ?? 0, backdrop: info.backdrop)
-                            } label: {
-                                row(e, trailing: resume.map { "Resume \(Resume.label($0))" } ?? "Play", progress: resume.map { $0 / max(1, ep.film.duration) })
+            ScrollView {
+                VStack(alignment: .leading, spacing: S(24)) {
+                    if info.seasons.count > 1 {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: S(16)) {
+                                ForEach(info.seasons) { sz in
+                                    Button { shown = sz.number } label: {
+                                        Text(sz.number == 0 ? "Specials" : "Season \(sz.number)")
+                                            .font(.system(size: F(24), weight: sz.number == current ? .bold : .regular))
+                                            .padding(.horizontal, S(22)).padding(.vertical, S(10))
+                                            .background(sz.number == current ? Theme.accent.opacity(0.85) : Color.white.opacity(0.08), in: Capsule())
+                                            .foregroundStyle(sz.number == current ? Color.black : Color.white)
+                                    }
+                                    .buttonStyle(QuietButtonStyle())
+                                }
                             }
-                            .accessibilityLabel("\(resume == nil ? "Play" : "Resume") \(ep.code): \(e.name)")
-                            .phoneBorderless()
-                            OfflineIcon(film: ep.film, title: "\(info.name) \(ep.code)", subtitle: e.name)
+                            .padding(.vertical, S(12))
                         }
-                    } else {
-                        row(e, trailing: e.state, progress: nil)
+                        #if os(tvOS)
+                        .focusSection()
+                        #endif
+                    }
+                    LazyVStack(alignment: .leading, spacing: S(22)) {
+                        ForEach(rows) { e in episode(e) }
+                        if rows.isEmpty { Text(error ?? "Loading...").foregroundStyle(.secondary) }
                     }
                 }
-                if rows.isEmpty { Text(error ?? "Loading...").foregroundStyle(.secondary) }
+                .padding(.horizontal, Theme.sidePadding)
+                .padding(.bottom, S(60))
             }
-            .navigationTitle("\(info.name): Season \(season)")
+            .navigationTitle(info.name)
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
+            #endif
         }
         .fullScreenCover(item: $playing) { req in
             PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
         }
-        .task {
-            if let id = info.titleId, let j = try? await api.get("titles/\(id)/episodes", ["season": String(season)]) {
-                rows = j["episodes"].array.map { e -> EpisodeRow in
-                    let n = e["episode"].int ?? 0
-                    let line = [e["air_day"].string, e["runtime"].int.map { "\($0)m" }].compactMap { $0 }.joined(separator: " · ")
-                    return EpisodeRow(n: n, name: e["name"].string ?? "Episode \(n)", line: line, state: e["slots"][0]["state_label"].string)
+        .task(id: current) { await load(current) }
+    }
+
+    @ViewBuilder private func episode(_ e: EpisodeRow) -> some View {
+        if let ep = playable(e.n) {
+            let resume = Resume.position(ep.id)
+            VStack(alignment: .trailing, spacing: S(8)) {
+                Button {
+                    playing = PlayRequest(label: "\(info.name) \u{00B7} \(ep.code)", film: ep.film, seconds: resume ?? 0, backdrop: info.backdrop)
+                } label: {
+                    row(e, trailing: resume.map { "Resume \(Resume.label($0))" } ?? "Play", progress: resume.map { $0 / max(1, ep.film.duration) })
                 }
-            } else if let tmdb = info.tmdb {
-                do {
-                    let j = try await api.get("metadata/show/\(tmdb)/seasons/\(season)")
-                    rows = j["episodes"].array.map { e -> EpisodeRow in
-                        EpisodeRow(n: e.first("number", "episode").int ?? 0, name: e["name"].string ?? "",
-                                   line: e["overview"].string ?? e["air_day"].string ?? "", still: e["still"].string)
-                    }
-                } catch { self.error = error.localizedDescription }
+                .buttonStyle(QuietButtonStyle())
+                .accessibilityLabel("\(resume == nil ? "Play" : "Resume") \(ep.code): \(e.name)")
+                #if os(iOS)
+                OfflineIcon(film: ep.film, title: "\(info.name) \(ep.code)", subtitle: e.name)
+                #endif
             }
+        } else {
+            row(e, trailing: e.state, progress: nil)
         }
     }
 
-    private func row(_ e: EpisodeRow, trailing: String?, progress: Double?) -> some View {
-        HStack(spacing: S(24)) {
-            Artwork(raw: e.still, width: 300).frame(width: W(240), height: S(135)).clipShape(RoundedRectangle(cornerRadius: S(8)))
-            VStack(alignment: .leading, spacing: S(6)) {
-                Text("\(e.n). \(e.name)").font(.headline)
-                Text(e.line).font(.callout).foregroundStyle(.secondary).lineLimit(2)
-                if let progress {
-                    GeometryReader { g in
-                        ZStack(alignment: .leading) {
-                            Capsule().fill(Color.white.opacity(0.2))
-                            Capsule().fill(Theme.accent).frame(width: g.size.width * min(1, progress))
-                        }
-                    }
-                    .frame(width: W(240), height: S(5))
-                }
+    /// The season's episodes: what the PC and HolyArrs have (state), with TMDB's pictures and summaries.
+    private func load(_ n: Int) async {
+        rows = []
+        error = nil
+        var have: [Int: EpisodeRow] = [:]
+        if let id = info.titleId, let j = try? await api.get("titles/\(id)/episodes", ["season": String(n)]) {
+            for e in j["episodes"].array {
+                let k = e["episode"].int ?? 0
+                let line = [e["air_day"].string, e["runtime"].int.map { "\($0) min" }].compactMap { $0 }.joined(separator: " · ")
+                have[k] = EpisodeRow(n: k, name: e["name"].string ?? "Episode \(k)", line: line, state: e["slots"][0]["state_label"].string,
+                                     overview: e["overview"].string)
             }
-            Spacer()
-            if let trailing { Text(trailing).font(.callout.bold()).foregroundStyle(Theme.accent) }
         }
+        var meta: [Int: JSON] = [:]
+        if let tmdb = info.tmdb, let j = try? await api.get("metadata/show/\(tmdb)/seasons/\(n)") {
+            for e in j["episodes"].array { meta[e.first("number", "episode").int ?? 0] = e }
+        }
+        guard current == n else { return }
+        let numbers = Set(have.keys).union(meta.keys).sorted()
+        rows = numbers.map { k in
+            let m = meta[k]
+            var r = have[k] ?? EpisodeRow(n: k, name: m?["name"].string ?? "Episode \(k)", line: m?["air_day"].string ?? "")
+            if r.still == nil { r.still = m?["still"].string }
+            if (r.overview ?? "").isEmpty { r.overview = m?["overview"].string }
+            if r.line.isEmpty, let d = m?["air_day"].string { r = EpisodeRow(n: r.n, name: r.name, line: d, state: r.state, still: r.still, overview: r.overview) }
+            return r
+        }
+        if rows.isEmpty { error = "No episodes listed for this season yet." }
+    }
+
+    private func row(_ e: EpisodeRow, trailing: String?, progress: Double?) -> some View {
+        #if os(tvOS)
+        let picture = CGSize(width: 400, height: 225)
+        #else
+        let picture = CGSize(width: 150, height: 84)
+        #endif
+        return VStack(alignment: .leading, spacing: S(10)) {
+            HStack(alignment: .top, spacing: S(24)) {
+                ZStack(alignment: .bottomLeading) {
+                    Artwork(raw: e.still, width: 500).frame(width: picture.width, height: picture.height)
+                    if let progress {
+                        Rectangle().fill(Theme.accent).frame(width: picture.width * min(1, progress), height: 4)
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: S(10)))
+                VStack(alignment: .leading, spacing: S(6)) {
+                    Text("\(e.n). \(e.name)").font(.headline).lineLimit(2).fixedSize(horizontal: false, vertical: true)
+                    if !e.line.isEmpty { Text(e.line).font(.callout).foregroundStyle(.secondary).lineLimit(1) }
+                    if let trailing { Text(trailing).font(.callout.bold()).foregroundStyle(Theme.accent).lineLimit(1) }
+                    #if os(tvOS)
+                    if let o = e.overview, !o.isEmpty { Text(o).font(.callout).foregroundStyle(.secondary).lineLimit(3) }
+                    #endif
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            #if os(iOS)
+            if let o = e.overview, !o.isEmpty { Text(o).font(.footnote).foregroundStyle(.secondary).lineLimit(3) }
+            #endif
+        }
+        .padding(S(14))
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color.white.opacity(0.05), in: RoundedRectangle(cornerRadius: S(14)))
     }
 }
