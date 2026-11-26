@@ -173,6 +173,9 @@ struct LiveRequest: Identifiable {
     var grow: String? = nil
     /// A recording on the PC (its id): from where it was left, ad breaks skipped (GET /rec/play).
     var rec: String? = nil
+    /// Watch now, 4K when ready: the film's TMDB id. On Demand plays at once; the 4K copy HolyArrs fetches takes
+    /// over at the same moment when it is in place (GET /upgrade/start, /upgrade/status).
+    var upgrade: String? = nil
     /// Every feed of a game, best first, with its measured picture ("1080p60"), for Other feeds.
     var feeds: [LiveFeed] = []
 
@@ -970,12 +973,85 @@ final class LivePlayerModel: ObservableObject {
             if v.duration == nil { v.duration = j["duration_s"].double }
             self.vod = v
             start(url)
+            if let tmdb = request?.upgrade, upgradeID == nil { followUpgrade(tmdb: tmdb, vod: v, title: title, base: base) }
         } catch APIError.server(let code, _) where code == 503 {
             error = "It didn't start. Your plan plays one stream at a time: if live TV is on another screen, stop it there and try again."
         } catch {
             self.error = "Couldn't reach On Demand on the PC."
         }
     }
+
+    /// Watch now, 4K when ready: follows the 4K copy every 20 s; when the PC has it, the film plays from the same
+    /// moment (lined up by sound) and the On Demand stream stops, freeing the plan's one stream.
+    /// Shown only in the player's info panel (Apple TV: swipe down), never over the picture.
+    @Published private(set) var upgradeNote: String? {
+        didSet {
+            #if os(tvOS)
+            guard let item = player?.currentItem else { return }
+            let sub = AVMutableMetadataItem()
+            sub.identifier = .iTunesMetadataTrackSubTitle
+            sub.value = (upgradeNote ?? "") as NSString
+            sub.extendedLanguageTag = "und"
+            item.externalMetadata = upgradeNote == nil ? [] : [sub]
+            #endif
+        }
+    }
+    private var upgradeID: String?
+    private var film: (id: String, session: String)?
+
+    private func followUpgrade(tmdb: String, vod: VODRef, title: String, base: URL) {
+        Task { [weak self] in
+            guard let self else { return }
+            let q = [URLQueryItem(name: "tmdb", value: tmdb), URLQueryItem(name: "title", value: title),
+                     URLQueryItem(name: "kind", value: vod.kind), URLQueryItem(name: "id", value: vod.id),
+                     URLQueryItem(name: "ext", value: vod.ext), URLQueryItem(name: "session", value: self.session ?? "")]
+            guard let j = try? await RTXAPI(base: base).get("upgrade/start", q), let uid = j["upgrade"]["id"].string else { return }
+            self.upgradeID = uid
+            while !self.closed, self.film == nil {
+                try? await Task.sleep(nanoseconds: 20_000_000_000)
+                guard !self.closed, let s = try? await RTXAPI(base: base, quick: true).get("upgrade/status", [URLQueryItem(name: "id", value: uid)]) else { continue }
+                let u = s["upgrade"]
+                switch u["state"].string ?? "" {
+                case "downloading":
+                    let pct = Int(u["pct"].double ?? 0)
+                    if let eta = u["eta_s"].double, eta > 0 { self.upgradeNote = "4K in about \(max(1, Int(eta / 60))) min (\(pct)%)" }
+                    else { self.upgradeNote = "4K downloading (\(pct)%)" }
+                case "importing": self.upgradeNote = "4K almost ready"
+                case "none": self.upgradeNote = nil; return  // no 4K copy: On Demand keeps playing
+                case "ready":
+                    if let fid = u["film"].string { await self.switchToFilm(fid, offset: u["offset"].double ?? 0, base: base) }
+                default: self.upgradeNote = "Looking for a 4K copy"
+                }
+            }
+        }
+    }
+
+    private func switchToFilm(_ fid: String, offset upOffset: Double, base: URL) async {
+        guard let p = player, !closed else { return }
+        let now = p.currentTime().seconds
+        guard now.isFinite else { return }
+        let asked = Date()
+        let at = max(0, now + offset + upOffset)
+        guard let (url, filmSession) = try? await RTXAPI(base: base).play(film: fid, seconds: at, ask: true, force: false), !closed else { return }
+        let caughtUp = min(30, Date().timeIntervalSince(asked))  // the seconds On Demand played while the 4K film started
+        let odSession = session
+        teardown()  // saves the On Demand spot one last time
+        if let odSession { _ = try? await RTXAPI(base: base).get("tv/stop", [URLQueryItem(name: "session", value: odSession)]) }
+        let duration = vod?.duration ?? 0
+        vod = nil
+        offset = 0
+        session = nil
+        film = (fid, filmSession)
+        upgradeNote = nil
+        start(url)
+        if caughtUp > 1, let np = player {
+            np.seek(to: CMTime(seconds: at + caughtUp, preferredTimescale: 600), toleranceBefore: .zero,
+                    toleranceAfter: CMTime(seconds: 1, preferredTimescale: 600))
+        }
+        filmDuration = duration
+    }
+
+    private var filmDuration: Double = 0
 
     private func start(_ url: URL) {
         let p = AVPlayer(url: url)
@@ -1019,7 +1095,14 @@ final class LivePlayerModel: ObservableObject {
         }
         recovering = false
         notice = nil
-        if recID != nil {  // a recording: ad breaks skipped as play reaches them, the spot saved every 15 s
+        if let film {  // the 4K film after Watch now: its spot goes to the PC every 15 s, as in the film player
+            timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 15, preferredTimescale: 1), queue: .main) { [weak self] t in
+                MainActor.assumeIsolated {
+                    guard let self, self.played, t.seconds.isFinite, t.seconds > 1 else { return }
+                    Resume.send(film.id, t.seconds, duration: self.filmDuration)
+                }
+            }
+        } else if recID != nil {  // a recording: ad breaks skipped as play reaches them, the spot saved every 15 s
             timeObserver = p.addPeriodicTimeObserver(forInterval: CMTime(seconds: 0.5, preferredTimescale: 10), queue: .main) { [weak self] t in
                 MainActor.assumeIsolated { self?.recTick(t.seconds) }
             }
@@ -1112,6 +1195,7 @@ final class LivePlayerModel: ObservableObject {
         if let session, let base {
             Task { _ = try? await RTXAPI(base: base).get("tv/stop", [URLQueryItem(name: "session", value: session)]) }
         }
+        if let film, let base { Task { await RTXAPI(base: base).stop(session: film.session) } }
         session = nil
     }
 
@@ -1218,7 +1302,7 @@ final class LivePlayerModel: ObservableObject {
         let cur = currentFeed ?? request.stream
         let rest = ([request.stream] + request.alt).filter { $0 != cur }
         var again = LiveRequest(stream: cur, title: request.title, alt: rest, vod: vod ?? request.vod, grow: request.grow,
-                                rec: request.rec, feeds: request.feeds)
+                                rec: request.rec, upgrade: request.upgrade, feeds: request.feeds)
         if vod == nil, let v = request.vod { again.vod = v }
         await tune(again, base: base)
     }

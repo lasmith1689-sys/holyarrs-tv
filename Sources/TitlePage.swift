@@ -82,6 +82,10 @@ struct TitlePage: View {
     @State private var pcEpisodes: [RTXEpisode] = []
     /// iPhone: the summary opened past its first three lines.
     @State private var moreOverview = false
+    /// The provider's On Demand copy of this film (Watch now, 4K when ready), and the stream it opens.
+    @State private var onDemand: (id: String, ext: String)?
+    @State private var watchNow: LiveRequest?
+    @AppStorage("watchNow4K") private var watchNow4K = true
 
     var body: some View {
         ZStack {
@@ -106,6 +110,7 @@ struct TitlePage: View {
             await rtx.refreshIfStale(maxAge: 30)
             await checkPC()
             if let info, info.kind == .show, let id = info.titleId { pcEpisodes = await rtx.show(titleId: id) }
+            await findOnDemand()
         }
         .fullScreenCover(item: $playing) { req in
             PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
@@ -303,6 +308,17 @@ struct TitlePage: View {
                 OutsideButton(film: film, label: info.name)
                 OfflineButton(film: film, title: info.name, subtitle: info.year.map(String.init))
             }
+            if watchNow4K, info.kind == .movie, info.quality != "4K", info.tmdb != nil, let od = onDemand, api.me?.canAsk == true {
+                Button {
+                    Task { await startWatchNow(od) }
+                } label: {
+                    Label("Watch now · 4K when ready", systemImage: "play.circle").font(.system(size: F(30), weight: .semibold))
+                        .padding(.horizontal, S(30))
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(busy)
+                .fullScreenCover(item: $watchNow, onDismiss: { Task { await load() } }) { LivePlayerScreen(request: $0) }
+            }
             if !info.inLibrary, info.myAsk == nil, api.me?.canAsk == true, !info.neverAdd {
                 Button {
                     if info.kind == .show && info.seasons.count > 1 { choosingSeasons = true } else { startAsk(seasons: [], futureOnly: false) }
@@ -499,6 +515,26 @@ struct TitlePage: View {
     }
 
     // MARK: Actions
+
+    /// The provider's On Demand copy of this film, if it has one (same title, year within one).
+    private func findOnDemand() async {
+        guard watchNow4K, let info, info.kind == .movie, info.quality != "4K", let base = rtx.base, rtx.liveTV else { return }
+        var q = [URLQueryItem(name: "title", value: info.name)]
+        if let y = info.year { q.append(URLQueryItem(name: "year", value: String(y))) }
+        guard let j = try? await RTXAPI(base: base, quick: true).get("tv/ondemand/match", q), let id = j["movie"]["id"].string else { return }
+        onDemand = (id, j["movie"]["ext"].string ?? "mp4")
+    }
+
+    /// On Demand now; the standard 4K copy asked of HolyArrs (an earlier ask or a copy already coming is fine).
+    private func startWatchNow(_ od: (id: String, ext: String)) async {
+        guard let info, let tmdb = info.tmdb else { return }
+        busy = true
+        defer { busy = false }
+        var body: [String: Any] = ["id": "tmdb:\(tmdb)", "kind": info.kind.rawValue]
+        if qualities.contains(where: { $0.id == "4k" }) || info.inLibrary { body["quality"] = "4k" }
+        _ = try? await api.post("asks", body)
+        watchNow = LiveRequest(stream: od.id, title: info.name, vod: VODRef(kind: "movie", id: od.id, ext: od.ext), upgrade: tmdb)
+    }
 
     /// Asks straight away when HolyArrs offers one quality; otherwise asks which (1080p or 4K) first.
     private func startAsk(seasons: [Int], futureOnly: Bool) {

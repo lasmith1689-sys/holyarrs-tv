@@ -203,6 +203,7 @@ struct SettingsView: View {
     @EnvironmentObject private var rtx: RTXServer
     @ObservedObject private var away = Away.shared
     @EnvironmentObject private var sportarr: Sportarr
+    @AppStorage("watchNow4K") private var watchNow4K = true
 
     var body: some View {
         Form {
@@ -235,6 +236,11 @@ struct SettingsView: View {
             #endif
             SubscriptionsSection()
             RoomsSection()
+            Section {
+                Toggle("Watch now, 4K when ready", isOn: $watchNow4K)
+            } footer: {
+                Text("A film your plan has On Demand plays at once while HolyArrs fetches the standard 4K copy (never Ultra); the picture switches to 4K at the same moment once the PC has it.")
+            }
             Section {
                 Toggle("Show the Sports tab", isOn: $sportarr.enabled)
                 TextField(Sportarr.defaultAddress, text: $sportarr.address)
