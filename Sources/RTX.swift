@@ -605,7 +605,7 @@ final class PlaybackModel: ObservableObject {
         }
         defer { slow.cancel() }
         do {
-            let away = Away.shared.active || Self.phoneSpeakers
+            let away = Away.shared.active
             let r = try await RTXAPI(base: base).start(film: film.id, seconds: t, force: force, away: away)
             let (url, id) = (r.url, r.session)
             if Task.isCancelled || closed { await RTXAPI(base: base).stop(session: id); return false }
@@ -629,18 +629,6 @@ final class PlaybackModel: ObservableObject {
             if !recovering && !Task.isCancelled && !closed { self.error = error.localizedDescription }
             return false
         }
-    }
-
-    /// True on an iPhone whose sound goes to its own speaker or headphones (not AirPlay/HDMI to a TV). The 4K
-    /// stream carries the film's own Dolby Digital Plus 5.1, which played silent on an iPhone with Bose Bluetooth
-    /// headphones (Nov 2026); the phone stream (1080p, stereo AAC, no GPU film slot) plays on any headphones.
-    static var phoneSpeakers: Bool {
-        #if os(iOS)
-        let outs = AVAudioSession.sharedInstance().currentRoute.outputs
-        return !outs.contains { [.airPlay, .HDMI].contains($0.portType) }
-        #else
-        return false
-        #endif
     }
 
     /// "Play here" / "Take it back": the viewer chose to stop the other screen's film.
