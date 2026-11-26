@@ -189,12 +189,17 @@ struct RootView: View {
             tab = RootView.current(tab)
         }
         .task(id: api.address) {
+            // The PC at a new home address (the router moved it): find it before anything else.
+            if await PCFinder.relocate(rtx: rtx, api: api, sportarr: sportarr) { return }  // this task restarts
             await Away.shared.check(home: rtx.homeBase)  // home or away first, so sign-in goes to the right address
             await api.restore()
-            // HolyArrs not answering (the PC restarting): ask again every minute until it does.
+            // HolyArrs not answering (the PC restarting, or at a new address): ask again every minute until it does.
             while !Task.isCancelled {
                 try? await Task.sleep(nanoseconds: 60_000_000_000)
-                if api.unreachable { await api.restore() }
+                if api.unreachable {
+                    if await PCFinder.relocate(rtx: rtx, api: api, sportarr: sportarr) { return }
+                    await api.restore()
+                }
             }
         }
         .task(id: rtx.address) {
@@ -212,6 +217,7 @@ struct RootView: View {
             if phase == .active {
                 Task {
                     let wasAway = Away.shared.active
+                    if await PCFinder.relocate(rtx: rtx, api: api, sportarr: sportarr) { return }  // tasks restart
                     await Away.shared.check(home: rtx.homeBase)  // left home or came back while the app slept
                     if api.unreachable || wasAway != Away.shared.active { await api.restore() }
                     await rtx.refreshIfStale(maxAge: 30)
