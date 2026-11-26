@@ -76,7 +76,11 @@ final class PhoneTour: XCTestCase {
         for attempt in 1...3 {
             if !feeds.exists { tapPicture() }
             guard feeds.waitForExistence(timeout: 3) else { continue }
-            feeds.tap()
+            // A tap at where the button is now: feeds.tap() looks the button up again first, and fails the test if
+            // the buttons hid in between (run 45724373995); a tap at a point after they hid only shows them again.
+            let f = feeds.frame
+            guard f.width > 0 else { continue }
+            app.coordinate(withNormalizedOffset: .zero).withOffset(CGVector(dx: f.midX, dy: f.midY)).tap()
             if mark.waitForExistence(timeout: 5) {
                 if attempt > 1 { print("CHECK passed: Other feeds opened on try \(attempt) (the buttons hid before an earlier tap landed)") }
                 return true
