@@ -309,7 +309,9 @@ struct TitlePage: View {
                 OutsideButton(film: film, label: info.name)
                 OfflineButton(film: film, title: info.name, subtitle: info.year.map(String.init))
             }
-            if watchNow4K, info.kind == .movie, info.quality != "4K", info.tmdb != nil, let od = onDemand, api.me?.canAsk == true {
+            // Only for a film with no copy of its own yet: with one, Play is the way in, and this button (which asks
+            // for the 4K download) was easy to tap by mistake (Heart of the Beast, Nov 2026).
+            if watchNow4K, info.kind == .movie, rtxFilm == nil, info.quality != "4K", info.tmdb != nil, let od = onDemand, api.me?.canAsk == true {
                 Button {
                     Task { await startWatchNow(od) }
                 } label: {
