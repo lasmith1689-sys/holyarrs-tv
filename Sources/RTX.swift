@@ -605,7 +605,7 @@ final class PlaybackModel: ObservableObject {
         }
         defer { slow.cancel() }
         do {
-            let away = Away.shared.active || sdrOnly(film)
+            let away = Away.shared.active || sdrOnly(film) || smallStream
             let r = try await RTXAPI(base: base).start(film: film.id, seconds: t, force: force, away: away)
             let (url, id) = (r.url, r.session)
             if Task.isCancelled || closed { await RTXAPI(base: base).stop(session: id); return false }
@@ -659,6 +659,8 @@ final class PlaybackModel: ObservableObject {
     /// segment (Gilded Age S4, Nov 26 2026): with no SDR version in the playlist it had nothing it would play.
     /// Also after an HDR stream failed here once.
     private var hdrFailed = false
+    /// The 4K stream never started on this screen: play the 1080p one (the away stream) for the rest of this film.
+    private var smallStream = false
     private func sdrOnly(_ film: RTXFilm) -> Bool {
         guard let r = film.range, r != "SDR" else { return false }
         return hdrFailed || !AVPlayer.eligibleForHDRPlayback
@@ -669,6 +671,9 @@ final class PlaybackModel: ObservableObject {
     private func recover(checkTaken: Bool = true) {
         guard base != nil, film != nil, !closed, !recovering else { return }
         if let r = film?.range, r != "SDR" { hdrFailed = true }  // the retries use the SDR stream
+        // Never started here (the basement Apple TV got the 4K stream's first segment and no further; the workout
+        // room's Apple TV HD can't decode 4K HEVC at all): the retries use the PC's 1080p H.264 stream instead.
+        if startup == nil { smallStream = true }
         recovering = true
         let t = max(0, lastGood - 2)  // a little before, so nothing is missed
         teardown()
