@@ -973,7 +973,9 @@ final class LivePlayerModel: ObservableObject {
     private func tuneVOD(_ vod: VODRef, title: String, base: URL) async {
         let q = [URLQueryItem(name: "kind", value: vod.kind), URLQueryItem(name: "id", value: vod.id),
                  URLQueryItem(name: "ext", value: vod.ext), URLQueryItem(name: "t", value: String(Int(max(0, vod.start)))),
-                 URLQueryItem(name: "title", value: title), URLQueryItem(name: "where", value: Self.here)]
+                 URLQueryItem(name: "title", value: title), URLQueryItem(name: "where", value: Self.here),
+                 // HDR titles stay HDR on a screen that shows HDR; the PC converts them only for one that can't
+                 URLQueryItem(name: "hdr", value: AVPlayer.eligibleForHDRPlayback ? "1" : "0")]
         do {
             let j = try await RTXAPI(base: base).get("tv/ondemand/play", q)
             guard let u = j["url"].string, let url = URL(string: u, relativeTo: base)?.absoluteURL else {

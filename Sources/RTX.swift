@@ -404,6 +404,7 @@ struct RTXAPI {
         var q = [URLQueryItem(name: "id", value: film), URLQueryItem(name: "t", value: String(format: "%.1f", max(0, seconds))),
                  URLQueryItem(name: "where", value: Resume.here)]
         if away { q.append(URLQueryItem(name: "away", value: "1")) }
+        q.append(URLQueryItem(name: "hdr", value: AVPlayer.eligibleForHDRPlayback ? "1" : "0"))  // this screen shows HDR
         if ask { q.append(URLQueryItem(name: "ask", value: "1")) }
         if force { q.append(URLQueryItem(name: "force", value: "1")) }
         let j = try await get("play", q)
