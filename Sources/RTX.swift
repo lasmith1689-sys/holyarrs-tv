@@ -605,7 +605,7 @@ final class PlaybackModel: ObservableObject {
         }
         defer { slow.cancel() }
         do {
-            let away = Away.shared.active
+            let away = Away.shared.active || sdrOnly(film)
             let r = try await RTXAPI(base: base).start(film: film.id, seconds: t, force: force, away: away)
             let (url, id) = (r.url, r.session)
             if Task.isCancelled || closed { await RTXAPI(base: base).stop(session: id); return false }
@@ -654,10 +654,21 @@ final class PlaybackModel: ObservableObject {
         recover(checkTaken: false)
     }
 
+    /// An HDR film this screen can't show as HDR plays the PC's SDR stream (1080p, tone-mapped, from the file:
+    /// the away stream). The Apple TV in the living room fetched the 4K HDR10 playlists and never asked for a
+    /// segment (Gilded Age S4, Nov 26 2026): with no SDR version in the playlist it had nothing it would play.
+    /// Also after an HDR stream failed here once.
+    private var hdrFailed = false
+    private func sdrOnly(_ film: RTXFilm) -> Bool {
+        guard let r = film.range, r != "SDR" else { return false }
+        return hdrFailed || !AVPlayer.eligibleForHDRPlayback
+    }
+
     /// The stream failed or buffered too long: rebuild it at the last good time, three tries, unless another
     /// screen took the PC's film (then ask, never retry into it).
     private func recover(checkTaken: Bool = true) {
         guard base != nil, film != nil, !closed, !recovering else { return }
+        if let r = film?.range, r != "SDR" { hdrFailed = true }  // the retries use the SDR stream
         recovering = true
         let t = max(0, lastGood - 2)  // a little before, so nothing is missed
         teardown()
