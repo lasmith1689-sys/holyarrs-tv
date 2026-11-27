@@ -712,6 +712,9 @@ struct EpisodesSheet: View {
             .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { dismiss() } } }
             #endif
         }
+        // Opaque: on Apple TV a full-screen cover is see-through by default, and the title page showed through the
+        // episode list (Gilded Age, Nov 26 2026).
+        .background(Theme.background.ignoresSafeArea())
         .fullScreenCover(item: $playing) { req in
             PlayerScreen(request: req).onDisappear { Task { await rtx.syncPositions() } }
         }
