@@ -111,6 +111,9 @@ struct LiveEvent: Identifiable, Hashable {
     let game: String?
     /// The PC is set to record it ("scheduled") or is recording it ("recording").
     let rec: String?
+    /// How far forward it goes among games on at the same time (0 first): Luke's teams, a big league on a TV
+    /// channel, any game on a channel, a big league's event feeds, the rest.
+    let prio: Int
 
     init?(_ j: JSON) {
         guard let id = j["id"].string, let title = j["title"].string, let s = j["start"].double else { return nil }
@@ -123,8 +126,11 @@ struct LiveEvent: Identifiable, Hashable {
         alt = j["alt"].array.compactMap(\.string)
         let t = j["teams"].array.compactMap(LiveTeam.init)
         teams = t.count == 2 ? t : []
-        feeds = j["feeds"].array.compactMap { f in f["id"].string.map { LiveFeed(id: $0, quality: f["quality"].string) } }
+        feeds = j["feeds"].array.compactMap { f in
+            f["id"].string.map { LiveFeed(id: $0, quality: f["quality"].string, channel: f["channel"].string) }
+        }
         game = j["game"].string
+        prio = j["prio"].int ?? 3
         rec = j["rec"]["state"].string
     }
 
@@ -192,6 +198,8 @@ struct LiveRequest: Identifiable {
 struct LiveFeed: Hashable, Identifiable {
     let id: String
     let quality: String?
+    /// The TV channel this feed is ("USA Network"): the channel broadcasting the game, which the PC puts first.
+    var channel: String? = nil
 }
 
 /// An On Demand title to play: "movie" or "episode", the provider's id and file type, where to start.
@@ -241,8 +249,12 @@ enum LiveTV {
         switch league {
         case "Golf": return "figure.golf"
         case "F1": return "flag.checkered"
-        case "NFL": return "football.fill"
-        case "Premier League": return "soccerball"
+        case "NFL", "College Football": return "football.fill"
+        case "Premier League", "Champions League", "MLS", "La Liga", "Serie A", "Bundesliga", "Ligue 1", "Europa League",
+             "FA Cup", "Championship": return "soccerball"
+        case "NBA", "WNBA", "College Basketball", "Women's College Basketball": return "basketball.fill"
+        case "NHL": return "hockey.puck.fill"
+        case "MLB": return "baseball.fill"
         default: return nil
         }
     }
@@ -575,8 +587,9 @@ struct LiveSportsSection: View {
     private func load() async {
         guard let base = rtx.base, let j = try? await RTXAPI(base: base).get("tv/sports") else { return }
         recordings = j["recordings"].array.compactMap(Recording.init)
+        // On now first; among those, Luke's teams and games on a TV channel before ESPN+-only ones; then by start.
         let order: (LiveEvent, LiveEvent) -> Bool = { a, b in
-            a.live != b.live ? a.live : a.start < b.start
+            a.live != b.live ? a.live : a.prio != b.prio ? a.prio < b.prio : a.start < b.start
         }
         pinned = j["pinned"].array.compactMap(LiveChannel.init)
         yours = j["yours"].array.compactMap(LiveEvent.init).sorted(by: order)
@@ -1394,6 +1407,7 @@ struct LivePlayerScreen: View {
     private func feedName(_ i: Int, _ f: LiveFeed) -> String {
         let game = !request.feeds.isEmpty
         let what = f.quality ?? (game ? "not measured yet" : (i == 0 ? "main" : "spare"))
+        if let c = f.channel { return c + (f.quality.map { " \u{00B7} " + $0 } ?? "") + (game && i == 0 ? " (best)" : "") }
         return "Feed \(i + 1) \u{00B7} " + what + (game && i == 0 ? " (best)" : "")
     }
 
