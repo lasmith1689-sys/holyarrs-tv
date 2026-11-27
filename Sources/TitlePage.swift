@@ -689,7 +689,7 @@ struct EpisodesSheet: View {
                                             .background(sz.number == current ? Theme.accent.opacity(0.85) : Color.white.opacity(0.08), in: Capsule())
                                             .foregroundStyle(sz.number == current ? Color.black : Color.white)
                                     }
-                                    .buttonStyle(QuietButtonStyle())
+                                    .buttonStyle(FocusRowStyle(radius: 40))
                                 }
                             }
                             .padding(.vertical, S(12))
@@ -730,14 +730,19 @@ struct EpisodesSheet: View {
                 } label: {
                     row(e, trailing: resume.map { "Resume \(Resume.label($0))" } ?? "Play", progress: resume.map { $0 / max(1, ep.film.duration) })
                 }
-                .buttonStyle(QuietButtonStyle())
+                .buttonStyle(FocusRowStyle())
                 .accessibilityLabel("\(resume == nil ? "Play" : "Resume") \(ep.code): \(e.name)")
                 #if os(iOS)
                 OfflineIcon(film: ep.film, title: "\(info.name) \(ep.code)", subtitle: e.name)
                 #endif
             }
         } else {
+            #if os(tvOS)
+            // Not on the PC yet: still focusable, so the remote can move down the list and read it.
+            Button {} label: { row(e, trailing: e.state, progress: nil) }.buttonStyle(FocusRowStyle())
+            #else
             row(e, trailing: e.state, progress: nil)
+            #endif
         }
     }
 

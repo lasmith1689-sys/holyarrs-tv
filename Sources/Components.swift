@@ -16,6 +16,37 @@ struct QuietButtonStyle: ButtonStyle {
     }
 }
 
+/// A list row or chip that shows plainly which one is selected on Apple TV (QuietButtonStyle has no focus look at
+/// all, so in the episode list nobody could tell which episode the remote was on, Nov 27 2026): the focused one
+/// lifts, brightens and gets a gold outline. On iPhone it is QuietButtonStyle.
+struct FocusRowStyle: ButtonStyle {
+    var radius: CGFloat = 14
+    func makeBody(configuration: Configuration) -> some View {
+        Body(label: configuration.label, pressed: configuration.isPressed, radius: radius)
+    }
+
+    private struct Body<L: View>: View {
+        let label: L
+        let pressed: Bool
+        let radius: CGFloat
+        @Environment(\.isFocused) private var focused
+
+        var body: some View {
+            #if os(tvOS)
+            label
+                .background(Color.white.opacity(focused ? 0.16 : 0), in: RoundedRectangle(cornerRadius: S(radius)))
+                .overlay(RoundedRectangle(cornerRadius: S(radius)).stroke(Theme.accent, lineWidth: focused ? 5 : 0))
+                .scaleEffect(focused ? 1.03 : 1)
+                .shadow(color: .black.opacity(focused ? 0.5 : 0), radius: 18, y: 8)
+                .opacity(pressed ? 0.8 : 1)
+                .animation(.easeOut(duration: 0.15), value: focused)
+            #else
+            label.opacity(pressed ? 0.8 : 1)
+            #endif
+        }
+    }
+}
+
 /// A picture from HolyArrs (its TMDB cache or its own artwork), with a typographic stand-in underneath.
 struct Artwork: View {
     @EnvironmentObject private var api: HolyArrs
