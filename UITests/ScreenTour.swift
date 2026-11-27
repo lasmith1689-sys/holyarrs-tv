@@ -241,6 +241,37 @@ final class ScreenTour: XCTestCase {
             XCTFail("could not focus The Matrix on Home")
         }
 
+        // A show's season opens its episodes full screen, and nothing of the show's page may show through it
+        // (build 331 drew the episode list over the page, Nov 26 2026). Breaking Bad sits next to The Matrix.
+        launch(tab: "home")
+        let show = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Breaking Bad'")).firstMatch
+        press(.down, 2)
+        sleep(1)
+        if focus(show, .right, limit: 4) {
+            press(.select)
+            check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume S5 E3'")).firstMatch.waitForExistence(timeout: 10),
+                  "Breaking Bad's page offers Resume S5 E3")
+            let season = app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Season 5'")).firstMatch
+            var found = false
+            for _ in 0..<6 where !found {
+                press(.down)
+                found = focus(season, .right, limit: 6)
+            }
+            if found {
+                press(.select)
+                sleep(3)
+                check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Play S5 E4'")).firstMatch.waitForExistence(timeout: 10),
+                      "Season 5's episodes open full screen: Play S5 E4")
+                shot("show-episodes")
+                press(.menu)
+                sleep(1)
+            } else {
+                XCTFail("no Season 5 card on Breaking Bad's page")
+            }
+        } else {
+            XCTFail("could not focus Breaking Bad on Home")
+        }
+
         // The PC not answering (a closed port): the last good lists stay, the TV tab stays, Home says so.
         launch(tab: "home", rtx: "http://127.0.0.1:9")
         check(app.buttons.matching(NSPredicate(format: "label BEGINSWITH 'Resume The Matrix'")).firstMatch.waitForExistence(timeout: 15),
