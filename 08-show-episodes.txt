@@ -1,0 +1,183 @@
+Optional(Attributes: Application, 0x105bd43f0, pid: 15040, label: 'Afterglow'
+Element subtree:
+ →Application, 0x105bd43f0, pid: 15040, label: 'Afterglow'
+    Window (Main), 0x105bd5a90, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x105bd4c10, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x105bd47f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x105bd5030, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x105bd5450, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x105bd3db0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x105bd3990, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x105bd3570, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x105bd3150, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x105bd2d30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x105bd2910, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x105bd5eb0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x105bd5fd0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x105bd60f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x105bd6210, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x105bd6330, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Image, 0x105bd6450, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x105bd6570, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x105bd6690, {{0.0, -92.0}, {1760.0, 2152.0}}
+                                        StaticText, 0x105bd67b0, {{690.0, -12.0}, {435.0, 86.0}}, label: 'Breaking Bad'
+                                        StaticText, 0x105bd68d0, {{690.0, 100.0}, {119.0, 58.0}}, label: '2008'
+                                        StaticText, 0x105bd69f0, {{833.0, 100.0}, {107.0, 58.0}}, label: 'AMC'
+                                        StaticText, 0x105bd6b10, {{690.0, 184.0}, {147.0, 29.0}}, label: 'Drama · Crime'
+                                        StaticText, 0x105bd6c30, {{692.0, 239.0}, {221.0, 32.0}}, label: '4 of 5 seasons'
+                                        StaticText, 0x105bd6d50, {{320.0, 260.0}, {161.0, 32.0}}, label: 'Breaking Bad'
+                                        StaticText, 0x105bd6e70, {{376.0, 302.0}, {48.0, 24.0}}, label: '2008'
+                                        StaticText, 0x105bd6f90, {{690.0, 297.0}, {478.0, 32.0}}, label: 'A chemistry teacher turns to making drugs.'
+                                        Button, 0x105bd70b0, {{690.0, 375.0}, {461.0, 98.0}}, label: 'Resume S5 E3 from 20:00'
+                                          Image, 0x105bd71d0, {{763.0, 392.0}, {24.0, 27.0}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x105bd72f0, {{690.0, 375.0}, {461.0, 98.0}}, label: 'Resume S5 E3 from 20:00'
+                                        Button, 0x105bd7410, {{1181.0, 378.0}, {301.0, 93.0}}, label: 'Ask for more seasons'
+                                          Image, 0x105bd7530, {{1223.0, 393.0}, {31.0, 30.0}}, identifier: 'plus.square.on.square', label: 'Duplicate'
+                                          StaticText, 0x105bd7650, {{1181.0, 378.0}, {301.0, 93.0}}, label: 'Ask for more seasons'
+                                        Button, 0x105bd7770, {{1512.0, 394.0}, {215.0, 60.0}}, label: 'Follow'
+                                          Image, 0x105bd7890, {{1554.0, 410.0}, {28.0, 29.0}}, identifier: 'bell', label: 'Notifications'
+                                          StaticText, 0x105bd79b0, {{1512.0, 394.0}, {215.0, 60.0}}, label: 'Follow'
+                                        StaticText, 0x105bd7ad0, {{160.0, 668.0}, {136.0, 41.0}}, label: 'Seasons'
+                                        ScrollView, 0x105bd7bf0, {{0.0, 727.0}, {1920.0, 203.0}}
+                                          Other, 0x105bd7d10, {{-570.0, 727.0}, {2410.0, 203.0}}
+                                            Other, 0x105bd7e30, {{-34.0, 757.0}, {1794.0, 143.0}}
+                                              Button, 0x105bd7f50, {{-34.0, 757.0}, {426.0, 143.0}}, label: 'Season 2, 13 episodes · all in library'
+                                                StaticText, 0x105bd8070, {{29.0, 794.0}, {121.0, 34.0}}, label: 'Season 2'
+                                                StaticText, 0x105bd8190, {{29.0, 836.0}, {236.0, 27.0}}, label: '13 episodes · all in library'
+                                              Button, 0x105bd82b0, {{422.0, 757.0}, {426.0, 143.0}}, label: 'Season 3, 13 episodes · all in library'
+                                                StaticText, 0x105bd83d0, {{485.0, 794.0}, {122.0, 34.0}}, label: 'Season 3'
+                                                StaticText, 0x105bd84f0, {{485.0, 836.0}, {236.0, 27.0}}, label: '13 episodes · all in library'
+                                              Button, 0x105bd8610, {{878.0, 757.0}, {426.0, 143.0}}, label: 'Season 4, 13 episodes · all in library'
+                                                StaticText, 0x105bd8730, {{941.0, 794.0}, {122.0, 34.0}}, label: 'Season 4'
+                                                StaticText, 0x105bd8850, {{941.0, 836.0}, {236.0, 27.0}}, label: '13 episodes · all in library'
+                                              Button, 0x105bd8970, {{1334.0, 757.0}, {426.0, 143.0}}, label: 'Season 5, 13 episodes · 8 in library'
+                                                StaticText, 0x105bd8a90, {{1397.0, 794.0}, {122.0, 34.0}}, label: 'Season 5'
+                                                StaticText, 0x105bd8bb0, {{1397.0, 836.0}, {229.0, 27.0}}, label: '13 episodes · 8 in library'
+                                        StaticText, 0x105bd8cd0, {{160.0, 990.0}, {226.0, 41.0}}, label: 'Cast and crew'
+                                        ScrollView, 0x105bd8df0, {{0.0, 1049.0}, {1920.0, 314.0}}
+                                          Other, 0x105bd8f10, {{80.0, 1049.0}, {600.0, 314.0}}
+                                            Other, 0x105bd9030, {{169.5, 1034.0}, {421.5, 299.0}}
+                                              Button, 0x105bd9150, {{169.5, 1034.0}, {181.0, 299.0}}, label: 'Keanu Reeves, Neo'
+                                                StaticText, 0x105bd9270, {{251.0, 1153.0}, {18.0, 32.0}}, label: 'K'
+                                                Image, 0x105bd9390, {{170.0, 1034.0}, {180.0, 270.0}}
+                                                StaticText, 0x105bd94b0, {{190.0, 1271.0}, {140.0, 27.0}}, label: 'Keanu Reeves'
+                                                StaticText, 0x105bd95d0, {{243.0, 1310.0}, {35.0, 23.0}}, label: 'Neo'
+                                              Button, 0x105bd96f0, {{409.0, 1034.0}, {182.0, 299.0}}, label: 'Carrie-Anne Moss, Trinity'
+                                                StaticText, 0x105bd9810, {{491.0, 1153.0}, {19.0, 32.0}}, label: 'C'
+                                                Image, 0x105bd9930, {{410.0, 1034.0}, {180.0, 270.0}}
+                                                StaticText, 0x105bd9a50, {{409.0, 1271.0}, {182.0, 27.0}}, label: 'Carrie-Anne Moss'
+                                                StaticText, 0x105bd9b70, {{474.0, 1310.0}, {52.0, 23.0}}, label: 'Trinity'
+                                        StaticText, 0x105bd9c90, {{160.0, 1423.0}, {209.0, 41.0}}, label: 'More like this'
+                                        ScrollView, 0x105bd9db0, {{0.0, 1482.0}, {1920.0, 508.0}}
+                                          Other, 0x105bd9ed0, {{80.0, 1482.0}, {1594.0, 508.0}}
+                                            Other, 0x105bd9ff0, {{159.5, 1511.5}, {1435.0, 448.5}}
+                                              Button, 0x105bda110, {{159.5, 1511.5}, {251.0, 448.5}}, label: 'The Last of Us, 2023'
+                                                StaticText, 0x105bda230, {{199.0, 1667.0}, {173.0, 32.0}}, label: 'The Last of Us'
+                                                StaticText, 0x105bda350, {{262.0, 1709.0}, {47.0, 24.0}}, label: '2023'
+                                                Image, 0x105bda470, {{160.0, 1512.0}, {250.0, 375.0}}
+                                                StaticText, 0x105bda590, {{160.0, 1901.0}, {156.0, 29.0}}, label: 'The Last of Us'
+                                                StaticText, 0x105bda6b0, {{160.0, 1934.0}, {50.0, 26.0}}, label: '2023'
+                                              Button, 0x105bda7d0, {{455.5, 1511.5}, {251.0, 448.5}}, label: 'House of the Dragon, 2022'
+                                                StaticText, 0x105bda8f0, {{514.0, 1651.0}, {135.0, 63.0}}, label: 'House of the Dragon'
+                                                StaticText, 0x105bdaa10, {{558.0, 1724.0}, {47.0, 24.0}}, label: '2022'
+                                                Image, 0x105bdab30, {{456.0, 1512.0}, {250.0, 375.0}}
+                                                StaticText, 0x105bdac50, {{456.0, 1901.0}, {224.0, 29.0}}, label: 'House of the Dragon'
+                                                StaticText, 0x105bdad70, {{456.0, 1934.0}, {49.0, 26.0}}, label: '2022'
+                                              Button, 0x105bdae90, {{751.5, 1511.5}, {251.0, 448.5}}, label: 'Game of Thrones, 2011'
+                                                StaticText, 0x105bdafb0, {{774.0, 1667.0}, {207.0, 32.0}}, label: 'Game of Thrones'
+                                                StaticText, 0x105bdb0d0, {{857.0, 1709.0}, {41.0, 24.0}}, label: '2011'
+                                                Image, 0x105bdb1f0, {{752.0, 1512.0}, {250.0, 375.0}}
+                                                StaticText, 0x105bdb310, {{752.0, 1901.0}, {187.0, 29.0}}, label: 'Game of Thrones'
+                                                StaticText, 0x105bdb430, {{752.0, 1934.0}, {44.0, 26.0}}, label: '2011'
+                                              Button, 0x105bdb550, {{1047.5, 1511.5}, {251.0, 448.5}}, label: 'Stranger Things, 2016'
+                                                StaticText, 0x105bdb670, {{1076.0, 1667.0}, {195.0, 32.0}}, label: 'Stranger Things'
+                                                StaticText, 0x105bdb790, {{1151.0, 1709.0}, {45.0, 24.0}}, label: '2016'
+                                                Image, 0x105bdb8b0, {{1048.0, 1512.0}, {250.0, 375.0}}
+                                                StaticText, 0x105bdb9d0, {{1048.0, 1901.0}, {174.0, 29.0}}, label: 'Stranger Things'
+                                                StaticText, 0x105bdbaf0, {{1048.0, 1934.0}, {47.0, 26.0}}, label: '2016'
+                                              Button, 0x105bdbc10, {{1343.5, 1511.5}, {251.0, 448.5}}, label: 'Severance, 2022'
+                                                StaticText, 0x105bdbd30, {{1405.0, 1667.0}, {128.0, 32.0}}, label: 'Severance'
+                                                StaticText, 0x105bdbe50, {{1446.0, 1709.0}, {47.0, 24.0}}, label: '2022'
+                                                Image, 0x105bdbf70, {{1344.0, 1512.0}, {250.0, 375.0}}
+                                                StaticText, 0x105bdc090, {{1344.0, 1901.0}, {115.0, 29.0}}, label: 'Severance'
+                                                StaticText, 0x105bdc1b0, {{1344.0, 1934.0}, {49.0, 26.0}}, label: '2022'
+                                      Other, 0x105bdc2d0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x105bdc3f0, {{1914.0, 250.0}, {3.0, 391.0}}
+                                      Other, 0x105bdc510, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x105bdc630, {{1914.0, 250.0}, {3.0, 391.0}}
+                Other, 0x105bdc750, {{0.0, -203.0}, {1920.0, 68.0}}
+                  TabBar, 0x105bdc870, {{0.0, -203.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x105bdc990, {{80.0, -203.0}, {200.0, 68.0}}
+                      Other, 0x105bdcab0, {{80.0, -203.0}, {200.0, 68.0}}
+                    Other, 0x105bdcbd0, {{280.0, -203.0}, {1360.0, 68.0}}
+                      Other, 0x105bdccf0, {{336.0, -197.0}, {206.0, 56.0}}
+                    Other, 0x105bdce10, {{330.0, -203.0}, {1260.0, 68.0}}
+                      ScrollView, 0x105bdcf30, {{330.0, -203.0}, {1260.0, 68.0}}
+                        Button, 0x105bdd050, {{371.0, -187.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x105bdd170, {{371.0, -187.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x105bdd290, {{572.0, -186.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x105bdd3b0, {{572.0, -185.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x105bdd4d0, {{749.0, -187.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x105bdd5f0, {{749.0, -187.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x105bdd710, {{1006.0, -186.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x105bdd830, {{1006.0, -185.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x105bdd950, {{1222.0, -186.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x105bdda70, {{1222.0, -185.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x105bddb90, {{1437.0, -186.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x105bddcb0, {{1437.0, -186.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x105bdddd0, {{1540.0, -187.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x105bddef0, {{1540.0, -187.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x105bde010, {{1640.0, -203.0}, {200.0, 68.0}}
+                      Other, 0x105bde130, {{1640.0, -203.0}, {200.0, 68.0}}
+      Other, 0x105bde250, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x105bde370, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x105bde490, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x105bde5b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+              NavigationBar, 0x105bde6d0, {{0.0, 0.0}, {1920.0, 145.0}}, identifier: 'Breaking Bad'
+                StaticText, 0x105bde7f0, {{787.0, 64.0}, {347.0, 67.0}}, label: 'Breaking Bad'
+              Other, 0x105bde910, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x105bdea30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x105bdeb50, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x105bdec70, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      ScrollView, 0x105bded90, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x105bdeeb0, {{0.0, 145.0}, {1760.0, 3220.0}}
+                          ScrollView, 0x105bdefd0, {{160.0, 145.0}, {1600.0, 73.0}}
+                            Other, 0x1068d0b00, {{160.0, 145.0}, {774.0, 73.0}}
+                              Button, 0x1068eb1e0, {{155.4, 153.7}, {147.3, 55.6}}, label: 'Season 1', Focused
+                              Button, 0x1068e86a0, {{314.0, 157.0}, {141.0, 49.0}}, label: 'Season 2'
+                              Button, 0x1068d0650, {{471.0, 157.0}, {141.0, 49.0}}, label: 'Season 3'
+                              Button, 0x1068cc5b0, {{628.0, 157.0}, {142.0, 49.0}}, label: 'Season 4'
+                              Button, 0x1068d2550, {{786.0, 157.0}, {148.0, 49.0}}, label: 'Season 5'
+                          Other, 0x1068d1d10, {{160.0, 242.0}, {1600.0, 1078.0}}
+                            Button, 0x1068d18f0, {{160.0, 242.0}, {1600.0, 253.0}}, label: 'Play S5 E1: Episode 1'
+                              StaticText, 0x1068cf380, {{598.0, 256.0}, {193.0, 46.0}}, label: '1. Episode 1'
+                              StaticText, 0x1068cd6f0, {{598.0, 308.0}, {282.0, 37.0}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x1068f2760, {{598.0, 351.0}, {62.0, 37.0}}, label: 'Play'
+                              StaticText, 0x1068d0e60, {{598.0, 394.0}, {267.0, 37.0}}, label: 'A stand-in episode.'
+                            Button, 0x1068e90d0, {{160.0, 517.0}, {1600.0, 253.0}}, label: 'Play S5 E2: Episode 2'
+                              StaticText, 0x1068e91f0, {{598.0, 531.0}, {203.0, 46.0}}, label: '2. Episode 2'
+                              StaticText, 0x1068e9310, {{598.0, 583.0}, {282.0, 37.0}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x1068e9430, {{598.0, 626.0}, {62.0, 37.0}}, label: 'Play'
+                              StaticText, 0x1068e9550, {{598.0, 669.0}, {267.0, 37.0}}, label: 'A stand-in episode.'
+                            Button, 0x1068e9670, {{160.0, 792.0}, {1600.0, 253.0}}, label: 'Resume S5 E3: Episode 3'
+                              StaticText, 0x1068e9790, {{598.0, 806.0}, {204.0, 46.0}}, label: '3. Episode 3'
+                              StaticText, 0x1068e98b0, {{598.0, 858.0}, {282.0, 37.0}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x1068e99d0, {{598.0, 901.0}, {213.0, 37.0}}, label: 'Resume 20:00'
+                              StaticText, 0x1068e9af0, {{598.0, 944.0}, {267.0, 37.0}}, label: 'A stand-in episode.'
+                            Button, 0x1068e9c10, {{160.0, 1067.0}, {1600.0, 253.0}}, label: 'Play S5 E4: Episode 4'
+                              StaticText, 0x1068e9d30, {{598.0, 1081.0}, {206.0, 46.0}}, label: '4. Episode 4'
+                              StaticText, 0x1068e9e50, {{598.0, 1133.0}, {282.0, 37.0}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x1068cbab0, {{598.0, 1176.0}, {62.0, 37.0}}, label: 'Play'
+                              StaticText, 0x1068cbbd0, {{598.0, 1219.0}, {267.0, 37.0}}, label: 'A stand-in episode.'
+                        Other, 0x1068cbcf0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                          Other, 0x1068cbe10, {{1914.0, 831.0}, {3.0, 186.0}}
+                        Other, 0x1068cbf30, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                          Other, 0x1068cc050, {{1914.0, 831.0}, {3.0, 186.0}}
+Path to element:
+ →Application, 0x105bd43f0, pid: 15040, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1068d2fd0, pid: 15040, label: 'Afterglow'
+  }
+)

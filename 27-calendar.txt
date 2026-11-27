@@ -1,0 +1,83 @@
+Optional(Attributes: Application, 0x10bac97a0, pid: 25506, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10bac97a0, pid: 25506, label: 'Afterglow'
+    Window (Main), 0x10bacb860, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10bacc430, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10bacc550, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10bacc2e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10bacb440, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10bacc670, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10bacc790, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10bacc8b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10bacc9d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10baccaf0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10baccc10, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10baccd30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10bacce50, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10baccf70, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10bacd090, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10bacd1b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    SegmentedControl, 0x10bacd2d0, {{160.0, 187.0}, {900.0, 69.0}}
+                                      Button, 0x10bacd3f0, {{158.0, 186.5}, {304.0, 70.9}}, label: 'Downloads'
+                                      Button, 0x10bacd510, {{458.0, 186.5}, {304.0, 70.9}}, label: 'Requests'
+                                      Button, 0x10bacd630, {{758.0, 186.5}, {304.0, 70.9}}, label: 'Calendar', Selected
+                                    ScrollView, 0x10bacd750, {{0.0, 256.0}, {1920.0, 824.0}}
+                                      Other, 0x10bacd870, {{0.0, 256.0}, {1760.0, 1357.0}}
+                                        StaticText, 0x10bacd990, {{160.0, 296.0}, {318.0, 77.0}}, label: 'Coming up'
+                                        StaticText, 0x10bacdab0, {{160.0, 413.0}, {335.0, 36.0}}, label: 'Saturday, November 21'
+                                        ScrollView, 0x10bacdbd0, {{0.0, 465.0}, {1920.0, 508.0}}
+                                          Other, 0x10bacdcf0, {{80.0, 465.0}, {410.0, 508.0}}
+                                            Other, 0x10bacde10, {{159.5, 494.5}, {251.0, 448.5}}
+                                              Button, 0x10bacdf30, {{159.5, 494.5}, {251.0, 448.5}}, label: 'Breaking Bad'
+                                                StaticText, 0x10bace050, {{205.0, 667.0}, {161.0, 32.0}}, label: 'Breaking Bad'
+                                                Image, 0x10bace170, {{160.0, 495.0}, {250.0, 375.0}}
+                                                StaticText, 0x10bace290, {{291.0, 512.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10bace3b0, {{160.0, 884.0}, {144.0, 29.0}}, label: 'Breaking Bad'
+                                                StaticText, 0x10bace4d0, {{160.0, 917.0}, {176.0, 26.0}}, label: 'S6 E1 · Pilot (again)'
+                                        StaticText, 0x10bace5f0, {{160.0, 1013.0}, {88.0, 36.0}}, label: 'Today'
+                                        ScrollView, 0x10bace710, {{0.0, 1065.0}, {1920.0, 508.0}}
+                                          Other, 0x10bace830, {{80.0, 1065.0}, {410.0, 508.0}}
+                                            Other, 0x10bace950, {{159.5, 1094.5}, {251.0, 448.5}}
+                                              Button, 0x10bacea70, {{159.5, 1094.5}, {251.0, 448.5}}, label: 'Interstellar, 2014'
+                                                StaticText, 0x10baceb90, {{219.0, 1250.0}, {133.0, 32.0}}, label: 'Interstellar'
+                                                StaticText, 0x10bacecb0, {{263.0, 1292.0}, {45.0, 24.0}}, label: '2014'
+                                                Image, 0x10bacedd0, {{160.0, 1095.0}, {250.0, 375.0}}
+                                                StaticText, 0x10baceef0, {{291.0, 1112.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10bacf010, {{160.0, 1484.0}, {117.0, 29.0}}, label: 'Interstellar'
+                                                StaticText, 0x10bacf130, {{160.0, 1517.0}, {129.0, 26.0}}, label: 'Digital release'
+                                      Other, 0x10bacf250, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10bacf370, {{1914.0, 683.0}, {3.0, 491.0}}
+                                      Other, 0x10bacf490, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10bacf5b0, {{1914.0, 683.0}, {3.0, 491.0}}
+                Other, 0x10bacf6d0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10bacf7f0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10bacf910, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10bacfa30, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10bacfb50, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10bacfc70, {{328.0, 43.0}, {222.0, 74.0}}
+                    Other, 0x10bacfd90, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10bacfeb0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10bacffd0, {{365.0, 59.9}, {148.0, 40.3}}, identifier: 'house', label: 'Home', Focused
+                          Image, 0x10bad00f0, {{365.0, 59.9}, {46.8, 40.3}}, identifier: 'house', label: 'home'
+                        Button, 0x10bad0210, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10bad0330, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10bad0450, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10bad0570, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10bad0690, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10bad07b0, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10bad08d0, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10bad09f0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10bad0b10, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10bad0c30, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10bad0d50, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10bad0e70, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10bad0f90, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10bad10b0, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10bac97a0, pid: 25506, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10bad13f0, pid: 25506, label: 'Afterglow'
+  }
+)

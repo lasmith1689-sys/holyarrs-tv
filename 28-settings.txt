@@ -1,0 +1,255 @@
+Optional(Attributes: Application, 0x10bad7ec0, pid: 25730, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10bad7ec0, pid: 25730, label: 'Afterglow'
+    Window (Main), 0x10bad9070, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10bad9810, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10bad9930, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10bad9570, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10bad9690, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10bad9a50, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10bad9b70, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10bad9c90, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10bad9db0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10bad9ed0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10bad9ff0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10bada110, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            NavigationBar, 0x10bada230, {{0.0, 157.0}, {1920.0, 145.0}}, identifier: 'Settings'
+                              StaticText, 0x10bada350, {{850.0, 221.0}, {221.0, 67.0}}, label: 'Settings'
+                            Other, 0x10bada470, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10bada590, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10bada6b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10bada7d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Table, 0x10bada8f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10badaa10, {{0.0, 302.0}, {1920.0, 47.0}}
+                                        Other, 0x10badab30, {{80.0, 302.0}, {1760.0, 47.0}}
+                                          Other, 0x10badac50, {{80.0, 302.0}, {1760.0, 47.0}}
+                                            StaticText, 0x10badad70, {{100.0, 308.0}, {143.0, 35.0}}, label: 'HOLYARRS'
+                                      Cell, 0x10badae90, {{80.0, 349.0}, {1760.0, 66.0}}, label: 'Signed in as, luke (owner)'
+                                        Other, 0x10badafb0, {{80.0, 349.0}, {1760.0, 66.0}}
+                                          Other, 0x10badb0d0, {{80.0, 349.0}, {1760.0, 66.0}}
+                                            StaticText, 0x10badb1f0, {{100.0, 365.0}, {156.0, 35.0}}, label: 'Signed in as'
+                                            StaticText, 0x10badb310, {{100.0, 365.0}, {1720.0, 35.0}}, label: 'Signed in as, luke (owner)'
+                                        Other, 0x10badb430, {{80.0, 349.0}, {1760.0, 66.0}}
+                                          Other, 0x10badb550, {{80.0, 349.0}, {1760.0, 66.0}}
+                                          Other, 0x10badb670, {{80.0, 349.0}, {1760.0, 66.0}}
+                                            Image, 0x10badb790, {{70.0, 339.0}, {1780.0, 86.0}}
+                                      Cell, 0x10badb8b0, {{80.0, 429.0}, {1760.0, 84.0}}
+                                        Other, 0x10badb9d0, {{80.0, 429.0}, {1760.0, 84.0}}
+                                          Other, 0x10badbaf0, {{80.0, 429.0}, {1760.0, 84.0}}
+                                            TextField, 0x10badbc10, {{85.0, 434.4}, {1750.0, 73.3}}, placeholderValue: 'http://192.168.68.100:6262', value: http://127.0.0.1:8...
+                                        Other, 0x10badbd30, {{80.0, 429.0}, {1760.0, 84.0}}
+                                          Other, 0x10adc0b10, {{80.0, 429.0}, {1760.0, 84.0}}
+                                          Other, 0x10adc02d0, {{80.0, 429.0}, {1760.0, 84.0}}
+                                            Image, 0x10adc0f30, {{70.0, 419.0}, {1780.0, 104.0}}
+                                      Cell, 0x10adc5a80, {{80.0, 527.0}, {1760.0, 66.0}}, label: 'Sign out'
+                                        Other, 0x10adc5ba0, {{80.0, 527.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc5cc0, {{80.0, 527.0}, {1760.0, 66.0}}
+                                            Button, 0x10adc5de0, {{100.0, 543.0}, {107.0, 35.0}}, label: 'Sign out'
+                                        Other, 0x10adc5f00, {{80.0, 527.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc6020, {{80.0, 527.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc6140, {{80.0, 527.0}, {1760.0, 66.0}}
+                                            Image, 0x10adc6260, {{70.0, 517.0}, {1780.0, 86.0}}
+                                      Other, 0x10adc6380, {{0.0, 614.0}, {1920.0, 47.0}}
+                                        Other, 0x10adc64a0, {{80.0, 614.0}, {1760.0, 47.0}}
+                                          Other, 0x10adc65c0, {{80.0, 614.0}, {1760.0, 47.0}}
+                                            StaticText, 0x10adc66e0, {{100.0, 620.0}, {372.0, 35.0}}, label: 'RTX 4K UPSCALING SERVER'
+                                      Cell, 0x10adc6800, {{80.0, 661.0}, {1760.0, 84.0}}
+                                        Other, 0x10adc6920, {{80.0, 661.0}, {1760.0, 84.0}}
+                                          Other, 0x10adc6a40, {{80.0, 661.0}, {1760.0, 84.0}}
+                                            TextField, 0x10adc6b60, {{85.0, 666.4}, {1750.0, 73.3}}, placeholderValue: 'http://192.168.68.100:8787', value: http://127.0.0.1:8...
+                                        Other, 0x10adc6c80, {{80.0, 661.0}, {1760.0, 84.0}}
+                                          Other, 0x10adc6da0, {{80.0, 661.0}, {1760.0, 84.0}}
+                                          Other, 0x10adc6ec0, {{80.0, 661.0}, {1760.0, 84.0}}
+                                            Image, 0x10adc6fe0, {{70.0, 651.0}, {1780.0, 104.0}}
+                                      Cell, 0x10adc7100, {{80.0, 759.0}, {1760.0, 66.0}}, label: 'Films on the PC, 2'
+                                        Other, 0x10adc7220, {{80.0, 759.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc7340, {{80.0, 759.0}, {1760.0, 66.0}}
+                                            StaticText, 0x10adc7460, {{100.0, 775.0}, {200.0, 35.0}}, label: 'Films on the PC'
+                                            StaticText, 0x10adc7580, {{100.0, 775.0}, {1720.0, 35.0}}, label: 'Films on the PC, 2'
+                                        Other, 0x10adc76a0, {{80.0, 759.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc77c0, {{80.0, 759.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc78e0, {{80.0, 759.0}, {1760.0, 66.0}}
+                                            Image, 0x10adc7a00, {{70.0, 749.0}, {1780.0, 86.0}}
+                                      Cell, 0x10adc7c00, {{80.0, 839.0}, {1760.0, 66.0}}, label: 'Check again'
+                                        Other, 0x10adc7d20, {{80.0, 839.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc7e40, {{80.0, 839.0}, {1760.0, 66.0}}
+                                            Button, 0x10adc7f60, {{100.0, 855.0}, {160.0, 35.0}}, label: 'Check again'
+                                        Other, 0x10adc8080, {{80.0, 839.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc81a0, {{80.0, 839.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc82c0, {{80.0, 839.0}, {1760.0, 66.0}}
+                                            Image, 0x10adc83e0, {{70.0, 829.0}, {1780.0, 86.0}}
+                                      Other, 0x10adc8500, {{0.0, 919.0}, {1920.0, 47.0}}
+                                        Other, 0x10adc8620, {{80.0, 919.0}, {1760.0, 47.0}}
+                                          Other, 0x10adc8740, {{80.0, 919.0}, {1760.0, 47.0}}
+                                            StaticText, 0x10adc8860, {{100.0, 925.0}, {1315.0, 35.0}}, label: 'Movies on the PC play through it: Play in 4K upscales them to 4K with its GPU (4K films play at full quality).'
+                                      Other, 0x10adc8980, {{0.0, 980.0}, {1920.0, 47.0}}
+                                        Other, 0x10adc8aa0, {{80.0, 980.0}, {1760.0, 47.0}}
+                                          Other, 0x10adc8bc0, {{80.0, 980.0}, {1760.0, 47.0}}
+                                            StaticText, 0x10adc8ce0, {{100.0, 986.0}, {220.0, 35.0}}, label: 'SUBSCRIPTIONS'
+                                      Cell, 0x10adc8e00, {{80.0, 1027.0}, {1760.0, 107.0}}, label: 'IPTV, Runs out in 9 days (Dec 6, 2026), Live TV, live sports and On Demand'
+                                        Other, 0x10adc8f20, {{80.0, 1027.0}, {1760.0, 107.0}}
+                                          Other, 0x10adc9040, {{80.0, 1027.0}, {1760.0, 107.0}}
+                                            StaticText, 0x10adc9160, {{100.0, 1037.0}, {1720.0, 87.0}}, label: 'IPTV, Runs out in 9 days (Dec 6, 2026), Live TV, live sports and On Demand'
+                                              StaticText, 0x10adc9280, {{100.0, 1037.0}, {81.0, 46.0}}, label: 'IPTV'
+                                              StaticText, 0x10adc93a0, {{1398.0, 1043.0}, {422.0, 35.0}}, label: 'Runs out in 9 days (Dec 6, 2026)'
+                                              StaticText, 0x10adc94c0, {{100.0, 1089.0}, {451.0, 35.0}}, label: 'Live TV, live sports and On Demand'
+                                        Other, 0x10c3b4e70, {{80.0, 1027.0}, {1760.0, 107.0}}
+                                          Other, 0x10c3b25c0, {{80.0, 1027.0}, {1760.0, 107.0}}
+                                          Other, 0x10c3b6570, {{80.0, 1027.0}, {1760.0, 107.0}}
+                                            Image, 0x10c3b6690, {{70.0, 1017.0}, {1780.0, 127.0}}
+                                      Cell, 0x10c3b67b0, {{80.0, 1148.0}, {1760.0, 107.0}}, label: 'Newshosting, Until Jun 5, 2027 · 190 days left, Usenet downloads (SABnzbd)'
+                                        Other, 0x10badbe50, {{80.0, 1148.0}, {1760.0, 107.0}}
+                                          Other, 0x10badbf70, {{80.0, 1148.0}, {1760.0, 107.0}}
+                                            StaticText, 0x10badc090, {{100.0, 1158.0}, {1720.0, 87.0}}, label: 'Newshosting, Until Jun 5, 2027 · 190 days left, Usenet downloads (SABnzbd)'
+                                              StaticText, 0x10badc1b0, {{100.0, 1158.0}, {221.0, 46.0}}, label: 'Newshosting'
+                                              StaticText, 0x10badc2d0, {{1415.0, 1164.0}, {405.0, 35.0}}, label: 'Until Jun 5, 2027 · 190 days left'
+                                              StaticText, 0x10badc3f0, {{100.0, 1210.0}, {386.0, 35.0}}, label: 'Usenet downloads (SABnzbd)'
+                                        Other, 0x10badc510, {{80.0, 1148.0}, {1760.0, 107.0}}
+                                          Other, 0x10badc630, {{80.0, 1148.0}, {1760.0, 107.0}}
+                                          Other, 0x10badc750, {{80.0, 1148.0}, {1760.0, 107.0}}
+                                            Image, 0x10badc870, {{70.0, 1138.0}, {1780.0, 127.0}}
+                                      Cell, 0x10badc990, {{80.0, 1269.0}, {1760.0, 107.0}}, label: 'NZBgeek, Date not set yet, Usenet search for HolyArrs and Sportarr'
+                                        Other, 0x10badcab0, {{0.0, 302.0}, {1760.0, 107.0}}
+                                          Other, 0x10badcbd0, {{0.0, 302.0}, {1760.0, 107.0}}
+                                          Other, 0x10badccf0, {{0.0, 302.0}, {1760.0, 107.0}}
+                                            Image, 0x10badce10, {{0.0, 302.0}, {1780.0, 127.0}}
+                                        Other, 0x10badcf30, {{0.0, 302.0}, {1760.0, 107.0}}
+                                          Other, 0x10badd050, {{0.0, 302.0}, {1760.0, 107.0}}
+                                            StaticText, 0x10badd170, {{0.0, 0.0}, {0.0, 0.0}}, label: 'NZBgeek, Date not set yet, Usenet search for HolyArrs and Sportarr'
+                                              StaticText, 0x10badd290, {{0.0, 0.0}, {0.0, 0.0}}, label: 'NZBgeek'
+                                              StaticText, 0x10badd3b0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Date not set yet'
+                                              StaticText, 0x10badd4d0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Usenet search for HolyArrs and Sportarr'
+                                      Other, 0x10badd5f0, {{0.0, 1027.0}, {1920.0, 47.0}}
+                                        Other, 0x10badd710, {{0.0, 1027.0}, {1920.0, 47.0}}
+                                      Other, 0x10badd830, {{0.0, 1451.0}, {1920.0, 47.0}}
+                                        Other, 0x10badd950, {{0.0, 1451.0}, {1920.0, 47.0}}
+                                      Cell, 0x10badda70, {{80.0, 1498.0}, {1760.0, 66.0}}, label: 'Play outside buttons'
+                                        Other, 0x10baddb90, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10baddcb0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badddd0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10baddef0, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10bade010, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bade130, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Switch, 0x10bade250, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Play outside buttons', value: 1
+                                              StaticText, 0x10bade370, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Play outside buttons'
+                                              StaticText, 0x10bade490, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Play outside buttons'
+                                      Cell, 0x10bade5b0, {{80.0, 1578.0}, {1760.0, 66.0}}, label: 'Outside TV, not checked'
+                                        Other, 0x10bade6d0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bade7f0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bade910, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10badea30, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10badeb50, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badec70, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            StaticText, 0x10baded90, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Outside TV'
+                                            StaticText, 0x10badeeb0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Outside TV, not checked'
+                                      Cell, 0x10badefd0, {{80.0, 1658.0}, {1760.0, 66.0}}, label: 'Find the outside TV'
+                                        Other, 0x10badf0f0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badf210, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badf330, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10badf450, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10badf570, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badf690, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Button, 0x10badf7b0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Find the outside TV'
+                                      Cell, 0x10badf8d0, {{80.0, 1738.0}, {1760.0, 66.0}}, label: 'Picture setup guide'
+                                        Other, 0x10badf9f0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badfb10, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badfc30, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10badfd50, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10badfe70, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10badff90, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Button, 0x10bae00b0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Picture setup guide'
+                                      Other, 0x10bae01d0, {{0.0, 1498.0}, {1920.0, 83.0}}
+                                        Other, 0x10bae02f0, {{0.0, 1498.0}, {1920.0, 83.0}}
+                                      Cell, 0x10bae0410, {{80.0, 1922.0}, {1760.0, 66.0}}, label: 'Watch now, 4K when ready'
+                                        Other, 0x10bae0530, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bae0650, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b6ad0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10c3b6bf0, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10c3b6d10, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bae0770, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Switch, 0x10bae0890, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Watch now, 4K when ready', value: 1
+                                              StaticText, 0x10bae09b0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Watch now, 4K when ready'
+                                              StaticText, 0x10bae0ad0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Watch now, 4K when ready'
+                                      Other, 0x10bae0bf0, {{0.0, 1922.0}, {1920.0, 83.0}}
+                                        Other, 0x10bae0d10, {{0.0, 1922.0}, {1920.0, 83.0}}
+                                      Other, 0x10bae0e30, {{0.0, 2099.0}, {1920.0, 47.0}}
+                                        Other, 0x10c3b6e30, {{0.0, 2099.0}, {1920.0, 47.0}}
+                                      Cell, 0x10c3b6f50, {{80.0, 2146.0}, {1760.0, 66.0}}, label: 'Show the Sports tab'
+                                        Other, 0x10c3b7070, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b7190, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b72b0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10c3b73d0, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10c3b74f0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b7610, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Switch, 0x10c3b7730, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Show the Sports tab', value: 1
+                                              StaticText, 0x10c3b7850, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Show the Sports tab'
+                                              StaticText, 0x10c3b7970, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Show the Sports tab'
+                                      Cell, 0x10c3b7a90, {{80.0, 2226.0}, {1760.0, 84.0}}
+                                        Other, 0x10bae0f50, {{0.0, 302.0}, {1760.0, 84.0}}
+                                          Other, 0x10bae1070, {{0.0, 302.0}, {1760.0, 84.0}}
+                                          Other, 0x10bae1190, {{0.0, 302.0}, {1760.0, 84.0}}
+                                            Image, 0x10bae12b0, {{0.0, 302.0}, {1780.0, 104.0}}
+                                        Other, 0x10bae13d0, {{0.0, 302.0}, {1760.0, 84.0}}
+                                          Other, 0x10adc95e0, {{0.0, 302.0}, {1760.0, 84.0}}
+                                            TextField, 0x10adc9700, {{-15.0, 301.4}, {1750.0, 73.3}}, placeholderValue: 'http://192.168.68.100:1867', value: http://127.0.0.1:8...
+                                      Cell, 0x10adc9820, {{80.0, 2324.0}, {1760.0, 66.0}}, label: 'Status, connected (4.1.12.1122)'
+                                        Other, 0x10adc9940, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc9a60, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc9b80, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10adc9ca0, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10adc9dc0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10adc9ee0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            StaticText, 0x10adca000, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Status'
+                                            StaticText, 0x10bae14f0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Status, connected (4.1.12.1122)'
+                                      Cell, 0x10bae1610, {{80.0, 2404.0}, {1760.0, 66.0}}, label: 'Check again'
+                                        Other, 0x10bae1730, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b7bb0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b7cd0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10c3b7df0, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10c3b7f10, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10c3b8030, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Button, 0x10bae1850, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Check again'
+                                      Other, 0x10bae1ac0, {{0.0, 2146.0}, {1920.0, 47.0}}
+                                        Other, 0x10bae1be0, {{0.0, 2146.0}, {1920.0, 47.0}}
+                                      Cell, 0x10bae1d00, {{80.0, 2552.0}, {1760.0, 66.0}}, label: 'Indexers, download apps, pick rules, keys and backups are set in HolyArrs' web page on the PC: http://127.0.0.1:8799'
+                                        Other, 0x10bae1e20, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bae1f40, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bae2060, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            Image, 0x10bae2180, {{0.0, 302.0}, {1780.0, 86.0}}
+                                        Other, 0x10bae22a0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                          Other, 0x10bae23c0, {{0.0, 302.0}, {1760.0, 66.0}}
+                                            StaticText, 0x10bae24e0, {{0.0, 0.0}, {0.0, 0.0}}, label: 'Indexers, download apps, pick rules, keys and backups are set in HolyArrs' web page on the PC: http://127.0.0.1:8799'
+                                      Other, 0x10bae2600, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10bae2720, {{1834.0, 305.0}, {3.0, 337.0}}
+                Other, 0x10bae2a40, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10bae2b60, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10bae2c80, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10bae2da0, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10bae2ec0, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10bae2fe0, {{1465.0, 43.0}, {127.0, 74.0}}
+                    Other, 0x10bae3100, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10bae3220, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10bae3340, {{339.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10bae3460, {{339.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10bae3580, {{540.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10bae36a0, {{540.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10bae37c0, {{717.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10bae38e0, {{717.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10bae3a00, {{974.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10adca120, {{974.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10adca240, {{1190.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10adca360, {{1190.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10adca480, {{1405.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10adca5a0, {{1405.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10adca6c0, {{1506.2, 59.9}, {44.6, 40.3}}, identifier: 'gearshape', label: 'Settings', Focused
+                          Image, 0x10adca7e0, {{1506.2, 59.9}, {40.3, 40.3}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10adca900, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10adcaa20, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10bad7ec0, pid: 25730, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10adc4fe0, pid: 25730, label: 'Afterglow'
+  }
+)

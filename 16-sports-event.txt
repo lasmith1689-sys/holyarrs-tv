@@ -1,0 +1,73 @@
+Optional(Attributes: Application, 0x10c33ba50, pid: 19754, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10c33ba50, pid: 19754, label: 'Afterglow'
+    Window (Main), 0x10c3481a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10c3490e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10c349200, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10c348e40, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10c348f60, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10c349320, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10c349440, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10c349560, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10c349680, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10c3497a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10c3498c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10c3499e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10c349b00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10c349c20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10c349d40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10c349e60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Image, 0x10c349f80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10ba7ab30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10ba7a070, {{0.0, 157.0}, {1760.0, 704.0}}
+                                        StaticText, 0x10ba7ae10, {{1050.0, 231.0}, {138.0, 27.0}}, label: 'FORMULA 1'
+                                        StaticText, 0x10ba7af30, {{980.0, 291.0}, {693.0, 65.0}}, label: 'Las Vegas Grand Prix - Race'
+                                        StaticText, 0x10ba7b050, {{980.0, 376.0}, {241.0, 32.0}}, label: 'Thu Nov 26, 4:00 AM'
+                                        StaticText, 0x10ba7b170, {{371.0, 415.0}, {339.0, 32.0}}, label: 'Las Vegas Grand Prix - Race'
+                                        StaticText, 0x10ba7b290, {{980.0, 428.0}, {233.0, 29.0}}, label: 'Las Vegas Strip Circuit'
+                                        StaticText, 0x10ba7b3b0, {{990.0, 482.0}, {58.0, 18.0}}, label: 'READY'
+                                        Button, 0x10ba7b4d0, {{965.0, 521.4}, {328.0, 79.2}}, label: 'Play in 4K', Focused
+                                          Image, 0x10ba7b5f0, {{1013.4, 542.3}, {31.9, 36.3}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x10ba7b710, {{965.0, 521.4}, {328.0, 79.2}}, label: 'Play in 4K'
+                                        Button, 0x10ba7b830, {{980.0, 621.0}, {290.0, 62.0}}, label: 'Play outside'
+                                          Image, 0x10ba7b950, {{1021.0, 636.0}, {32.0, 32.0}}, identifier: 'sun.max', label: 'Brightness Higher'
+                                          StaticText, 0x10ba7ba70, {{980.0, 621.0}, {290.0, 62.0}}, label: 'Play outside'
+                                        Button, 0x10ba7bb90, {{980.0, 707.0}, {528.0, 74.0}}, label: 'Don't get automatically'
+                                          Image, 0x10ba7bcb0, {{1020.0, 723.0}, {42.0, 42.0}}, identifier: 'bell.slash', label: 'Notifications Off'
+                                          StaticText, 0x10ba7bdd0, {{980.0, 707.0}, {528.0, 74.0}}, label: 'Don't get automatically'
+                                      Other, 0x10ba7bef0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10ba7c010, {{1914.0, 319.0}, {3.0, 698.0}}
+                                      Other, 0x10ba7c130, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10ba7c250, {{1914.0, 319.0}, {3.0, 698.0}}
+                Other, 0x10ba7c370, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10ba7c490, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10ba7c5b0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10ba7c6d0, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10ba7c7f0, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10ba7c910, {{1187.0, 52.0}, {220.0, 56.0}}
+                    Other, 0x10ba7ca30, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10ba7cb50, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10ba7cc70, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10ba7cd90, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10ba7ceb0, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10ba7cfd0, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10ba7d0f0, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10ba7d210, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10ba7d330, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10ba7d450, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10ba7d570, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10ba7d690, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10ba7d7b0, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10ba7d8d0, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10ba7d9f0, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10ba7db10, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10ba7dc30, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10ba7dd50, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10c33ba50, pid: 19754, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10ad7bb90, pid: 19754, label: 'Afterglow'
+  }
+)

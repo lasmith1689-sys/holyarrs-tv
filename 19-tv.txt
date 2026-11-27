@@ -1,0 +1,129 @@
+Optional(Attributes: Application, 0x10ad860d0, pid: 21476, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10ad860d0, pid: 21476, label: 'Afterglow'
+    Window (Main), 0x10ad85c00, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10ad87dd0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10ad8b860, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10ad89ce0, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10ad808c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10ad8b980, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10ad8baa0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10ad8bbc0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10ad8bce0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10ad8be00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10ad8bf20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10ad8c450, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10ad8c570, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10ad8c690, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10ad8c7b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10ad8c8d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10ad8c9f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10ad8cb10, {{0.0, 157.0}, {1760.0, 2887.0}}
+                                        StaticText, 0x10ad8cc30, {{160.0, 197.0}, {215.0, 77.0}}, label: 'Live TV'
+                                        SegmentedControl, 0x10ad8cd50, {{405.0, 201.0}, {720.0, 69.0}}
+                                          Button, 0x10ad8ce70, {{403.0, 200.4}, {244.0, 71.2}}, label: 'Live', Selected
+                                          Button, 0x10ad8cf90, {{643.0, 200.4}, {244.0, 71.2}}, label: 'Guide'
+                                          Button, 0x10ad8d0b0, {{883.0, 200.4}, {244.0, 71.2}}, label: 'On Demand'
+                                        Button, 0x10ad8d1d0, {{1474.0, 206.0}, {286.0, 60.0}}, label: 'All channels'
+                                          Image, 0x10ad8d2f0, {{1516.0, 222.0}, {28.0, 28.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                          StaticText, 0x10ad8d410, {{1474.0, 206.0}, {286.0, 60.0}}, label: 'All channels'
+                                        StaticText, 0x10ad8d530, {{160.0, 320.0}, {107.0, 41.0}}, label: 'Sports'
+                                        ScrollView, 0x10ad8d650, {{0.0, 379.0}, {1920.0, 350.0}}
+                                          Other, 0x10ad8d770, {{80.0, 379.0}, {1440.0, 350.0}}
+                                            Other, 0x10ad8d890, {{159.5, 408.5}, {1281.0, 290.5}}
+                                              Button, 0x10ad8d9b0, {{159.5, 408.5}, {401.0, 290.5}}, label: 'ESPN, SportsCenter'
+                                                Image, 0x10ad8dad0, {{231.0, 449.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad8dbf0, {{160.0, 644.0}, {56.0, 27.0}}, label: 'ESPN'
+                                                StaticText, 0x10ad8dd10, {{160.0, 675.0}, {118.0, 24.0}}, label: 'SportsCenter'
+                                              Button, 0x10ad8de30, {{599.5, 408.5}, {401.0, 290.5}}, label: 'NFL RedZone, RedZone'
+                                                Image, 0x10ad8df50, {{671.0, 449.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad8e070, {{600.0, 644.0}, {135.0, 27.0}}, label: 'NFL RedZone'
+                                                StaticText, 0x10ad8e190, {{600.0, 675.0}, {80.0, 24.0}}, label: 'RedZone'
+                                              Button, 0x10ad8e2b0, {{1039.5, 408.5}, {401.0, 290.5}}, label: 'Sky Sports Premier League, Super Sunday'
+                                                Image, 0x10ad8e3d0, {{1111.0, 449.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad8e4f0, {{1040.0, 644.0}, {270.0, 27.0}}, label: 'Sky Sports Premier League'
+                                                StaticText, 0x10ad8e610, {{1040.0, 675.0}, {123.0, 24.0}}, label: 'Super Sunday'
+                                        StaticText, 0x10ad8e730, {{160.0, 775.0}, {67.0, 41.0}}, label: 'Golf'
+                                        ScrollView, 0x10ad8e850, {{0.0, 834.0}, {1920.0, 350.0}}
+                                          Other, 0x10ad8e970, {{80.0, 834.0}, {560.0, 350.0}}
+                                            Other, 0x10ad8ea90, {{159.5, 863.5}, {401.0, 290.5}}
+                                              Button, 0x10ad8ebb0, {{159.5, 863.5}, {401.0, 290.5}}, label: 'Golf Channel, Golf Central'
+                                                Image, 0x10ad8ecd0, {{231.0, 904.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad8edf0, {{160.0, 1099.0}, {130.0, 27.0}}, label: 'Golf Channel'
+                                                StaticText, 0x10ad8ef10, {{160.0, 1130.0}, {105.0, 24.0}}, label: 'Golf Central'
+                                        StaticText, 0x10ad8f030, {{160.0, 1230.0}, {109.0, 41.0}}, label: 'Racing'
+                                        ScrollView, 0x10ad8f150, {{0.0, 1289.0}, {1920.0, 350.0}}
+                                          Other, 0x10ad8f270, {{80.0, 1289.0}, {560.0, 350.0}}
+                                            Other, 0x10ad8f390, {{159.5, 1318.5}, {401.0, 290.5}}
+                                              Button, 0x10ad8f4b0, {{159.5, 1318.5}, {401.0, 290.5}}, label: 'F1 TV, Qatar Grand Prix build-up'
+                                                Image, 0x10ad8f5d0, {{231.0, 1359.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad8f6f0, {{160.0, 1554.0}, {56.0, 27.0}}, label: 'F1 TV'
+                                                StaticText, 0x10ad8f810, {{160.0, 1585.0}, {224.0, 24.0}}, label: 'Qatar Grand Prix build-up'
+                                        StaticText, 0x10ad8f930, {{160.0, 1685.0}, {89.0, 41.0}}, label: 'News'
+                                        ScrollView, 0x10ad8fa50, {{0.0, 1744.0}, {1920.0, 350.0}}
+                                          Other, 0x10ad8fb70, {{80.0, 1744.0}, {1000.0, 350.0}}
+                                            Other, 0x10ad8fc90, {{159.5, 1773.5}, {841.0, 290.5}}
+                                              Button, 0x10ad8fdb0, {{159.5, 1773.5}, {401.0, 290.5}}, label: 'CNN, State of the Union'
+                                                Image, 0x10ad8fed0, {{231.0, 1814.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad8fff0, {{160.0, 2009.0}, {48.0, 27.0}}, label: 'CNN'
+                                                StaticText, 0x10ad90110, {{160.0, 2040.0}, {158.0, 24.0}}, label: 'State of the Union'
+                                              Button, 0x10ad90230, {{599.5, 1773.5}, {401.0, 290.5}}, label: 'BBC News, BBC News'
+                                                Image, 0x10ad90350, {{671.0, 1814.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad90470, {{600.0, 2009.0}, {105.0, 27.0}}, label: 'BBC News'
+                                                StaticText, 0x10ad90590, {{600.0, 2040.0}, {93.0, 24.0}}, label: 'BBC News'
+                                        StaticText, 0x10ad906b0, {{160.0, 2140.0}, {70.0, 41.0}}, label: 'Kids'
+                                        ScrollView, 0x10ad907d0, {{0.0, 2199.0}, {1920.0, 350.0}}
+                                          Other, 0x10ad908f0, {{80.0, 2199.0}, {1000.0, 350.0}}
+                                            Other, 0x10ad90a10, {{159.5, 2228.5}, {841.0, 290.5}}
+                                              Button, 0x10ad90b30, {{159.5, 2228.5}, {401.0, 290.5}}, label: 'Nick Jr., PAW Patrol'
+                                                Image, 0x10ad90c50, {{231.0, 2269.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad90d70, {{160.0, 2464.0}, {75.0, 27.0}}, label: 'Nick Jr.'
+                                                StaticText, 0x10ad90e90, {{160.0, 2495.0}, {97.0, 24.0}}, label: 'PAW Patrol'
+                                              Button, 0x10ad90fb0, {{599.5, 2228.5}, {401.0, 290.5}}, label: 'Disney Channel, Bluey'
+                                                Image, 0x10ad910d0, {{671.0, 2269.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad911f0, {{600.0, 2464.0}, {156.0, 27.0}}, label: 'Disney Channel'
+                                                StaticText, 0x10ad91310, {{600.0, 2495.0}, {49.0, 24.0}}, label: 'Bluey'
+                                        StaticText, 0x10ad91430, {{160.0, 2595.0}, {149.0, 41.0}}, label: 'New York'
+                                        ScrollView, 0x10ad91550, {{0.0, 2654.0}, {1920.0, 350.0}}
+                                          Other, 0x10ad91670, {{80.0, 2654.0}, {560.0, 350.0}}
+                                            Other, 0x10ad91790, {{159.5, 2683.5}, {401.0, 290.5}}
+                                              Button, 0x10ad918b0, {{159.5, 2683.5}, {401.0, 290.5}}, label: 'FOX 5 New York, FOX NFL Sunday'
+                                                Image, 0x10ad919d0, {{231.0, 2724.0}, {258.0, 145.0}}
+                                                StaticText, 0x10ad91af0, {{160.0, 2919.0}, {161.0, 27.0}}, label: 'FOX 5 New York'
+                                                StaticText, 0x10ad91c10, {{160.0, 2950.0}, {149.0, 24.0}}, label: 'FOX NFL Sunday'
+                                      Other, 0x10ad91d30, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10ad91e50, {{1914.0, 520.0}, {3.0, 497.0}}
+                                      Other, 0x10ad91f70, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10ad92090, {{1914.0, 520.0}, {3.0, 497.0}}
+                Other, 0x10ad921b0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10ad922d0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10ad923f0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10ad92510, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10ad92630, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10ad92750, {{529.0, 43.0}, {198.0, 74.0}}
+                    Other, 0x10ad92870, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10ad92990, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10ad92ab0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10ad92bd0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10ad92cf0, {{567.1, 61.0}, {121.9, 38.1}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live', Focused
+                          Image, 0x10ad92e10, {{567.1, 62.0}, {47.9, 34.8}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10ad92f30, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10ad93050, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10ad93170, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10ad93290, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10ad933b0, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10ad934d0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10ad935f0, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10ad93710, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10ad93830, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10ad93950, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10ad93a70, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10ad93b90, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10ad860d0, pid: 21476, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10ba9b430, pid: 21476, label: 'Afterglow'
+  }
+)

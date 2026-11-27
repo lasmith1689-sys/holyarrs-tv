@@ -1,0 +1,163 @@
+Optional(Attributes: Application, 0x105b63e70, pid: 11342, label: 'Afterglow'
+Element subtree:
+ →Application, 0x105b63e70, pid: 11342, label: 'Afterglow'
+    Window (Main), 0x105b63340, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x105b646e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x105b64800, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x105b64b60, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x105b64370, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x105b64490, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x105b64920, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x105b64a40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x105b616e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x105b61800, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x105b61920, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x105b61a40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x105b61b60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x105b61c80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x105b61da0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x105b61ec0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    StaticText, 0x105b61fe0, {{160.0, 112.0}, {174.0, 77.0}}, label: 'Guide'
+                                    SegmentedControl, 0x105b62100, {{364.0, 116.0}, {720.0, 69.0}}
+                                      Button, 0x105b62220, {{362.0, 115.4}, {244.0, 71.2}}, label: 'Live'
+                                      Button, 0x105b62340, {{602.0, 115.4}, {244.0, 71.2}}, label: 'Guide', Selected
+                                      Button, 0x105b64ec0, {{842.0, 115.4}, {244.0, 71.2}}, label: 'On Demand'
+                                    Button, 0x105b64fe0, {{1474.0, 120.0}, {286.0, 60.0}}, label: 'All channels'
+                                      Image, 0x105b65100, {{1516.0, 136.0}, {28.0, 28.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                      StaticText, 0x105b65220, {{1474.0, 120.0}, {286.0, 60.0}}, label: 'All channels'
+                                    StaticText, 0x105b65340, {{160.0, 213.0}, {564.0, 29.0}}, label: 'Move around the grid to see what's on; select to watch.'
+                                    ScrollView, 0x105b65460, {{160.0, 387.0}, {1600.0, 55.0}}
+                                      Other, 0x105b65580, {{160.0, 387.0}, {1323.0, 55.0}}
+                                        Button, 0x105b656a0, {{160.0, 388.0}, {80.0, 53.0}}, label: 'All', Selected
+                                        Button, 0x105b657c0, {{256.0, 388.0}, {125.0, 53.0}}, label: 'Sports'
+                                        Button, 0x105b658e0, {{397.0, 388.0}, {98.0, 53.0}}, label: 'Golf'
+                                        Button, 0x105b65a00, {{511.0, 388.0}, {127.0, 53.0}}, label: 'Racing'
+                                        Button, 0x105b65b20, {{654.0, 388.0}, {114.0, 53.0}}, label: 'News'
+                                        Button, 0x105b65c40, {{784.0, 388.0}, {100.0, 53.0}}, label: 'Kids'
+                                        Button, 0x105b65d60, {{900.0, 388.0}, {155.0, 53.0}}, label: 'New York'
+                                        Button, 0x105b65e80, {{1107.0, 387.0}, {186.0, 55.0}}, label: 'Earlier', Disabled
+                                          Image, 0x105b65fa0, {{1147.0, 403.0}, {13.0, 22.0}}, identifier: 'chevron.left', label: 'Back', Disabled
+                                          StaticText, 0x105b660c0, {{1107.0, 387.0}, {186.0, 55.0}}, label: 'Earlier', Disabled
+                                        Button, 0x105b661e0, {{1309.0, 387.0}, {174.0, 55.0}}, label: 'Later'
+                                          Image, 0x105b66300, {{1353.0, 403.0}, {13.0, 22.0}}, identifier: 'chevron.right', label: 'Forward'
+                                          StaticText, 0x105b66420, {{1309.0, 387.0}, {174.0, 55.0}}, label: 'Later'
+                                    StaticText, 0x105b66540, {{160.0, 466.0}, {61.0, 27.0}}, label: 'Today'
+                                    StaticText, 0x105b66660, {{460.0, 466.0}, {85.0, 27.0}}, label: '9:30 PM'
+                                    StaticText, 0x105b66780, {{677.0, 466.0}, {96.0, 27.0}}, label: '10:00 PM'
+                                    StaticText, 0x105b668a0, {{893.0, 466.0}, {96.0, 27.0}}, label: '10:30 PM'
+                                    StaticText, 0x105b669c0, {{1110.0, 466.0}, {92.0, 27.0}}, label: '11:00 PM'
+                                    StaticText, 0x105b66ae0, {{1327.0, 466.0}, {92.0, 27.0}}, label: '11:30 PM'
+                                    StaticText, 0x105b66c00, {{1543.0, 466.0}, {96.0, 27.0}}, label: '12:00 AM'
+                                    ScrollView, 0x105b66d20, {{160.0, 503.0}, {1600.0, 603.0}}
+                                      Other, 0x105b66e40, {{160.0, 503.0}, {1600.0, 1190.0}}
+                                        Other, 0x105b66f60, {{161.0, 503.0}, {1485.0, 674.0}}
+                                          Image, 0x105b67080, {{161.0, 530.0}, {88.0, 50.0}}, label: 'ESPN'
+                                          StaticText, 0x105b671a0, {{161.0, 530.0}, {157.0, 50.0}}, label: 'ESPN'
+                                          Button, 0x105b672c0, {{460.0, 503.0}, {102.0, 104.0}}, label: 'ESPN: SportsCenter, 9:15 - 9:45 PM'
+                                          Button, 0x105b673e0, {{568.0, 503.0}, {427.0, 104.0}}, label: 'ESPN: Evening News, 9:45 - 10:45 PM'
+                                            StaticText, 0x105b67500, {{582.0, 530.0}, {141.0, 27.0}}, label: 'Evening News'
+                                            StaticText, 0x105b67620, {{582.0, 559.0}, {131.0, 22.0}}, label: '9:45 - 10:45 PM'
+                                          Button, 0x105b67740, {{1002.0, 503.0}, {211.0, 104.0}}, label: 'ESPN: Late Movie, 10:45 - 11:15 PM'
+                                            StaticText, 0x105b67860, {{1016.0, 530.0}, {109.0, 27.0}}, label: 'Late Movie'
+                                            StaticText, 0x105b67980, {{1016.0, 559.0}, {133.0, 22.0}}, label: '10:45 - 11:15 PM'
+                                          Button, 0x105b67aa0, {{1218.0, 503.0}, {427.0, 104.0}}, label: 'ESPN: Overnight, 11:15 - 12:15 AM'
+                                            StaticText, 0x105b67bc0, {{1232.0, 530.0}, {100.0, 27.0}}, label: 'Overnight'
+                                            StaticText, 0x105b67ce0, {{1232.0, 559.0}, {130.0, 22.0}}, label: '11:15 - 12:15 AM'
+                                          Image, 0x105b67e00, {{161.0, 644.0}, {88.0, 50.0}}, label: 'NFL RedZone'
+                                          StaticText, 0x105b67f20, {{161.0, 644.0}, {236.0, 50.0}}, label: 'NFL RedZone'
+                                          Button, 0x105b68040, {{460.0, 617.0}, {319.0, 104.0}}, label: 'NFL RedZone: RedZone, 9:15 - 10:15 PM'
+                                            StaticText, 0x105b68160, {{474.0, 644.0}, {91.0, 27.0}}, label: 'RedZone'
+                                            StaticText, 0x105b68280, {{474.0, 673.0}, {125.0, 22.0}}, label: '9:15 - 10:15 PM'
+                                          Button, 0x105b683a0, {{785.0, 617.0}, {211.0, 104.0}}, label: 'NFL RedZone: Evening News, 10:15 - 10:45 PM'
+                                            StaticText, 0x105b684c0, {{799.0, 644.0}, {141.0, 27.0}}, label: 'Evening News'
+                                            StaticText, 0x105b685e0, {{799.0, 673.0}, {136.0, 22.0}}, label: '10:15 - 10:45 PM'
+                                          Button, 0x105b68700, {{1002.0, 617.0}, {427.0, 104.0}}, label: 'NFL RedZone: Late Movie, 10:45 - 11:45 PM'
+                                            StaticText, 0x105b68820, {{1016.0, 644.0}, {109.0, 27.0}}, label: 'Late Movie'
+                                            StaticText, 0x105b68940, {{1016.0, 673.0}, {136.0, 22.0}}, label: '10:45 - 11:45 PM'
+                                          Button, 0x105b68a60, {{1435.0, 617.0}, {211.0, 104.0}}, label: 'NFL RedZone: Overnight, 11:45 - 12:15 AM'
+                                            StaticText, 0x105b68b80, {{1449.0, 644.0}, {100.0, 27.0}}, label: 'Overnight'
+                                            StaticText, 0x105b68ca0, {{1449.0, 673.0}, {133.0, 22.0}}, label: '11:45 - 12:15 AM'
+                                          Image, 0x105b68dc0, {{161.0, 758.0}, {88.0, 50.0}}, label: 'Sky Sports Premier League'
+                                          StaticText, 0x105b68ee0, {{161.0, 757.0}, {258.0, 53.0}}, label: 'Sky Sports Premier League'
+                                          Button, 0x105b69000, {{460.0, 731.0}, {102.0, 104.0}}, label: 'Sky Sports Premier League: Super Sunday, 9:15 - 9:45 PM'
+                                          Button, 0x105b69120, {{568.0, 731.0}, {427.0, 104.0}}, label: 'Sky Sports Premier League: Evening News, 9:45 - 10:45 PM'
+                                            StaticText, 0x105b69240, {{582.0, 758.0}, {141.0, 27.0}}, label: 'Evening News'
+                                            StaticText, 0x105b69360, {{582.0, 787.0}, {131.0, 22.0}}, label: '9:45 - 10:45 PM'
+                                          Button, 0x105b69480, {{1002.0, 731.0}, {211.0, 104.0}}, label: 'Sky Sports Premier League: Late Movie, 10:45 - 11:15 PM'
+                                            StaticText, 0x105b695a0, {{1016.0, 758.0}, {109.0, 27.0}}, label: 'Late Movie'
+                                            StaticText, 0x105b696c0, {{1016.0, 787.0}, {133.0, 22.0}}, label: '10:45 - 11:15 PM'
+                                          Button, 0x105b697e0, {{1218.0, 731.0}, {427.0, 104.0}}, label: 'Sky Sports Premier League: Overnight, 11:15 - 12:15 AM'
+                                            StaticText, 0x105b69900, {{1232.0, 758.0}, {100.0, 27.0}}, label: 'Overnight'
+                                            StaticText, 0x105b69a20, {{1232.0, 787.0}, {130.0, 22.0}}, label: '11:15 - 12:15 AM'
+                                          Image, 0x105b69b40, {{161.0, 872.0}, {88.0, 50.0}}, label: 'Golf Channel'
+                                          StaticText, 0x105b69c60, {{161.0, 872.0}, {231.0, 50.0}}, label: 'Golf Channel'
+                                          Button, 0x105b69d80, {{460.0, 845.0}, {102.0, 104.0}}, label: 'Golf Channel: Golf Central, 9:15 - 9:45 PM'
+                                          Button, 0x105b69ea0, {{568.0, 845.0}, {427.0, 104.0}}, label: 'Golf Channel: Evening News, 9:45 - 10:45 PM'
+                                            StaticText, 0x105b69fc0, {{582.0, 872.0}, {141.0, 27.0}}, label: 'Evening News'
+                                            StaticText, 0x105b6a0e0, {{582.0, 901.0}, {131.0, 22.0}}, label: '9:45 - 10:45 PM'
+                                          Button, 0x105b6a200, {{1002.0, 845.0}, {211.0, 104.0}}, label: 'Golf Channel: Late Movie, 10:45 - 11:15 PM'
+                                            StaticText, 0x105b6a320, {{1016.0, 872.0}, {109.0, 27.0}}, label: 'Late Movie'
+                                            StaticText, 0x105b6a440, {{1016.0, 901.0}, {133.0, 22.0}}, label: '10:45 - 11:15 PM'
+                                          Button, 0x105b6a560, {{1218.0, 845.0}, {427.0, 104.0}}, label: 'Golf Channel: Overnight, 11:15 - 12:15 AM'
+                                            StaticText, 0x105b6a680, {{1232.0, 872.0}, {100.0, 27.0}}, label: 'Overnight'
+                                            StaticText, 0x105b6a7a0, {{1232.0, 901.0}, {130.0, 22.0}}, label: '11:15 - 12:15 AM'
+                                          Image, 0x105b6a8c0, {{161.0, 986.0}, {88.0, 50.0}}, label: 'F1 TV'
+                                          StaticText, 0x105b6a9e0, {{161.0, 986.0}, {157.0, 50.0}}, label: 'F1 TV'
+                                          Button, 0x105b6ab00, {{460.0, 959.0}, {102.0, 104.0}}, label: 'F1 TV: Qatar Grand Prix build-up, 9:15 - 9:45 PM'
+                                          Button, 0x105b6ad70, {{568.0, 959.0}, {427.0, 104.0}}, label: 'F1 TV: Evening News, 9:45 - 10:45 PM'
+                                            StaticText, 0x105b6ae90, {{582.0, 986.0}, {141.0, 27.0}}, label: 'Evening News'
+                                            StaticText, 0x105b6afb0, {{582.0, 1015.0}, {131.0, 22.0}}, label: '9:45 - 10:45 PM'
+                                          Button, 0x105b6b0d0, {{1002.0, 959.0}, {211.0, 104.0}}, label: 'F1 TV: Late Movie, 10:45 - 11:15 PM'
+                                            StaticText, 0x105b6b1f0, {{1016.0, 986.0}, {109.0, 27.0}}, label: 'Late Movie'
+                                            StaticText, 0x105b6b310, {{1016.0, 1015.0}, {133.0, 22.0}}, label: '10:45 - 11:15 PM'
+                                          Button, 0x105b6b430, {{1218.0, 959.0}, {427.0, 104.0}}, label: 'F1 TV: Overnight, 11:15 - 12:15 AM'
+                                            StaticText, 0x105b6b550, {{1232.0, 986.0}, {100.0, 27.0}}, label: 'Overnight'
+                                            StaticText, 0x105b6b670, {{1232.0, 1015.0}, {130.0, 22.0}}, label: '11:15 - 12:15 AM'
+                                          Image, 0x105b6b790, {{161.0, 1100.0}, {88.0, 50.0}}, label: 'CNN'
+                                          StaticText, 0x105b6b8b0, {{161.0, 1100.0}, {149.0, 50.0}}, label: 'CNN'
+                                          Button, 0x105b6b9d0, {{460.0, 1073.0}, {102.0, 104.0}}, label: 'CNN: State of the Union, 9:15 - 9:45 PM'
+                                          Button, 0x105b6baf0, {{568.0, 1073.0}, {427.0, 104.0}}, label: 'CNN: Evening News, 9:45 - 10:45 PM'
+                                            StaticText, 0x105b6bc10, {{582.0, 1100.0}, {141.0, 27.0}}, label: 'Evening News'
+                                            StaticText, 0x105b6bd30, {{582.0, 1129.0}, {131.0, 22.0}}, label: '9:45 - 10:45 PM'
+                                          Button, 0x105b6be50, {{1002.0, 1073.0}, {211.0, 104.0}}, label: 'CNN: Late Movie, 10:45 - 11:15 PM'
+                                            StaticText, 0x105b6bf70, {{1016.0, 1100.0}, {109.0, 27.0}}, label: 'Late Movie'
+                                            StaticText, 0x105b6c090, {{1016.0, 1129.0}, {133.0, 22.0}}, label: '10:45 - 11:15 PM'
+                                          Button, 0x105b6c1b0, {{1218.0, 1073.0}, {427.0, 104.0}}, label: 'CNN: Overnight, 11:15 - 12:15 AM'
+                                            StaticText, 0x105b6c2d0, {{1232.0, 1100.0}, {100.0, 27.0}}, label: 'Overnight'
+                                            StaticText, 0x105b6c3f0, {{1232.0, 1129.0}, {130.0, 22.0}}, label: '11:15 - 12:15 AM'
+                                      Other, 0x105b6c710, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x105b6c830, {{1754.0, 1078.0}, {3.0, 25.0}}
+                                      Other, 0x105b6c950, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x105b6ca70, {{1754.0, 1078.0}, {3.0, 25.0}}
+                Other, 0x105b6cb90, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x105b6ccb0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x105b6cdd0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x105b6cef0, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x105b6d010, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x105b6d130, {{529.0, 43.0}, {198.0, 74.0}}
+                    Other, 0x105b6d250, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x105b6d370, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x105b6d490, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x105b6d5b0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x105b6d6d0, {{567.1, 61.0}, {121.9, 38.1}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live', Focused
+                          Image, 0x105b6d7f0, {{567.1, 62.0}, {47.9, 34.8}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x105b6d910, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x105b6da30, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x105b6db50, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x105b6dc70, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x105b6dd90, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x105b6deb0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x105b6dfd0, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x105b6e0f0, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x105b6e210, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x105b6e330, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x105b6e450, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x105b6e570, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x105b63e70, pid: 11342, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x105b6ead0, pid: 11342, label: 'Afterglow'
+  }
+)

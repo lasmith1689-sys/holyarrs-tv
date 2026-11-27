@@ -1,0 +1,25 @@
+Optional(Attributes: Application, 0x105b7d520, pid: 12089, label: 'Afterglow'
+Element subtree:
+ →Application, 0x105b7d520, pid: 12089, label: 'Afterglow'
+    Window (Main), 0x105b7e120, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x105b7e4e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x105b7e600, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x105b7e240, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x105b7e360, {{0.0, 0.0}, {1920.0, 1080.0}}
+              StaticText, 0x105b7e720, {{200.0, 154.0}, {426.0, 108.0}}, label: 'Afterglow'
+              StaticText, 0x105b7e840, {{200.0, 282.0}, {553.0, 170.0}}, label: 'Movies, shows and music: browse, ask for and follow them from the couch.'
+              StaticText, 0x105b7e960, {{200.0, 492.0}, {403.0, 37.0}}, label: 'http://127.0.0.1:8799'
+              StaticText, 0x105b7ea80, {{962.0, 154.0}, {756.0, 114.0}}, label: 'Scan with your phone's camera and approve HolyArrs on Plex.'
+              Image, 0x105b7eba0, {{962.0, 294.0}, {468.0, 468.0}}, label: 'QR code for Plex sign-in'
+              ActivityIndicator, 0x105b7ecc0, {{962.0, 788.0}, {40.0, 40.0}}, value: 1
+                ActivityIndicator, 0x105b7ede0, {{962.0, 788.0}, {40.0, 40.0}}, value: 1
+              StaticText, 0x105b7ef00, {{1022.0, 791.0}, {220.0, 35.0}}, label: 'Waiting for Plex...'
+              Button, 0x105b7f020, {{947.0, 848.5}, {226.0, 83.0}}, label: 'Cancel', Focused
+Path to element:
+ →Application, 0x105b7d520, pid: 12089, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x105b7a7c0, pid: 12089, label: 'Afterglow'
+  }
+)

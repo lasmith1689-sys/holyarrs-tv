@@ -1,0 +1,247 @@
+Optional(Attributes: Application, 0x10ba34b10, pid: 16866, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10ba34b10, pid: 16866, label: 'Afterglow'
+    Window (Main), 0x10ba361b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10ba35330, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x1069810b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x106980a70, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x106980650, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x1069814d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10ad25d30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10ad25910, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10ad23890, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10ad26150, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10ad26270, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10ad26390, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10ad264b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10ad265d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10ad266f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10ad26810, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10ad26930, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10ad26a50, {{0.0, -4465.0}, {1760.0, 5485.0}}
+                                        StaticText, 0x10ba35970, {{110.0, -4237.0}, {570.0, 96.0}}, label: 'Dune: Part Two'
+                                        StaticText, 0x10ba35d90, {{110.0, -4119.0}, {116.0, 58.0}}, label: '2024'
+                                        StaticText, 0x10ba34f10, {{246.0, -4119.0}, {128.0, 58.0}}, label: 'Movie'
+                                        StaticText, 0x10ba367f0, {{394.0, -4119.0}, {321.0, 58.0}}, label: 'Science Fiction'
+                                        StaticText, 0x10ba36910, {{735.0, -4119.0}, {140.0, 58.0}}, label: 'Drama'
+                                        StaticText, 0x10ba36a30, {{905.0, -4099.0}, {172.0, 18.0}}, label: 'WAITING FOR AN OK'
+                                        StaticText, 0x1069815f0, {{110.0, -4039.0}, {725.0, 32.0}}, label: 'Dune: Part Two (2024): a stand-in summary for the screen check.'
+                                        Button, 0x106981710, {{110.0, -3985.0}, {290.0, 60.0}}, label: 'More info'
+                                          Image, 0x106981830, {{171.0, -3970.0}, {29.0, 29.0}}, identifier: 'info.circle', label: 'Info'
+                                          StaticText, 0x106981950, {{110.0, -3985.0}, {290.0, 60.0}}, label: 'More info'
+                                        Button, 0x106981a70, {{430.0, -3985.0}, {170.0, 60.0}}, label: 'Next title'
+                                          Image, 0x106981b90, {{474.0, -3967.0}, {15.0, 25.0}}, identifier: 'chevron.right', label: 'Forward'
+                                          StaticText, 0x10ba36b50, {{430.0, -3985.0}, {170.0, 60.0}}, label: 'Next'
+                                        Button, 0x10ba36c70, {{630.0, -3985.0}, {387.0, 60.0}}, label: 'Find'
+                                          Image, 0x10ba36d90, {{672.0, -3969.0}, {28.0, 28.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                          StaticText, 0x106981cb0, {{630.0, -3985.0}, {387.0, 60.0}}, label: 'Find a movie or show'
+                                        StaticText, 0x106981dd0, {{160.0, -3815.0}, {303.0, 41.0}}, label: 'Continue Watching'
+                                        ScrollView, 0x106981ef0, {{0.0, -3756.0}, {1920.0, 368.0}}
+                                          Other, 0x106982010, {{80.0, -3756.0}, {1160.0, 368.0}}
+                                            Other, 0x106982130, {{159.5, -3726.5}, {1001.0, 308.5}}
+                                              Button, 0x106982250, {{159.5, -3726.5}, {481.0, 308.5}}, label: 'Resume The Matrix, 1h 24m left'
+                                                StaticText, 0x106982370, {{336.0, -3607.0}, {129.0, 32.0}}, label: 'The Matrix'
+                                                StaticText, 0x106982490, {{180.0, -3528.0}, {145.0, 34.0}}, label: 'The Matrix'
+                                                Image, 0x10ad26b70, {{587.0, -3692.0}, {21.0, 24.0}}, identifier: 'play.fill', label: 'Play'
+                                                StaticText, 0x10ad26c90, {{160.0, -3444.0}, {208.0, 26.0}}, label: '1h 24m left · on iPhone'
+                                              Button, 0x10ad26db0, {{679.5, -3726.5}, {481.0, 308.5}}, label: 'Resume Sicario, 1h 10m left, On Demand'
+                                                StaticText, 0x1069825b0, {{878.0, -3607.0}, {84.0, 32.0}}, label: 'Sicario'
+                                                StaticText, 0x1069826d0, {{700.0, -3528.0}, {96.0, 34.0}}, label: 'Sicario'
+                                                StaticText, 0x1069827f0, {{680.0, -3444.0}, {351.0, 26.0}}, label: '1h 10m left · On Demand · on Apple TV'
+                                        ScrollView, 0x106982910, {{0.0, -3338.0}, {1920.0, 114.0}}
+                                          Other, 0x106982a30, {{80.0, -3338.0}, {1962.0, 114.0}}
+                                            Button, 0x106982b50, {{160.0, -3318.0}, {382.0, 74.0}}, identifier: 'shortcut-Live & On Demand', label: 'Live & On Demand'
+                                              Image, 0x106982c70, {{215.0, -3293.0}, {35.0, 24.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Radio'
+                                              StaticText, 0x106982d90, {{160.0, -3318.0}, {382.0, 74.0}}, label: 'Live & On Demand'
+                                            Button, 0x106982eb0, {{566.0, -3318.0}, {233.0, 74.0}}, identifier: 'shortcut-Guide', label: 'Guide'
+                                              Image, 0x106982fd0, {{622.0, -3293.0}, {31.0, 24.0}}, identifier: 'list.bullet.rectangle', label: 'list.bullet.rectangle'
+                                              StaticText, 0x1069830f0, {{566.0, -3318.0}, {233.0, 74.0}}, label: 'Guide'
+                                            Button, 0x106983210, {{823.0, -3318.0}, {284.0, 74.0}}, identifier: 'shortcut-TV Shows', label: 'TV Shows'
+                                              Image, 0x106983330, {{879.0, -3295.0}, {33.0, 27.0}}, identifier: 'tv', label: 'Tv'
+                                              StaticText, 0x106983450, {{823.0, -3318.0}, {284.0, 74.0}}, label: 'TV Shows'
+                                            Button, 0x106983570, {{1131.0, -3318.0}, {248.0, 74.0}}, identifier: 'shortcut-Movies', label: 'Movies'
+                                              Image, 0x106983690, {{1187.0, -3293.0}, {31.0, 24.0}}, identifier: 'film', label: 'Movie'
+                                              StaticText, 0x1069837b0, {{1131.0, -3318.0}, {248.0, 74.0}}, label: 'Movies'
+                                            Button, 0x1069838d0, {{1403.0, -3318.0}, {246.0, 74.0}}, identifier: 'shortcut-Sports', label: 'Sports'
+                                              Image, 0x1069839f0, {{1459.0, -3293.0}, {35.0, 24.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                                              StaticText, 0x106983b10, {{1403.0, -3318.0}, {246.0, 74.0}}, label: 'Sports'
+                                            Button, 0x106983c30, {{1673.0, -3318.0}, {289.0, 74.0}}, identifier: 'shortcut-Downloads', label: 'Downloads'
+                                              Image, 0x106983d50, {{1728.0, -3295.0}, {27.0, 27.0}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                                              StaticText, 0x106983e70, {{1673.0, -3318.0}, {289.0, 74.0}}, label: 'Downloads'
+                                        StaticText, 0x106983f90, {{159.5, -3174.5}, {1601.0, 126.0}}, label: 'IPTV: Runs out in 9 days (Dec 6, 2026), Renew to keep Live TV, live sports and On Demand working. Settings lists every subscription.'
+                                          Image, 0x1069840b0, {{191.0, -3143.0}, {40.0, 40.0}}, identifier: 'exclamationmark.circle.fill', label: 'exclamationmark.circle.fill'
+                                          StaticText, 0x1069841d0, {{258.0, -3146.0}, {489.0, 34.0}}, label: 'IPTV: Runs out in 9 days (Dec 6, 2026)'
+                                          StaticText, 0x1069842f0, {{258.0, -3104.0}, {876.0, 27.0}}, label: 'Renew to keep Live TV, live sports and On Demand working. Settings lists every subscription.'
+                                        StaticText, 0x106984410, {{170.0, -2996.0}, {503.0, 58.0}}, label: '2 waiting for your OK'
+                                        StaticText, 0x106984530, {{708.0, -2997.0}, {436.0, 58.0}}, label: '1 need a decision'
+                                        StaticText, 0x106984650, {{1174.0, -2997.0}, {583.0, 58.0}}, label: 'See Requests in Downloads'
+                                        StaticText, 0x106984770, {{160.0, -2888.0}, {188.0, 41.0}}, label: 'Just arrived'
+                                        StaticText, 0x106984890, {{160.0, -2843.0}, {298.0, 27.0}}, label: 'New in the Library this fortnight'
+                                        ScrollView, 0x1069849b0, {{0.0, -2798.0}, {1920.0, 368.0}}
+                                          Other, 0x106984ad0, {{80.0, -2798.0}, {1160.0, 368.0}}
+                                            Other, 0x106984bf0, {{159.5, -2768.5}, {1001.0, 308.5}}
+                                              Button, 0x10ad26ed0, {{159.5, -2768.5}, {481.0, 308.5}}, label: 'The Matrix, 1999'
+                                                Image, 0x10ad26ff0, {{160.0, -2768.0}, {480.0, 270.0}}
+                                                Image, 0x10ad27110, {{180.0, -2608.0}, {60.0, 90.0}}
+                                                StaticText, 0x10ad27230, {{519.0, -2749.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10ad27350, {{160.0, -2486.0}, {117.0, 26.0}}, label: 'Added today'
+                                              Button, 0x10ad27470, {{679.5, -2768.5}, {481.0, 308.5}}, label: 'Breaking Bad, 2008'
+                                                Image, 0x10ad27590, {{680.0, -2768.0}, {480.0, 270.0}}
+                                                StaticText, 0x10ad276b0, {{700.0, -2554.0}, {193.0, 36.0}}, label: 'Breaking Bad'
+                                                StaticText, 0x10ad277d0, {{1039.0, -2749.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10ad278f0, {{680.0, -2486.0}, {184.0, 26.0}}, label: 'S5 · 3 new episodes'
+                                        StaticText, 0x10ad27a10, {{160.0, -2380.0}, {152.0, 41.0}}, label: 'Following'
+                                        ScrollView, 0x10ad27b30, {{0.0, -2321.0}, {1920.0, 368.0}}
+                                          Other, 0x10ad27c50, {{80.0, -2321.0}, {640.0, 368.0}}
+                                            Other, 0x10ad27d70, {{159.5, -2291.5}, {481.0, 308.5}}
+                                              Button, 0x10ad27e90, {{159.5, -2291.5}, {481.0, 308.5}}, label: 'Breaking Bad, 2008'
+                                                Image, 0x10ad27fb0, {{160.0, -2291.0}, {480.0, 270.0}}
+                                                StaticText, 0x10ad280d0, {{180.0, -2077.0}, {193.0, 36.0}}, label: 'Breaking Bad'
+                                                StaticText, 0x10ad281f0, {{519.0, -2272.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x10ad28310, {{160.0, -2009.0}, {51.0, 26.0}}, label: '2008'
+                                        StaticText, 0x10ad28430, {{160.0, -1903.0}, {208.0, 41.0}}, label: 'Coming soon'
+                                        ScrollView, 0x10ad28550, {{0.0, -1844.0}, {1920.0, 368.0}}
+                                          Other, 0x10ad28670, {{80.0, -1844.0}, {640.0, 368.0}}
+                                            Other, 0x106984d10, {{159.5, -1814.5}, {481.0, 308.5}}
+                                              Button, 0x106984e30, {{159.5, -1814.5}, {481.0, 308.5}}, label: 'Interstellar, 2014'
+                                                Image, 0x106984f50, {{160.0, -1814.0}, {480.0, 270.0}}
+                                                StaticText, 0x106985070, {{180.0, -1600.0}, {162.0, 36.0}}, label: 'Interstellar'
+                                                StaticText, 0x106985190, {{519.0, -1795.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x1069852b0, {{160.0, -1532.0}, {147.0, 26.0}}, label: 'Digital on Friday'
+                                        StaticText, 0x10ad28790, {{160.0, -1426.0}, {166.0, 58.0}}, label: 'Browse'
+                                        Button, 0x10ad288b0, {{356.0, -1425.0}, {87.0, 56.0}}, identifier: 'browse-all', label: 'All', Selected
+                                        Button, 0x10ad289d0, {{461.0, -1425.0}, {141.0, 56.0}}, identifier: 'browse-movies', label: 'Movies'
+                                        Button, 0x10ad28c40, {{620.0, -1425.0}, {136.0, 56.0}}, identifier: 'browse-shows', label: 'Shows'
+                                        Button, 0x10ad28d60, {{774.0, -1425.0}, {127.0, 56.0}}, identifier: 'browse-music', label: 'Music'
+                                        StaticText, 0x10ad28e80, {{160.0, -1318.0}, {214.0, 41.0}}, label: 'Trending now'
+                                        ScrollView, 0x10ba36eb0, {{0.0, -1259.0}, {1920.0, 368.0}}
+                                          Other, 0x10ba36fd0, {{80.0, -1259.0}, {7400.0, 368.0}}
+                                            Other, 0x10ba370f0, {{159.5, -1229.5}, {2041.0, 308.5}}
+                                              Button, 0x10ba37210, {{159.5, -1229.5}, {481.0, 308.5}}, label: 'Dune, 2021'
+                                                Image, 0x10ba37330, {{160.0, -1229.0}, {480.0, 270.0}}
+                                                StaticText, 0x10ba37450, {{180.0, -1015.0}, {77.0, 36.0}}, label: 'Dune'
+                                                StaticText, 0x10ba37570, {{160.0, -947.0}, {46.0, 26.0}}, label: '2021'
+                                              Button, 0x10ba37690, {{679.5, -1229.5}, {481.0, 308.5}}, label: 'Dune: Part Two, 2024'
+                                                Image, 0x1069853d0, {{680.0, -1229.0}, {480.0, 270.0}}
+                                                StaticText, 0x1069854f0, {{700.0, -1015.0}, {219.0, 36.0}}, label: 'Dune: Part Two'
+                                                StaticText, 0x106985610, {{964.0, -1210.0}, {172.0, 18.0}}, label: 'WAITING FOR AN OK'
+                                                StaticText, 0x106985730, {{680.0, -947.0}, {50.0, 26.0}}, label: '2024'
+                                              Button, 0x106985850, {{1199.5, -1229.5}, {481.0, 308.5}}, label: 'The Dark Knight, 2008'
+                                                Image, 0x106985970, {{1200.0, -1229.0}, {480.0, 270.0}}
+                                                StaticText, 0x106985a90, {{1220.0, -1015.0}, {234.0, 36.0}}, label: 'The Dark Knight'
+                                                StaticText, 0x106985bb0, {{1200.0, -947.0}, {51.0, 26.0}}, label: '2008'
+                                              Button, 0x106985cd0, {{1719.5, -1229.5}, {481.0, 308.5}}, label: 'Pulp Fiction, 1994'
+                                                Image, 0x106985df0, {{1720.0, -1229.0}, {480.0, 270.0}}
+                                                StaticText, 0x106985f10, {{1740.0, -1015.0}, {171.0, 36.0}}, label: 'Pulp Fiction'
+                                                StaticText, 0x106986030, {{1720.0, -947.0}, {48.0, 26.0}}, label: '1994'
+                                        StaticText, 0x106986150, {{160.0, -841.0}, {460.0, 41.0}}, label: 'Because you have The Matrix'
+                                        StaticText, 0x106986270, {{160.0, -796.0}, {252.0, 27.0}}, label: 'Science fiction with a twist'
+                                        ScrollView, 0x106986390, {{0.0, -751.0}, {1920.0, 368.0}}
+                                          Other, 0x1069864b0, {{80.0, -751.0}, {3760.0, 368.0}}
+                                            Other, 0x1069865d0, {{159.5, -721.5}, {2041.0, 308.5}}
+                                              Button, 0x1069866f0, {{159.5, -721.5}, {481.0, 308.5}}, label: 'The Dark Knight, 2008'
+                                                Image, 0x106986810, {{160.0, -721.0}, {480.0, 270.0}}
+                                                StaticText, 0x106986930, {{180.0, -507.0}, {234.0, 36.0}}, label: 'The Dark Knight'
+                                                StaticText, 0x10ad28fa0, {{160.0, -439.0}, {51.0, 26.0}}, label: '2008'
+                                              Button, 0x106986a50, {{679.5, -721.5}, {481.0, 308.5}}, label: 'Pulp Fiction, 1994'
+                                                Image, 0x106986b70, {{680.0, -721.0}, {480.0, 270.0}}
+                                                StaticText, 0x106986c90, {{700.0, -507.0}, {171.0, 36.0}}, label: 'Pulp Fiction'
+                                                StaticText, 0x106986db0, {{680.0, -439.0}, {48.0, 26.0}}, label: '1994'
+                                              Button, 0x106986ed0, {{1199.5, -721.5}, {481.0, 308.5}}, label: 'Forrest Gump, 1994'
+                                                Image, 0x106986ff0, {{1200.0, -721.0}, {480.0, 270.0}}
+                                                StaticText, 0x106987110, {{1220.0, -507.0}, {199.0, 36.0}}, label: 'Forrest Gump'
+                                                StaticText, 0x106987230, {{1200.0, -439.0}, {48.0, 26.0}}, label: '1994'
+                                              Button, 0x106987350, {{1719.5, -721.5}, {481.0, 308.5}}, label: 'Fight Club, 1999'
+                                                Image, 0x106987470, {{1720.0, -721.0}, {480.0, 270.0}}
+                                                StaticText, 0x106987590, {{1740.0, -507.0}, {149.0, 36.0}}, label: 'Fight Club'
+                                                StaticText, 0x1069876b0, {{1720.0, -439.0}, {48.0, 26.0}}, label: '1999'
+                                        StaticText, 0x1069877d0, {{160.0, -333.0}, {263.0, 41.0}}, label: 'Browse by genre'
+                                        ScrollView, 0x1069878f0, {{0.0, -274.0}, {1920.0, 260.0}}
+                                          Other, 0x106987a10, {{80.0, -274.0}, {1440.0, 260.0}}
+                                            Other, 0x106987b30, {{159.5, -256.0}, {1281.0, 225.0}}
+                                              Button, 0x106987c50, {{159.5, -256.0}, {401.0, 225.0}}, label: 'Science Fiction'
+                                                Image, 0x106987d70, {{160.0, -256.0}, {400.0, 225.0}}, label: 'Science Fiction'
+                                                StaticText, 0x106987e90, {{159.5, -256.0}, {401.0, 225.0}}, label: 'Science Fiction'
+                                              Button, 0x106987fb0, {{599.5, -256.0}, {401.0, 225.0}}, label: 'Drama'
+                                                Image, 0x1069880d0, {{600.0, -256.0}, {400.0, 225.0}}, label: 'Drama'
+                                                StaticText, 0x10ad290c0, {{599.5, -256.0}, {401.0, 225.0}}, label: 'Drama'
+                                              Button, 0x10ad291e0, {{1039.5, -256.0}, {401.0, 225.0}}, label: 'Sci-Fi & Fantasy'
+                                                Image, 0x10ad29300, {{1040.0, -256.0}, {400.0, 225.0}}, label: 'Sci-Fi & Fantasy'
+                                                StaticText, 0x10ad29420, {{1039.5, -256.0}, {401.0, 225.0}}, label: 'Sci-Fi & Fantasy'
+                                        StaticText, 0x10ad29540, {{160.0, 36.0}, {232.0, 41.0}}, label: 'Popular shows'
+                                        ScrollView, 0x10ad29660, {{0.0, 95.0}, {1920.0, 368.0}}
+                                          Other, 0x10ad29780, {{80.0, 95.0}, {3240.0, 368.0}}
+                                            Other, 0x10ad298a0, {{159.5, 124.5}, {2041.0, 308.5}}
+                                              Button, 0x10ad299c0, {{159.5, 124.5}, {481.0, 308.5}}, label: 'Breaking Bad, 2008'
+                                                Image, 0x10ad29ae0, {{160.0, 125.0}, {480.0, 270.0}}
+                                                StaticText, 0x1069881f0, {{180.0, 339.0}, {193.0, 36.0}}, label: 'Breaking Bad'
+                                                StaticText, 0x106988310, {{519.0, 144.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x106988430, {{160.0, 407.0}, {51.0, 26.0}}, label: '2008'
+                                              Button, 0x106988550, {{679.5, 124.5}, {481.0, 308.5}}, label: 'The Last of Us, 2023'
+                                                Image, 0x106988670, {{680.0, 125.0}, {480.0, 270.0}}
+                                                StaticText, 0x106988790, {{700.0, 339.0}, {206.0, 36.0}}, label: 'The Last of Us'
+                                                StaticText, 0x1069888b0, {{680.0, 407.0}, {50.0, 26.0}}, label: '2023'
+                                              Button, 0x1069889d0, {{1199.5, 124.5}, {481.0, 308.5}}, label: 'House of the Dragon, 2022'
+                                                Image, 0x106988af0, {{1200.0, 125.0}, {480.0, 270.0}}
+                                                StaticText, 0x106988c10, {{1220.0, 339.0}, {298.0, 36.0}}, label: 'House of the Dragon'
+                                                StaticText, 0x106988d30, {{1200.0, 407.0}, {49.0, 26.0}}, label: '2022'
+                                              Button, 0x106988e50, {{1719.5, 124.5}, {481.0, 308.5}}, label: 'Game of Thrones, 2011'
+                                                Image, 0x106988f70, {{1720.0, 125.0}, {480.0, 270.0}}
+                                                StaticText, 0x106989090, {{1740.0, 339.0}, {248.0, 36.0}}, label: 'Game of Thrones'
+                                                StaticText, 0x1069891b0, {{1720.0, 407.0}, {44.0, 26.0}}, label: '2011'
+                                        StaticText, 0x1069892d0, {{160.0, 513.0}, {291.0, 41.0}}, label: 'Top-rated classics'
+                                        ScrollView, 0x1069893f0, {{0.0, 572.0}, {1920.0, 368.0}}
+                                          Other, 0x106989510, {{80.0, 572.0}, {2200.0, 368.0}}
+                                            Other, 0x106989630, {{143.5, 591.8}, {2057.0, 330.2}}
+                                              Button, 0x106989750, {{143.5, 591.8}, {513.0, 330.2}}, label: 'Pulp Fiction, 1994', Focused
+                                                Image, 0x106989870, {{145.6, 593.9}, {508.8, 286.2}}
+                                                StaticText, 0x106989990, {{166.8, 820.7}, {181.3, 38.2}}, label: 'Pulp Fiction'
+                                                StaticText, 0x106989ab0, {{160.0, 896.0}, {48.0, 26.0}}, label: '1994'
+                                              Button, 0x10ba377b0, {{679.5, 601.5}, {481.0, 308.5}}, label: 'Forrest Gump, 1994'
+                                                Image, 0x106989bd0, {{680.0, 602.0}, {480.0, 270.0}}
+                                                StaticText, 0x10ba378d0, {{700.0, 816.0}, {199.0, 36.0}}, label: 'Forrest Gump'
+                                                StaticText, 0x10ba379f0, {{680.0, 884.0}, {48.0, 26.0}}, label: '1994'
+                                              Button, 0x10ba37b10, {{1199.5, 601.5}, {481.0, 308.5}}, label: 'Fight Club, 1999'
+                                                Image, 0x10ba37c30, {{1200.0, 602.0}, {480.0, 270.0}}
+                                                StaticText, 0x10ba37d50, {{1220.0, 816.0}, {149.0, 36.0}}, label: 'Fight Club'
+                                                StaticText, 0x10ba37e70, {{1200.0, 884.0}, {48.0, 26.0}}, label: '1999'
+                                              Button, 0x106989cf0, {{1719.5, 601.5}, {481.0, 308.5}}, label: 'The Lord of the Rings: The Fellowship of the Ring, 2001'
+                                                Image, 0x106989e10, {{1720.0, 602.0}, {480.0, 270.0}}
+                                                StaticText, 0x106989f30, {{1740.0, 780.0}, {383.0, 72.0}}, label: 'The Lord of the Rings: The Fellowship of the Ring'
+                                                StaticText, 0x10698a050, {{1720.0, 884.0}, {47.0, 26.0}}, label: '2001'
+                                      Other, 0x10698a370, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10ba37f90, {{1914.0, 820.0}, {3.0, 197.0}}
+                                      Other, 0x10698a490, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10698a5b0, {{1914.0, 820.0}, {3.0, 197.0}}
+                Other, 0x10698a6d0, {{0.0, -4419.0}, {1920.0, 68.0}}
+                  TabBar, 0x10698a7f0, {{0.0, -4419.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10698a910, {{80.0, -4419.0}, {200.0, 68.0}}
+                      Other, 0x10698aa30, {{80.0, -4419.0}, {200.0, 68.0}}
+                    Other, 0x10698ab50, {{280.0, -4419.0}, {1360.0, 68.0}}
+                      Other, 0x10698ac70, {{336.0, -4413.0}, {206.0, 56.0}}
+                    Other, 0x10698ad90, {{330.0, -4419.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10698aeb0, {{330.0, -4419.0}, {1260.0, 68.0}}
+                        Button, 0x10ba380b0, {{371.0, -4403.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10ba381d0, {{371.0, -4403.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10ba382f0, {{572.0, -4402.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10ba38410, {{572.0, -4401.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10ba38530, {{749.0, -4403.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10ba38650, {{749.0, -4403.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10698afd0, {{1006.0, -4402.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10698b0f0, {{1006.0, -4401.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10698b210, {{1222.0, -4402.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10698b330, {{1222.0, -4401.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10698b450, {{1437.0, -4402.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10698b570, {{1437.0, -4402.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10698b690, {{1540.0, -4403.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10698b7b0, {{1540.0, -4403.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10698b8d0, {{1640.0, -4419.0}, {200.0, 68.0}}
+                      Other, 0x10698b9f0, {{1640.0, -4419.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10ba34b10, pid: 16866, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10ba29a40, pid: 16866, label: 'Afterglow'
+  }
+)

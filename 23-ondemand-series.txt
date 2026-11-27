@@ -1,0 +1,76 @@
+Optional(Attributes: Application, 0x10c36da30, pid: 22871, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10c36da30, pid: 22871, label: 'Afterglow'
+    Window (Main), 0x10c3739b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10c373d70, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10c373e90, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10c373ad0, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10c373bf0, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10c373fb0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10c3740d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10c3741f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10c374310, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10c374430, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10c374550, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10c374670, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10c374790, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10c3748b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10c3749d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10c374af0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10c374c10, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10c374d30, {{0.0, 157.0}, {1760.0, 1576.0}}
+                                        StaticText, 0x10c374e50, {{470.0, 237.0}, {431.0, 72.0}}, label: 'The Witch Farm'
+                                        StaticText, 0x10c38ce10, {{470.0, 327.0}, {130.0, 29.0}}, label: '2026 · ★ 7.1'
+                                        StaticText, 0x10c38cf30, {{470.0, 374.0}, {467.0, 29.0}}, label: 'A family moves to a remote Welsh farmhouse.'
+                                        StaticText, 0x10c38d050, {{195.0, 416.0}, {190.0, 32.0}}, label: 'The Witch Farm'
+                                        ScrollView, 0x10c38d170, {{160.0, 663.0}, {1600.0, 92.0}}
+                                          Other, 0x10c38d290, {{160.0, 663.0}, {486.0, 92.0}}
+                                            Button, 0x10c38d3b0, {{145.0, 668.4}, {266.0, 81.2}}, label: 'Season 1', Focused
+                                            Button, 0x10c38d4d0, {{416.0, 673.0}, {230.0, 72.0}}, label: 'Season 2'
+                                        Other, 0x10c38d5f0, {{160.0, 669.0}, {1600.0, 669.0}}
+                                          Button, 0x10c38d710, {{160.0, 669.0}, {1600.0, 450.0}}, label: 'Episode 1, Chapter 1'
+                                            Image, 0x10c38d830, {{178.0, 669.0}, {300.0, 450.0}}
+                                            StaticText, 0x10c38d950, {{506.0, 809.0}, {147.0, 34.0}}, label: '1. Chapter 1'
+                                            StaticText, 0x10c38da70, {{506.0, 851.0}, {45.0, 27.0}}, label: '58m'
+                                            StaticText, 0x10c38db90, {{506.0, 886.0}, {258.0, 27.0}}, label: 'A remote farmhouse, 1989.'
+                                          Button, 0x10c38dcb0, {{160.0, 888.0}, {1600.0, 450.0}}, label: 'Episode 2, Chapter 2'
+                                            Image, 0x10c38ddd0, {{178.0, 888.0}, {300.0, 450.0}}
+                                            StaticText, 0x10c38def0, {{506.0, 1028.0}, {155.0, 34.0}}, label: '2. Chapter 2'
+                                            StaticText, 0x10c38e010, {{506.0, 1070.0}, {45.0, 27.0}}, label: '58m'
+                                            StaticText, 0x10c38e130, {{506.0, 1105.0}, {258.0, 27.0}}, label: 'A remote farmhouse, 1989.'
+                                      Other, 0x10c38e250, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c38e370, {{1914.0, 160.0}, {3.0, 839.0}}
+                                      Other, 0x10c38e490, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c38e5b0, {{1914.0, 160.0}, {3.0, 839.0}}
+                Other, 0x10c38e6d0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10c38e7f0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10c38e910, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c38ea30, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10c38eb50, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10c38ec70, {{537.0, 52.0}, {182.0, 56.0}}
+                    Other, 0x10c38ed90, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10c38eeb0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10c38efd0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10c38f0f0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10c38f210, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10c38f330, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10c38f450, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10c38f570, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10c38f690, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10c38f7b0, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10c38f8d0, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10c38f9f0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10c38fb10, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10c38fc30, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10c38fd50, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10c38fe70, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10c38ff90, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c3900b0, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10c36da30, pid: 22871, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10ada7ef0, pid: 22871, label: 'Afterglow'
+  }
+)

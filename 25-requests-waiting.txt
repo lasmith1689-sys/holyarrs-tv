@@ -1,0 +1,83 @@
+Optional(Attributes: Application, 0x10c3a1560, pid: 24846, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10c3a1560, pid: 24846, label: 'Afterglow'
+    Window (Main), 0x10c3a1140, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10c3a2ca0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10c3a2dc0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10c395330, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10c3a0790, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10c3a2ee0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10c3a3000, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10c3a3120, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10c3a3240, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10c3a3360, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10c3a3480, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10c3a35a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10c3a36c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10c3a37e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10c3a3900, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10c3a3a20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    SegmentedControl, 0x10c3a3b40, {{160.0, 187.0}, {900.0, 69.0}}
+                                      Button, 0x10c3a3c60, {{158.0, 186.5}, {304.0, 70.9}}, label: 'Downloads'
+                                      Button, 0x10c3a3d80, {{458.0, 186.5}, {304.0, 70.9}}, label: 'Requests', Selected
+                                      Button, 0x10c3a3ea0, {{758.0, 186.5}, {304.0, 70.9}}, label: 'Calendar'
+                                    ScrollView, 0x10c3a3fc0, {{0.0, 256.0}, {1920.0, 824.0}}
+                                      Other, 0x10c3a40e0, {{0.0, 256.0}, {1760.0, 629.0}}
+                                        SegmentedControl, 0x10c3a4200, {{160.0, 298.0}, {1200.0, 69.0}}
+                                          Button, 0x10c3a4320, {{158.0, 297.5}, {304.0, 70.9}}, label: 'Waiting (2)', Selected
+                                          Button, 0x10c3a4440, {{458.0, 297.5}, {304.0, 70.9}}, label: 'Mine'
+                                          Button, 0x10c3a4560, {{758.0, 297.5}, {304.0, 70.9}}, label: 'All'
+                                          Button, 0x10c3a4680, {{1058.0, 297.5}, {304.0, 70.9}}, label: 'Needs a decision'
+                                        Button, 0x10c3a47a0, {{1642.0, 296.0}, {118.0, 73.0}}, identifier: 'arrow.clockwise', label: 'Refresh'
+                                        Button, 0x10c3a48c0, {{160.0, 413.0}, {120.0, 180.0}}, label: 'Open Dune: Part Two'
+                                          StaticText, 0x10c3a49e0, {{160.0, 413.0}, {120.0, 180.0}}, label: 'Dune: Part Two'
+                                          Image, 0x10c3a4b00, {{160.0, 413.0}, {120.0, 180.0}}
+                                        StaticText, 0x10c3a4c20, {{314.0, 461.0}, {328.0, 39.0}}, label: 'Dune: Part Two (2024)'
+                                        StaticText, 0x10c3a4d40, {{1009.0, 492.0}, {199.0, 22.0}}, label: 'WAITING FOR AN OK'
+                                        StaticText, 0x10c3a4e60, {{314.0, 508.0}, {373.0, 37.0}}, label: 'Asked by anya · 1 week ago'
+                                        Button, 0x10c3a4f80, {{1254.0, 467.0}, {219.0, 72.0}}, label: 'Approve'
+                                        Button, 0x10c3a50a0, {{1507.0, 467.0}, {253.0, 72.0}}, label: 'Turn down'
+                                        Button, 0x10c3a51c0, {{160.0, 651.0}, {120.0, 180.0}}, label: 'Open Blade Runner'
+                                          StaticText, 0x10c3a52e0, {{160.0, 651.0}, {120.0, 180.0}}, label: 'Blade Runner'
+                                          Image, 0x10c3a5400, {{160.0, 651.0}, {120.0, 180.0}}
+                                        StaticText, 0x10c3a5520, {{314.0, 699.0}, {300.0, 39.0}}, label: 'Blade Runner (1982)'
+                                        StaticText, 0x10c3a5640, {{1009.0, 730.0}, {199.0, 22.0}}, label: 'WAITING FOR AN OK'
+                                        StaticText, 0x10c3a5820, {{314.0, 746.0}, {363.0, 37.0}}, label: 'Asked by luke · 1 week ago'
+                                        Button, 0x10c3a5940, {{1254.0, 705.0}, {219.0, 72.0}}, label: 'Approve'
+                                        Button, 0x10c3a5a60, {{1507.0, 705.0}, {253.0, 72.0}}, label: 'Turn down'
+                                      Other, 0x10c3a5b80, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c3a5ca0, {{1914.0, 697.0}, {3.0, 477.0}}
+                                      Other, 0x10c3a5dc0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c3a5ee0, {{1914.0, 697.0}, {3.0, 477.0}}
+                Other, 0x10c3a6000, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10c3a6120, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10c3a6240, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c3a6360, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10c3a6480, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10c3a65a0, {{328.0, 43.0}, {222.0, 74.0}}
+                    Other, 0x10c3a66c0, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10c3a67e0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10c3a6900, {{365.0, 59.9}, {148.0, 40.3}}, identifier: 'house', label: 'Home', Focused
+                          Image, 0x10c3a6a20, {{365.0, 59.9}, {46.8, 40.3}}, identifier: 'house', label: 'home'
+                        Button, 0x10c3a6b40, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10c3a6c60, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10c3a6d80, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10c3a6ea0, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10c3a6fc0, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10c3a70e0, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10c3a7200, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10c3a7320, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10c3a7440, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10c3a7560, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10bac0a10, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10bac0b30, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10bac0c50, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10bac0d70, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10c3a1560, pid: 24846, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10c3a2860, pid: 24846, label: 'Afterglow'
+  }
+)

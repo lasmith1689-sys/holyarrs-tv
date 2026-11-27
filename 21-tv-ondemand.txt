@@ -1,0 +1,158 @@
+Optional(Attributes: Application, 0x10baa6e00, pid: 21917, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10baa6e00, pid: 21917, label: 'Afterglow'
+    Window (Main), 0x10baa6700, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10baa75a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10baa76c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10baa7300, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10baa7420, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10baa77e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10baa7900, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10baa7a20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10baa7b40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10baa7c60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10baa7d80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10baa7ea0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10baa7fc0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10baa80e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10baa8200, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10baa8320, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10baa8440, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10baa8560, {{0.0, 157.0}, {1760.0, 2102.0}}
+                                        StaticText, 0x10baa8680, {{160.0, 197.0}, {346.0, 77.0}}, label: 'On Demand'
+                                        SegmentedControl, 0x10baa87a0, {{536.0, 201.0}, {720.0, 69.0}}
+                                          Button, 0x10baa88c0, {{534.0, 200.4}, {244.0, 71.2}}, label: 'Live'
+                                          Button, 0x10baa89e0, {{774.0, 200.4}, {244.0, 71.2}}, label: 'Guide'
+                                          Button, 0x10baa8b00, {{1014.0, 200.4}, {244.0, 71.2}}, label: 'On Demand', Selected
+                                        Button, 0x10baa8c20, {{1538.0, 206.0}, {222.0, 60.0}}, label: 'Search'
+                                          Image, 0x10baa8d40, {{1580.0, 222.0}, {28.0, 28.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                          StaticText, 0x10baa8e60, {{1538.0, 206.0}, {222.0, 60.0}}, label: 'Search'
+                                        StaticText, 0x10baa8f80, {{160.0, 320.0}, {212.0, 41.0}}, label: 'New releases'
+                                        ScrollView, 0x10baa90a0, {{0.0, 379.0}, {1920.0, 508.0}}
+                                          Other, 0x10baa91c0, {{80.0, 379.0}, {1890.0, 508.0}}
+                                            Other, 0x10baa92e0, {{159.5, 408.5}, {1731.0, 448.5}}
+                                              Button, 0x10baa9400, {{159.5, 408.5}, {251.0, 448.5}}, label: 'The Odyssey, 2026'
+                                                StaticText, 0x10baa9520, {{206.0, 564.0}, {158.0, 32.0}}, label: 'The Odyssey'
+                                                StaticText, 0x10baa9640, {{261.0, 606.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baa9760, {{160.0, 798.0}, {142.0, 29.0}}, label: 'The Odyssey'
+                                                StaticText, 0x10baa9880, {{160.0, 831.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baa99a0, {{455.5, 408.5}, {251.0, 448.5}}, label: 'Nimrods, 2026'
+                                                StaticText, 0x10baa9ac0, {{530.0, 564.0}, {103.0, 32.0}}, label: 'Nimrods'
+                                                StaticText, 0x10baa9be0, {{557.0, 606.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baa9d00, {{456.0, 798.0}, {92.0, 29.0}}, label: 'Nimrods'
+                                                StaticText, 0x10baa9e20, {{456.0, 831.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baa9f40, {{751.5, 408.5}, {251.0, 448.5}}, label: 'The Fix, 2026'
+                                                StaticText, 0x10baaa060, {{834.0, 564.0}, {87.0, 32.0}}, label: 'The Fix'
+                                                StaticText, 0x10baaa180, {{853.0, 606.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baaa2a0, {{752.0, 798.0}, {79.0, 29.0}}, label: 'The Fix'
+                                                StaticText, 0x10baaa3c0, {{752.0, 831.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baaa4e0, {{1047.5, 408.5}, {251.0, 448.5}}, label: 'Heartland, 2026'
+                                                StaticText, 0x10baaa600, {{1113.0, 564.0}, {121.0, 32.0}}, label: 'Heartland'
+                                                StaticText, 0x10baaa720, {{1149.0, 606.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baaa840, {{1048.0, 798.0}, {108.0, 29.0}}, label: 'Heartland'
+                                                StaticText, 0x10baaa960, {{1048.0, 831.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baaaa80, {{1343.5, 408.5}, {251.0, 448.5}}, label: 'Kalocsa, 2026'
+                                                StaticText, 0x10baaaba0, {{1421.0, 564.0}, {97.0, 32.0}}, label: 'Kalocsa'
+                                                StaticText, 0x10baaacc0, {{1445.0, 606.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baaade0, {{1344.0, 798.0}, {86.0, 29.0}}, label: 'Kalocsa'
+                                                StaticText, 0x10baaaf00, {{1344.0, 831.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baab020, {{1639.5, 408.5}, {251.0, 448.5}}, label: 'The Beast, 2026'
+                                                StaticText, 0x10baab140, {{1704.0, 564.0}, {122.0, 32.0}}, label: 'The Beast'
+                                                StaticText, 0x10baab260, {{1741.0, 606.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baab380, {{1640.0, 798.0}, {110.0, 29.0}}, label: 'The Beast'
+                                                StaticText, 0x10baab4a0, {{1640.0, 831.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                        StaticText, 0x10baab5c0, {{160.0, 933.0}, {174.0, 41.0}}, label: 'New series'
+                                        ScrollView, 0x10baab6e0, {{0.0, 992.0}, {1920.0, 508.0}}
+                                          Other, 0x10baab800, {{80.0, 992.0}, {1002.0, 508.0}}
+                                            Other, 0x10baab920, {{159.5, 1021.5}, {843.0, 448.5}}
+                                              Button, 0x10baaba40, {{159.5, 1021.5}, {251.0, 448.5}}, label: 'The Witch Farm, 2026'
+                                                StaticText, 0x10baabb60, {{190.0, 1177.0}, {190.0, 32.0}}, label: 'The Witch Farm'
+                                                StaticText, 0x10baabc80, {{261.0, 1219.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baabda0, {{160.0, 1411.0}, {171.0, 29.0}}, label: 'The Witch Farm'
+                                                StaticText, 0x10baabec0, {{160.0, 1444.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baabfe0, {{455.5, 1021.5}, {251.0, 448.5}}, label: 'Slow Horses, 2022'
+                                                StaticText, 0x10baac100, {{505.0, 1177.0}, {152.0, 32.0}}, label: 'Slow Horses'
+                                                StaticText, 0x10baac220, {{558.0, 1219.0}, {47.0, 24.0}}, label: '2022'
+                                                StaticText, 0x10baac340, {{456.0, 1411.0}, {136.0, 29.0}}, label: 'Slow Horses'
+                                                StaticText, 0x10baac460, {{456.0, 1444.0}, {113.0, 26.0}}, label: '2022 · ★ 7.1'
+                                              Button, 0x10baac580, {{751.5, 1021.5}, {251.0, 448.5}}, label: 'Severance, 2022'
+                                                StaticText, 0x10baac6a0, {{813.0, 1177.0}, {128.0, 32.0}}, label: 'Severance'
+                                                StaticText, 0x10baac7c0, {{854.0, 1219.0}, {47.0, 24.0}}, label: '2022'
+                                                StaticText, 0x10baac8e0, {{752.0, 1411.0}, {115.0, 29.0}}, label: 'Severance'
+                                                StaticText, 0x10baaca00, {{752.0, 1444.0}, {113.0, 26.0}}, label: '2022 · ★ 7.1'
+                                        StaticText, 0x10baacb20, {{160.0, 1546.0}, {221.0, 41.0}}, label: 'IMDb Top 250'
+                                        ScrollView, 0x10baacc40, {{0.0, 1605.0}, {1920.0, 508.0}}
+                                          Other, 0x10baacd60, {{80.0, 1605.0}, {1890.0, 508.0}}
+                                            Other, 0x10baace80, {{159.5, 1634.5}, {1731.0, 448.5}}
+                                              Button, 0x10baacfa0, {{159.5, 1634.5}, {251.0, 448.5}}, label: 'The Beast, 2026'
+                                                StaticText, 0x10baad0c0, {{224.0, 1790.0}, {122.0, 32.0}}, label: 'The Beast'
+                                                StaticText, 0x10baad1e0, {{261.0, 1832.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baad300, {{160.0, 2024.0}, {110.0, 29.0}}, label: 'The Beast'
+                                                StaticText, 0x10baad420, {{160.0, 2057.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baad540, {{455.5, 1634.5}, {251.0, 448.5}}, label: 'Kalocsa, 2026'
+                                                StaticText, 0x10baad660, {{533.0, 1790.0}, {97.0, 32.0}}, label: 'Kalocsa'
+                                                StaticText, 0x10baad780, {{557.0, 1832.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baad8a0, {{456.0, 2024.0}, {86.0, 29.0}}, label: 'Kalocsa'
+                                                StaticText, 0x10baad9c0, {{456.0, 2057.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baadae0, {{751.5, 1634.5}, {251.0, 448.5}}, label: 'Heartland, 2026'
+                                                StaticText, 0x10baadc00, {{817.0, 1790.0}, {121.0, 32.0}}, label: 'Heartland'
+                                                StaticText, 0x10baadd20, {{853.0, 1832.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baade40, {{752.0, 2024.0}, {108.0, 29.0}}, label: 'Heartland'
+                                                StaticText, 0x10baadf60, {{752.0, 2057.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baae080, {{1047.5, 1634.5}, {251.0, 448.5}}, label: 'The Fix, 2026'
+                                                StaticText, 0x10baae1a0, {{1130.0, 1790.0}, {87.0, 32.0}}, label: 'The Fix'
+                                                StaticText, 0x10baae2c0, {{1149.0, 1832.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baae3e0, {{1048.0, 2024.0}, {79.0, 29.0}}, label: 'The Fix'
+                                                StaticText, 0x10baae500, {{1048.0, 2057.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baae620, {{1343.5, 1634.5}, {251.0, 448.5}}, label: 'Nimrods, 2026'
+                                                StaticText, 0x10baae740, {{1418.0, 1790.0}, {103.0, 32.0}}, label: 'Nimrods'
+                                                StaticText, 0x10baae860, {{1445.0, 1832.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baae980, {{1344.0, 2024.0}, {92.0, 29.0}}, label: 'Nimrods'
+                                                StaticText, 0x10baaeaa0, {{1344.0, 2057.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                              Button, 0x10baaebc0, {{1639.5, 1634.5}, {251.0, 448.5}}, label: 'The Odyssey, 2026'
+                                                StaticText, 0x10baaece0, {{1686.0, 1790.0}, {158.0, 32.0}}, label: 'The Odyssey'
+                                                StaticText, 0x10baaee00, {{1741.0, 1832.0}, {48.0, 24.0}}, label: '2026'
+                                                StaticText, 0x10baaef20, {{1640.0, 2024.0}, {142.0, 29.0}}, label: 'The Odyssey'
+                                                StaticText, 0x10baaf040, {{1640.0, 2057.0}, {114.0, 26.0}}, label: '2026 · ★ 7.1'
+                                        Button, 0x10baaf160, {{160.0, 2159.0}, {331.0, 60.0}}, label: 'Film categories'
+                                          Image, 0x10baaf280, {{202.0, 2176.0}, {33.0, 26.0}}, identifier: 'film', label: 'Movie'
+                                          StaticText, 0x10baaf3a0, {{160.0, 2159.0}, {331.0, 60.0}}, label: 'Film categories'
+                                        Button, 0x10baaf4c0, {{521.0, 2159.0}, {361.0, 60.0}}, label: 'Series categories'
+                                          Image, 0x10baaf5e0, {{563.0, 2174.0}, {36.0, 29.0}}, identifier: 'tv', label: 'Tv'
+                                          StaticText, 0x10baaf700, {{521.0, 2159.0}, {361.0, 60.0}}, label: 'Series categories'
+                                      Other, 0x10baaf820, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10baaf940, {{1914.0, 520.0}, {3.0, 497.0}}
+                                      Other, 0x10baafa60, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10baafb80, {{1914.0, 520.0}, {3.0, 497.0}}
+                Other, 0x10baafca0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10baafdc0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10baafee0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10bab0000, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10bab0120, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10bab0240, {{529.0, 43.0}, {198.0, 74.0}}
+                    Other, 0x10bab0360, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10bab0480, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10bab05a0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10bab06c0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10bab07e0, {{567.1, 61.0}, {121.9, 38.1}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live', Focused
+                          Image, 0x10bab0900, {{567.1, 62.0}, {47.9, 34.8}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10bab0a20, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10bab0b40, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10bab0c60, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10bab0d80, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10bab0ea0, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10bab0fc0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10bab10e0, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10bab1200, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10bab1320, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10bab1440, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10bab1560, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10bab1680, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10baa6e00, pid: 21917, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10c3690b0, pid: 21917, label: 'Afterglow'
+  }
+)

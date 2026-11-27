@@ -1,0 +1,88 @@
+Optional(Attributes: Application, 0x105b42820, pid: 10968, label: 'Afterglow'
+Element subtree:
+ →Application, 0x105b42820, pid: 10968, label: 'Afterglow'
+    Window (Main), 0x105b4bc80, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x105b55860, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x105b55440, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x105b54c20, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x105b55c80, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x105b55020, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x105b545e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x105b541c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x105b53da0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x105b4fcd0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x105b4b800, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x105b4b3e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x105b56550, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x105b56670, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x105b56790, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x105b568b0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x105b569d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x105b56af0, {{0.0, 157.0}, {1890.0, 1366.0}}
+                                        StaticText, 0x105b56c10, {{95.0, 197.0}, {210.0, 77.0}}, label: 'Movies'
+                                        Button, 0x105b56d30, {{1535.0, 225.0}, {126.0, 56.0}}, label: 'A to Z', Selected
+                                        Button, 0x105b56e50, {{1679.0, 225.0}, {146.0, 56.0}}, label: 'Newest'
+                                        StaticText, 0x105b56f70, {{95.0, 280.0}, {147.0, 29.0}}, label: '2 downloaded'
+                                        StaticText, 0x105b57090, {{95.0, 355.0}, {247.0, 41.0}}, label: 'Recently added'
+                                        ScrollView, 0x105b571b0, {{0.0, 414.0}, {1920.0, 508.0}}
+                                          Other, 0x105b572d0, {{15.0, 414.0}, {410.0, 508.0}}
+                                            Other, 0x105b573f0, {{94.5, 443.5}, {251.0, 448.5}}
+                                              Button, 0x105b57510, {{94.5, 443.5}, {251.0, 448.5}}, label: 'The Matrix, 1999'
+                                                StaticText, 0x105b57630, {{156.0, 599.0}, {129.0, 32.0}}, label: 'The Matrix'
+                                                StaticText, 0x105b57750, {{197.0, 641.0}, {46.0, 24.0}}, label: '1999'
+                                                Image, 0x105b57870, {{95.0, 444.0}, {250.0, 375.0}}
+                                                StaticText, 0x105b57990, {{226.0, 461.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                                StaticText, 0x105b57ab0, {{95.0, 833.0}, {116.0, 29.0}}, label: 'The Matrix'
+                                                StaticText, 0x105b57bd0, {{95.0, 866.0}, {48.0, 26.0}}, label: '1999'
+                                        StaticText, 0x105b57ef0, {{95.0, 968.0}, {171.0, 43.0}}, label: 'All movies'
+                                        Other, 0x105b58010, {{94.5, 1034.5}, {547.0, 448.5}}
+                                          Button, 0x105b58130, {{94.5, 1034.5}, {251.0, 448.5}}, label: 'Alien, 1979'
+                                            StaticText, 0x105b58250, {{189.0, 1190.0}, {62.0, 32.0}}, label: 'Alien'
+                                            StaticText, 0x105b58370, {{198.0, 1232.0}, {44.0, 24.0}}, label: '1979'
+                                            Image, 0x105b58710, {{95.0, 1035.0}, {250.0, 375.0}}
+                                            StaticText, 0x105b58830, {{231.0, 1052.0}, {92.0, 18.0}}, label: 'ON THE PC'
+                                            StaticText, 0x105b58950, {{95.0, 1424.0}, {55.0, 29.0}}, label: 'Alien'
+                                            StaticText, 0x105b58a70, {{95.0, 1457.0}, {46.0, 26.0}}, label: '1979'
+                                          Button, 0x105b58b90, {{390.5, 1034.5}, {251.0, 448.5}}, label: 'The Matrix, 1999'
+                                            StaticText, 0x105b58cb0, {{452.0, 1190.0}, {129.0, 32.0}}, label: 'The Matrix'
+                                            StaticText, 0x105b58dd0, {{493.0, 1232.0}, {46.0, 24.0}}, label: '1999'
+                                            Image, 0x105b58ef0, {{391.0, 1035.0}, {250.0, 375.0}}
+                                            StaticText, 0x105b59010, {{522.0, 1052.0}, {97.0, 18.0}}, label: 'IN LIBRARY'
+                                            StaticText, 0x105b59130, {{391.0, 1424.0}, {116.0, 29.0}}, label: 'The Matrix'
+                                            StaticText, 0x105b59250, {{391.0, 1457.0}, {48.0, 26.0}}, label: '1999'
+                                      Other, 0x105b59370, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x105b59490, {{1914.0, 520.0}, {3.0, 497.0}}
+                                      Other, 0x105b595b0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x105b596d0, {{1914.0, 520.0}, {3.0, 497.0}}
+                Other, 0x105b597f0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x105b59910, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x105b59a30, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x105b59b50, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x105b59c70, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x105b59d90, {{963.0, 43.0}, {237.0, 74.0}}
+                    Other, 0x105b59eb0, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x105b59fd0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x105b5a0f0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x105b5a210, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x105b5a330, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x105b5a450, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x105b5a5f0, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x105b5a710, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x105b5a830, {{999.3, 61.0}, {164.3, 38.1}}, identifier: 'film', label: 'Movies', Focused
+                          Image, 0x105b5a950, {{999.3, 62.0}, {45.7, 35.9}}, identifier: 'film', label: 'movie'
+                        Button, 0x105b5aa70, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x105b5ab90, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x105b5acb0, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x105b5add0, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x105b5aef0, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x105b5b010, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x105b5b130, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x105b5b250, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x105b42820, pid: 10968, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x105b55560, pid: 10968, label: 'Afterglow'
+  }
+)

@@ -1,0 +1,70 @@
+Optional(Attributes: Application, 0x10c380730, pid: 21917, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10c380730, pid: 21917, label: 'Afterglow'
+    Window (Main), 0x10c385f10, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10c3862d0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10c3863f0, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10c386030, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10c386150, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10c386510, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10c386630, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10c386750, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10c386870, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10c386990, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10c386ab0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10c386bd0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10c386cf0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10c386e10, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10c386f30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10c387050, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Image, 0x10c387170, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10c387290, {{100.0, 0.0}, {1720.0, 1080.0}}
+                                      Other, 0x10c3873b0, {{100.0, 157.0}, {1720.0, 760.0}}
+                                        StaticText, 0x10c3874d0, {{640.0, 237.0}, {382.0, 77.0}}, label: 'The Odyssey'
+                                        StaticText, 0x10c3875f0, {{640.0, 338.0}, {497.0, 32.0}}, label: '2026  ·  2h 52m  ·  Adventure, Drama  ·  ★ 7.1'
+                                        StaticText, 0x10c387710, {{640.0, 394.0}, {672.0, 32.0}}, label: 'Odysseus makes the long journey home after the Trojan War.'
+                                        StaticText, 0x10c387830, {{640.0, 450.0}, {246.0, 27.0}}, label: 'Matt Damon, Tom Holland'
+                                        StaticText, 0x10c387950, {{301.0, 521.0}, {158.0, 32.0}}, label: 'The Odyssey'
+                                        Button, 0x10c387a70, {{625.0, 498.4}, {441.0, 77.3}}, label: 'Resume · 45m in', Focused
+                                          Image, 0x10c387b90, {{672.2, 518.8}, {31.1, 35.4}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x10c387cb0, {{625.0, 498.4}, {441.0, 77.3}}, label: 'Resume · 45m in'
+                                        Button, 0x10c387dd0, {{1081.0, 501.0}, {307.0, 72.0}}, label: 'Start over'
+                                          Image, 0x10c387ef0, {{1125.0, 521.0}, {36.0, 30.0}}, identifier: 'backward.end.fill', label: 'Go To End'
+                                          StaticText, 0x10c388010, {{1081.0, 501.0}, {307.0, 72.0}}, label: 'Start over'
+                                        StaticText, 0x10c388130, {{640.0, 597.0}, {885.0, 24.0}}, label: 'Plays through your PC. Your plan plays one stream at a time, so this stops live TV on any other screen.'
+                                      Other, 0x10c388250, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c388370, {{1814.0, 263.0}, {3.0, 754.0}}
+                                      Other, 0x10c388490, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c3885b0, {{1814.0, 263.0}, {3.0, 754.0}}
+                Other, 0x10c3886d0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10c3887f0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10c388910, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c388a30, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10c388b50, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10c388c70, {{537.0, 52.0}, {182.0, 56.0}}
+                    Other, 0x10c388d90, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10c388eb0, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10c388fd0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10c3890f0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10c389210, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10c389330, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10c389450, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10c389570, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10c389690, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10c3897b0, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10c3898d0, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10c3899f0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10c389b10, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10c389c30, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10c389d50, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10c389e70, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10c389f90, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c38a0b0, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10c380730, pid: 21917, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10baa6e00, pid: 21917, label: 'Afterglow'
+  }
+)

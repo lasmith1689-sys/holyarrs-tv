@@ -1,0 +1,106 @@
+Optional(Attributes: Application, 0x10adb3510, pid: 24341, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10adb3510, pid: 24341, label: 'Afterglow'
+    Window (Main), 0x10adaf240, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10adaf600, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10adaf720, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10adaf360, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10adaf480, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10adaf840, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10adaf960, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10adafa80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10adafba0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10adafcc0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10adafde0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10adaff00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10adb0020, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10adb0140, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10adb0260, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10adb0380, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    Other, 0x10babdde0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10babd430, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10c391fa0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                        Other, 0x10c395850, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                          Other, 0x10c395210, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                            Other, 0x10c394df0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                              Other, 0x10c391b30, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                                Other, 0x10c395c70, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                                  ScrollView, 0x10c395d90, {{89.0, 0.0}, {1743.0, 1080.0}}, label: 'Search results'
+                                                    Other, 0x10c395eb0, {{89.0, 403.0}, {1743.0, 138.0}}
+                                                      StaticText, 0x10c395fd0, {{169.0, 443.0}, {1583.0, 58.0}}, label: 'Type a name, or describe it: "80s horror movies", "shows with Pedro Pascal".'
+                                                    Other, 0x10c3960f0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                                      Other, 0x10c396210, {{1826.0, 885.0}, {3.0, 132.0}}
+                                                    Other, 0x10c396330, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                                      Other, 0x10c396450, {{1826.0, 885.0}, {3.0, 132.0}}
+                                          Other, 0x10c396570, {{0.0, 157.0}, {1920.0, 245.5}}
+                                            Other, 0x10c396690, {{80.0, 157.0}, {1760.0, 70.0}}
+                                              Other, 0x10c3967b0, {{80.0, 157.0}, {1760.0, 70.0}}
+                                                SearchField, 0x10c3968d0, {{65.0, 156.4}, {1790.0, 71.2}}, label: 'Movies, shows, people, artists', placeholderValue: 'Movies, shows, people, artists'
+                                            Other, 0x10c3969f0, {{80.0, 262.0}, {1760.0, 66.0}}
+                                              Other, 0x10c396b10, {{80.0, 262.0}, {1760.0, 66.0}}
+                                                Other, 0x10c396c30, {{80.0, 262.0}, {1760.0, 66.0}}
+                                                  Keyboard, 0x10c396d50, {{80.0, 262.0}, {1760.0, 66.0}}, label: 'Keyboard'
+                                                    Other, 0x10c396e70, {{80.0, 262.0}, {1760.0, 66.0}}
+                                                      Other, 0x10c396f90, {{80.0, 262.0}, {1760.0, 66.0}}, identifier: 'UIKeyboardLayoutStar Preview'
+                                                        Key, 0x10c3970b0, {{136.5, 262.0}, {74.0, 64.0}}, label: 'Numbers'
+                                                        Key, 0x10c3971d0, {{210.5, 262.0}, {110.0, 64.0}}, label: 'space'
+                                                        Key, 0x10c3972f0, {{320.5, 262.0}, {54.0, 64.0}}, label: 'a'
+                                                        Key, 0x10c397410, {{374.5, 262.0}, {54.0, 64.0}}, label: 'b'
+                                                        Key, 0x10c397530, {{428.5, 262.0}, {54.0, 64.0}}, label: 'c'
+                                                        Key, 0x10c397650, {{482.5, 262.0}, {54.0, 64.0}}, label: 'd'
+                                                        Key, 0x10c397770, {{536.5, 262.0}, {54.0, 64.0}}, label: 'e'
+                                                        Key, 0x10c397890, {{590.5, 262.0}, {54.0, 64.0}}, label: 'f'
+                                                        Key, 0x10c3979b0, {{644.5, 262.0}, {54.0, 64.0}}, label: 'g'
+                                                        Key, 0x10c397ad0, {{698.5, 262.0}, {54.0, 64.0}}, label: 'h'
+                                                        Key, 0x10c397bf0, {{752.5, 262.0}, {54.0, 64.0}}, label: 'i'
+                                                        Key, 0x10c397d10, {{806.5, 262.0}, {54.0, 64.0}}, label: 'j'
+                                                        Key, 0x10c397e30, {{860.5, 262.0}, {54.0, 64.0}}, label: 'k'
+                                                        Key, 0x10c397f50, {{914.5, 262.0}, {54.0, 64.0}}, label: 'l'
+                                                        Key, 0x10c398070, {{968.5, 262.0}, {54.0, 64.0}}, label: 'm'
+                                                        Key, 0x10c398190, {{1022.5, 262.0}, {54.0, 64.0}}, label: 'n'
+                                                        Key, 0x10c3982b0, {{1076.5, 262.0}, {54.0, 64.0}}, label: 'o'
+                                                        Key, 0x10c3983d0, {{1130.5, 262.0}, {54.0, 64.0}}, label: 'p'
+                                                        Key, 0x10c3984f0, {{1184.5, 262.0}, {54.0, 64.0}}, label: 'q'
+                                                        Key, 0x10c398610, {{1238.5, 262.0}, {54.0, 64.0}}, label: 'r'
+                                                        Key, 0x10c398730, {{1292.5, 262.0}, {54.0, 64.0}}, label: 's'
+                                                        Key, 0x10c398850, {{1346.5, 262.0}, {54.0, 64.0}}, label: 't'
+                                                        Key, 0x10c398970, {{1400.5, 262.0}, {54.0, 64.0}}, label: 'u'
+                                                        Key, 0x10c398a90, {{1454.5, 262.0}, {54.0, 64.0}}, label: 'v'
+                                                        Key, 0x10c398bb0, {{1508.5, 262.0}, {54.0, 64.0}}, label: 'w'
+                                                        Key, 0x10c398cd0, {{1562.5, 262.0}, {54.0, 64.0}}, label: 'x'
+                                                        Key, 0x10c398df0, {{1616.5, 262.0}, {54.0, 64.0}}, label: 'y'
+                                                        Key, 0x10c399060, {{1670.5, 262.0}, {54.0, 64.0}}, label: 'z'
+                                                        Key, 0x10c399180, {{1724.5, 262.0}, {59.0, 64.0}}, identifier: 'delete', label: 'delete'
+                                            Other, 0x10c3994a0, {{80.0, 371.5}, {1760.0, 1.0}}
+                Other, 0x10adb04a0, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10adb05c0, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10adb06e0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10adb0800, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10adb0920, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10adb0a40, {{1394.0, 43.0}, {124.0, 74.0}}
+                    Other, 0x10adb0b60, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10adb0c80, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10adb0da0, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10adb0ec0, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10adb0fe0, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10adb1100, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10adb1220, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10adb1340, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10adb1460, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10adb1580, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10adb16a0, {{1222.0, 62.5}, {150.0, 35.0}}, identifier: 'sportscourt', label: 'Sports'
+                          Image, 0x10adb17c0, {{1222.0, 63.5}, {47.0, 33.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10adb18e0, {{1435.3, 61.0}, {41.4, 38.1}}, identifier: 'magnifyingglass', label: 'Search', Focused
+                          Image, 0x10adb1a00, {{1435.3, 61.0}, {37.0, 38.1}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10adb1b20, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10adb1c40, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10adb1d60, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10adb1e80, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10adb3510, pid: 24341, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10c3995c0, pid: 24341, label: 'Afterglow'
+  }
+)

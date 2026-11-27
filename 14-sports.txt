@@ -1,0 +1,237 @@
+Optional(Attributes: Application, 0x10c32abc0, pid: 18971, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10c32abc0, pid: 18971, label: 'Afterglow'
+    Window (Main), 0x10c32bf40, {{0.0, 0.0}, {1920.0, 1080.0}}
+      Other, 0x10c32b2e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+        Other, 0x10c329680, {{0.0, 0.0}, {1920.0, 1080.0}}
+          Other, 0x10c32b700, {{0.0, 0.0}, {1920.0, 1080.0}}
+            Other, 0x10c32bb20, {{0.0, 0.0}, {1920.0, 1080.0}}
+              Other, 0x10c32d680, {{0.0, 0.0}, {1920.0, 1080.0}}
+                Other, 0x10c32d7a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                  Other, 0x10c32d8c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                    Other, 0x10c32d9e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                      Other, 0x10c32db00, {{0.0, 0.0}, {1920.0, 1080.0}}
+                        Other, 0x10c32dc20, {{0.0, 0.0}, {1920.0, 1080.0}}
+                          Other, 0x10c32dd40, {{0.0, 0.0}, {1920.0, 1080.0}}
+                            Other, 0x10c32de60, {{0.0, 0.0}, {1920.0, 1080.0}}
+                              Other, 0x10c32df80, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                Other, 0x10c32e0a0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                  Other, 0x10c32e1c0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                    ScrollView, 0x10c32e2e0, {{0.0, 0.0}, {1920.0, 1080.0}}
+                                      Other, 0x10c32e400, {{0.0, 157.0}, {1760.0, 6169.0}}
+                                        StaticText, 0x10c32e520, {{160.0, 197.0}, {197.0, 77.0}}, label: 'Sports'
+                                        StaticText, 0x10c32e640, {{387.0, 207.0}, {415.0, 58.0}}, label: 'Sportarr 4.1.12.1122'
+                                        StaticText, 0x10c32e760, {{160.0, 320.0}, {178.0, 41.0}}, label: 'Your teams'
+                                        ScrollView, 0x10c32e880, {{0.0, 379.0}, {1920.0, 395.0}}
+                                          Other, 0x10c32e9a0, {{80.0, 379.0}, {1680.0, 395.0}}
+                                            Other, 0x10c32eac0, {{159.5, 408.5}, {1521.0, 337.5}}
+                                              Button, 0x10c32ebe0, {{159.5, 408.5}, {481.0, 335.5}}, label: 'NFL RedZone, RedZone, pinned'
+                                                Image, 0x10c32ed00, {{231.0, 449.0}, {338.0, 190.0}}
+                                                Image, 0x10c32ee20, {{180.0, 427.0}, {16.0, 24.0}}, identifier: 'pin.fill', label: 'Pin'
+                                                StaticText, 0x10c32ef40, {{160.0, 689.0}, {135.0, 27.0}}, label: 'NFL RedZone'
+                                                StaticText, 0x10c32f060, {{160.0, 720.0}, {80.0, 24.0}}, label: 'RedZone'
+                                              Button, 0x10c32f180, {{679.5, 408.5}, {481.0, 337.5}}, label: 'Saints at Bears, Live now'
+                                                Image, 0x10c32f2a0, {{735.0, 478.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c32f3c0, {{905.0, 532.0}, {30.0, 24.0}}, label: 'AT'
+                                                Image, 0x10c32f4e0, {{974.0, 478.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c32f600, {{698.0, 427.0}, {38.0, 22.0}}, label: 'NFL'
+                                                Image, 0x10c32f720, {{1022.0, 429.0}, {25.0, 23.0}}, identifier: 'star.fill', label: 'Favorite'
+                                                StaticText, 0x10c32f840, {{1089.0, 429.0}, {45.0, 22.0}}, label: 'LIVE'
+                                                StaticText, 0x10c32f960, {{680.0, 689.0}, {149.0, 27.0}}, label: 'Saints at Bears'
+                                                StaticText, 0x10c32fa80, {{680.0, 720.0}, {81.0, 26.0}}, label: 'Live now'
+                                              Button, 0x10c32fba0, {{1199.5, 408.5}, {481.0, 337.5}}, label: 'Liverpool vs Manchester United, Tomorrow 11:48 PM'
+                                                Image, 0x10c32fcc0, {{1254.0, 478.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c32fde0, {{1424.0, 532.0}, {32.0, 24.0}}, label: 'VS'
+                                                Image, 0x10c32ff00, {{1494.0, 478.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c330020, {{1218.0, 427.0}, {170.0, 22.0}}, label: 'PREMIER LEAGUE'
+                                                Image, 0x10c330140, {{1639.0, 425.0}, {25.0, 23.0}}, identifier: 'star.fill', label: 'Favorite'
+                                                StaticText, 0x10c330260, {{1200.0, 689.0}, {315.0, 27.0}}, label: 'Liverpool vs Manchester United'
+                                                StaticText, 0x10c330380, {{1200.0, 720.0}, {181.0, 26.0}}, label: 'Tomorrow 11:48 PM'
+                                        StaticText, 0x10c3304a0, {{160.0, 820.0}, {139.0, 41.0}}, label: 'Live now'
+                                        ScrollView, 0x10c3305c0, {{0.0, 879.0}, {1920.0, 397.0}}
+                                          Other, 0x10c3306e0, {{80.0, 879.0}, {640.0, 397.0}}
+                                            Other, 0x10c330800, {{159.5, 908.5}, {481.0, 337.5}}
+                                              Button, 0x10c330920, {{159.5, 908.5}, {481.0, 337.5}}, label: 'Titans at Cowboys, Live now'
+                                                Image, 0x10c330a40, {{215.0, 978.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c330b60, {{385.0, 1032.0}, {30.0, 24.0}}, label: 'AT'
+                                                Image, 0x10c330c80, {{454.0, 978.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c330da0, {{178.0, 927.0}, {38.0, 22.0}}, label: 'NFL'
+                                                StaticText, 0x10c330ec0, {{569.0, 929.0}, {45.0, 22.0}}, label: 'LIVE'
+                                                StaticText, 0x10c330fe0, {{160.0, 1189.0}, {184.0, 27.0}}, label: 'Titans at Cowboys'
+                                                StaticText, 0x10c331100, {{160.0, 1220.0}, {81.0, 26.0}}, label: 'Live now'
+                                        StaticText, 0x10c331220, {{160.0, 1322.0}, {180.0, 41.0}}, label: 'Later today'
+                                        ScrollView, 0x10c331340, {{0.0, 1381.0}, {1920.0, 397.0}}
+                                          Other, 0x10c331460, {{80.0, 1381.0}, {640.0, 397.0}}
+                                            Other, 0x10c331580, {{159.5, 1410.5}, {481.0, 337.5}}
+                                              Button, 0x10c3316a0, {{159.5, 1410.5}, {481.0, 337.5}}, label: 'Raiders at Broncos, Tomorrow 1:00 AM'
+                                                Image, 0x10c3317c0, {{215.0, 1480.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c3318e0, {{385.0, 1534.0}, {30.0, 24.0}}, label: 'AT'
+                                                Image, 0x10c331a00, {{454.0, 1480.0}, {132.0, 132.0}}
+                                                StaticText, 0x10c331b20, {{178.0, 1429.0}, {38.0, 22.0}}, label: 'NFL'
+                                                StaticText, 0x10c331c40, {{160.0, 1691.0}, {188.0, 27.0}}, label: 'Raiders at Broncos'
+                                                StaticText, 0x10c331d60, {{160.0, 1722.0}, {173.0, 26.0}}, label: 'Tomorrow 1:00 AM'
+                                        StaticText, 0x10c331e80, {{160.0, 1824.0}, {67.0, 41.0}}, label: 'Golf'
+                                        ScrollView, 0x10c331fa0, {{0.0, 1883.0}, {1920.0, 366.0}}
+                                          Other, 0x10c3320c0, {{80.0, 1883.0}, {1160.0, 366.0}}
+                                            Other, 0x10c3321e0, {{159.5, 1912.5}, {1001.0, 335.5}}
+                                              Button, 0x10c332300, {{159.5, 1912.5}, {481.0, 306.5}}, label: 'CME Group Tour Championship: Round 4, Today 10:48 PM'
+                                                Image, 0x10c332420, {{494.0, 1952.0}, {104.0, 193.0}}, identifier: 'figure.golf', label: 'figure.golf'
+                                                StaticText, 0x10c332540, {{180.0, 2091.0}, {347.0, 72.0}}, label: 'CME Group Tour Championship: Round 4'
+                                                StaticText, 0x10c332660, {{178.0, 1931.0}, {53.0, 22.0}}, label: 'GOLF'
+                                                StaticText, 0x10c332780, {{160.0, 2193.0}, {148.0, 26.0}}, label: 'Today 10:48 PM'
+                                              Button, 0x10c3328a0, {{679.5, 1912.5}, {481.0, 335.5}}, label: 'Golf Channel, Golf Central'
+                                                Image, 0x10c3329c0, {{751.0, 1953.0}, {338.0, 190.0}}
+                                                StaticText, 0x10c332ae0, {{680.0, 2193.0}, {130.0, 27.0}}, label: 'Golf Channel'
+                                                StaticText, 0x10c332c00, {{680.0, 2224.0}, {105.0, 24.0}}, label: 'Golf Central'
+                                        StaticText, 0x10c332d20, {{160.0, 2295.0}, {109.0, 41.0}}, label: 'Racing'
+                                        ScrollView, 0x10c332e40, {{0.0, 2354.0}, {1920.0, 366.0}}
+                                          Other, 0x10c332f60, {{80.0, 2354.0}, {1160.0, 366.0}}
+                                            Other, 0x10c333080, {{159.5, 2383.5}, {1001.0, 335.5}}
+                                              Button, 0x10c3331a0, {{159.5, 2383.5}, {481.0, 306.5}}, label: 'Qatar Grand Prix · Race, Fri, Dec 4 3:48 AM'
+                                                Image, 0x10c3332c0, {{475.0, 2449.0}, {126.0, 140.0}}, identifier: 'flag.checkered', label: 'flag.checkered'
+                                                StaticText, 0x10c3333e0, {{180.0, 2598.0}, {334.0, 36.0}}, label: 'Qatar Grand Prix · Race'
+                                                StaticText, 0x10c333500, {{178.0, 2402.0}, {22.0, 22.0}}, label: 'F1'
+                                                StaticText, 0x10c333620, {{160.0, 2664.0}, {172.0, 26.0}}, label: 'Fri, Dec 4 3:48 AM'
+                                              Button, 0x10c333740, {{679.5, 2383.5}, {481.0, 335.5}}, label: 'F1 TV, Qatar Grand Prix build-up'
+                                                Image, 0x10c333860, {{751.0, 2424.0}, {338.0, 190.0}}
+                                                StaticText, 0x10c333980, {{680.0, 2664.0}, {56.0, 27.0}}, label: 'F1 TV'
+                                                StaticText, 0x10c333aa0, {{680.0, 2695.0}, {224.0, 24.0}}, label: 'Qatar Grand Prix build-up'
+                                        StaticText, 0x10c333bc0, {{160.0, 2766.0}, {257.0, 41.0}}, label: 'Sports channels'
+                                        ScrollView, 0x10c333ce0, {{0.0, 2825.0}, {1920.0, 395.0}}
+                                          Other, 0x10c333e00, {{80.0, 2825.0}, {1680.0, 395.0}}
+                                            Other, 0x10c333f20, {{159.5, 2854.5}, {1521.0, 335.5}}
+                                              Button, 0x10c334040, {{159.5, 2854.5}, {481.0, 335.5}}, label: 'ESPN, SportsCenter'
+                                                Image, 0x10c334160, {{231.0, 2895.0}, {338.0, 190.0}}
+                                                StaticText, 0x10c334280, {{160.0, 3135.0}, {56.0, 27.0}}, label: 'ESPN'
+                                                StaticText, 0x10c3343a0, {{160.0, 3166.0}, {118.0, 24.0}}, label: 'SportsCenter'
+                                              Button, 0x10c3344c0, {{679.5, 2854.5}, {481.0, 335.5}}, label: 'NFL RedZone, RedZone'
+                                                Image, 0x10c3345e0, {{751.0, 2895.0}, {338.0, 190.0}}
+                                                StaticText, 0x10c334700, {{680.0, 3135.0}, {135.0, 27.0}}, label: 'NFL RedZone'
+                                                StaticText, 0x10c334820, {{680.0, 3166.0}, {80.0, 24.0}}, label: 'RedZone'
+                                              Button, 0x10c334940, {{1199.5, 2854.5}, {481.0, 335.5}}, label: 'Sky Sports Premier League, Super Sunday'
+                                                Image, 0x10c334a60, {{1271.0, 2895.0}, {338.0, 190.0}}
+                                                StaticText, 0x10c334b80, {{1200.0, 3135.0}, {270.0, 27.0}}, label: 'Sky Sports Premier League'
+                                                StaticText, 0x10c334ca0, {{1200.0, 3166.0}, {123.0, 24.0}}, label: 'Super Sunday'
+                                        StaticText, 0x10c334dc0, {{160.0, 3266.0}, {243.0, 41.0}}, label: 'Ready to watch'
+                                        ScrollView, 0x10c334ee0, {{0.0, 3325.0}, {1920.0, 366.0}}
+                                          Other, 0x10c335000, {{80.0, 3325.0}, {1160.0, 366.0}}
+                                            Other, 0x10c335120, {{159.5, 3354.5}, {1001.0, 306.5}}
+                                              Button, 0x10c335240, {{159.5, 3354.5}, {481.0, 306.5}}, label: 'Las Vegas Grand Prix - Race, Thu Nov 26, 4:00 AM'
+                                                Image, 0x10c335360, {{160.0, 3355.0}, {480.0, 270.0}}
+                                                Image, 0x10c335480, {{178.0, 3509.0}, {40.0, 60.0}}
+                                                StaticText, 0x10c3355a0, {{178.0, 3575.0}, {351.0, 32.0}}, label: 'Las Vegas Grand Prix - Race'
+                                                StaticText, 0x10c3356c0, {{558.0, 3374.0}, {58.0, 18.0}}, label: 'READY'
+                                                StaticText, 0x10c3357e0, {{160.0, 3635.0}, {300.0, 26.0}}, label: 'Formula 1 · Thu Nov 26, 4:00 AM'
+                                              Button, 0x10c335900, {{679.5, 3354.5}, {481.0, 306.5}}, label: 'Las Vegas Grand Prix - Qualifying, Wed Nov 25, 4:00 AM'
+                                                Image, 0x10c335a20, {{680.0, 3355.0}, {480.0, 270.0}}
+                                                Image, 0x10c335b40, {{698.0, 3509.0}, {40.0, 60.0}}
+                                                StaticText, 0x10c335c60, {{698.0, 3575.0}, {419.0, 32.0}}, label: 'Las Vegas Grand Prix - Qualifying'
+                                                StaticText, 0x10c335d80, {{1078.0, 3374.0}, {58.0, 18.0}}, label: 'READY'
+                                                StaticText, 0x10c335ea0, {{680.0, 3635.0}, {305.0, 26.0}}, label: 'Formula 1 · Wed Nov 25, 4:00 AM'
+                                        StaticText, 0x10c335fc0, {{160.0, 3737.0}, {209.0, 41.0}}, label: 'Downloading'
+                                        StaticText, 0x10c3360e0, {{182.0, 3814.0}, {339.0, 32.0}}, label: 'Qatar Grand Prix - Qualifying'
+                                        StaticText, 0x10c336200, {{1685.0, 3816.0}, {53.0, 29.0}}, label: '42%'
+                                        ProgressIndicator, 0x10c336320, {{182.0, 3854.0}, {1556.0, 10.0}}, value: 42%
+                                          ProgressIndicator, 0x10c336440, {{182.0, 3844.0}, {1556.0, 30.0}}, value: 42%
+                                        StaticText, 0x10c336560, {{182.0, 3872.0}, {104.0, 24.0}}, label: 'WEB 1080p'
+                                        StaticText, 0x10c336680, {{160.0, 3964.0}, {159.0, 41.0}}, label: 'Tomorrow'
+                                        ScrollView, 0x10c3367a0, {{0.0, 4023.0}, {1920.0, 366.0}}
+                                          Other, 0x10c3368c0, {{80.0, 4023.0}, {640.0, 366.0}}
+                                            Other, 0x10c3369e0, {{159.5, 4052.5}, {481.0, 306.5}}
+                                              Button, 0x10c336b00, {{159.5, 4052.5}, {481.0, 306.5}}, label: 'Philadelphia Eagles at New York Giants, Sat Nov 28, 6:00 PM'
+                                                Image, 0x10c336c20, {{222.0, 4129.0}, {118.0, 118.0}}
+                                                StaticText, 0x10c336d40, {{385.0, 4176.0}, {30.0, 24.0}}, label: 'AT'
+                                                Image, 0x10c336e60, {{461.0, 4129.0}, {118.0, 118.0}}
+                                                StaticText, 0x10c336f80, {{178.0, 4276.0}, {441.0, 29.0}}, label: 'Philadelphia Eagles at New York Giants'
+                                                Image, 0x10c3370a0, {{182.0, 4067.0}, {34.0, 50.0}}
+                                                StaticText, 0x10c3371c0, {{536.0, 4072.0}, {80.0, 18.0}}, label: 'WILL GET'
+                                                StaticText, 0x10c3372e0, {{160.0, 4333.0}, {242.0, 26.0}}, label: 'NFL · Sat Nov 28, 6:00 PM'
+                                        StaticText, 0x10c337400, {{160.0, 4435.0}, {346.0, 41.0}}, label: 'Sunday, November 29'
+                                        ScrollView, 0x10c337520, {{0.0, 4494.0}, {1920.0, 366.0}}
+                                          Other, 0x10c337640, {{80.0, 4494.0}, {640.0, 366.0}}
+                                            Other, 0x10c337760, {{159.5, 4523.5}, {481.0, 306.5}}
+                                              Button, 0x10c337880, {{159.5, 4523.5}, {481.0, 306.5}}, label: 'Chelsea at Arsenal, Sun Nov 29, 4:00 PM'
+                                                Image, 0x10c3379a0, {{222.0, 4600.0}, {118.0, 118.0}}
+                                                StaticText, 0x10c337ac0, {{385.0, 4647.0}, {30.0, 24.0}}, label: 'AT'
+                                                Image, 0x10c337be0, {{461.0, 4600.0}, {118.0, 118.0}}
+                                                StaticText, 0x10c337d00, {{178.0, 4747.0}, {218.0, 29.0}}, label: 'Chelsea at Arsenal'
+                                                Image, 0x10c337e20, {{182.0, 4538.0}, {34.0, 50.0}}
+                                                StaticText, 0x10c337f40, {{160.0, 4804.0}, {424.0, 26.0}}, label: 'English Premier League · Sun Nov 29, 4:00 PM'
+                                        StaticText, 0x10c338060, {{160.0, 4906.0}, {354.0, 41.0}}, label: 'Monday, November 30'
+                                        ScrollView, 0x10c338180, {{0.0, 4965.0}, {1920.0, 366.0}}
+                                          Other, 0x10c3382a0, {{80.0, 4965.0}, {640.0, 366.0}}
+                                            Other, 0x10c3383c0, {{159.5, 4994.5}, {481.0, 306.5}}
+                                              Button, 0x10c3384e0, {{159.5, 4994.5}, {481.0, 306.5}}, label: 'The RSM Classic - Round 1, Mon Nov 30'
+                                                Image, 0x10c338600, {{160.0, 4995.0}, {480.0, 270.0}}
+                                                Image, 0x10c338720, {{178.0, 5149.0}, {40.0, 60.0}}
+                                                StaticText, 0x10c338840, {{178.0, 5215.0}, {332.0, 32.0}}, label: 'The RSM Classic - Round 1'
+                                                StaticText, 0x10c338960, {{160.0, 5275.0}, {214.0, 26.0}}, label: 'PGA Tour · Mon Nov 30'
+                                        StaticText, 0x10c338bd0, {{160.0, 5377.0}, {304.0, 41.0}}, label: 'Friday, December 4'
+                                        ScrollView, 0x10c338cf0, {{0.0, 5436.0}, {1920.0, 366.0}}
+                                          Other, 0x10c338e10, {{80.0, 5436.0}, {640.0, 366.0}}
+                                            Other, 0x10c338f30, {{159.5, 5465.5}, {481.0, 306.5}}
+                                              Button, 0x10c339050, {{159.5, 5465.5}, {481.0, 306.5}}, label: 'Qatar Grand Prix - Race, Fri Dec 4, 4:00 PM'
+                                                Image, 0x10c339170, {{160.0, 5466.0}, {480.0, 270.0}}
+                                                Image, 0x10c339290, {{178.0, 5620.0}, {40.0, 60.0}}
+                                                StaticText, 0x10c3393b0, {{178.0, 5686.0}, {295.0, 32.0}}, label: 'Qatar Grand Prix - Race'
+                                                StaticText, 0x10c3394d0, {{536.0, 5485.0}, {80.0, 18.0}}, label: 'WILL GET'
+                                                StaticText, 0x10c3395f0, {{160.0, 5746.0}, {274.0, 26.0}}, label: 'Formula 1 · Fri Dec 4, 4:00 PM'
+                                        StaticText, 0x10c339710, {{160.0, 5848.0}, {204.0, 41.0}}, label: 'Your leagues'
+                                        ScrollView, 0x10c339830, {{0.0, 5907.0}, {1920.0, 379.0}}
+                                          Other, 0x10c339950, {{80.0, 5907.0}, {1570.0, 379.0}}
+                                            Other, 0x10c339a70, {{159.5, 5936.0}, {1411.5, 320.0}}
+                                              Button, 0x10c339b90, {{159.5, 5936.5}, {251.0, 319.5}}, label: 'English Premier League'
+                                                Image, 0x10c339cb0, {{219.0, 5963.0}, {132.0, 198.0}}
+                                                StaticText, 0x10c339dd0, {{160.0, 6197.0}, {234.0, 27.0}}, label: 'English Premier League'
+                                                StaticText, 0x10c339ef0, {{160.0, 6234.0}, {114.0, 22.0}}, label: 'Schedule only'
+                                              Button, 0x10c33a010, {{449.5, 5936.5}, {251.0, 319.5}}, label: 'Formula 1'
+                                                Image, 0x10c33a130, {{509.0, 5963.0}, {132.0, 198.0}}
+                                                StaticText, 0x10c33a250, {{450.0, 6197.0}, {97.0, 27.0}}, label: 'Formula 1'
+                                                StaticText, 0x10c33a370, {{450.0, 6234.0}, {201.0, 22.0}}, label: 'Downloads automatically'
+                                              Button, 0x10c33a490, {{739.5, 5936.5}, {251.0, 319.5}}, label: 'NFL'
+                                                Image, 0x10c33a5b0, {{799.0, 5963.0}, {132.0, 198.0}}
+                                                StaticText, 0x10c33a6d0, {{740.0, 6197.0}, {41.0, 27.0}}, label: 'NFL'
+                                                StaticText, 0x10c33a7f0, {{740.0, 6234.0}, {114.0, 22.0}}, label: 'Schedule only'
+                                              Button, 0x10c33a910, {{1029.5, 5936.5}, {251.0, 319.5}}, label: 'PGA Tour'
+                                                Image, 0x10c33aa30, {{1089.0, 5963.0}, {132.0, 198.0}}
+                                                StaticText, 0x10c33ab50, {{1030.0, 6197.0}, {94.0, 27.0}}, label: 'PGA Tour'
+                                                StaticText, 0x10c33ac70, {{1030.0, 6234.0}, {114.0, 22.0}}, label: 'Schedule only'
+                                              Button, 0x10c33ad90, {{1319.0, 5936.0}, {252.0, 288.0}}, label: 'Add a league'
+                                                Image, 0x10c33aeb0, {{1417.0, 6034.0}, {56.0, 56.0}}, identifier: 'plus', label: 'Add'
+                                                StaticText, 0x10c33afd0, {{1320.0, 6197.0}, {130.0, 27.0}}, label: 'Add a league'
+                                      Other, 0x10c33b2f0, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c33b410, {{1914.0, 368.0}, {3.0, 649.0}}
+                                      Other, 0x10c33b530, {{0.0, 0.0}, {0.0, 0.0}}, label: '0 pages', value: 0%
+                                        Other, 0x10c33b650, {{1914.0, 368.0}, {3.0, 649.0}}
+                Other, 0x10c33b770, {{0.0, 46.0}, {1920.0, 68.0}}
+                  TabBar, 0x10c33b890, {{0.0, 46.0}, {1920.0, 68.0}}, label: 'Menu'
+                    Other, 0x10c33b9b0, {{80.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c33bad0, {{80.0, 46.0}, {200.0, 68.0}}
+                    Other, 0x10c33bbf0, {{280.0, 46.0}, {1360.0, 68.0}}
+                      Other, 0x10c33bd10, {{1179.0, 43.0}, {236.0, 74.0}}
+                    Other, 0x10c33be30, {{330.0, 46.0}, {1260.0, 68.0}}
+                      ScrollView, 0x10c33bf50, {{330.0, 46.0}, {1260.0, 68.0}}
+                        Button, 0x10c33c070, {{371.0, 61.5}, {136.0, 37.0}}, identifier: 'house', label: 'Home'
+                          Image, 0x10c33c190, {{371.0, 61.5}, {43.0, 37.0}}, identifier: 'house', label: 'home'
+                        Button, 0x10c33c2b0, {{572.0, 62.5}, {112.0, 35.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'Live'
+                          Image, 0x10c33c3d0, {{572.0, 63.5}, {44.0, 32.0}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                        Button, 0x10c33c4f0, {{749.0, 62.0}, {192.0, 36.0}}, identifier: 'tv', label: 'TV Shows'
+                          Image, 0x10c33c610, {{749.0, 62.0}, {44.0, 36.0}}, identifier: 'tv', label: 'tv'
+                        Button, 0x10c33c730, {{1006.0, 62.5}, {151.0, 35.0}}, identifier: 'film', label: 'Movies'
+                          Image, 0x10c33c850, {{1006.0, 63.5}, {42.0, 33.0}}, identifier: 'film', label: 'movie'
+                        Button, 0x10c33c970, {{1215.4, 61.0}, {163.2, 38.1}}, identifier: 'sportscourt', label: 'Sports', Focused
+                          Image, 0x10c33ca90, {{1215.4, 62.0}, {51.1, 35.9}}, identifier: 'sportscourt', label: 'sportscourt'
+                        Button, 0x10c33cbb0, {{1437.0, 62.5}, {38.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                          Image, 0x10c33ccd0, {{1437.0, 62.5}, {34.0, 35.0}}, identifier: 'magnifyingglass', label: 'Search'
+                        Button, 0x10c33cdf0, {{1540.0, 61.5}, {41.0, 37.0}}, identifier: 'gearshape', label: 'Settings'
+                          Image, 0x10c33cf10, {{1540.0, 61.5}, {37.0, 37.0}}, identifier: 'gearshape', label: 'gearshape'
+                    Other, 0x10c33d030, {{1640.0, 46.0}, {200.0, 68.0}}
+                      Other, 0x10c33d150, {{1640.0, 46.0}, {200.0, 68.0}}
+Path to element:
+ →Application, 0x10c32abc0, pid: 18971, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x10ba5dd80, pid: 18971, label: 'Afterglow'
+  }
+)
