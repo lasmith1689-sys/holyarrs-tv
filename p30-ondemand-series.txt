@@ -1,0 +1,110 @@
+Optional(Attributes: Application, 0x115616a50, pid: 28819, label: 'Afterglow'
+Element subtree:
+ →Application, 0x115616a50, pid: 28819, label: 'Afterglow'
+    Window (Main), 0x115614d70, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x115619950, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x115619a70, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1156196b0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1156197d0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x114ef64d0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114ef6340, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x114ef8120, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x114ed3880, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x114ef6c60, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x114ef74a0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x114ef7080, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x114ef78c0, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x114ee2210, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x114ee2330, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114ee2450, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x114ee2570, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x114ee2690, {{0.0, 0.0}, {402.0, 874.0}}
+                                    ScrollView, 0x114ee27b0, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x114ee28d0, {{0.0, 0.0}, {402.0, 874.0}}
+                                        Other, 0x114ee29f0, {{0.0, 0.0}, {402.0, 170.8}}
+                                        Other, 0x114ee2b10, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x114ee2c30, {{0.0, 0.0}, {402.0, 874.0}}
+                                        Other, 0x114ee2d50, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Image, 0x114ee2e70, {{-120.0, 731.0}, {642.0, 286.0}}, identifier: 'AdditionalDimmingOverlay'
+                                          Other, 0x114ee2f90, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x114ee30b0, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Other, 0x114ee31d0, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x114ee32f0, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x114ee3410, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x114ee3530, {{0.0, 116.0}, {402.0, 764.3}}
+                                        StaticText, 0x114ee3650, {{51.8, 215.2}, {73.3, 33.7}}, label: 'The Witch Farm'
+                                        StaticText, 0x114ee3770, {{34.0, 335.0}, {240.7, 39.7}}, label: 'The Witch Farm'
+                                        StaticText, 0x114ee3890, {{34.0, 382.7}, {75.0, 15.7}}, label: '2026 · ★ 7.1'
+                                        StaticText, 0x114ee39b0, {{34.0, 406.3}, {276.3, 15.7}}, label: 'A family moves to a remote Welsh farmhouse.'
+                                        Other, 0x114ee3ad0, {{34.0, 429.3}, {334.0, 468.0}}
+                                          Button, 0x114ee3bf0, {{34.0, 429.3}, {334.0, 189.0}}, label: 'Episode 1, Chapter 1'
+                                            Image, 0x114ee3d10, {{42.0, 429.3}, {126.0, 189.0}}
+                                            StaticText, 0x114ee3e30, {{180.0, 488.3}, {84.0, 18.0}}, label: '1. Chapter 1'
+                                            StaticText, 0x114ee3f50, {{180.0, 509.3}, {25.7, 14.3}}, label: '58m'
+                                            StaticText, 0x114ee4070, {{180.0, 526.7}, {153.7, 14.3}}, label: 'A remote farmhouse, 1989.'
+                                          Button, 0x114ee4190, {{34.0, 522.3}, {334.0, 189.0}}, label: 'Episode 2, Chapter 2'
+                                            Image, 0x114ee42b0, {{42.0, 522.3}, {126.0, 189.0}}
+                                            StaticText, 0x114ee43d0, {{180.0, 581.3}, {88.3, 18.0}}, label: '2. Chapter 2'
+                                            StaticText, 0x114ee44f0, {{180.0, 602.3}, {25.7, 14.3}}, label: '58m'
+                                            StaticText, 0x114ee4610, {{180.0, 619.7}, {153.7, 14.3}}, label: 'A remote farmhouse, 1989.'
+                                          Button, 0x114ee4730, {{34.0, 615.3}, {334.0, 189.0}}, label: 'Episode 3, Chapter 3'
+                                            Image, 0x114ee4850, {{42.0, 615.3}, {126.0, 189.0}}
+                                            StaticText, 0x114ee4970, {{180.0, 674.3}, {88.7, 18.0}}, label: '3. Chapter 3'
+                                            StaticText, 0x114ee4a90, {{180.0, 695.3}, {25.7, 14.3}}, label: '58m'
+                                            StaticText, 0x114ee4bb0, {{180.0, 712.7}, {153.7, 14.3}}, label: 'A remote farmhouse, 1989.'
+                                          Button, 0x114ee4cd0, {{34.0, 708.3}, {334.0, 189.0}}, label: 'Episode 4, Chapter 4'
+                                            Image, 0x114ee4df0, {{42.0, 708.3}, {126.0, 189.0}}
+                                            StaticText, 0x114ee4f10, {{180.0, 767.3}, {89.3, 18.0}}, label: '4. Chapter 4'
+                                            StaticText, 0x114ee5030, {{180.0, 788.3}, {25.7, 14.3}}, label: '58m'
+                                            StaticText, 0x114ee5150, {{180.0, 805.7}, {153.7, 14.3}}, label: 'A remote farmhouse, 1989.'
+                                        ScrollView, 0x114ee5270, {{34.0, 437.0}, {334.0, 28.3}}
+                                          Other, 0x114ee5390, {{34.0, 437.0}, {151.0, 28.3}}
+                                            Button, 0x114ee54b0, {{34.0, 441.0}, {72.3, 20.3}}, label: 'Season 1'
+                                            Button, 0x114ee55d0, {{114.3, 441.0}, {70.7, 20.3}}, label: 'Season 2'
+                                      Other, 0x114ee56f0, {{369.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                        Other, 0x114ee5810, {{396.0, 336.7}, {3.0, 451.3}}
+                                      Other, 0x114ee5930, {{369.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                        Other, 0x114ee5a50, {{396.0, 336.7}, {3.0, 451.3}}
+                            Other, 0x114ee5b70, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114ee5c90, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114ee5db0, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x114ee5ed0, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x114ee5ff0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x114ee6110, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x114ee6230, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x114ee6350, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x114ee6470, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home'
+                            Image, 0x114ee6590, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x114ee66b0, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live', Selected
+                            Image, 0x114ee67d0, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x114ee68f0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x114ee6a10, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x114ee6b30, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x114ee6c50, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x114ee6d70, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x114ee6e90, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x114ee6fb0, {{92.8, 795.0}, {74.0, 54.0}}
+                          Other, 0x114ee70d0, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x114ee71f0, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x114ee7310, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x114ee7430, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x114ee7550, {{92.8, 795.0}, {74.0, 54.0}}
+                                  Other, 0x114ee7670, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x114ee7790, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x114ee78b0, {{92.8, 795.0}, {74.0, 54.0}}
+                  Other, 0x114ee79d0, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x114ee7af0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x114ee7c10, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114ee7d30, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114ee7e50, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x114ee7f70, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114ee8090, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114ee81b0, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x115616a50, pid: 28819, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x115172ce0, pid: 28819, label: 'Afterglow'
+  }
+)

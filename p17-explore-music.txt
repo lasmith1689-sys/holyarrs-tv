@@ -1,0 +1,238 @@
+Optional(Attributes: Application, 0x108a41550, pid: 23652, label: 'Afterglow'
+Element subtree:
+ →Application, 0x108a41550, pid: 23652, label: 'Afterglow'
+    Window (Main), 0x108a47b80, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x108a47f40, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x108a48060, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x108a47ca0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x108a47dc0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x108a48180, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108a482a0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x108a483c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x108a484e0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x108a48600, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x108a48720, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x108a48840, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x108a48960, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Other, 0x115107980, {{229.0, 66.0}, {39.7, 36.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                Other, 0x115107340, {{229.0, 66.0}, {39.7, 36.0}}
+                                  Button, 0x115106f20, {{229.0, 66.0}, {39.7, 36.0}}, identifier: 'magnifyingglass', label: 'Search'
+                              Other, 0x115106b00, {{284.7, 66.0}, {40.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                                Other, 0x1151066e0, {{284.7, 66.0}, {40.0, 36.0}}
+                                  Button, 0x1151062c0, {{284.7, 66.0}, {40.0, 36.0}}, identifier: 'arrow.down.circle', label: 'Downloads'
+                              Other, 0x115105880, {{340.7, 66.0}, {41.3, 36.0}}, identifier: 'gearshape', label: 'Settings'
+                                Other, 0x115105460, {{340.7, 66.0}, {41.3, 36.0}}
+                                  Button, 0x115105040, {{340.7, 66.0}, {41.3, 36.0}}, identifier: 'gearshape', label: 'Settings'
+                            Other, 0x115104c20, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115104800, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x1151043e0, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x115105ca0, {{0.0, 0.0}, {402.0, 874.0}}
+                                    ScrollView, 0x115105dc0, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x115105ee0, {{0.0, -954.7}, {402.0, 2145.7}}
+                                        StaticText, 0x115107da0, {{47.0, -907.7}, {186.7, 105.3}}, label: 'Dune: Part Two'
+                                        StaticText, 0x115107ec0, {{47.0, -793.4}, {47.0, 24.0}}, label: '2024'
+                                        StaticText, 0x115107fe0, {{102.0, -793.4}, {52.7, 24.0}}, label: 'Movie'
+                                        StaticText, 0x115108100, {{162.7, -788.5}, {54.7, 14.3}}, label: 'Science Fiction'
+                                        StaticText, 0x115108220, {{225.3, -793.4}, {58.0, 24.0}}, label: 'Drama'
+                                        StaticText, 0x115108340, {{295.3, -785.7}, {51.0, 8.7}}, label: 'WAITING FOR AN OK'
+                                        StaticText, 0x115108460, {{47.0, -760.4}, {308.0, 33.7}}, label: 'Dune: Part Two (2024): a stand-in summary for the screen check.'
+                                        Button, 0x115108580, {{47.0, -717.7}, {133.3, 32.0}}, label: 'More info'
+                                          Image, 0x1151086a0, {{68.3, -709.3}, {15.3, 15.3}}, identifier: 'info.circle', label: 'Info'
+                                          StaticText, 0x1151087c0, {{47.0, -717.7}, {133.3, 32.0}}, label: 'More info'
+                                        Button, 0x1151088e0, {{193.3, -710.7}, {49.0, 18.0}}, label: 'Next title'
+                                          Image, 0x115108a00, {{196.3, -708.3}, {7.7, 13.3}}, identifier: 'chevron.right', label: 'Forward'
+                                          StaticText, 0x115108b20, {{193.3, -710.7}, {49.0, 18.0}}, label: 'Next'
+                                        Button, 0x115108c40, {{255.3, -710.7}, {53.0, 18.0}}, label: 'Find'
+                                          Image, 0x115108d60, {{257.0, -709.3}, {14.7, 15.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                          StaticText, 0x115108e80, {{255.3, -710.7}, {53.0, 18.0}}, label: 'Find'
+                                        StaticText, 0x115108fa0, {{34.0, -639.7}, {172.0, 23.0}}, label: 'Continue Watching'
+                                        ScrollView, 0x1151090c0, {{0.0, -608.7}, {402.0, 158.3}}
+                                          Other, 0x1151091e0, {{0.0, -608.7}, {489.0, 158.3}}
+                                            Other, 0x115109300, {{33.5, -596.2}, {422.0, 132.8}}
+                                              Button, 0x115109420, {{33.5, -596.2}, {203.0, 132.8}}, label: 'Resume The Matrix, 1h 24m left'
+                                                StaticText, 0x115109540, {{98.2, -547.7}, {73.7, 17.0}}, label: 'The Matrix'
+                                                StaticText, 0x115109660, {{42.0, -516.7}, {81.0, 18.0}}, label: 'The Matrix'
+                                                Image, 0x115109780, {{210.3, -580.3}, {11.3, 12.7}}, identifier: 'play.fill', label: 'Play'
+                                                StaticText, 0x1151098a0, {{34.0, -477.7}, {129.7, 14.3}}, label: '1h 24m left · on iPhone'
+                                              Button, 0x1151099c0, {{252.5, -596.2}, {203.0, 132.8}}, label: 'Resume Sicario, 1h 10m left, On Demand'
+                                                StaticText, 0x115109ae0, {{330.0, -547.7}, {48.0, 17.0}}, label: 'Sicario'
+                                                StaticText, 0x115109c00, {{261.0, -516.7}, {53.0, 18.0}}, label: 'Sicario'
+                                                StaticText, 0x115109d20, {{253.0, -477.7}, {202.0, 14.3}}, label: '1h 10m left · On Demand · on Apple TV'
+                                        ScrollView, 0x115109e40, {{0.0, -429.3}, {402.0, 53.0}}
+                                          Other, 0x115109f60, {{0.0, -429.3}, {899.7, 53.0}}
+                                            Button, 0x11510a080, {{34.0, -421.3}, {188.7, 37.0}}, identifier: 'shortcut-Live & On Demand', label: 'Live & On Demand'
+                                              Image, 0x11510a1a0, {{53.3, -409.3}, {18.7, 12.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'Radio'
+                                              StaticText, 0x11510a2c0, {{34.0, -421.3}, {188.7, 37.0}}, label: 'Live & On Demand'
+                                            Button, 0x11510a3e0, {{232.7, -421.3}, {103.3, 37.0}}, identifier: 'shortcut-Guide', label: 'Guide'
+                                              Image, 0x11510a500, {{252.3, -409.3}, {16.3, 13.0}}, identifier: 'list.bullet.rectangle', label: 'list.bullet.rectangle'
+                                              StaticText, 0x11510a620, {{232.7, -421.3}, {103.3, 37.0}}, label: 'Guide'
+                                            Button, 0x11510a740, {{346.0, -421.3}, {131.7, 37.0}}, identifier: 'shortcut-TV Shows', label: 'TV Shows'
+                                              Image, 0x11510a860, {{365.7, -410.0}, {17.7, 14.3}}, identifier: 'tv', label: 'Tv'
+                                              StaticText, 0x11510a980, {{346.0, -421.3}, {131.7, 37.0}}, label: 'TV Shows'
+                                            Button, 0x11510aaa0, {{487.7, -421.3}, {111.3, 37.0}}, identifier: 'shortcut-Movies', label: 'Movies'
+                                              Image, 0x11510abc0, {{507.3, -409.3}, {16.3, 13.0}}, identifier: 'film', label: 'Movie'
+                                              StaticText, 0x11510ace0, {{487.7, -421.3}, {111.3, 37.0}}, label: 'Movies'
+                                            Button, 0x11510ae00, {{609.0, -421.3}, {111.0, 37.0}}, identifier: 'shortcut-Sports', label: 'Sports'
+                                              Image, 0x11510af20, {{628.7, -409.3}, {18.7, 13.0}}, identifier: 'sportscourt', label: 'sportscourt'
+                                              StaticText, 0x11510b040, {{609.0, -421.3}, {111.0, 37.0}}, label: 'Sports'
+                                            Button, 0x11510b160, {{730.0, -421.3}, {135.7, 37.0}}, identifier: 'shortcut-Downloads', label: 'Downloads'
+                                              Image, 0x11510b280, {{749.3, -410.0}, {14.3, 14.3}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                                              StaticText, 0x11510b3a0, {{730.0, -421.3}, {135.7, 37.0}}, label: 'Downloads'
+                                        StaticText, 0x11510b4c0, {{33.5, -355.8}, {335.0, 107.0}}, label: 'IPTV: Runs out in 9 days (Dec 6, 2026), Renew to keep Live TV, live sports and On Demand working. Settings lists every subscription.'
+                                          Image, 0x11510b5e0, {{48.0, -341.7}, {22.0, 22.0}}, identifier: 'exclamationmark.circle.fill', label: 'exclamationmark.circle.fill'
+                                          StaticText, 0x11510b700, {{82.0, -343.3}, {213.7, 36.0}}, label: 'IPTV: Runs out in 9 days (Dec 6, 2026)'
+                                          StaticText, 0x11510b820, {{82.0, -304.3}, {240.0, 43.0}}, label: 'Renew to keep Live TV, live sports and On Demand working. Settings lists every subscription.'
+                                        StaticText, 0x11510b940, {{38.7, -227.6}, {210.0, 24.0}}, label: '2 waiting for your OK'
+                                        StaticText, 0x11510ba60, {{36.0, -190.6}, {181.3, 24.0}}, label: '1 need a decision'
+                                        StaticText, 0x11510bb80, {{34.0, -153.6}, {242.7, 24.0}}, label: 'See Requests in Downloads'
+                                        StaticText, 0x11510bca0, {{34.0, -108.6}, {108.3, 23.0}}, label: 'Just arrived'
+                                        StaticText, 0x11510bdc0, {{34.0, -83.6}, {179.3, 14.3}}, label: 'New in the Library this fortnight'
+                                        ScrollView, 0x11510bee0, {{0.0, -61.3}, {402.0, 158.3}}
+                                          Other, 0x11510c000, {{0.0, -61.3}, {489.0, 158.3}}
+                                            Other, 0x11510c120, {{33.5, -48.8}, {422.0, 132.8}}
+                                              Button, 0x11510c240, {{33.5, -48.8}, {203.0, 132.8}}, label: 'The Matrix, 1999'
+                                                Image, 0x11510c360, {{34.0, -48.7}, {202.0, 113.7}}
+                                                Image, 0x11510c480, {{42.0, 19.0}, {25.3, 38.0}}
+                                                StaticText, 0x11510c5a0, {{144.3, -40.3}, {81.7, 14.3}}, label: 'IN LIBRARY'
+                                                StaticText, 0x11510c6c0, {{34.0, 69.7}, {72.0, 14.3}}, label: 'Added today'
+                                              Button, 0x11510c7e0, {{252.5, -48.8}, {203.0, 132.8}}, label: 'Breaking Bad, 2008'
+                                                Image, 0x108a48a80, {{253.0, -48.7}, {202.0, 113.7}}
+                                                StaticText, 0x108a48ba0, {{261.0, 36.6}, {112.0, 20.3}}, label: 'Breaking Bad'
+                                                StaticText, 0x108a48cc0, {{363.3, -40.3}, {81.7, 14.3}}, label: 'IN LIBRARY'
+                                                StaticText, 0x114e6ea70, {{253.0, 69.7}, {114.0, 14.3}}, label: 'S5 · 3 new episodes'
+                                        StaticText, 0x114e74190, {{34.0, 118.1}, {86.7, 23.0}}, label: 'Following'
+                                        ScrollView, 0x114e73d70, {{0.0, 149.0}, {402.0, 158.3}}
+                                          Other, 0x114e73950, {{0.0, 149.0}, {270.0, 158.3}}
+                                            Other, 0x114e701c0, {{33.5, 161.5}, {203.0, 132.8}}
+                                              Button, 0x114e6fda0, {{33.5, 161.5}, {203.0, 132.8}}, label: 'Breaking Bad, 2008'
+                                                Image, 0x114e6f1d0, {{34.0, 161.7}, {202.0, 113.7}}
+                                                StaticText, 0x114e6f5f0, {{42.0, 247.0}, {112.0, 20.3}}, label: 'Breaking Bad'
+                                                StaticText, 0x114e705e0, {{144.3, 170.0}, {81.7, 14.3}}, label: 'IN LIBRARY'
+                                                StaticText, 0x114e70700, {{34.0, 280.0}, {30.3, 14.3}}, label: '2008'
+                                        StaticText, 0x114e6fa30, {{34.0, 328.4}, {118.7, 23.0}}, label: 'Coming soon'
+                                        ScrollView, 0x114e6fb50, {{0.0, 359.3}, {402.0, 158.3}}
+                                          Other, 0x114e745b0, {{0.0, 359.3}, {270.0, 158.3}}
+                                            Other, 0x114e746d0, {{33.5, 371.8}, {203.0, 132.8}}
+                                              Button, 0x114e747f0, {{33.5, 371.8}, {203.0, 132.8}}, label: 'Interstellar, 2014'
+                                                Image, 0x114e74910, {{34.0, 372.0}, {202.0, 113.7}}
+                                                StaticText, 0x114e74a30, {{42.0, 457.3}, {94.3, 20.3}}, label: 'Interstellar'
+                                                StaticText, 0x114e74b50, {{144.3, 380.3}, {81.7, 14.3}}, label: 'IN LIBRARY'
+                                                StaticText, 0x114e74c70, {{34.0, 490.3}, {91.7, 14.3}}, label: 'Digital on Friday'
+                                        StaticText, 0x114e74d90, {{34.0, 538.8}, {91.0, 31.3}}, label: 'Browse'
+                                        Button, 0x114e74eb0, {{34.0, 583.0}, {41.3, 27.0}}, identifier: 'browse-all', label: 'All'
+                                        Button, 0x114e74fd0, {{83.3, 583.0}, {71.7, 27.0}}, identifier: 'browse-movies', label: 'Movies'
+                                        Button, 0x114e75240, {{163.0, 583.0}, {68.7, 27.0}}, identifier: 'browse-shows', label: 'Shows'
+                                        Button, 0x114e75360, {{239.7, 583.0}, {64.0, 27.0}}, identifier: 'browse-music', label: 'Music', Selected
+                                        StaticText, 0x114e75480, {{34.0, 631.1}, {81.3, 23.0}}, label: 'Featured'
+                                        ScrollView, 0x114e755a0, {{0.0, 662.0}, {402.0, 221.7}}
+                                          Other, 0x114e756c0, {{0.0, 662.0}, {173.0, 221.7}}
+                                            Other, 0x114e757e0, {{33.5, 674.5}, {106.0, 196.0}}
+                                              Button, 0x114e75900, {{33.5, 674.5}, {106.0, 196.0}}, label: 'Random Access Memories'
+                                                StaticText, 0x114e75a20, {{52.3, 728.7}, {68.3, 50.3}}, label: 'Random Access Memories'
+                                                Image, 0x114e75b40, {{34.0, 675.0}, {105.0, 157.7}}
+                                                StaticText, 0x114e75c60, {{34.0, 838.5}, {98.3, 15.7}}, label: 'Random Access Memories'
+                                                StaticText, 0x114e75d80, {{34.0, 856.2}, {55.7, 14.3}}, label: 'Daft Punk'
+                                        StaticText, 0x114e75ea0, {{34.0, 904.6}, {104.0, 23.0}}, label: 'Top albums'
+                                        ScrollView, 0x114e75fc0, {{0.0, 935.7}, {402.0, 221.3}}
+                                          Other, 0x114e760e0, {{0.0, 935.7}, {1041.0, 221.3}}
+                                            Other, 0x114e76200, {{33.5, 948.2}, {850.0, 196.0}}
+                                              Button, 0x114e76320, {{33.5, 948.2}, {106.0, 196.0}}, label: 'Album 0'
+                                                StaticText, 0x114e76440, {{57.7, 1019.0}, {57.7, 17.0}}, label: 'Album 0'
+                                                Image, 0x114e76560, {{34.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e76680, {{34.0, 1112.2}, {52.7, 15.7}}, label: 'Album 0'
+                                                StaticText, 0x114e767a0, {{34.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                              Button, 0x114e768c0, {{157.5, 948.2}, {106.0, 196.0}}, label: 'Album 1'
+                                                StaticText, 0x114e769e0, {{182.8, 1019.0}, {55.3, 17.0}}, label: 'Album 1'
+                                                Image, 0x114e76b00, {{158.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e76c20, {{158.0, 1112.2}, {50.3, 15.7}}, label: 'Album 1'
+                                                StaticText, 0x114e76d40, {{158.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                              Button, 0x114e76e60, {{281.5, 948.2}, {106.0, 196.0}}, label: 'Album 2'
+                                                StaticText, 0x114e76f80, {{306.0, 1019.0}, {57.0, 17.0}}, label: 'Album 2'
+                                                Image, 0x114e770a0, {{282.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e771c0, {{282.0, 1112.2}, {52.3, 15.7}}, label: 'Album 2'
+                                                StaticText, 0x114e772e0, {{282.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                              Button, 0x114e77400, {{405.5, 948.2}, {106.0, 196.0}}, label: 'Album 3'
+                                                StaticText, 0x114e77520, {{429.8, 1019.0}, {57.3, 17.0}}, label: 'Album 3'
+                                                Image, 0x114e77640, {{406.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e77760, {{406.0, 1112.2}, {52.7, 15.7}}, label: 'Album 3'
+                                                StaticText, 0x114e77880, {{406.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                              Button, 0x114e779a0, {{529.5, 948.2}, {106.0, 196.0}}, label: 'Album 4'
+                                                StaticText, 0x114e77ac0, {{553.7, 1019.0}, {57.7, 17.0}}, label: 'Album 4'
+                                                Image, 0x114e77be0, {{530.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e77d00, {{530.0, 1112.2}, {52.7, 15.7}}, label: 'Album 4'
+                                                StaticText, 0x114e77e20, {{530.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                              Button, 0x114e77f40, {{653.5, 948.2}, {106.0, 196.0}}, label: 'Album 5'
+                                                StaticText, 0x114e78060, {{677.8, 1019.0}, {57.3, 17.0}}, label: 'Album 5'
+                                                Image, 0x114e78180, {{654.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e782a0, {{654.0, 1112.2}, {52.3, 15.7}}, label: 'Album 5'
+                                                StaticText, 0x114e783c0, {{654.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                              Button, 0x114e784e0, {{777.5, 948.2}, {106.0, 196.0}}, label: 'Album 6'
+                                                StaticText, 0x114e78600, {{801.7, 1019.0}, {57.7, 17.0}}, label: 'Album 6'
+                                                Image, 0x114e78720, {{778.0, 948.7}, {105.0, 157.7}}
+                                                StaticText, 0x114e78840, {{778.0, 1112.2}, {52.7, 15.7}}, label: 'Album 6'
+                                                StaticText, 0x114e78960, {{778.0, 1129.8}, {55.7, 14.3}}, label: 'Daft Punk'
+                                      Other, 0x114e78c80, {{0.0, -0.0}, {402.0, 874.0}}
+                                        Other, 0x114e78da0, {{0.0, 0.0}, {402.0, 170.8}}
+                                        Other, 0x114e78ec0, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x114e78fe0, {{0.0, -0.0}, {402.0, 874.0}}
+                                        Other, 0x114e79100, {{0.0, 0.0}, {402.0, 170.8}}
+                                          Image, 0x114e79220, {{-120.0, -166.0}, {642.0, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                                          Other, 0x114e79340, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x114e79460, {{0.0, 0.0}, {402.0, 170.8}}
+                                          Other, 0x114e79580, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x114e796a0, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x114e797c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                        Other, 0x114e798e0, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Image, 0x114e79a00, {{-120.0, 731.0}, {642.0, 286.0}}, identifier: 'AdditionalDimmingOverlay'
+                                          Other, 0x114e79b20, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x114e79c40, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Other, 0x114e79d60, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x114e79e80, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x114e79fa0, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x114e7a0c0, {{369.0, 62.0}, {30.0, 729.0}}, label: 'Vertical scroll bar, 3 pages', value: 70%
+                                        Other, 0x114e7a1e0, {{396.0, 442.3}, {3.0, 345.7}}
+                                      Other, 0x114e7a300, {{369.0, 62.0}, {30.0, 729.0}}, label: 'Vertical scroll bar, 3 pages', value: 70%
+                                        Other, 0x114e7a420, {{396.0, 442.3}, {3.0, 345.7}}
+                            Other, 0x114e7a540, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114e7a660, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114e7a780, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x114e7a8a0, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x114e7a9c0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x114e7aae0, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x114e7ac00, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x114e7ad20, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x114e7ae40, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home', Selected
+                            Image, 0x114e7af60, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x114e7b080, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x114e7b1a0, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x114e7b2c0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x114e7b3e0, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x114e7b500, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x114e7b620, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x114e7b740, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x114e7b860, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x114e7b980, {{25.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x114e7baa0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x114e7bbc0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x114e7bce0, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x114e7be00, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x114e7bf20, {{25.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x114e7c040, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x114e7c160, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x114e7c280, {{25.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x114e7c3a0, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x114e7c4c0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x114e7c5e0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114e7c700, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114e7c820, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x114e7c940, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114e7ca60, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114e7cb80, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x108a41550, pid: 23652, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x114e7ded0, pid: 23652, label: 'Afterglow'
+  }
+)

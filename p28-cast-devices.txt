@@ -1,0 +1,146 @@
+Optional(Attributes: Application, 0x114ed4140, pid: 27865, label: 'Afterglow'
+Element subtree:
+ →Application, 0x114ed4140, pid: 27865, label: 'Afterglow'
+    Window (Main), 0x114ecb200, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x114ee1c80, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x114ed5120, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x114ee19e0, {{-402.0, -874.0}, {1206.0, 2622.0}}
+          Other, 0x114ee1b00, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x114ed5240, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x114ed5360, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114ed5480, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x114ed55a0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x114ed7f00, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x114ed8020, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x114ed8140, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x114ed8260, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x114ed8380, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI29PresentationHosting'
+                              Button, 0x114ed84a0, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x114ed85c0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114ed86e0, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x114ed60e0, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x114ed6200, {{0.0, 0.0}, {402.0, 874.0}}
+                                    Image, 0x114ed6320, {{-576.0, 0.0}, {1554.0, 874.0}}
+                                    ScrollView, 0x114ed6e80, {{7.0, 0.0}, {388.0, 874.0}}
+                                      Other, 0x114ed6fa0, {{7.0, 0.0}, {388.0, 874.0}}
+                                        Other, 0x114ed70c0, {{7.0, 0.0}, {388.0, 170.8}}
+                                        Other, 0x114ed71e0, {{7.0, 726.2}, {388.0, 147.8}}
+                                      Other, 0x114ed7300, {{7.0, 0.0}, {388.0, 874.0}}
+                                      Other, 0x114ed7420, {{7.0, 116.0}, {388.0, 618.7}}
+                                        StaticText, 0x114ed7540, {{80.3, 267.5}, {89.3, 17.0}}, label: 'The Odyssey'
+                                        StaticText, 0x114ed7660, {{41.0, 427.0}, {211.7, 42.0}}, label: 'The Odyssey'
+                                        StaticText, 0x114ed7780, {{41.0, 479.0}, {291.0, 17.0}}, label: '2026  ·  2h 52m  ·  Adventure, Drama  ·  ★ 7.1'
+                                        StaticText, 0x114ed78a0, {{41.0, 506.0}, {320.0, 33.7}}, label: 'Odysseus makes the long journey home after the Trojan War.'
+                                        StaticText, 0x114ed79c0, {{41.0, 549.7}, {146.7, 14.3}}, label: 'Matt Damon, Tom Holland'
+                                        Button, 0x114e7cca0, {{41.0, 574.0}, {150.3, 20.3}}, label: 'Resume · 45m in'
+                                          Image, 0x114e7cdc0, {{43.0, 577.3}, {12.7, 14.0}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x114e7cee0, {{41.0, 574.0}, {150.3, 20.3}}, label: 'Resume · 45m in'
+                                        Button, 0x114e7d000, {{41.0, 607.3}, {102.3, 20.3}}, label: 'Start over'
+                                          Image, 0x114e7d120, {{43.0, 611.0}, {15.7, 13.0}}, identifier: 'backward.end.fill', label: 'Go To End'
+                                          StaticText, 0x114e7d240, {{41.0, 607.3}, {102.3, 20.3}}, label: 'Start over'
+                                        Button, 0x114e7d360, {{41.0, 640.7}, {68.0, 21.3}}, label: 'Cast'
+                                          Image, 0x114e7d480, {{43.0, 642.7}, {26.3, 18.3}}, identifier: 'tv.badge.wifi', label: 'tv.badge.wifi'
+                                          StaticText, 0x114e7d5a0, {{41.0, 640.7}, {68.0, 21.3}}, label: 'Cast'
+                                        StaticText, 0x114e7d6c0, {{41.0, 672.0}, {312.3, 28.7}}, label: 'Plays through your PC. Your plan plays one stream at a time, so this stops live TV on any other screen.'
+                                      Other, 0x114e7d7e0, {{362.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x114e7d900, {{389.0, 175.3}, {3.0, 612.7}}
+                                      Other, 0x114ed8b60, {{362.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x114ed8c80, {{389.0, 175.3}, {3.0, 612.7}}
+                            Other, 0x114ed8da0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114ed8ec0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114ed8fe0, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x114ed9100, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x114ed9220, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x114ed9340, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x114ed9460, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x114ed9580, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x114ed96a0, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home'
+                            Image, 0x114ed97c0, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x114ed98e0, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live', Selected
+                            Image, 0x114ed9a00, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x114ed9b20, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x114ed9c40, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x114ed9d60, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x114ed9e80, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x114ed9fa0, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x114eda0c0, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x114eda1e0, {{92.8, 795.0}, {74.0, 54.0}}
+                          Other, 0x114eda300, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x114eda420, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x114ed1fa0, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x114ed20c0, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x114ed21e0, {{92.8, 795.0}, {74.0, 54.0}}
+                                  Other, 0x114ed2300, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x114ed2420, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x114ed3440, {{92.8, 795.0}, {74.0, 54.0}}
+                  Other, 0x114ed3560, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x114ed3680, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x114ed37a0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114ed38c0, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114ee2210, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x114ee2330, {{0.0, 791.0}, {402.0, 83.0}}
+      Other, 0x114ee2450, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x114ee2570, {{-402.0, -874.0}, {1206.0, 2622.0}}
+        Other, 0x114ee2690, {{0.0, 62.0}, {402.0, 812.0}}
+          Other, 0x114ee27b0, {{0.0, 62.0}, {402.0, 812.0}}
+            Other, 0x114ee28d0, {{0.0, 62.0}, {402.0, 812.0}}
+              Other, 0x114ee29f0, {{0.0, 62.0}, {402.0, 812.0}}
+                Other, 0x114ee2b10, {{0.0, 62.0}, {402.0, 812.0}}
+                  Other, 0x114ee2c30, {{0.0, 62.0}, {402.0, 812.0}}
+                    NavigationBar, 0x114ee2d50, {{0.0, 78.0}, {402.0, 106.0}}, identifier: 'Cast'
+                      Other, 0x114ee2e70, {{20.0, 82.0}, {64.3, 36.0}}, label: 'Done'
+                        Other, 0x114ee2f90, {{20.0, 82.0}, {64.3, 36.0}}
+                          Button, 0x114ee30b0, {{20.0, 82.0}, {64.3, 36.0}}, label: 'Done'
+                      StaticText, 0x114ee31d0, {{16.0, 135.7}, {74.0, 40.7}}, label: 'Cast'
+                    Other, 0x114ee32f0, {{0.0, 62.0}, {402.0, 812.0}}
+                      Other, 0x114ee3410, {{0.0, 62.0}, {402.0, 812.0}}
+                        Other, 0x114ee3530, {{0.0, 62.0}, {402.0, 812.0}}
+                          Other, 0x114ee3650, {{0.0, 62.0}, {402.0, 812.0}}
+                            CollectionView, 0x114ee3770, {{0.0, 62.0}, {402.0, 812.0}}
+                              Other, 0x114ee3890, {{-16.0, -1440.0}, {434.0, 1776.7}}
+                              Other, 0x114ee39b0, {{0.0, 62.0}, {402.0, 812.0}}
+                              Other, 0x114ee3ad0, {{0.0, 62.0}, {402.0, 812.0}}
+                              Cell, 0x114ee3bf0, {{16.0, 184.0}, {370.0, 40.3}}
+                                Other, 0x114ee3d10, {{16.0, 184.0}, {370.0, 40.3}}
+                                Other, 0x114ee3e30, {{16.0, 184.0}, {370.0, 40.3}}
+                                  Other, 0x114ee3f50, {{16.0, 184.0}, {370.0, 40.3}}
+                                    Other, 0x114ee4070, {{16.0, 184.0}, {370.0, 40.3}}
+                                      StaticText, 0x114ee4190, {{16.0, 184.0}, {370.0, 40.3}}, label: 'Cast The Odyssey'
+                              Cell, 0x114ee42b0, {{16.0, 224.3}, {370.0, 66.7}}
+                                Other, 0x114ee43d0, {{16.0, 224.3}, {370.0, 66.7}}
+                                  Other, 0x114ee44f0, {{16.0, 224.3}, {370.0, 66.7}}
+                                Other, 0x114ee4610, {{16.0, 224.3}, {370.0, 66.7}}
+                                  Other, 0x114ee4730, {{16.0, 224.3}, {370.0, 66.7}}
+                                    Other, 0x114ee4850, {{16.0, 224.3}, {370.0, 66.7}}
+                                      Button, 0x114ee4970, {{16.0, 224.3}, {370.0, 66.7}}, label: 'Patio TV, Hisense 75M7SG'
+                                        Image, 0x114ee4a90, {{34.0, 249.3}, {21.0, 16.7}}, identifier: 'tv', label: 'Tv'
+                                        StaticText, 0x114ee4bb0, {{65.0, 239.3}, {64.0, 20.3}}, label: 'Patio TV'
+                                        StaticText, 0x114ee4cd0, {{65.0, 261.7}, {96.7, 14.3}}, label: 'Hisense 75M7SG'
+                              Cell, 0x114ee4df0, {{16.0, 291.0}, {370.0, 45.7}}
+                                Other, 0x114ee4f10, {{16.0, 291.0}, {370.0, 45.7}}
+                                Other, 0x114ee5030, {{16.0, 291.0}, {370.0, 45.7}}
+                                  Other, 0x114ee5150, {{16.0, 291.0}, {370.0, 45.7}}
+                                    Other, 0x114ee5270, {{16.0, 291.0}, {370.0, 45.7}}
+                                      StaticText, 0x114ee5390, {{16.0, 291.0}, {370.0, 45.7}}, label: 'The PC tells the TV to play its own stream, so nothing needs installing on the TV.'
+                              Other, 0x114ee54b0, {{-16.0, 336.7}, {434.0, 1713.7}}
+                              Cell, 0x114ee55d0, {{16.0, 354.3}, {370.0, 52.0}}
+                                Other, 0x114ee56f0, {{16.0, 354.3}, {370.0, 52.0}}
+                                  Other, 0x114ee5810, {{16.0, 354.3}, {370.0, 52.0}}
+                                Other, 0x114ee5930, {{16.0, 354.3}, {370.0, 52.0}}
+                                  Other, 0x114ee5a50, {{16.0, 354.3}, {370.0, 52.0}}
+                                    Other, 0x114ee5b70, {{16.0, 354.3}, {370.0, 52.0}}
+                                      Button, 0x114ee5c90, {{16.0, 354.3}, {370.0, 52.0}}, label: 'Look again'
+                              Other, 0x114ee5db0, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                Other, 0x114ee5ed0, {{396.0, 816.0}, {3.0, 7.0}}
+                              Other, 0x114ee5ff0, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                Other, 0x114ee6110, {{396.0, 816.0}, {3.0, 7.0}}
+                    Other, 0x114ee6230, {{0.0, 62.0}, {402.0, 812.0}}
+                      Other, 0x114ee6350, {{0.0, 62.0}, {402.0, 812.0}}
+Path to element:
+ →Application, 0x114ed4140, pid: 27865, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x115178130, pid: 27865, label: 'Afterglow'
+  }
+)

@@ -1,0 +1,86 @@
+Optional(Attributes: Application, 0x114ec3180, pid: 27289, label: 'Afterglow'
+Element subtree:
+ →Application, 0x114ec3180, pid: 27289, label: 'Afterglow'
+    Window (Main), 0x114ecb7a0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x114eca680, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x114ecaaa0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x114ec4ca0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x114ec52c0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x114ec4640, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114ecb380, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x114ec8da0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x114ec91c0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x114ec4a60, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x114ec4b80, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x114ec5080, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x114ec51a0, {{0.0, 62.0}, {402.0, 114.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x114ecbbc0, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                              SearchField, 0x114ecbce0, {{16.0, 117.0}, {370.0, 44.0}}, label: 'Search every channel', placeholderValue: 'Search every channel'
+                                Image, 0x114ecbe00, {{28.0, 129.3}, {20.3, 18.7}}, identifier: 'magnifyingglass', label: 'Search'
+                            Other, 0x114ecbf20, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114ecc040, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x114ecc160, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x114ecc280, {{0.0, 0.0}, {402.0, 874.0}}
+                                    ScrollView, 0x114ecc3a0, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x114ecc4c0, {{0.0, 0.0}, {402.0, 874.0}}
+                                        Other, 0x114ecc5e0, {{0.0, 0.0}, {402.0, 225.8}}
+                                        Other, 0x114ecc700, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x114ece640, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x114ece760, {{0.0, 176.0}, {402.0, 153.0}}
+                                        Other, 0x114ece880, {{34.0, 193.0}, {334.0, 118.3}}
+                                          StaticText, 0x114ece9a0, {{34.0, 193.0}, {147.7, 31.3}}, label: 'All channels'
+                                          Button, 0x114eceac0, {{34.0, 237.3}, {334.0, 34.0}}, label: 'US · SPORTS, 3'
+                                            StaticText, 0x114ecebe0, {{46.0, 245.3}, {93.0, 18.0}}, label: 'US · SPORTS'
+                                            StaticText, 0x114eced00, {{325.0, 246.5}, {8.3, 15.7}}, label: '3'
+                                            Image, 0x114ecee20, {{346.7, 247.0}, {8.3, 14.7}}, identifier: 'chevron.right', label: 'Forward'
+                                          Button, 0x114ecef40, {{34.0, 277.3}, {334.0, 34.0}}, label: 'UK · NEWS, 2'
+                                            StaticText, 0x114ecf060, {{46.0, 285.3}, {78.0, 18.0}}, label: 'UK · NEWS'
+                                            StaticText, 0x114ecf180, {{325.3, 286.5}, {8.0, 15.7}}, label: '2'
+                                            Image, 0x114ecf2a0, {{346.7, 287.0}, {8.3, 14.7}}, identifier: 'chevron.right', label: 'Forward'
+                                      Other, 0x114ecf3c0, {{369.0, 176.0}, {30.0, 615.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x114ecf4e0, {{396.0, 589.0}, {3.0, 199.0}}
+                                      Other, 0x114ecf600, {{369.0, 176.0}, {30.0, 615.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x114ecf720, {{396.0, 589.0}, {3.0, 199.0}}
+                            Other, 0x114ecf840, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x114ecf960, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x114ecfa80, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x114ecfba0, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x114ecfcc0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x114ecfde0, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x114ecff00, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x114ed0020, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x114ed0140, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home'
+                            Image, 0x114ed0260, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x114ed0380, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live', Selected
+                            Image, 0x114ed04a0, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x114ed05c0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x114ed06e0, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x114ed0800, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x114ed0920, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x114ed0a40, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x114ed0b60, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x114ed0c80, {{92.8, 795.0}, {74.0, 54.0}}
+                          Other, 0x114ed0da0, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x114ed0ec0, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x114ed0fe0, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x114ed1100, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x114ed1220, {{92.8, 795.0}, {74.0, 54.0}}
+                                  Other, 0x114ed1340, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x114ed1460, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x114ed1580, {{92.8, 795.0}, {74.0, 54.0}}
+                  Other, 0x114ed16a0, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x114ed17c0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x114ed18e0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114ed1a00, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114ed1b20, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x114ed1c40, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114ed1d60, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114ed1e80, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x114ec3180, pid: 27289, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x114ed27e0, pid: 27289, label: 'Afterglow'
+  }
+)

@@ -1,0 +1,99 @@
+Optional(Attributes: Application, 0x114efbfc0, pid: 30795, label: 'Afterglow'
+Element subtree:
+ →Application, 0x114efbfc0, pid: 30795, label: 'Afterglow'
+    Window (Main), 0x115b37ce0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x115b380a0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x115b381c0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x115b37e00, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x115b37f20, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x115b382e0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x115b38400, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x115b38520, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x115b38640, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x115b38760, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x115b38880, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x115b389a0, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x115b38ac0, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x115b38be0, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x115b38d00, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115b38e20, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x115b38f40, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x115b39060, {{0.0, 0.0}, {402.0, 874.0}}
+                                    SegmentedControl, 0x115b39180, {{41.0, 129.0}, {320.0, 31.0}}
+                                      Button, 0x115b392a0, {{41.0, 129.0}, {106.0, 32.0}}, label: 'Downloads', Selected
+                                      Button, 0x115b393c0, {{147.0, 129.0}, {107.0, 32.0}}, label: 'Requests'
+                                      Button, 0x115b394e0, {{254.0, 129.0}, {107.0, 32.0}}, label: 'Calendar'
+                                    ScrollView, 0x115b39600, {{7.0, 160.0}, {388.0, 714.0}}
+                                      Other, 0x115b39720, {{7.0, 160.0}, {388.0, 546.3}}
+                                        StaticText, 0x115b39840, {{41.0, 177.0}, {182.3, 42.0}}, label: 'Downloads'
+                                        StaticText, 0x115b39960, {{41.0, 232.0}, {171.7, 24.0}}, label: '2 active · 79.4 MB/s'
+                                        Button, 0x115b39a80, {{41.0, 290.0}, {67.3, 20.3}}, label: 'Pause all'
+                                        Button, 0x115b39ba0, {{121.3, 290.0}, {82.7, 20.3}}, label: 'Resume all'
+                                        StaticText, 0x115b39cc0, {{41.0, 325.3}, {198.7, 20.3}}, label: 'The Last of Us (2023) S2'
+                                        StaticText, 0x115b39de0, {{41.0, 357.7}, {316.0, 19.3}}, label: '42% · 18.4 MB/s · 21m left · 41 GB · 12 seeds · qBittorrent'
+                                        StaticText, 0x115b39f00, {{46.0, 414.2}, {108.7, 14.3}}, label: 'DOWNLOADING'
+                                        Button, 0x115b3a020, {{172.7, 413.3}, {14.3, 16.0}}, identifier: 'pause.fill', label: 'Pause'
+                                        Button, 0x115b3a140, {{200.0, 411.0}, {19.0, 20.7}}, identifier: 'trash', label: 'Remove'
+                                        StaticText, 0x115b3a260, {{41.0, 451.7}, {142.7, 20.3}}, label: 'The Matrix (1999)'
+                                        StaticText, 0x115b3a380, {{41.0, 484.0}, {304.3, 19.3}}, label: '18% · 61 MB/s · 9m left · 58 GB · SABnzbd'
+                                        Button, 0x115b3a4a0, {{41.0, 537.7}, {90.7, 20.3}}, label: 'Play now while it downloads'
+                                          Image, 0x115b3a5c0, {{43.0, 541.0}, {12.7, 14.0}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x115b3a6e0, {{41.0, 537.7}, {90.7, 20.3}}, label: 'Play now'
+                                        StaticText, 0x115b3a800, {{149.7, 540.5}, {108.7, 14.3}}, label: 'DOWNLOADING'
+                                        Button, 0x115b3a920, {{276.3, 539.7}, {14.3, 16.0}}, identifier: 'pause.fill', label: 'Pause'
+                                        Button, 0x115b3aa40, {{303.7, 537.3}, {19.0, 20.7}}, identifier: 'trash', label: 'Remove'
+                                        StaticText, 0x115b3ab60, {{41.0, 578.0}, {131.7, 20.3}}, label: 'Inception (2010)'
+                                        StaticText, 0x115b3ac80, {{41.0, 610.3}, {172.3, 19.3}}, label: '88% · 62 GB · SABnzbd'
+                                        StaticText, 0x115b3ada0, {{46.0, 666.8}, {57.0, 14.3}}, label: 'PAUSED'
+                                        Button, 0x115b3aec0, {{121.0, 666.0}, {15.0, 16.0}}, identifier: 'play.fill', label: 'Resume'
+                                        Button, 0x115b3afe0, {{149.0, 663.7}, {19.0, 20.7}}, identifier: 'trash', label: 'Remove'
+                                      Other, 0x115b3b100, {{7.0, 160.0}, {388.0, 714.0}}
+                                        Other, 0x115b3b220, {{7.0, 726.2}, {388.0, 147.8}}
+                                      Other, 0x115b3b340, {{7.0, 160.0}, {388.0, 714.0}}
+                                      Other, 0x115b3b460, {{362.0, 160.0}, {30.0, 631.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x115b3b580, {{389.0, 624.7}, {3.0, 279.3}}
+                                      Other, 0x115b3b6a0, {{362.0, 160.0}, {30.0, 631.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x115b3b7c0, {{389.0, 624.7}, {3.0, 279.3}}
+                            Other, 0x115b3b8e0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115b3ba00, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x115b3bb20, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x115b3bc40, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x115b3bd60, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x115b3be80, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x115b3bfa0, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x115b3c0c0, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x115b3c1e0, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home', Selected
+                            Image, 0x115b3c300, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x115b3c420, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x115b3c540, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x115b3c660, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x115b3c780, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x115b3c8a0, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x115b3c9c0, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x115b3cae0, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x115b3cc00, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x115b3cda0, {{25.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x115b3cec0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x115b3cfe0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x115b3d100, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x115b3d220, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x115b3d340, {{25.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x115b3d460, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x115b3d580, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x115b3d6a0, {{25.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x115b3d7c0, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x115b3d8e0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x115b3da00, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x115b3db20, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x115b3dc40, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x115b3dd60, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x115b3de80, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x115b3dfa0, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x114efbfc0, pid: 30795, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x115174f20, pid: 30795, label: 'Afterglow'
+  }
+)

@@ -1,0 +1,214 @@
+Optional(Attributes: Application, 0x115142ed0, pid: 32166, label: 'Afterglow'
+Element subtree:
+ →Application, 0x115142ed0, pid: 32166, label: 'Afterglow'
+    Window (Main), 0x115142890, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x115c087c0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x115c083a0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x115c07360, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11513f3e0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x115142470, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x115c07f80, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x115c07b60, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x115c07740, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x115c06d00, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x115c04080, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x115c07120, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x115c07240, {{0.0, 62.0}, {402.0, 54.0}}, identifier: 'Settings'
+                              Button, 0x115c08e00, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                              StaticText, 0x115c08f20, {{167.7, 73.7}, {66.7, 20.7}}, label: 'Settings'
+                            Other, 0x115c09040, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115c09160, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x115c09280, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x115c093a0, {{0.0, 0.0}, {402.0, 874.0}}
+                                    CollectionView, 0x115c094c0, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x115c095e0, {{-16.0, -109.0}, {434.0, 222.0}}
+                                      Cell, 0x115c09700, {{16.0, -16.7}, {370.0, 52.0}}
+                                        Other, 0x115c09820, {{16.0, -16.7}, {370.0, 52.0}}
+                                          Other, 0x115c09940, {{16.0, -16.7}, {370.0, 52.0}}
+                                        Other, 0x115c09a60, {{16.0, -16.7}, {370.0, 52.0}}
+                                          Other, 0x115c09b80, {{16.0, -16.7}, {370.0, 52.0}}
+                                            Other, 0x115c09ca0, {{16.0, -16.7}, {370.0, 52.0}}
+                                              StaticText, 0x115c09dc0, {{32.0, -0.8}, {34.3, 20.3}}, label: 'Now'
+                                              StaticText, 0x115c09ee0, {{16.0, -16.7}, {370.0, 52.0}}, label: 'Now, At home'
+                                      Other, 0x115c0a000, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x115c0a120, {{0.0, 0.0}, {402.0, 874.0}}
+                                        Other, 0x115c0a240, {{0.0, 0.0}, {402.0, 170.8}}
+                                          Image, 0x115c0a360, {{-120.0, -166.0}, {642.0, 332.0}}, identifier: 'AdditionalDimmingOverlay'
+                                          Other, 0x115c0a480, {{0.0, 0.0}, {402.0, 106.0}}
+                                          Other, 0x115c0a5a0, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x115c0a6c0, {{0.0, 0.0}, {402.0, 170.8}}
+                                          Other, 0x115c0a7e0, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x115c0a900, {{0.0, 0.0}, {402.0, 170.8}}
+                                          Other, 0x115c0aa20, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x115c0ab40, {{0.0, 0.0}, {402.0, 170.8}}
+                                            Other, 0x115c0ac60, {{0.0, 0.0}, {402.0, 170.8}}
+                                        Other, 0x115c0ad80, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Image, 0x115c0aea0, {{-120.0, 731.0}, {642.0, 286.0}}, identifier: 'AdditionalDimmingOverlay'
+                                          Other, 0x115c0afc0, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x115c0b0e0, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Other, 0x115c0b200, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x115c0b320, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x115c0b440, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Cell, 0x115c0b560, {{16.0, 35.3}, {370.0, 77.7}}
+                                        Other, 0x115c0b680, {{16.0, 35.3}, {370.0, 77.7}}
+                                        Other, 0x115c0b7a0, {{16.0, 35.3}, {370.0, 77.7}}
+                                          Other, 0x115c0b8c0, {{16.0, 35.3}, {370.0, 77.7}}
+                                            Other, 0x115c0b9e0, {{16.0, 35.3}, {370.0, 77.7}}
+                                              StaticText, 0x115c0bb00, {{16.0, 35.3}, {370.0, 77.7}}, label: 'With Tailscale on the PC and this iPhone, the app reaches the PC by this name when the home address doesn't answer. Films and episodes then play at phone size (1080p, a few Mbps) instead of 4K.'
+                                      Other, 0x115c0bc20, {{-16.0, 113.0}, {434.0, 350.0}}
+                                      Cell, 0x115c0bd40, {{16.0, 113.0}, {370.0, 40.3}}
+                                        Other, 0x115c0be60, {{16.0, 113.0}, {370.0, 40.3}}
+                                        Other, 0x115c0bf80, {{16.0, 113.0}, {370.0, 40.3}}
+                                          Other, 0x115c0c0a0, {{16.0, 113.0}, {370.0, 40.3}}
+                                            Other, 0x115c0c1c0, {{16.0, 113.0}, {370.0, 40.3}}
+                                              StaticText, 0x115c0c2e0, {{16.0, 113.0}, {370.0, 40.3}}, label: 'Subscriptions'
+                                      Cell, 0x115c0c400, {{16.0, 153.3}, {370.0, 75.3}}
+                                        Other, 0x115c0c520, {{16.0, 153.3}, {370.0, 75.3}}
+                                          Other, 0x115c0c640, {{16.0, 153.3}, {370.0, 75.3}}
+                                        Other, 0x115c0c760, {{16.0, 153.3}, {370.0, 75.3}}
+                                          Other, 0x115c0c880, {{16.0, 153.3}, {370.0, 75.3}}
+                                            Other, 0x115c0c9a0, {{16.0, 153.3}, {370.0, 75.3}}
+                                              StaticText, 0x115c0cac0, {{16.0, 153.3}, {370.0, 75.3}}, label: 'IPTV, Runs out in 9 days (Dec 6, 2026), Live TV, live sports and On Demand'
+                                                StaticText, 0x115c0cbe0, {{32.0, 170.3}, {37.7, 20.3}}, label: 'IPTV'
+                                                StaticText, 0x115c0cd00, {{120.0, 170.3}, {250.0, 20.3}}, label: 'Runs out in 9 days (Dec 6, 2026)'
+                                                StaticText, 0x115c0ce20, {{32.0, 193.7}, {243.0, 18.0}}, label: 'Live TV, live sports and On Demand'
+                                      Cell, 0x115c0cf40, {{16.0, 228.7}, {370.0, 97.3}}
+                                        Other, 0x115c0d060, {{16.0, 228.7}, {370.0, 97.3}}
+                                          Other, 0x115c0d180, {{16.0, 228.7}, {370.0, 97.3}}
+                                        Other, 0x115c0d2a0, {{16.0, 228.7}, {370.0, 97.3}}
+                                          Other, 0x115c0d3c0, {{16.0, 228.7}, {370.0, 97.3}}
+                                            Other, 0x115c0d4e0, {{16.0, 228.7}, {370.0, 97.3}}
+                                              StaticText, 0x115c0d600, {{16.0, 228.7}, {370.0, 97.3}}, label: 'Newshosting, Until Jun 5, 2027 · 190 days left, Usenet downloads (SABnzbd)'
+                                                StaticText, 0x115c0d720, {{32.0, 256.7}, {104.0, 20.3}}, label: 'Newshosting'
+                                                StaticText, 0x115c0d840, {{195.0, 245.7}, {175.0, 42.3}}, label: 'Until Jun 5, 2027 · 190 days left'
+                                                StaticText, 0x115c0d960, {{32.0, 291.0}, {205.0, 18.0}}, label: 'Usenet downloads (SABnzbd)'
+                                      Other, 0x115c0da80, {{32.0, 227.7}, {338.0, 1.0}}
+                                      Cell, 0x115c0dba0, {{16.0, 326.0}, {370.0, 75.3}}
+                                        Other, 0x115c0dcc0, {{16.0, 326.0}, {370.0, 75.3}}
+                                          Other, 0x115c0dde0, {{16.0, 326.0}, {370.0, 75.3}}
+                                        Other, 0x115c0df00, {{16.0, 326.0}, {370.0, 75.3}}
+                                          Other, 0x115c0e020, {{16.0, 326.0}, {370.0, 75.3}}
+                                            Other, 0x115c0e140, {{16.0, 326.0}, {370.0, 75.3}}
+                                              StaticText, 0x115c0e260, {{16.0, 326.0}, {370.0, 75.3}}, label: 'NZBgeek, Date not set yet, Usenet search for HolyArrs and Sportarr'
+                                                StaticText, 0x115c0e380, {{32.0, 343.0}, {73.7, 20.3}}, label: 'NZBgeek'
+                                                StaticText, 0x115c0e4a0, {{249.3, 343.0}, {120.7, 20.3}}, label: 'Date not set yet'
+                                                StaticText, 0x115c0e5c0, {{32.0, 366.3}, {274.7, 18.0}}, label: 'Usenet search for HolyArrs and Sportarr'
+                                      Other, 0x115c0e6e0, {{32.0, 325.0}, {338.0, 1.0}}
+                                      Cell, 0x115c0e800, {{16.0, 401.3}, {370.0, 61.7}}
+                                        Other, 0x115c0e920, {{16.0, 401.3}, {370.0, 61.7}}
+                                        Other, 0x115c0ea40, {{16.0, 401.3}, {370.0, 61.7}}
+                                          Other, 0x115c0eb60, {{16.0, 401.3}, {370.0, 61.7}}
+                                            Other, 0x115c0ec80, {{16.0, 401.3}, {370.0, 61.7}}
+                                              StaticText, 0x115c0eda0, {{16.0, 401.3}, {370.0, 61.7}}, label: 'Home warns 14 days before one runs out. The IPTV date comes from the provider; Newshosting and NZBgeek dates are kept on the PC.'
+                                      Other, 0x115c0eec0, {{-16.0, 463.0}, {434.0, 378.0}}
+                                      Cell, 0x115c0efe0, {{16.0, 463.0}, {370.0, 40.3}}
+                                        Other, 0x115c0f100, {{16.0, 463.0}, {370.0, 40.3}}
+                                        Other, 0x115c0f220, {{16.0, 463.0}, {370.0, 40.3}}
+                                          Other, 0x115c0f340, {{16.0, 463.0}, {370.0, 40.3}}
+                                            Other, 0x115c0f460, {{16.0, 463.0}, {370.0, 40.3}}
+                                              StaticText, 0x115c0f580, {{16.0, 463.0}, {370.0, 40.3}}, label: 'Rooms'
+                                      Cell, 0x115c0f6a0, {{16.0, 503.3}, {370.0, 52.0}}
+                                        Other, 0x115c0f7c0, {{16.0, 503.3}, {370.0, 52.0}}
+                                          Other, 0x115c0f8e0, {{16.0, 503.3}, {370.0, 52.0}}
+                                        Other, 0x115c0fa00, {{16.0, 503.3}, {370.0, 52.0}}
+                                          Other, 0x115c0fb20, {{16.0, 503.3}, {370.0, 52.0}}
+                                            Other, 0x115c0fc40, {{16.0, 503.3}, {370.0, 52.0}}
+                                              Switch, 0x115c0fd60, {{16.0, 503.3}, {370.0, 52.0}}, label: 'Play outside buttons', value: 1
+                                                StaticText, 0x115c0fe80, {{32.0, 519.2}, {155.0, 20.3}}, label: 'Play outside buttons'
+                                                Switch, 0x115c0ffa0, {{309.0, 515.3}, {63.0, 28.0}}, value: 1
+                                      Cell, 0x115c100c0, {{16.0, 555.3}, {370.0, 52.0}}
+                                        Other, 0x115c101e0, {{16.0, 555.3}, {370.0, 52.0}}
+                                          Other, 0x115c10300, {{16.0, 555.3}, {370.0, 52.0}}
+                                        Other, 0x115c10420, {{16.0, 555.3}, {370.0, 52.0}}
+                                          Other, 0x115c10540, {{16.0, 555.3}, {370.0, 52.0}}
+                                            Other, 0x115c10660, {{16.0, 555.3}, {370.0, 52.0}}
+                                              StaticText, 0x115c10780, {{32.0, 571.2}, {85.0, 20.3}}, label: 'Outside TV'
+                                              StaticText, 0x115c108a0, {{16.0, 555.3}, {370.0, 52.0}}, label: 'Outside TV, playing The Odyssey'
+                                      Other, 0x115c109c0, {{32.0, 554.3}, {338.0, 1.0}}
+                                      Cell, 0x115c10ae0, {{16.0, 607.3}, {370.0, 52.0}}
+                                        Other, 0x115c10c00, {{16.0, 607.3}, {370.0, 52.0}}
+                                          Other, 0x115c10d20, {{16.0, 607.3}, {370.0, 52.0}}
+                                        Other, 0x115c10e40, {{16.0, 607.3}, {370.0, 52.0}}
+                                          Other, 0x115c10f60, {{16.0, 607.3}, {370.0, 52.0}}
+                                            Other, 0x115c11080, {{16.0, 607.3}, {370.0, 52.0}}
+                                              Button, 0x115c111a0, {{16.0, 607.3}, {370.0, 52.0}}, label: 'Find the outside TV'
+                                      Other, 0x115c112c0, {{32.0, 606.3}, {338.0, 1.0}}
+                                      Cell, 0x115c113e0, {{16.0, 659.3}, {370.0, 52.0}}
+                                        Other, 0x115c11500, {{16.0, 659.3}, {370.0, 52.0}}
+                                          Other, 0x115c11620, {{16.0, 659.3}, {370.0, 52.0}}
+                                        Other, 0x115c11740, {{16.0, 659.3}, {370.0, 52.0}}
+                                          Other, 0x115c11860, {{16.0, 659.3}, {370.0, 52.0}}
+                                            Other, 0x115c11980, {{16.0, 659.3}, {370.0, 52.0}}
+                                              Button, 0x115c11aa0, {{16.0, 659.3}, {370.0, 52.0}}, label: 'Stop outside'
+                                      Other, 0x115c11bc0, {{32.0, 658.3}, {338.0, 1.0}}
+                                      Cell, 0x115c11ce0, {{16.0, 711.3}, {370.0, 52.0}}
+                                        Other, 0x115c11e00, {{16.0, 711.3}, {370.0, 52.0}}
+                                          Other, 0x115c11f20, {{16.0, 711.3}, {370.0, 52.0}}
+                                        Other, 0x115c12040, {{16.0, 711.3}, {370.0, 52.0}}
+                                          Other, 0x115c12160, {{16.0, 711.3}, {370.0, 52.0}}
+                                            Other, 0x115c12280, {{16.0, 711.3}, {370.0, 52.0}}
+                                              Button, 0x115c123a0, {{16.0, 711.3}, {370.0, 52.0}}, label: 'Picture setup guide'
+                                      Other, 0x115c124c0, {{32.0, 710.3}, {338.0, 1.0}}
+                                      Cell, 0x115c125e0, {{16.0, 763.3}, {370.0, 77.7}}
+                                        Other, 0x115c12700, {{16.0, 763.3}, {370.0, 77.7}}
+                                        Other, 0x115c12820, {{16.0, 763.3}, {370.0, 77.7}}
+                                          Other, 0x115c12940, {{16.0, 763.3}, {370.0, 77.7}}
+                                            Other, 0x115c12a60, {{16.0, 763.3}, {370.0, 77.7}}
+                                              StaticText, 0x115c12b80, {{16.0, 763.3}, {370.0, 77.7}}, label: 'Off by default. On: Play outside on movie pages and Continue outside in the player cast from the PC to the Hisense (Chromecast built-in; not yet tested on the TV). Positions are kept on the PC either way.'
+                                      Other, 0x115c12ca0, {{-16.0, 841.0}, {434.0, 87.3}}
+                                      Cell, 0x115c12dc0, {{16.0, 858.3}, {370.0, 52.0}}
+                                        Other, 0x115c12ee0, {{16.0, 858.3}, {370.0, 52.0}}
+                                          Other, 0x115c13000, {{16.0, 858.3}, {370.0, 52.0}}
+                                        Other, 0x115c13120, {{16.0, 858.3}, {370.0, 52.0}}
+                                          Other, 0x115c13240, {{16.0, 858.3}, {370.0, 52.0}}
+                                            Other, 0x115c13360, {{16.0, 858.3}, {370.0, 52.0}}
+                                              Switch, 0x115c13480, {{16.0, 858.3}, {370.0, 52.0}}, label: 'Watch now, 4K when ready', value: 1
+                                                StaticText, 0x115c135a0, {{32.0, 874.2}, {206.0, 20.3}}, label: 'Watch now, 4K when ready'
+                                                Switch, 0x115c136c0, {{309.0, 870.3}, {63.0, 28.0}}, value: 1
+                                      Other, 0x115c13930, {{369.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 3 pages', value: 57%
+                                        Other, 0x115c13a50, {{396.0, 339.3}, {3.0, 282.7}}
+                                      Other, 0x115c13b70, {{369.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 3 pages', value: 57%
+                                        Other, 0x115c13c90, {{396.0, 339.3}, {3.0, 282.7}}
+                            Other, 0x115c13fb0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115c140d0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x115c141f0, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x115c14310, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x115c14430, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x115c14550, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x115c14670, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x115c14790, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x115c148b0, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home', Selected
+                            Image, 0x115c149d0, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x115c14af0, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x115c14c10, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x115c14d30, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x115c14e50, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x115c14f70, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x115c15090, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x115c151b0, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x115c152d0, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x115c153f0, {{25.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x115c15510, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x115c15630, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x115c15750, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x115c15870, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x115c15990, {{25.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x115c15ab0, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x115c15bd0, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x115c15cf0, {{25.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x115c15e10, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x115c15f30, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x115c16050, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x115c16170, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x115c16290, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x115c163b0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x115c164d0, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x115c165f0, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x115142ed0, pid: 32166, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1151ddc10, pid: 32166, label: 'Afterglow'
+  }
+)

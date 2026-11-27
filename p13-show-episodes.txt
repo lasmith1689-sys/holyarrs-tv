@@ -1,0 +1,252 @@
+Optional(Attributes: Application, 0x1089b0fb0, pid: 21174, label: 'Afterglow'
+Element subtree:
+ →Application, 0x1089b0fb0, pid: 21174, label: 'Afterglow'
+    Window (Main), 0x1089af090, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x1089b2010, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x1089b1bf0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1089b2430, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1089b2a70, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1089b17d0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1089b13b0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1089b0970, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x1089b0550, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x1089b0130, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x1089afd10, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1089af8f0, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x1089af4d0, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI29PresentationHosting'
+                              Button, 0x1089b2e90, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x1089b2fb0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x1089b30d0, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x1089b31f0, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x1089b3310, {{0.0, 0.0}, {402.0, 874.0}}
+                                    Image, 0x1089b3430, {{-576.0, 0.0}, {1554.0, 874.0}}
+                                    ScrollView, 0x1089b3550, {{0.0, 0.0}, {402.0, 874.0}}
+                                      Other, 0x1089b3670, {{0.0, 0.0}, {402.0, 874.0}}
+                                        Other, 0x1089b3790, {{0.0, 0.0}, {402.0, 170.8}}
+                                        Other, 0x1089b38b0, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x1089b39d0, {{0.0, 0.0}, {402.0, 874.0}}
+                                        Other, 0x1089b3af0, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Image, 0x1089b3c10, {{-120.0, 731.0}, {642.0, 286.0}}, identifier: 'AdditionalDimmingOverlay'
+                                          Other, 0x1089b3d30, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x1089b3e50, {{0.0, 726.2}, {402.0, 147.8}}
+                                          Other, 0x1089b3f70, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x1089b4090, {{0.0, 726.2}, {402.0, 147.8}}
+                                            Other, 0x1089b41b0, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x1089b42d0, {{0.0, 116.0}, {402.0, 1196.0}}
+                                        StaticText, 0x1089b43f0, {{126.0, 279.0}, {160.7, 31.3}}, label: 'Breaking Bad'
+                                        StaticText, 0x1089b4510, {{31.5, 325.0}, {65.0, 33.7}}, label: 'Breaking Bad'
+                                        StaticText, 0x1089b4630, {{126.0, 318.3}, {34.7, 17.0}}, label: '2008'
+                                        StaticText, 0x1089b4750, {{170.7, 318.3}, {31.3, 17.0}}, label: 'AMC'
+                                        StaticText, 0x1089b4870, {{127.0, 343.4}, {114.3, 15.7}}, label: '4 of 5 seasons'
+                                        StaticText, 0x1089b4990, {{48.8, 362.7}, {30.3, 14.3}}, label: '2008'
+                                        Button, 0x1089b4ab0, {{16.0, 437.0}, {281.7, 34.3}}, label: 'Resume S5 E3 from 20:00'
+                                          Image, 0x1089b4bd0, {{43.0, 446.7}, {13.3, 15.0}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x1089b4cf0, {{16.0, 437.0}, {281.7, 34.3}}, label: 'Resume S5 E3 from 20:00'
+                                        Button, 0x1089b4e10, {{16.0, 484.3}, {97.3, 18.0}}, label: 'Download'
+                                          Image, 0x1089b4f30, {{17.3, 485.7}, {15.3, 15.3}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                                          StaticText, 0x1089b5050, {{16.0, 484.3}, {97.3, 18.0}}, label: 'Download'
+                                        StaticText, 0x1089b5170, {{16.0, 506.4}, {349.7, 14.3}}, label: 'For watching with no connection: about 1.5 GB on this iPhone.'
+                                        Button, 0x1089b5290, {{16.0, 533.7}, {182.3, 18.7}}, label: 'Ask for more seasons'
+                                          Image, 0x1089b53b0, {{18.0, 535.0}, {16.3, 16.0}}, identifier: 'plus.square.on.square', label: 'Duplicate'
+                                          StaticText, 0x1089b54d0, {{16.0, 533.7}, {182.3, 18.7}}, label: 'Ask for more seasons'
+                                        Button, 0x1089b55f0, {{16.0, 565.3}, {71.7, 18.3}}, label: 'Follow'
+                                          Image, 0x1089b5710, {{17.3, 566.7}, {14.7, 15.7}}, identifier: 'bell', label: 'Notifications'
+                                          StaticText, 0x1089b5830, {{16.0, 565.3}, {71.7, 18.3}}, label: 'Follow'
+                                        StaticText, 0x108affeb0, {{16.0, 597.7}, {279.3, 17.0}}, label: 'A chemistry teacher turns to making drugs.'
+                                        StaticText, 0x108af87f0, {{16.0, 628.7}, {81.0, 14.3}}, label: 'Drama · Crime'
+                                        StaticText, 0x108aea550, {{34.0, 682.0}, {77.0, 23.0}}, label: 'Seasons'
+                                        ScrollView, 0x108ae6a30, {{0.0, 713.0}, {402.0, 95.7}}
+                                          Other, 0x108ae8870, {{-426.3, 713.0}, {850.0, 95.7}}
+                                            Other, 0x108ae7c10, {{-392.3, 726.0}, {782.0, 69.7}}
+                                              Button, 0x108ae94d0, {{-392.3, 726.0}, {146.0, 69.7}}, label: 'Season 1, 13 episodes · all in library'
+                                                StaticText, 0x108adc4c0, {{-382.3, 736.0}, {65.0, 18.0}}, label: 'Season 1'
+                                                StaticText, 0x108ae8c90, {{-382.3, 757.0}, {94.0, 28.7}}, label: '13 episodes · all in library'
+                                              Button, 0x108ae6e50, {{-233.3, 726.0}, {146.0, 69.7}}, label: 'Season 2, 13 episodes · all in library'
+                                                StaticText, 0x108ae8030, {{-223.3, 736.0}, {67.0, 18.0}}, label: 'Season 2'
+                                                StaticText, 0x108aeb1b0, {{-223.3, 757.0}, {94.0, 28.7}}, label: '13 episodes · all in library'
+                                              Button, 0x108ae90b0, {{-74.3, 726.0}, {146.0, 69.7}}, label: 'Season 3, 13 episodes · all in library'
+                                                StaticText, 0x108ae6050, {{-64.3, 736.0}, {67.3, 18.0}}, label: 'Season 3'
+                                                StaticText, 0x108ae5b20, {{-64.3, 757.0}, {94.0, 28.7}}, label: '13 episodes · all in library'
+                                              Button, 0x108ae49b0, {{84.7, 726.0}, {146.0, 69.7}}, label: 'Season 4, 13 episodes · all in library'
+                                                StaticText, 0x108af8dc0, {{94.7, 736.0}, {67.7, 18.0}}, label: 'Season 4'
+                                                StaticText, 0x108af8ee0, {{94.7, 757.0}, {94.0, 28.7}}, label: '13 episodes · all in library'
+                                              Button, 0x108af9000, {{243.7, 726.0}, {146.0, 69.7}}, label: 'Season 5, 13 episodes · 8 in library'
+                                                StaticText, 0x108af9120, {{253.7, 736.0}, {67.3, 18.0}}, label: 'Season 5'
+                                                StaticText, 0x108af9240, {{253.7, 757.0}, {89.0, 28.7}}, label: '13 episodes · 8 in library'
+                                        StaticText, 0x108af9360, {{34.0, 833.7}, {129.0, 23.0}}, label: 'Cast and crew'
+                                        ScrollView, 0x108a5c230, {{0.0, 864.7}, {402.0, 140.7}}
+                                          Other, 0x108a5c350, {{0.0, 864.7}, {253.0, 140.7}}
+                                            Other, 0x108a5c470, {{35.0, 858.7}, {183.3, 133.7}}
+                                              Button, 0x108a5e2f0, {{35.0, 858.7}, {82.0, 133.7}}, label: 'Keanu Reeves, Neo'
+                                                StaticText, 0x108a5e410, {{71.0, 907.2}, {10.0, 17.0}}, label: 'K'
+                                                Image, 0x108a5e530, {{38.0, 858.7}, {76.0, 114.0}}
+                                                StaticText, 0x108a5e650, {{35.0, 958.7}, {82.0, 14.3}}, label: 'Keanu Reeves'
+                                                StaticText, 0x108a5e770, {{64.5, 978.0}, {23.0, 14.3}}, label: 'Neo'
+                                              Button, 0x108a5e890, {{135.7, 858.7}, {82.7, 133.7}}, label: 'Carrie-Anne Moss, Trinity'
+                                                StaticText, 0x108a5e9b0, {{171.8, 907.2}, {10.3, 17.0}}, label: 'C'
+                                                Image, 0x108a5ead0, {{139.0, 858.7}, {76.0, 114.0}}
+                                                StaticText, 0x108a5ebf0, {{135.7, 958.7}, {82.7, 14.3}}, label: 'Carrie-Anne Moss'
+                                                StaticText, 0x108a5ed10, {{159.3, 978.0}, {35.3, 14.3}}, label: 'Trinity'
+                                        StaticText, 0x108a5ee30, {{34.0, 1030.4}, {120.3, 23.0}}, label: 'More like this'
+                                        ScrollView, 0x108a5ef50, {{0.0, 1061.3}, {402.0, 221.7}}
+                                          Other, 0x108a5f070, {{0.0, 1061.3}, {669.0, 221.7}}
+                                            Other, 0x108a5f190, {{33.5, 1073.8}, {602.0, 196.0}}
+                                              Button, 0x108a5f2b0, {{33.5, 1073.8}, {106.0, 196.0}}, label: 'The Last of Us, 2023'
+                                                StaticText, 0x108a5f3d0, {{55.2, 1127.2}, {62.7, 33.7}}, label: 'The Last of Us'
+                                                StaticText, 0x108a5f4f0, {{71.7, 1164.8}, {29.7, 14.3}}, label: '2023'
+                                                Image, 0x108a5f610, {{34.0, 1074.3}, {105.0, 157.7}}
+                                                StaticText, 0x108a5f730, {{34.0, 1237.8}, {91.0, 15.7}}, label: 'The Last of Us'
+                                                StaticText, 0x108a5f850, {{34.0, 1255.5}, {29.7, 14.3}}, label: '2023'
+                                              Button, 0x108a5f970, {{157.5, 1073.8}, {106.0, 196.0}}, label: 'House of the Dragon, 2022'
+                                                StaticText, 0x108a5fa90, {{172.3, 1127.2}, {76.3, 33.7}}, label: 'House of the Dragon'
+                                                StaticText, 0x108a5fbb0, {{195.8, 1164.8}, {29.3, 14.3}}, label: '2022'
+                                                Image, 0x108a5fcd0, {{158.0, 1074.3}, {105.0, 157.7}}
+                                                StaticText, 0x108a5fdf0, {{158.0, 1237.8}, {92.3, 15.7}}, label: 'House of the Dragon'
+                                                StaticText, 0x108a5ff10, {{158.0, 1255.5}, {29.3, 14.3}}, label: '2022'
+                                              Button, 0x108a60030, {{281.5, 1073.8}, {106.0, 196.0}}, label: 'Game of Thrones, 2011'
+                                                StaticText, 0x108a60150, {{304.0, 1127.2}, {61.0, 33.7}}, label: 'Game of Thrones'
+                                                StaticText, 0x108a60270, {{321.5, 1164.8}, {26.0, 14.3}}, label: '2011'
+                                                Image, 0x108e32780, {{282.0, 1074.3}, {105.0, 157.7}}
+                                                StaticText, 0x108e05c00, {{282.0, 1237.8}, {105.0, 15.7}}, label: 'Game of Thrones'
+                                                StaticText, 0x108e2e600, {{282.0, 1255.5}, {26.0, 14.3}}, label: '2011'
+                                              Button, 0x108e37bb0, {{405.5, 1073.8}, {106.0, 196.0}}, label: 'Stranger Things, 2016'
+                                                StaticText, 0x108e3c3f0, {{426.3, 1127.2}, {64.3, 33.7}}, label: 'Stranger Things'
+                                                StaticText, 0x108e32ba0, {{444.3, 1164.8}, {28.3, 14.3}}, label: '2016'
+                                                Image, 0x108e32360, {{406.0, 1074.3}, {105.0, 157.7}}
+                                                StaticText, 0x108e38e50, {{406.0, 1237.8}, {101.7, 15.7}}, label: 'Stranger Things'
+                                                StaticText, 0x108e3a710, {{406.0, 1255.5}, {28.3, 14.3}}, label: '2016'
+                                              Button, 0x108e5cde0, {{529.5, 1073.8}, {106.0, 196.0}}, label: 'Severance, 2022'
+                                                StaticText, 0x108e5cf00, {{546.3, 1135.5}, {72.3, 17.0}}, label: 'Severance'
+                                                StaticText, 0x108e5d020, {{567.8, 1156.5}, {29.3, 14.3}}, label: '2022'
+                                                Image, 0x108e5d140, {{530.0, 1074.3}, {105.0, 157.7}}
+                                                StaticText, 0x108e5d260, {{530.0, 1237.8}, {66.3, 15.7}}, label: 'Severance'
+                                                StaticText, 0x108e5d380, {{530.0, 1255.5}, {29.3, 14.3}}, label: '2022'
+                                      Other, 0x108e5d4a0, {{369.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                        Other, 0x108e5d5c0, {{396.0, 119.0}, {3.0, 461.3}}
+                                      Other, 0x108e5d6e0, {{369.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 2 pages', value: 0%
+                                        Other, 0x108e5d800, {{396.0, 119.0}, {3.0, 461.3}}
+                            Other, 0x108e5d920, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x108e5da40, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108e5db60, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x108e5dc80, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x108e5dda0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x108e5dec0, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x108e5dfe0, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x108e5e100, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x108e5e220, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home', Selected
+                            Image, 0x108e5e340, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x108e5e460, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x108e5e580, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x108e5e6a0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x108e5e7c0, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x108e5e8e0, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x108e5ea00, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x108e5eb20, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x108e5ec40, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x108e5ed60, {{25.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x108e5ee80, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x108e5efa0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x108e5f0c0, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x108e5f1e0, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x108e5f300, {{25.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x108e5f420, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x108e5f540, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x108e5f660, {{25.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x108e5f780, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x108e5f8a0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x108e5f9c0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x108e5fae0, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x108e5fc00, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x108e5fd20, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x108e5fe40, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x108e5ff60, {{0.0, 791.0}, {402.0, 83.0}}
+      Other, 0x108e60080, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x108e601a0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x108e602c0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x108e603e0, {{0.0, 0.0}, {402.0, 874.0}}
+              NavigationBar, 0x108e60500, {{0.0, 62.0}, {402.0, 54.0}}, identifier: 'Breaking Bad'
+                StaticText, 0x108e60620, {{148.0, 73.7}, {105.7, 20.7}}, label: 'Breaking Bad'
+                Other, 0x108e60740, {{316.3, 66.0}, {65.7, 36.0}}, label: 'Done'
+                  Other, 0x108e60860, {{316.3, 66.0}, {65.7, 36.0}}
+                    Button, 0x108e60980, {{316.3, 66.0}, {65.7, 36.0}}, label: 'Done'
+              Other, 0x108e60aa0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108e60bc0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x108e60ce0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x108e60e00, {{0.0, 0.0}, {402.0, 874.0}}
+                      ScrollView, 0x108e60f20, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x108e61040, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x108e61160, {{0.0, 0.0}, {402.0, 170.8}}
+                        Other, 0x108e61280, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x108e613a0, {{0.0, 116.0}, {402.0, 2125.7}}
+                          ScrollView, 0x108e614c0, {{34.0, 116.0}, {334.0, 33.7}}
+                            Other, 0x108e615e0, {{34.0, 116.0}, {400.7, 33.7}}
+                              Button, 0x108e61700, {{34.0, 121.0}, {72.3, 23.7}}, label: 'Season 1'
+                              Button, 0x108e61820, {{113.3, 121.0}, {74.0, 23.7}}, label: 'Season 2'
+                              Button, 0x108e61940, {{194.3, 121.0}, {74.3, 23.7}}, label: 'Season 3'
+                              Button, 0x108e61a60, {{275.7, 121.0}, {74.7, 23.7}}, label: 'Season 4'
+                              Button, 0x108e61b80, {{357.3, 121.0}, {77.3, 23.7}}, label: 'Season 5'
+                          Other, 0x108e61ca0, {{34.0, 159.7}, {334.0, 1424.7}}
+                            Button, 0x108e61dc0, {{34.0, 159.7}, {334.0, 115.7}}, label: 'Play S5 E1: Episode 1'
+                              StaticText, 0x108e61ee0, {{200.0, 165.7}, {92.3, 20.3}}, label: '1. Episode 1'
+                              StaticText, 0x108e62000, {{200.0, 189.0}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e62120, {{200.0, 211.3}, {32.0, 19.3}}, label: 'Play'
+                              StaticText, 0x108e62240, {{40.0, 253.7}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e62360, {{332.7, 287.0}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E1'
+                            Button, 0x108e62480, {{34.0, 331.3}, {334.0, 115.7}}, label: 'Play S5 E2: Episode 2'
+                              StaticText, 0x108e625a0, {{200.0, 337.3}, {97.3, 20.3}}, label: '2. Episode 2'
+                              StaticText, 0x108e626c0, {{200.0, 360.7}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e627e0, {{200.0, 383.0}, {32.0, 19.3}}, label: 'Play'
+                              StaticText, 0x108e62900, {{40.0, 425.3}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e62a20, {{332.7, 458.7}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E2'
+                            Button, 0x108e62b40, {{34.0, 503.0}, {334.0, 115.7}}, label: 'Resume S5 E3: Episode 3'
+                              StaticText, 0x108e62c60, {{200.0, 509.0}, {97.7, 20.3}}, label: '3. Episode 3'
+                              StaticText, 0x108e62d80, {{200.0, 532.3}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e62ea0, {{200.0, 554.7}, {110.3, 19.3}}, label: 'Resume 20:00'
+                              StaticText, 0x108e62fc0, {{40.0, 597.0}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e630e0, {{332.7, 630.3}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E3'
+                            Button, 0x108e63200, {{34.0, 674.7}, {334.0, 115.7}}, label: 'Play S5 E4: Episode 4'
+                              StaticText, 0x108e63320, {{200.0, 680.7}, {98.3, 20.3}}, label: '4. Episode 4'
+                              StaticText, 0x108e63440, {{200.0, 704.0}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e63560, {{200.0, 726.3}, {32.0, 19.3}}, label: 'Play'
+                              StaticText, 0x108e63680, {{40.0, 768.7}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e637a0, {{332.7, 802.0}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E4'
+                            Button, 0x108e638c0, {{34.0, 846.3}, {334.0, 115.7}}, label: 'Play S5 E5: Episode 5'
+                              StaticText, 0x108e639e0, {{200.0, 852.3}, {97.3, 20.3}}, label: '5. Episode 5'
+                              StaticText, 0x108e63b00, {{200.0, 875.7}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e63c20, {{200.0, 898.0}, {32.0, 19.3}}, label: 'Play'
+                              StaticText, 0x108e63d40, {{40.0, 940.3}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e63e60, {{332.7, 973.7}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E5'
+                            Button, 0x108e63f80, {{34.0, 1018.0}, {334.0, 115.7}}, label: 'Play S5 E6: Episode 6'
+                              StaticText, 0x108e640a0, {{200.0, 1024.0}, {98.0, 20.3}}, label: '6. Episode 6'
+                              StaticText, 0x108e641c0, {{200.0, 1047.3}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e642e0, {{200.0, 1069.7}, {32.0, 19.3}}, label: 'Play'
+                              StaticText, 0x108e64400, {{40.0, 1112.0}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e64520, {{332.7, 1145.3}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E6'
+                            Button, 0x108e64640, {{34.0, 1189.7}, {334.0, 115.7}}, label: 'Play S5 E7: Episode 7'
+                              StaticText, 0x108e64760, {{200.0, 1195.7}, {94.3, 20.3}}, label: '7. Episode 7'
+                              StaticText, 0x108e64880, {{200.0, 1219.0}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e649a0, {{200.0, 1241.3}, {32.0, 19.3}}, label: 'Play'
+                              StaticText, 0x108e64ac0, {{40.0, 1283.7}, {118.3, 15.7}}, label: 'A stand-in episode.'
+                            Button, 0x108e64be0, {{332.7, 1317.0}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E7'
+                            Button, 0x108e64d00, {{34.0, 1361.3}, {334.0, 96.0}}, label: 'Play S5 E8: Episode 8'
+                              StaticText, 0x108e64e20, {{200.0, 1367.3}, {98.3, 20.3}}, label: '8. Episode 8'
+                              StaticText, 0x108e64f40, {{200.0, 1390.7}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                              StaticText, 0x108e65060, {{200.0, 1413.0}, {32.0, 19.3}}, label: 'Play'
+                            Button, 0x108e65180, {{332.7, 1469.0}, {26.7, 26.7}}, identifier: 'arrow.down.circle', label: 'Download Breaking Bad S5 E8'
+                            StaticText, 0x108e652a0, {{200.0, 1519.3}, {98.0, 20.3}}, label: '9. Episode 9'
+                            StaticText, 0x108e653c0, {{200.0, 1542.7}, {146.7, 19.3}}, label: '2013-08-11 · 47 min'
+                            StaticText, 0x108e654e0, {{200.0, 1565.0}, {58.3, 19.3}}, label: 'Missing'
+                        Other, 0x108e65600, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                          Other, 0x108e65720, {{396.0, 753.3}, {3.0, 55.7}}
+                        Other, 0x108e65840, {{369.0, 116.0}, {30.0, 696.0}}, label: 'Vertical scroll bar, 3 pages', value: 0%
+                          Other, 0x108e65960, {{396.0, 753.3}, {3.0, 55.7}}
+              Other, 0x108e65a80, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108e65ba0, {{0.0, 0.0}, {402.0, 874.0}}
+Path to element:
+ →Application, 0x1089b0fb0, pid: 21174, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1037ea490, pid: 21174, label: 'Afterglow'
+  }
+)

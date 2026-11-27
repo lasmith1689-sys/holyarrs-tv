@@ -1,0 +1,88 @@
+Optional(Attributes: Application, 0x103691170, pid: 14593, label: 'Afterglow'
+Element subtree:
+ →Application, 0x103691170, pid: 14593, label: 'Afterglow'
+    Window (Main), 0x1036846e0, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x103692020, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x10368a3b0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x103691c80, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x103690d90, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x1036923a0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x103692a60, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x103692710, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x103692dd0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x103693490, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x103693130, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x103693820, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x103693b80, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x103693f10, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x103694280, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x1036945e0, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x103694970, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x103694d00, {{0.0, 0.0}, {402.0, 874.0}}
+                                    ScrollView, 0x103695090, {{24.3, 0.0}, {353.7, 874.0}}
+                                      Other, 0x103695400, {{24.3, 0.0}, {353.7, 874.0}}
+                                        Other, 0x103695770, {{24.3, 0.0}, {353.7, 170.8}}
+                                        Other, 0x103695ae0, {{24.3, 726.2}, {353.7, 147.8}}
+                                      Other, 0x103695e50, {{24.3, 0.0}, {353.7, 874.0}}
+                                      Other, 0x1036961a0, {{24.3, 116.0}, {353.7, 545.7}}
+                                        StaticText, 0x103696530, {{128.8, 255.8}, {35.0, 17.0}}, label: 'Alien'
+                                        StaticText, 0x1036968a0, {{132.7, 276.8}, {27.3, 14.3}}, label: '1979'
+                                        StaticText, 0x103696bf0, {{58.3, 431.0}, {82.7, 42.0}}, label: 'Alien'
+                                        StaticText, 0x103696f80, {{58.3, 484.7}, {31.3, 17.0}}, label: '1979'
+                                        StaticText, 0x103697310, {{99.7, 484.7}, {48.3, 17.0}}, label: '1:57:00'
+                                        StaticText, 0x103697680, {{163.0, 486.0}, {89.3, 14.3}}, label: '4K UPSCALE'
+                                        StaticText, 0x1036979e0, {{58.3, 513.3}, {164.3, 15.7}}, label: 'On the PC (not in HolyArrs)'
+                                        Button, 0x10485ef80, {{58.3, 540.0}, {152.0, 34.3}}, label: 'Play in 4K'
+                                          Image, 0x104891150, {{85.3, 549.7}, {13.3, 15.0}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x104894e40, {{58.3, 540.0}, {152.0, 34.3}}, label: 'Play in 4K'
+                                        Button, 0x104894f60, {{58.3, 584.3}, {97.3, 18.0}}, label: 'Download'
+                                          Image, 0x104895080, {{59.7, 585.7}, {15.3, 15.3}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                                          StaticText, 0x104895280, {{58.3, 584.3}, {97.3, 18.0}}, label: 'Download'
+                                        StaticText, 0x1048953a0, {{58.3, 606.4}, {285.7, 30.3}}, label: 'For watching with no connection: about 3.8 GB on this iPhone.'
+                                      Other, 0x1048954c0, {{345.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1048955e0, {{372.0, 248.3}, {3.0, 539.7}}
+                                      Other, 0x104895700, {{345.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x104895820, {{372.0, 248.3}, {3.0, 539.7}}
+                            Other, 0x104895940, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x104895a60, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x104895b80, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x104895ca0, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x104895dc0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x104895ee0, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x104896000, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x104896120, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x104896240, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home'
+                            Image, 0x104896360, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x104896480, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x1048965a0, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x1048966c0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x1048967e0, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x104896900, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies', Selected
+                            Image, 0x104896a20, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x104896b40, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x104896c60, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x104896d80, {{235.2, 795.0}, {74.0, 54.0}}
+                          Other, 0x104896ea0, {{235.2, 795.0}, {74.0, 54.0}}
+                            Other, 0x104896fc0, {{235.2, 795.0}, {74.0, 54.0}}
+                            Other, 0x1048970e0, {{235.2, 795.0}, {74.0, 54.0}}
+                              Other, 0x104897200, {{235.2, 795.0}, {74.0, 54.0}}
+                                Other, 0x104897320, {{235.2, 795.0}, {74.0, 54.0}}
+                                  Other, 0x104897440, {{235.2, 795.0}, {74.0, 54.0}}
+                                Other, 0x104897560, {{235.2, 795.0}, {74.0, 54.0}}
+                              Other, 0x103780c30, {{235.2, 795.0}, {74.0, 54.0}}
+                  Other, 0x103781030, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x1037813f0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x103782030, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x103782ab0, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x103782ef0, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x103783010, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x103783130, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x103783250, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x103691170, pid: 14593, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x103737570, pid: 14593, label: 'Afterglow'
+  }
+)

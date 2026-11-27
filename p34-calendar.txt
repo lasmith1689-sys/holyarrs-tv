@@ -1,0 +1,99 @@
+Optional(Attributes: Application, 0x1151aa260, pid: 31223, label: 'Afterglow'
+Element subtree:
+ →Application, 0x1151aa260, pid: 31223, label: 'Afterglow'
+    Window (Main), 0x115179f70, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x115127f00, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x115125910, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x115128760, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x11516c490, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x115125a30, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x115125b50, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x115125c70, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x115125d90, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x115125eb0, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x115125fd0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x1151260f0, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x115126210, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x115126330, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x115126450, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115126570, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x115126690, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x1151267b0, {{0.0, 0.0}, {402.0, 874.0}}
+                                    SegmentedControl, 0x1151268d0, {{34.0, 129.0}, {320.0, 31.0}}
+                                      Button, 0x1151269f0, {{34.0, 129.0}, {106.0, 32.0}}, label: 'Downloads'
+                                      Button, 0x115126b10, {{140.0, 129.0}, {107.0, 32.0}}, label: 'Requests'
+                                      Button, 0x115126c30, {{247.0, 129.0}, {107.0, 32.0}}, label: 'Calendar', Selected
+                                    ScrollView, 0x115126d50, {{0.0, 160.0}, {402.0, 714.0}}
+                                      Other, 0x115126e70, {{0.0, 160.0}, {402.0, 607.7}}
+                                        StaticText, 0x115126f90, {{34.0, 177.0}, {176.0, 42.0}}, label: 'Coming up'
+                                        StaticText, 0x1151270b0, {{34.0, 236.0}, {195.7, 20.3}}, label: 'Saturday, November 21'
+                                        ScrollView, 0x1151271d0, {{0.0, 263.3}, {402.0, 221.7}}
+                                          Other, 0x1151272f0, {{0.0, 263.3}, {173.0, 221.7}}
+                                            Other, 0x115127410, {{33.5, 275.8}, {106.0, 196.0}}
+                                              Button, 0x115127530, {{33.5, 275.8}, {106.0, 196.0}}, label: 'Breaking Bad'
+                                                StaticText, 0x115127650, {{54.0, 338.3}, {65.0, 33.7}}, label: 'Breaking Bad'
+                                                Image, 0x115127770, {{34.0, 276.3}, {105.0, 157.7}}
+                                                StaticText, 0x115127890, {{48.3, 283.3}, {81.7, 14.3}}, label: 'IN LIBRARY'
+                                                StaticText, 0x1151279b0, {{34.0, 439.8}, {83.7, 15.7}}, label: 'Breaking Bad'
+                                                StaticText, 0x11510cf40, {{34.0, 457.5}, {105.0, 14.3}}, label: 'S6 E1 · Pilot (again)'
+                                        StaticText, 0x11510d060, {{34.0, 501.8}, {51.0, 20.3}}, label: 'Today'
+                                        ScrollView, 0x11510d180, {{0.0, 529.3}, {402.0, 221.3}}
+                                          Other, 0x115107460, {{0.0, 529.3}, {173.0, 221.3}}
+                                            Other, 0x115107580, {{33.5, 541.8}, {106.0, 196.0}}
+                                              Button, 0x1151076a0, {{33.5, 541.8}, {106.0, 196.0}}, label: 'Interstellar, 2014'
+                                                StaticText, 0x1151077c0, {{48.3, 603.5}, {76.3, 17.0}}, label: 'Interstellar'
+                                                StaticText, 0x1151e6000, {{72.3, 624.5}, {28.3, 14.3}}, label: '2014'
+                                                Image, 0x1151e6120, {{34.0, 542.3}, {105.0, 157.7}}
+                                                StaticText, 0x1151e6240, {{48.3, 549.3}, {81.7, 14.3}}, label: 'IN LIBRARY'
+                                                StaticText, 0x1151e6360, {{34.0, 705.8}, {69.0, 15.7}}, label: 'Interstellar'
+                                                StaticText, 0x1151e71e0, {{34.0, 723.5}, {80.3, 14.3}}, label: 'Digital release'
+                                      Other, 0x1151e7300, {{0.0, 160.0}, {402.0, 714.0}}
+                                        Other, 0x1151e7420, {{0.0, 726.2}, {402.0, 147.8}}
+                                      Other, 0x1151e7540, {{0.0, 160.0}, {402.0, 714.0}}
+                                      Other, 0x1151e7660, {{369.0, 188.0}, {30.0, 603.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1151e7780, {{396.0, 709.0}, {3.0, 195.0}}
+                                      Other, 0x1151e78a0, {{369.0, 188.0}, {30.0, 603.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x11511cb90, {{396.0, 709.0}, {3.0, 195.0}}
+                            Other, 0x11511ccb0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x11511cdd0, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x11516d8f0, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x11516da10, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x11516db30, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x11516dc50, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x11516dd70, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x11516de90, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x11516dfb0, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home', Selected
+                            Image, 0x11516e0d0, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x11516e1f0, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x11516e310, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x11516e430, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x11516e550, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x1151d6d20, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x1151d6e40, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x1151d6f60, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x1151d7080, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x1151d71a0, {{25.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x1151d72c0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x1151d73e0, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x1151d7500, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x1151d7620, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x1151d7740, {{25.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x1151d7860, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x1151d7980, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x1151d7aa0, {{25.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x1151d7bc0, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x1151d7ce0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x1151d7e00, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x1151d7f20, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x1151d8040, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x1151d8160, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x1151d8280, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x1151d83a0, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x1151aa260, pid: 31223, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x11562ead0, pid: 31223, label: 'Afterglow'
+  }
+)

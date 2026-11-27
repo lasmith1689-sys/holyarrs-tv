@@ -1,0 +1,120 @@
+Optional(Attributes: Application, 0x10489a400, pid: 16225, label: 'Afterglow'
+Element subtree:
+ →Application, 0x10489a400, pid: 16225, label: 'Afterglow'
+    Window (Main), 0x1036de730, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x10369a090, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x103698af0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x10369b9b0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x10369aac0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x103698430, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x103699d10, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x103698e80, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x103697d30, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x10369bd00, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x10369c3c0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x10369cde0, {{0.0, 0.0}, {402.0, 874.0}}
+                            Other, 0x10369c060, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x10369c720, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x10369d140, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x10369ca90, {{0.0, 0.0}, {402.0, 874.0}}
+                                    StaticText, 0x10369d830, {{34.0, 79.0}, {96.3, 42.0}}, label: 'Guide'
+                                    SegmentedControl, 0x10369e2a0, {{34.0, 134.0}, {302.0, 31.0}}
+                                      Button, 0x10369df20, {{34.0, 134.0}, {100.0, 32.0}}, label: 'Live'
+                                      Button, 0x10369dbc0, {{134.0, 134.0}, {101.0, 32.0}}, label: 'Guide', Selected
+                                      Button, 0x10369ed20, {{235.0, 134.0}, {101.0, 32.0}}, label: 'On Demand'
+                                    Button, 0x10369e620, {{34.0, 201.3}, {112.7, 18.0}}, label: 'All channels'
+                                      Image, 0x10369f0a0, {{35.7, 202.7}, {14.7, 15.0}}, identifier: 'magnifyingglass', label: 'Search'
+                                      StaticText, 0x10369f400, {{34.0, 201.3}, {112.7, 18.0}}, label: 'All channels'
+                                    StaticText, 0x10369f780, {{34.0, 229.3}, {47.7, 15.7}}, label: 'Nick Jr.'
+                                    StaticText, 0x10369fad0, {{34.0, 248.0}, {113.3, 26.3}}, label: 'PAW Patrol'
+                                    StaticText, 0x10369fe30, {{34.0, 277.3}, {90.7, 15.7}}, label: '9:15 - 9:45 PM'
+                                    StaticText, 0x1036a0190, {{34.0, 296.0}, {138.3, 15.7}}, label: 'PAW Patrol on Nick Jr..'
+                                    Button, 0x1036a0500, {{276.7, 229.3}, {91.3, 32.0}}, label: 'Watch'
+                                      Image, 0x1036a0870, {{290.7, 238.7}, {11.7, 13.3}}, identifier: 'play.fill', label: 'Play'
+                                      StaticText, 0x1036a0be0, {{276.7, 229.3}, {91.3, 32.0}}, label: 'Watch'
+                                    ScrollView, 0x1036a0f40, {{34.0, 335.3}, {334.0, 25.7}}
+                                      Other, 0x10378d300, {{34.0, 335.3}, {584.7, 25.7}}
+                                        Button, 0x10378c6a0, {{34.0, 335.3}, {38.3, 25.7}}, label: 'All'
+                                        Button, 0x10378cac0, {{79.3, 335.3}, {64.3, 25.7}}, label: 'Sports'
+                                        Button, 0x1037928f0, {{150.7, 335.3}, {48.3, 25.7}}, label: 'Golf'
+                                        Button, 0x103792a10, {{206.0, 335.3}, {65.3, 25.7}}, label: 'Racing'
+                                        Button, 0x103792b30, {{278.3, 335.3}, {57.0, 25.7}}, label: 'News'
+                                        Button, 0x103792c50, {{342.3, 335.3}, {49.7, 25.7}}, label: 'Kids', Selected
+                                        Button, 0x103792d70, {{399.0, 335.3}, {81.7, 25.7}}, label: 'New York'
+                                        Button, 0x103792e90, {{502.7, 340.3}, {58.3, 15.7}}, label: 'Earlier', Disabled
+                                          Image, 0x103792fb0, {{503.3, 342.0}, {6.7, 11.7}}, identifier: 'chevron.left', label: 'Back', Disabled
+                                          StaticText, 0x1037930d0, {{502.7, 340.3}, {58.3, 15.7}}, label: 'Earlier', Disabled
+                                        Button, 0x1037931f0, {{568.0, 340.3}, {50.7, 15.7}}, label: 'Later'
+                                          Image, 0x10378a940, {{570.3, 342.0}, {6.7, 11.7}}, identifier: 'chevron.right', label: 'Forward'
+                                          StaticText, 0x10378aa60, {{568.0, 340.3}, {50.7, 15.7}}, label: 'Later'
+                                    StaticText, 0x10378ab80, {{34.0, 371.0}, {35.3, 14.3}}, label: 'Today'
+                                    StaticText, 0x10378aca0, {{130.0, 371.0}, {49.7, 14.3}}, label: '9:30 PM'
+                                    StaticText, 0x10378adc0, {{189.5, 371.0}, {55.7, 14.3}}, label: '10:00 PM'
+                                    StaticText, 0x10378afe0, {{249.0, 371.0}, {55.7, 14.3}}, label: '10:30 PM'
+                                    StaticText, 0x10378b100, {{308.5, 371.0}, {53.7, 14.3}}, label: '11:00 PM'
+                                    ScrollView, 0x10378b220, {{34.0, 389.3}, {334.0, 484.7}}
+                                      Other, 0x10378b340, {{34.0, 389.3}, {334.0, 153.0}}
+                                        Other, 0x10378b460, {{34.0, 389.3}, {331.0, 128.0}}
+                                          Image, 0x10378b580, {{34.0, 402.0}, {40.0, 22.3}}, label: 'Nick Jr.'
+                                          StaticText, 0x10378b6a0, {{34.0, 402.0}, {41.3, 37.5}}, label: 'Nick Jr.'
+                                          Button, 0x10378b7c0, {{130.0, 389.3}, {26.7, 62.0}}, label: 'Nick Jr.: PAW Patrol, 9:15 - 9:45 PM'
+                                          Button, 0x10378b8e0, {{159.7, 389.3}, {116.0, 62.0}}, label: 'Nick Jr.: Evening News, 9:45 - 10:45 PM'
+                                            StaticText, 0x103793470, {{165.8, 405.0}, {82.3, 14.3}}, label: 'Evening News'
+                                            StaticText, 0x103793590, {{165.8, 421.3}, {92.3, 14.3}}, label: '9:45 - 10:45 PM'
+                                          Button, 0x1037936b0, {{278.7, 389.3}, {56.7, 62.0}}, label: 'Nick Jr.: Late Movie, 10:45 - 11:15 PM'
+                                          Button, 0x1037937d0, {{338.3, 389.3}, {26.7, 62.0}}, label: 'Nick Jr.: Overnight, 11:15 - 12:15 AM'
+                                          Image, 0x1037938f0, {{34.0, 468.0}, {40.0, 22.3}}, label: 'Disney Channel'
+                                          StaticText, 0x103793a10, {{34.0, 468.0}, {84.7, 37.5}}, label: 'Disney Channel'
+                                          Button, 0x103793b30, {{130.0, 455.3}, {86.3, 62.0}}, label: 'Disney Channel: Bluey, 9:15 - 10:15 PM'
+                                          Button, 0x103793c50, {{219.3, 455.3}, {56.3, 62.0}}, label: 'Disney Channel: Evening News, 10:15 - 10:45 PM'
+                                          Button, 0x103793d70, {{278.7, 455.3}, {86.3, 62.0}}, label: 'Disney Channel: Late Movie, 10:45 - 11:45 PM'
+                                      Other, 0x103793e90, {{34.0, 389.3}, {334.0, 484.7}}
+                                        Other, 0x103793fb0, {{34.0, 726.2}, {334.0, 147.8}}
+                                      Other, 0x1037940d0, {{34.0, 389.3}, {334.0, 484.7}}
+                                      Other, 0x1037941f0, {{335.0, 389.3}, {30.0, 401.7}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x103794310, {{362.0, 392.3}, {3.0, 164.3}}
+                                      Other, 0x103794430, {{335.0, 389.3}, {30.0, 401.7}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x103794550, {{362.0, 392.3}, {3.0, 164.3}}
+                            Other, 0x103794670, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x103794790, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1037948b0, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x1037949d0, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x103794af0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x103794c10, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x103794d30, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x103794e50, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x103794f70, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home'
+                            Image, 0x103795090, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x1037951b0, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live', Selected
+                            Image, 0x1037952d0, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x1037953f0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x103795510, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x103795630, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x103795750, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x103795870, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x103795990, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x103795ab0, {{92.8, 795.0}, {74.0, 54.0}}
+                          Other, 0x103795bd0, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x103795cf0, {{92.8, 795.0}, {74.0, 54.0}}
+                            Other, 0x103795e10, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x103795f30, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x103796050, {{92.8, 795.0}, {74.0, 54.0}}
+                                  Other, 0x103796170, {{92.8, 795.0}, {74.0, 54.0}}
+                                Other, 0x103796290, {{92.8, 795.0}, {74.0, 54.0}}
+                              Other, 0x1037963b0, {{92.8, 795.0}, {74.0, 54.0}}
+                  Other, 0x1037964d0, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x1037965f0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x103796710, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x103796830, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x103796950, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x103796a70, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x103796b90, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x103796cb0, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x10489a400, pid: 16225, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x1036a1d00, pid: 16225, label: 'Afterglow'
+  }
+)

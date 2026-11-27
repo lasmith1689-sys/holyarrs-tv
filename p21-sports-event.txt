@@ -1,0 +1,94 @@
+Optional(Attributes: Application, 0x108a8d6a0, pid: 25822, label: 'Afterglow'
+Element subtree:
+ →Application, 0x108a8d6a0, pid: 25822, label: 'Afterglow'
+    Window (Main), 0x108a55660, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x108a81be0, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x108a8ccf0, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x108a834a0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x108a55240, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x108a8ce10, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108a8cf30, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x108a8d050, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x108a8d170, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x108a8d290, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x108a8d3b0, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x108a8d4d0, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x108a8f680, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x108a8f7a0, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x108a8f8c0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x108a8f9e0, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x108a8fb00, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x108a8fc20, {{0.0, 0.0}, {402.0, 874.0}}
+                                    Image, 0x108a8fd40, {{-576.0, 0.0}, {1554.0, 874.0}}
+                                    ScrollView, 0x108a8fe60, {{7.0, 0.0}, {388.0, 874.0}}
+                                      Other, 0x108a8ff80, {{7.0, 0.0}, {388.0, 874.0}}
+                                        Other, 0x108a900a0, {{7.0, 0.0}, {388.0, 170.8}}
+                                        Other, 0x108a901c0, {{7.0, 726.2}, {388.0, 147.8}}
+                                      Other, 0x108a902e0, {{7.0, 0.0}, {388.0, 874.0}}
+                                      Other, 0x108a90400, {{7.0, 116.0}, {388.0, 575.3}}
+                                        StaticText, 0x108a90520, {{103.8, 222.5}, {193.3, 17.0}}, label: 'Las Vegas Grand Prix - Race'
+                                        StaticText, 0x108a90640, {{71.0, 350.3}, {85.3, 14.3}}, label: 'FORMULA 1'
+                                        StaticText, 0x108a90760, {{41.0, 377.0}, {301.3, 71.7}}, label: 'Las Vegas Grand Prix - Race'
+                                        StaticText, 0x108a90880, {{41.0, 456.7}, {137.7, 17.0}}, label: 'Thu Nov 26, 4:00 AM'
+                                        StaticText, 0x108a909a0, {{41.0, 481.7}, {137.3, 15.7}}, label: 'Las Vegas Strip Circuit'
+                                        StaticText, 0x108a90ac0, {{45.0, 507.3}, {48.0, 14.3}}, label: 'READY'
+                                        Button, 0x108a90be0, {{41.0, 531.7}, {98.0, 20.3}}, label: 'Play in 4K'
+                                          Image, 0x108a90d00, {{43.0, 535.0}, {12.7, 14.0}}, identifier: 'play.fill', label: 'Play'
+                                          StaticText, 0x108a90e20, {{41.0, 531.7}, {98.0, 20.3}}, label: 'Play in 4K'
+                                        Button, 0x108a90f40, {{41.0, 562.0}, {114.7, 19.3}}, label: 'Play outside'
+                                          Image, 0x108a91060, {{42.3, 563.3}, {16.7, 16.7}}, identifier: 'sun.max', label: 'Brightness Higher'
+                                          StaticText, 0x108a91180, {{41.0, 562.0}, {114.7, 19.3}}, label: 'Play outside'
+                                        Button, 0x108a912a0, {{41.0, 591.3}, {97.3, 18.0}}, label: 'Download'
+                                          Image, 0x108a913c0, {{42.3, 592.7}, {15.3, 15.3}}, identifier: 'arrow.down.circle', label: 'Arrow Down Circle'
+                                          StaticText, 0x108a914e0, {{41.0, 591.3}, {97.3, 18.0}}, label: 'Download'
+                                        StaticText, 0x108a91600, {{41.0, 613.4}, {316.0, 14.3}}, label: 'For watching with no connection: about 4.0 GB on this iPhone.'
+                                        Button, 0x108a91720, {{41.0, 637.7}, {203.7, 20.7}}, label: 'Don't get automatically'
+                                          Image, 0x108a91840, {{41.7, 638.7}, {18.7, 18.7}}, identifier: 'bell.slash', label: 'Notifications Off'
+                                          StaticText, 0x108a91960, {{41.0, 637.7}, {203.7, 20.7}}, label: 'Don't get automatically'
+                                      Other, 0x108a91a80, {{362.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x108a91ba0, {{389.0, 218.7}, {3.0, 569.3}}
+                                      Other, 0x108a91cc0, {{362.0, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x108a91de0, {{389.0, 218.7}, {3.0, 569.3}}
+                            Other, 0x108a91f00, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x108a92020, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x108a92140, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x108a92260, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x108a92380, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x108a924a0, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x108a925c0, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x108a926e0, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x108a92800, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home'
+                            Image, 0x108a92920, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x108a92a40, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x108a92b60, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x108a92c80, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x108a92da0, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x108a92ec0, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x108a92fe0, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x108a93100, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports', Selected
+                            Image, 0x108a93220, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x108a93340, {{303.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x108a93460, {{303.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x108a93580, {{303.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x108a936a0, {{303.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x108a937c0, {{303.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x108a938e0, {{303.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x108a93a00, {{303.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x108a93b20, {{303.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x108a93c40, {{303.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x108a93d60, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x108a93e80, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x108a93fa0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114ea0550, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114e9ff10, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x114e9faf0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114e9f6d0, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114e9f2b0, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x108a8d6a0, pid: 25822, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x108a32d60, pid: 25822, label: 'Afterglow'
+  }
+)

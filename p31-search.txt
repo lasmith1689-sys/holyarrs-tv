@@ -1,0 +1,75 @@
+Optional(Attributes: Application, 0x115196450, pid: 29283, label: 'Afterglow'
+Element subtree:
+ →Application, 0x115196450, pid: 29283, label: 'Afterglow'
+    Window (Main), 0x115197530, {{0.0, 0.0}, {402.0, 874.0}}
+      Other, 0x115198540, {{0.0, 0.0}, {402.0, 874.0}}
+        Other, 0x115198660, {{0.0, 0.0}, {402.0, 874.0}}
+          Other, 0x1151983f0, {{0.0, 0.0}, {402.0, 874.0}}
+            Other, 0x1151904f0, {{0.0, 0.0}, {402.0, 874.0}}
+              Other, 0x115198780, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x1151988a0, {{0.0, 0.0}, {402.0, 874.0}}
+                  Other, 0x1151989c0, {{0.0, 0.0}, {402.0, 874.0}}
+                    Other, 0x115198ae0, {{0.0, 0.0}, {402.0, 874.0}}
+                      Other, 0x115198c00, {{0.0, 0.0}, {402.0, 874.0}}
+                        Other, 0x115198d20, {{0.0, 0.0}, {402.0, 874.0}}
+                          Other, 0x115198e40, {{0.0, 0.0}, {402.0, 874.0}}
+                            NavigationBar, 0x115622850, {{0.0, 62.0}, {402.0, 54.0}}, identifier: '_TtGC7SwiftUI32NavigationStackHosting'
+                              Button, 0x115623390, {{16.0, 62.0}, {44.0, 44.0}}, identifier: 'BackButton', label: 'Back'
+                            Other, 0x1156234b0, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x1156235d0, {{0.0, 0.0}, {402.0, 874.0}}
+                                Other, 0x1156236f0, {{0.0, 0.0}, {402.0, 874.0}}
+                                  Other, 0x114eecfb0, {{0.0, 0.0}, {402.0, 874.0}}
+                                    ScrollView, 0x114eeba10, {{14.7, 0.0}, {372.7, 874.0}}
+                                      Other, 0x114ed6300, {{14.7, 0.0}, {372.7, 874.0}}
+                                        Other, 0x114eec460, {{14.7, 0.0}, {372.7, 170.8}}
+                                        Other, 0x114ed23c0, {{14.7, 726.2}, {372.7, 147.8}}
+                                      Other, 0x115198f60, {{14.7, 0.0}, {372.7, 874.0}}
+                                      Other, 0x115199080, {{14.7, 116.0}, {372.7, 108.0}}
+                                        StaticText, 0x1151991a0, {{48.7, 133.0}, {304.7, 74.0}}, label: 'Type a name, or describe it: "80s horror movies", "shows with Pedro Pascal".'
+                                      Other, 0x1151992c0, {{354.3, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x1151993e0, {{381.3, 686.0}, {3.0, 102.0}}
+                                      Other, 0x115199500, {{354.3, 116.0}, {30.0, 675.0}}, label: 'Vertical scroll bar, 1 page', value: 0%
+                                        Other, 0x115199620, {{381.3, 686.0}, {3.0, 102.0}}
+                            Other, 0x115199740, {{0.0, 0.0}, {402.0, 874.0}}
+                              Other, 0x115199860, {{0.0, 0.0}, {402.0, 874.0}}
+                Other, 0x115199980, {{0.0, 791.0}, {402.0, 83.0}}
+                  Other, 0x115199aa0, {{0.0, 0.0}, {402.0, 874.0}}
+                    TabBar, 0x115199bc0, {{0.0, 791.0}, {402.0, 83.0}}, label: 'Tab Bar'
+                      Other, 0x115199ce0, {{21.0, 791.0}, {360.0, 62.0}}
+                        Other, 0x115199e00, {{21.0, 791.0}, {74.0, 54.0}}
+                        Other, 0x115199f20, {{21.0, 791.0}, {360.0, 62.0}}
+                          Button, 0x11519a040, {{25.0, 795.0}, {74.0, 54.0}}, label: 'Home', Selected
+                            Image, 0x11519a160, {{45.0, 801.0}, {33.3, 28.0}}, identifier: 'house.fill', label: 'home'
+                          Button, 0x11519a280, {{92.8, 795.0}, {74.0, 54.0}}, label: 'Live'
+                            Image, 0x11519a3a0, {{112.8, 802.7}, {33.7, 24.7}}, identifier: 'dot.radiowaves.left.and.right', label: 'radio'
+                          Button, 0x11519a4c0, {{160.7, 795.0}, {80.7, 54.0}}, label: 'TV Shows'
+                            Image, 0x11519a5e0, {{183.7, 801.3}, {34.3, 27.0}}, identifier: 'tv.fill', label: 'tv'
+                          Button, 0x11519a700, {{235.2, 795.0}, {74.0, 54.0}}, label: 'Movies'
+                            Image, 0x11519a820, {{256.2, 802.3}, {33.0, 25.0}}, identifier: 'film.fill', label: 'movie'
+                          Button, 0x11519a940, {{303.0, 795.0}, {74.0, 54.0}}, label: 'Sports'
+                            Image, 0x11519aa60, {{322.0, 802.3}, {36.3, 25.0}}, identifier: 'sportscourt.fill', label: 'sportscourt.fill'
+                        Other, 0x114ed1fa0, {{25.0, 795.0}, {74.0, 54.0}}
+                          Other, 0x114eec040, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x114eebc20, {{25.0, 795.0}, {74.0, 54.0}}
+                            Other, 0x114eeb5f0, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x114eface0, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x114efae00, {{25.0, 795.0}, {74.0, 54.0}}
+                                  Other, 0x114efaf20, {{25.0, 795.0}, {74.0, 54.0}}
+                                Other, 0x114efb040, {{25.0, 795.0}, {74.0, 54.0}}
+                              Other, 0x114efb160, {{25.0, 795.0}, {74.0, 54.0}}
+                  Other, 0x114efb280, {{0.0, 791.0}, {402.0, 83.0}}
+                    Other, 0x114efb3a0, {{0.0, 791.0}, {402.0, 83.0}}
+                      Other, 0x114efb4c0, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114efb5e0, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114efb700, {{0.0, 791.0}, {402.0, 83.0}}
+                            Other, 0x114efb820, {{0.0, 791.0}, {402.0, 83.0}}
+                        Other, 0x114efb940, {{0.0, 791.0}, {402.0, 83.0}}
+                          Other, 0x114efba60, {{0.0, 791.0}, {402.0, 83.0}}
+Path to element:
+ →Application, 0x115196450, pid: 29283, label: 'Afterglow'
+Query chain:
+ →Find: Target Application 'com.lasmith1689.slot03'
+  Output: {
+    Application, 0x11519ada0, pid: 29283, label: 'Afterglow'
+  }
+)
